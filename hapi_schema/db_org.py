@@ -11,7 +11,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from hapi.pipelines.database.db_orgtype import DBOrgType  # noqa: F401
+from hapi_schema.db_orgtype import DBOrgType  # noqa: F401
 
 
 class DBOrg(Base):

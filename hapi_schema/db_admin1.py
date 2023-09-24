@@ -12,7 +12,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from hapi.pipelines.database.db_location import DBLocation  # noqa: F401
+from hapi_schema.db_location import DBLocation  # noqa: F401
 
 
 class DBAdmin1(Base):

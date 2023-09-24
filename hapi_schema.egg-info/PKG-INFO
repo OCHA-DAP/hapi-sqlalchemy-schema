@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: hapi-schema
-Version: 0.0.1
+Version: 0.0.4
 Summary: HAPI database schema specified in SQLAlchemy
 Home-page: https://github.com/OCHA-DAP/hapi-sqlalchemy-schema
 Author: HDX

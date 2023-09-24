@@ -10,7 +10,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from hapi.pipelines.database.db_dataset import DBDataset  # noqa: F401
+from hapi_schema.db_dataset import DBDataset  # noqa: F401
 
 
 class DBResource(Base):
