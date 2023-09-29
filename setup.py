@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="hapi_schema",
-    version="0.0.4",
+    version="0.0.5",
     author="HDX",
     author_email="simon.johnson@un.org",
     description="HAPI database schema specified in SQLAlchemy",
