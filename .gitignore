@@ -3,3 +3,4 @@
 .pypirc
 *build/
 *dist/
+*hapi_schema.egg-info/
