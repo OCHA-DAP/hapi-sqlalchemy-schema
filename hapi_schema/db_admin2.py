@@ -41,8 +41,8 @@ class DBAdmin2(Base):
     admin1 = relationship("DBAdmin1")
 
 
-admin1_view = view(
-    name="admin1_view",
+admin2_view = view(
+    name="admin2_view",
     metadata=Base.metadata,
     selectable=select(
         DBAdmin2.id,
@@ -65,10 +65,9 @@ admin1_view = view(
         DBLocation.reference_period_end.label("location_reference_period_end"),
     ).select_from(
         DBAdmin2.__table__.join(
-            DBAdmin1.__table__, DBAdmin2.admin1_ref == DBAdmin1.id
-        ),
-        DBAdmin1.__table__.join(
-            DBLocation.__table__, DBAdmin1.location_ref == DBLocation.id
+            DBAdmin1.__table__, DBAdmin2.admin1_ref == DBAdmin1.id, isouter=True
+        ).join(
+            DBLocation.__table__, DBAdmin1.location_ref == DBLocation.id, isouter=True
         ),
     ),
 )

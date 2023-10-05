@@ -59,7 +59,7 @@ admin1_view = view(
         DBLocation.reference_period_end.label("location_reference_period_end"),
     ).select_from(
         DBAdmin1.__table__.join(
-            DBLocation.__table__, DBAdmin1.location_ref == DBLocation.id
+            DBLocation.__table__, DBAdmin1.location_ref == DBLocation.id, isouter=True
         )
     ),
 )
