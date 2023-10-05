@@ -2,8 +2,10 @@
 from datetime import datetime
 
 from hdx.database.no_timezone import Base
-from sqlalchemy import DateTime, Integer, String, text
+from sqlalchemy import DateTime, Integer, String, text, select
 from sqlalchemy.orm import Mapped, mapped_column
+
+from .view import view
 
 
 class DBLocation(Base):
@@ -18,3 +20,16 @@ class DBLocation(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL")
     )
+
+
+location_view = view(
+    name="location_view",
+    metadata=Base.metadata,
+    selectable=select(
+        DBLocation.id,
+        DBLocation.code,
+        DBLocation.name,
+        DBLocation.reference_period_start,
+        DBLocation.reference_period_end,
+    ),
+)
