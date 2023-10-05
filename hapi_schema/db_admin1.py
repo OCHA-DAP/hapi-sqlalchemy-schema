@@ -3,11 +3,11 @@ from datetime import datetime
 
 from hdx.database.no_timezone import Base
 from sqlalchemy import (
-    select,
     Boolean,
     DateTime,
     ForeignKey,
     Integer,
+    select,
     String,
     text,
 )

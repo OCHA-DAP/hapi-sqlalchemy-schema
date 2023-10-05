@@ -7,12 +7,15 @@ from sqlalchemy import (
     DateTime,
     ForeignKey,
     Integer,
+    select,
     String,
     text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_admin1 import DBAdmin1  # noqa: F401
+from hapi_schema.db_location import DBLocation  # noqa: F401
+from hapi_schema.view import view
 
 
 class DBAdmin2(Base):
@@ -36,3 +39,36 @@ class DBAdmin2(Base):
     )
 
     admin1 = relationship("DBAdmin1")
+
+
+admin1_view = view(
+    name="admin1_view",
+    metadata=Base.metadata,
+    selectable=select(
+        DBAdmin2.id,
+        DBAdmin2.admin1_ref,
+        DBAdmin2.code,
+        DBAdmin2.name,
+        DBAdmin2.is_unspecified,
+        DBAdmin2.reference_period_start,
+        DBAdmin2.reference_period_end,
+        DBAdmin1.code.label("admin1_code"),
+        DBAdmin1.name.label("admin1_name"),
+        DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
+        DBAdmin1.reference_period_start.label("admin1_reference_period_start"),
+        DBAdmin1.reference_period_end.label("admin1_reference_period_end"),
+        DBLocation.code.label("location_code"),
+        DBLocation.name.label("location_name"),
+        DBLocation.reference_period_start.label(
+            "location_reference_period_start"
+        ),
+        DBLocation.reference_period_end.label("location_reference_period_end"),
+    ).select_from(
+        DBAdmin2.__table__.join(
+            DBAdmin1.__table__, DBAdmin2.admin1_ref == DBAdmin1.id
+        ),
+        DBAdmin1.__table__.join(
+            DBLocation.__table__, DBAdmin1.location_ref == DBLocation.id
+        ),
+    ),
+)
