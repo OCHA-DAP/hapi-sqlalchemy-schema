@@ -17,7 +17,7 @@ from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_org import DBOrg
-from hapi_schema.db_orgtype import DBOrgType
+from hapi_schema.db_org_type import DBOrgType
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
 from hapi_schema.view import view

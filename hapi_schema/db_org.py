@@ -12,7 +12,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from hapi_schema.db_orgtype import DBOrgType
+from hapi_schema.db_org_type import DBOrgType
 from hapi_schema.view import view
 
 
