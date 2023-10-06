@@ -13,8 +13,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from hapi_schema.db_admin1 import DBAdmin1  # noqa: F401
-from hapi_schema.db_location import DBLocation  # noqa: F401
+from hapi_schema.db_admin1 import DBAdmin1
+from hapi_schema.db_location import DBLocation
 from hapi_schema.view import view
 
 

@@ -6,11 +6,13 @@ from sqlalchemy import (
     DateTime,
     ForeignKey,
     Integer,
+    select,
     String,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from hapi_schema.db_dataset import DBDataset  # noqa: F401
+from hapi_schema.db_dataset import DBDataset
+from hapi_schema.view import view
 
 
 class DBResource(Base):
@@ -33,3 +35,21 @@ class DBResource(Base):
     is_hxl: Mapped[bool] = mapped_column(Boolean, nullable=False, index=True)
 
     dataset = relationship("DBDataset")
+
+
+resource_view = view(
+    name="resource_view",
+    metadata=Base.metadata,
+    selectable=select(
+        *DBResource.__table__.columns,
+        DBDataset.hdx_id.label("dataset_hdx_id"),
+        DBDataset.hdx_stub.label("dataset_hdx_stub"),
+        DBDataset.title.label("dataset_title"),
+        DBDataset.provider_code.label("dataset_provider_code"),
+        DBDataset.provider_name.label("dataset_provider_name"),
+    ).select_from(
+        DBResource.__table__.join(
+            DBDataset.__table__, DBResource.dataset_ref == DBDataset.id, isouter=True
+        )
+    ),
+)
