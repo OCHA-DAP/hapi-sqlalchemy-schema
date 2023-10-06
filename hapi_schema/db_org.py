@@ -1,4 +1,4 @@
-"""Org table."""
+"""Org table and view."""
 from datetime import datetime
 
 from hdx.database.no_timezone import Base
@@ -44,7 +44,9 @@ org_view = view(
         DBOrgType.description.label("org_type_description"),
     ).select_from(
         DBOrg.__table__.join(
-            DBOrgType.__table__, DBOrg.org_type_code == DBOrgType.code, isouter=True
+            DBOrgType.__table__,
+            DBOrg.org_type_code == DBOrgType.code,
+            isouter=True,
         )
     ),
 )

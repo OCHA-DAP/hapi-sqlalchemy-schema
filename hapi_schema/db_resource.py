@@ -1,4 +1,4 @@
-"""Resource table."""
+"""Resource table and view."""
 
 from hdx.database.no_timezone import Base
 from sqlalchemy import (
@@ -49,7 +49,9 @@ resource_view = view(
         DBDataset.provider_name.label("dataset_provider_name"),
     ).select_from(
         DBResource.__table__.join(
-            DBDataset.__table__, DBResource.dataset_ref == DBDataset.id, isouter=True
+            DBDataset.__table__,
+            DBResource.dataset_ref == DBDataset.id,
+            isouter=True,
         )
     ),
 )

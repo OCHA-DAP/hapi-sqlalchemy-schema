@@ -1,4 +1,4 @@
-"""Gender table."""
+"""Gender table and view."""
 
 from hdx.database.no_timezone import Base
 from sqlalchemy import CHAR, select, String

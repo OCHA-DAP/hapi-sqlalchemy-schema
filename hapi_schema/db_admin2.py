@@ -1,4 +1,4 @@
-"""Admin2 table."""
+"""Admin2 table and view."""
 from datetime import datetime
 
 from hdx.database.no_timezone import Base
@@ -59,9 +59,13 @@ admin2_view = view(
         DBLocation.reference_period_end.label("location_reference_period_end"),
     ).select_from(
         DBAdmin2.__table__.join(
-            DBAdmin1.__table__, DBAdmin2.admin1_ref == DBAdmin1.id, isouter=True
+            DBAdmin1.__table__,
+            DBAdmin2.admin1_ref == DBAdmin1.id,
+            isouter=True,
         ).join(
-            DBLocation.__table__, DBAdmin1.location_ref == DBLocation.id, isouter=True
+            DBLocation.__table__,
+            DBAdmin1.location_ref == DBLocation.id,
+            isouter=True,
         ),
     ),
 )

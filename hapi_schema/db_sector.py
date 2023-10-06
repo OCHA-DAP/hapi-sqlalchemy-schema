@@ -1,4 +1,4 @@
-"""Sector table."""
+"""Sector table and view."""
 from datetime import datetime
 
 from hdx.database.no_timezone import Base

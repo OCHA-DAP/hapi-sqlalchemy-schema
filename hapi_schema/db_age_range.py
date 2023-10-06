@@ -1,4 +1,4 @@
-"""Resource table."""
+"""Age range table and view."""
 
 from hdx.database.no_timezone import Base
 from sqlalchemy import Integer, select, String
