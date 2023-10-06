@@ -2,8 +2,10 @@
 from datetime import datetime
 
 from hdx.database.no_timezone import Base
-from sqlalchemy import DateTime, String, text
+from sqlalchemy import DateTime, select, String, text
 from sqlalchemy.orm import Mapped, mapped_column
+
+from hapi_schema.view import view
 
 
 class DBSector(Base):
@@ -17,3 +19,10 @@ class DBSector(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL")
     )
+
+
+sector_view = view(
+    name="sector_view",
+    metadata=Base.metadata,
+    selectable=select(*DBSector.__table__.columns),
+)
