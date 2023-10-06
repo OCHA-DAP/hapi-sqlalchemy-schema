@@ -25,11 +25,5 @@ class DBLocation(Base):
 location_view = view(
     name="location_view",
     metadata=Base.metadata,
-    selectable=select(
-        DBLocation.id,
-        DBLocation.code,
-        DBLocation.name,
-        DBLocation.reference_period_start,
-        DBLocation.reference_period_end,
-    ),
+    selectable=select(*DBLocation.__table__.columns),
 )

@@ -44,13 +44,7 @@ admin1_view = view(
     name="admin1_view",
     metadata=Base.metadata,
     selectable=select(
-        DBAdmin1.id,
-        DBAdmin1.location_ref,
-        DBAdmin1.code,
-        DBAdmin1.name,
-        DBAdmin1.is_unspecified,
-        DBAdmin1.reference_period_start,
-        DBAdmin1.reference_period_end,
+        *DBAdmin1.__table__.columns,
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
         DBLocation.reference_period_start.label(
