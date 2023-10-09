@@ -44,7 +44,7 @@ content-type = "text/markdown"
 Homepage = "https://github.com/OCHA-DAP/hapi-schemas"
 
 [project.optional-dependencies]
-timezones = ["hdx-python-api"]
+timezones = ["hdx-python-database"]
 
 
 #########
@@ -57,7 +57,7 @@ timezones = ["hdx-python-api"]
 packages = ["src/hapi_schema"]
 
 [tool.hatch.build.hooks.vcs]
-version-file = "src/hapi_schema/utilities/_version.py"
+version-file = "src/hapi_schema/_version.py"
 
 # Versioning
 
