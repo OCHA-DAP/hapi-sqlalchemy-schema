@@ -1,8 +1,10 @@
-"""Dataset table."""
+"""Dataset table and view."""
 
 from hdx.database.no_timezone import Base
-from sqlalchemy import Integer, String
+from sqlalchemy import Integer, select, String
 from sqlalchemy.orm import Mapped, mapped_column
+
+from hapi_schema.view import view
 
 
 class DBDataset(Base):
@@ -22,3 +24,10 @@ class DBDataset(Base):
     provider_name: Mapped[str] = mapped_column(
         String(512), nullable=False, index=True
     )
+
+
+dataset_view = view(
+    name="dataset_view",
+    metadata=Base.metadata,
+    selectable=select(*DBDataset.__table__.columns),
+)

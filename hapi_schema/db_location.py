@@ -1,9 +1,11 @@
-"""Gender table."""
+"""Location table and view."""
 from datetime import datetime
 
 from hdx.database.no_timezone import Base
-from sqlalchemy import DateTime, Integer, String, text
+from sqlalchemy import DateTime, Integer, select, String, text
 from sqlalchemy.orm import Mapped, mapped_column
+
+from hapi_schema.view import view
 
 
 class DBLocation(Base):
@@ -18,3 +20,10 @@ class DBLocation(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL")
     )
+
+
+location_view = view(
+    name="location_view",
+    metadata=Base.metadata,
+    selectable=select(*DBLocation.__table__.columns),
+)
