@@ -12,6 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hatch configuration files
 - Contribute
 - Pre commit hooks
+- View module
+- Views for all tables
+
+### Changed
+
+- Renamed `orgtype` module to `org_type`
+
+### Removed
+
+- Removed committed package info (.egg-info)
 
 ## [0.0.4]
 

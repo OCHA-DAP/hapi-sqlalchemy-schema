@@ -1,4 +1,4 @@
-"""Org table."""
+"""Org table and view."""
 from datetime import datetime
 
 from hdx.database.no_timezone import Base
@@ -7,11 +7,13 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
+    select,
     text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from hapi_schema.db_orgtype import DBOrgType  # noqa: F401
+from hapi_schema.db_org_type import DBOrgType
+from hapi_schema.view import view
 
 
 class DBOrg(Base):
@@ -32,3 +34,19 @@ class DBOrg(Base):
     )
 
     org_type = relationship("DBOrgType")
+
+
+org_view = view(
+    name="org_view",
+    metadata=Base.metadata,
+    selectable=select(
+        *DBOrg.__table__.columns,
+        DBOrgType.description.label("org_type_description"),
+    ).select_from(
+        DBOrg.__table__.join(
+            DBOrgType.__table__,
+            DBOrg.org_type_code == DBOrgType.code,
+            isouter=True,
+        )
+    ),
+)
