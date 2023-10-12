@@ -2,7 +2,6 @@
 from datetime import datetime
 
 from hdx.database.no_timezone import Base
-from hdx.database.views import view
 from sqlalchemy import (
     Boolean,
     DateTime,
@@ -15,6 +14,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_location import DBLocation
+from hapi_schema.view import view
 
 
 class DBAdmin1(Base):

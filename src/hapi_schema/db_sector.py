@@ -2,9 +2,10 @@
 from datetime import datetime
 
 from hdx.database.no_timezone import Base
-from hdx.database.views import view
 from sqlalchemy import DateTime, String, select, text
 from sqlalchemy.orm import Mapped, mapped_column
+
+from hapi_schema.view import view
 
 
 class DBSector(Base):

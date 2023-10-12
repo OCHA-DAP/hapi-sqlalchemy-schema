@@ -2,7 +2,6 @@
 from datetime import datetime
 
 from hdx.database.no_timezone import Base
-from hdx.database.views import view
 from sqlalchemy import (
     DateTime,
     ForeignKey,
@@ -21,6 +20,7 @@ from hapi_schema.db_org import DBOrg
 from hapi_schema.db_org_type import DBOrgType
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
+from hapi_schema.view import view
 
 
 class DBOperationalPresence(Base):
