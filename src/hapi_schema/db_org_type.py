@@ -1,10 +1,9 @@
 """OrgType table and view."""
 
 from hdx.database.no_timezone import Base
+from hdx.database.views import view
 from sqlalchemy import String, select
 from sqlalchemy.orm import Mapped, mapped_column
-
-from hapi_schema.view import view
 
 
 class DBOrgType(Base):
