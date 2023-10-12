@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Hatch configuration files
+- Contribute
+- Pre commit hooks
 - View module
 - Views for all tables
 

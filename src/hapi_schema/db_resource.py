@@ -6,8 +6,8 @@ from sqlalchemy import (
     DateTime,
     ForeignKey,
     Integer,
-    select,
     String,
+    select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 

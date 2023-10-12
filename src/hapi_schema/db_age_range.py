@@ -1,7 +1,7 @@
 """Age range table and view."""
 
 from hdx.database.no_timezone import Base
-from sqlalchemy import Integer, select, String
+from sqlalchemy import Integer, String, select
 from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.view import view

@@ -1,0 +1,69 @@
+#########################
+# Project Configuration #
+#########################
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hapi-schema"
+description = "HAPI database schema specified in SQLAlchemy"
+authors = [{name = "Simon Johnson", email = "simon.johnson@un.org"}]
+license = {text = "MIT"}
+keywords = ["HDX", "hapi", "schema"]
+classifiers = [
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Unix",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+]
+requires-python = ">=3.8"
+dependencies = [
+    'sqlalchemy'
+]
+dynamic = ["version"]
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[project.urls]
+Homepage = "https://github.com/OCHA-DAP/hapi-schemas"
+
+[project.optional-dependencies]
+timezones = ["hdx-python-database"]
+
+
+#########
+# Hatch #
+#########
+
+# Build
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hapi_schema"]
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/hapi_schema/_version.py"
+
+# Versioning
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
+version_scheme = "python-simplified-semver"
