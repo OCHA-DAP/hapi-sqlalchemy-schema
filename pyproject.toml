@@ -31,10 +31,7 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
 ]
 requires-python = ">=3.8"
-dependencies = [
-    'sqlalchemy',
-    'hdx-python-database'
-]
+dependencies = ['sqlalchemy']
 dynamic = ["version"]
 
 [project.readme]
@@ -43,6 +40,9 @@ content-type = "text/markdown"
 
 [project.urls]
 Homepage = "https://github.com/OCHA-DAP/hapi-schemas"
+
+[project.optional-dependencies]
+database = ["hdx-python-database"]
 
 #########
 # Hatch #

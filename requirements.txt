@@ -6,11 +6,7 @@
 #
 greenlet==3.0.0
     # via sqlalchemy
-hdx-python-database==1.2.8
+sqlalchemy==2.0.22
     # via hapi-schema (pyproject.toml)
-sqlalchemy==2.0.21
-    # via
-    #   hapi-schema (pyproject.toml)
-    #   hdx-python-database
 typing-extensions==4.8.0
     # via sqlalchemy

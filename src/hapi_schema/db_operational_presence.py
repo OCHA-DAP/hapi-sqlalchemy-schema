@@ -1,7 +1,6 @@
 """OperationalPresence table and view."""
 from datetime import datetime
 
-from hdx.database.no_timezone import Base
 from hdx.database.views import view
 from sqlalchemy import (
     DateTime,
@@ -13,6 +12,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from hapi_schema.base import Base
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_dataset import DBDataset
