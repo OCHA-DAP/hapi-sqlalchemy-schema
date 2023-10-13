@@ -4,8 +4,8 @@ from datetime import datetime
 from sqlalchemy import DateTime, String, select, text
 from sqlalchemy.orm import Mapped, mapped_column
 
-from hapi_schema.base import Base
-from hapi_schema.view_params import ViewParams
+from hapi_schema.utils.base import Base
+from hapi_schema.utils.view_params import ViewParams
 
 
 class DBSector(Base):

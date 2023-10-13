@@ -11,9 +11,9 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from hapi_schema.base import Base
 from hapi_schema.db_org_type import DBOrgType
-from hapi_schema.view_params import ViewParams
+from hapi_schema.utils.base import Base
+from hapi_schema.utils.view_params import ViewParams
 
 
 class DBOrg(Base):
