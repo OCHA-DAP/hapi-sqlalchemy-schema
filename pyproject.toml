@@ -42,7 +42,7 @@ content-type = "text/markdown"
 Homepage = "https://github.com/OCHA-DAP/hapi-schemas"
 
 [project.optional-dependencies]
-database = ["hdx-python-database"]
+database = ["hdx-python-database>=1.2.8"]
 
 #########
 # Hatch #
