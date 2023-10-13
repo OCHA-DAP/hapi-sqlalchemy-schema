@@ -4,6 +4,7 @@ from sqlalchemy import Integer, String, select
 from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.base import Base
+from hapi_schema.view_params import ViewParams
 
 
 class DBDataset(Base):
@@ -25,7 +26,7 @@ class DBDataset(Base):
     )
 
 
-dataset_view_params = dict(
+dataset_view_params = ViewParams(
     name="dataset_view",
     metadata=Base.metadata,
     selectable=select(*DBDataset.__table__.columns),

@@ -15,6 +15,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from hapi_schema.base import Base
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_location import DBLocation
+from hapi_schema.view_params import ViewParams
 
 
 class DBAdmin2(Base):
@@ -40,7 +41,7 @@ class DBAdmin2(Base):
     admin1 = relationship("DBAdmin1")
 
 
-admin2_view_params = dict(
+admin2_view_params = ViewParams(
     name="admin2_view",
     metadata=Base.metadata,
     selectable=select(

@@ -20,6 +20,7 @@ from hapi_schema.db_org import DBOrg
 from hapi_schema.db_org_type import DBOrgType
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
+from hapi_schema.view_params import ViewParams
 
 
 class DBOperationalPresence(Base):
@@ -53,7 +54,7 @@ class DBOperationalPresence(Base):
     admin2 = relationship("DBAdmin2")
 
 
-operational_presence_view_params = dict(
+operational_presence_view_params = ViewParams(
     name="operational_presence_view",
     metadata=Base.metadata,
     selectable=select(

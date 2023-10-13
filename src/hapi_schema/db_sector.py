@@ -5,6 +5,7 @@ from sqlalchemy import DateTime, String, select, text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.base import Base
+from hapi_schema.view_params import ViewParams
 
 
 class DBSector(Base):
@@ -20,7 +21,7 @@ class DBSector(Base):
     )
 
 
-sector_view_params = dict(
+sector_view_params = ViewParams(
     name="sector_view",
     metadata=Base.metadata,
     selectable=select(*DBSector.__table__.columns),

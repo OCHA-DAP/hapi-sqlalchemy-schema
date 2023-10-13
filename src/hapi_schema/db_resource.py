@@ -12,6 +12,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.base import Base
 from hapi_schema.db_dataset import DBDataset
+from hapi_schema.view_params import ViewParams
 
 
 class DBResource(Base):
@@ -36,7 +37,7 @@ class DBResource(Base):
     dataset = relationship("DBDataset")
 
 
-resource_view_params = dict(
+resource_view_params = ViewParams(
     name="resource_view",
     metadata=Base.metadata,
     selectable=select(

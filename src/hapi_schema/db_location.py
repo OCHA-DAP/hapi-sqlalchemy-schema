@@ -5,6 +5,7 @@ from sqlalchemy import DateTime, Integer, String, select, text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.base import Base
+from hapi_schema.view_params import ViewParams
 
 
 class DBLocation(Base):
@@ -21,7 +22,7 @@ class DBLocation(Base):
     )
 
 
-location_view_params = dict(
+location_view_params = ViewParams(
     name="location_view",
     metadata=Base.metadata,
     selectable=select(*DBLocation.__table__.columns),

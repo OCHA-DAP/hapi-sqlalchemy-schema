@@ -13,6 +13,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.base import Base
 from hapi_schema.db_org_type import DBOrgType
+from hapi_schema.view_params import ViewParams
 
 
 class DBOrg(Base):
@@ -35,7 +36,7 @@ class DBOrg(Base):
     org_type = relationship("DBOrgType")
 
 
-org_view_params = dict(
+org_view_params = ViewParams(
     name="org_view",
     metadata=Base.metadata,
     selectable=select(
