@@ -1,6 +1,5 @@
 """Resource table and view."""
 
-from hdx.database.views import view
 from sqlalchemy import (
     Boolean,
     DateTime,
@@ -37,7 +36,7 @@ class DBResource(Base):
     dataset = relationship("DBDataset")
 
 
-resource_view = view(
+resource_view_params = dict(
     name="resource_view",
     metadata=Base.metadata,
     selectable=select(

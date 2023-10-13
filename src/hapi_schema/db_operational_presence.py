@@ -1,7 +1,6 @@
 """OperationalPresence table and view."""
 from datetime import datetime
 
-from hdx.database.views import view
 from sqlalchemy import (
     DateTime,
     ForeignKey,
@@ -54,7 +53,7 @@ class DBOperationalPresence(Base):
     admin2 = relationship("DBAdmin2")
 
 
-operational_presence_view = view(
+operational_presence_view_params = dict(
     name="operational_presence_view",
     metadata=Base.metadata,
     selectable=select(

@@ -1,7 +1,6 @@
 """Sector table and view."""
 from datetime import datetime
 
-from hdx.database.views import view
 from sqlalchemy import DateTime, String, select, text
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -21,7 +20,7 @@ class DBSector(Base):
     )
 
 
-sector_view = view(
+sector_view_params = dict(
     name="sector_view",
     metadata=Base.metadata,
     selectable=select(*DBSector.__table__.columns),

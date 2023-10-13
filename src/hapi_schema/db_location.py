@@ -1,7 +1,6 @@
 """Location table and view."""
 from datetime import datetime
 
-from hdx.database.views import view
 from sqlalchemy import DateTime, Integer, String, select, text
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -22,7 +21,7 @@ class DBLocation(Base):
     )
 
 
-location_view = view(
+location_view_params = dict(
     name="location_view",
     metadata=Base.metadata,
     selectable=select(*DBLocation.__table__.columns),

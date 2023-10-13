@@ -1,6 +1,5 @@
 """Gender table and view."""
 
-from hdx.database.views import view
 from sqlalchemy import CHAR, String, select
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -14,7 +13,7 @@ class DBGender(Base):
     description: Mapped[str] = mapped_column(String(256), nullable=False)
 
 
-gender_view = view(
+gender_view_params = dict(
     name="gender_view",
     metadata=Base.metadata,
     selectable=select(*DBGender.__table__.columns),

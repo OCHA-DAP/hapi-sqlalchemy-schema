@@ -1,6 +1,5 @@
 """Age range table and view."""
 
-from hdx.database.views import view
 from sqlalchemy import Integer, String, select
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -15,7 +14,7 @@ class DBAgeRange(Base):
     age_max: Mapped[int] = mapped_column(Integer, nullable=True)
 
 
-age_range_view = view(
+age_range_view_params = dict(
     name="age_range_view",
     metadata=Base.metadata,
     selectable=select(*DBAgeRange.__table__.columns),

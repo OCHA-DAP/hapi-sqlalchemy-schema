@@ -1,6 +1,5 @@
 """Dataset table and view."""
 
-from hdx.database.views import view
 from sqlalchemy import Integer, String, select
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -26,7 +25,7 @@ class DBDataset(Base):
     )
 
 
-dataset_view = view(
+dataset_view_params = dict(
     name="dataset_view",
     metadata=Base.metadata,
     selectable=select(*DBDataset.__table__.columns),

@@ -1,7 +1,6 @@
 """Admin2 table and view."""
 from datetime import datetime
 
-from hdx.database.views import view
 from sqlalchemy import (
     Boolean,
     DateTime,
@@ -41,7 +40,7 @@ class DBAdmin2(Base):
     admin1 = relationship("DBAdmin1")
 
 
-admin2_view = view(
+admin2_view_params = dict(
     name="admin2_view",
     metadata=Base.metadata,
     selectable=select(

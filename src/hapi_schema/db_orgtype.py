@@ -1,6 +1,5 @@
 """OrgType table and view."""
 
-from hdx.database.views import view
 from sqlalchemy import String, select
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -14,7 +13,7 @@ class DBOrgType(Base):
     description: Mapped[str] = mapped_column(String(512), nullable=False)
 
 
-org_type_view = view(
+org_type_view_params = dict(
     name="org_type_view",
     metadata=Base.metadata,
     selectable=select(*DBOrgType.__table__.columns),

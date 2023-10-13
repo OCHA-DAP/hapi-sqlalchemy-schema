@@ -1,7 +1,6 @@
 """Org table and view."""
 from datetime import datetime
 
-from hdx.database.views import view
 from sqlalchemy import (
     DateTime,
     ForeignKey,
@@ -36,7 +35,7 @@ class DBOrg(Base):
     org_type = relationship("DBOrgType")
 
 
-org_view = view(
+org_view_params = dict(
     name="org_view",
     metadata=Base.metadata,
     selectable=select(

@@ -1,7 +1,6 @@
 """Population table and view."""
 from datetime import datetime
 
-from hdx.database.views import view
 from sqlalchemy import (
     DateTime,
     ForeignKey,
@@ -56,7 +55,7 @@ class DBPopulation(Base):
     gender = relationship("DBGender")
 
 
-population_view = view(
+population_view_params = dict(
     name="population_view",
     metadata=Base.metadata,
     selectable=select(
