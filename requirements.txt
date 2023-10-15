@@ -14,7 +14,7 @@ filelock==3.12.4
     # via virtualenv
 greenlet==3.0.0
     # via sqlalchemy
-hdx-python-database==1.2.8
+hdx-python-database==1.2.9
     # via hapi-schema (pyproject.toml)
 identify==2.5.30
     # via pre-commit

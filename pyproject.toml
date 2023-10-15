@@ -42,9 +42,9 @@ content-type = "text/markdown"
 Homepage = "https://github.com/OCHA-DAP/hapi-schemas"
 
 [project.optional-dependencies]
-database = ["hdx-python-database>=1.2.8"]
+database = ["hdx-python-database>=1.2.9"]
 dev = ["pre-commit"]
-test = ["hdx-python-database>=1.2.8", "pytest", "pytest-cov"]
+test = ["hdx-python-database>=1.2.9", "pytest", "pytest-cov"]
 
 #########
 # Hatch #
@@ -57,6 +57,9 @@ packages = ["src/hapi_schema"]
 
 [tool.hatch.build.hooks.vcs]
 version-file = "src/hapi_schema/_version.py"
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 # Versioning
 

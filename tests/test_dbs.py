@@ -1,23 +1,23 @@
 import pytest
-from hdx.database.views import view
+from hdx.database.views import build_views
 from sqlalchemy import create_engine, insert
 from sqlalchemy.orm import sessionmaker
 
-from hapi_schema.db_admin1 import DBAdmin1, admin1_view_params
-from hapi_schema.db_admin2 import DBAdmin2, admin2_view_params
-from hapi_schema.db_age_range import DBAgeRange, age_range_view_params
-from hapi_schema.db_dataset import DBDataset, dataset_view_params
-from hapi_schema.db_gender import DBGender, gender_view_params
-from hapi_schema.db_location import DBLocation, location_view_params
+from hapi_schema.db_admin1 import DBAdmin1, view_params_admin1
+from hapi_schema.db_admin2 import DBAdmin2, view_params_admin2
+from hapi_schema.db_age_range import DBAgeRange, view_params_age_range
+from hapi_schema.db_dataset import DBDataset, view_params_dataset
+from hapi_schema.db_gender import DBGender, view_params_gender
+from hapi_schema.db_location import DBLocation, view_params_location
 from hapi_schema.db_operational_presence import (
     DBOperationalPresence,
-    operational_presence_view_params,
+    view_params_operational_presence,
 )
-from hapi_schema.db_org import DBOrg, org_view_params
-from hapi_schema.db_org_type import DBOrgType, org_type_view_params
-from hapi_schema.db_population import DBPopulation, population_view_params
-from hapi_schema.db_resource import DBResource, resource_view_params
-from hapi_schema.db_sector import DBSector, sector_view_params
+from hapi_schema.db_org import DBOrg, view_params_org
+from hapi_schema.db_org_type import DBOrgType, view_params_org_type
+from hapi_schema.db_population import DBPopulation, view_params_population
+from hapi_schema.db_resource import DBResource, view_params_resource
+from hapi_schema.db_sector import DBSector, view_params_sector
 from hapi_schema.utils.base import Base
 from sample_data.data_admin1 import data_admin1
 from sample_data.data_admin2 import data_admin2
@@ -56,16 +56,22 @@ def test_tables_and_views(session):
     session.execute(insert(DBSector), data_sector)
 
     # Create all views
-    view(**admin1_view_params.__dict__)
-    view(**admin2_view_params.__dict__)
-    view(**admin2_view_params.__dict__)
-    view(**age_range_view_params.__dict__)
-    view(**dataset_view_params.__dict__)
-    view(**gender_view_params.__dict__)
-    view(**location_view_params.__dict__)
-    view(**operational_presence_view_params.__dict__)
-    view(**org_view_params.__dict__)
-    view(**org_type_view_params.__dict__)
-    view(**population_view_params.__dict__)
-    view(**resource_view_params.__dict__)
-    view(**sector_view_params.__dict__)
+    build_views(
+        view_params_list=[
+            view_params.__dict__
+            for view_params in [
+                view_params_admin1,
+                view_params_admin2,
+                view_params_age_range,
+                view_params_dataset,
+                view_params_gender,
+                view_params_location,
+                view_params_operational_presence,
+                view_params_org,
+                view_params_org_type,
+                view_params_population,
+                view_params_resource,
+                view_params_sector,
+            ]
+        ]
+    )
