@@ -1,8 +1,6 @@
 """Population table and view."""
 from datetime import datetime
 
-from hdx.database.no_timezone import Base
-from hdx.database.views import view
 from sqlalchemy import (
     DateTime,
     ForeignKey,
@@ -20,6 +18,8 @@ from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_gender import DBGender
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
+from hapi_schema.utils.base import Base
+from hapi_schema.utils.view_params import ViewParams
 
 
 class DBPopulation(Base):
@@ -56,7 +56,7 @@ class DBPopulation(Base):
     gender = relationship("DBGender")
 
 
-population_view = view(
+view_params_population = ViewParams(
     name="population_view",
     metadata=Base.metadata,
     selectable=select(

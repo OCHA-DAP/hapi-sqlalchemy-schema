@@ -1,9 +1,10 @@
 """Gender table and view."""
 
-from hdx.database.no_timezone import Base
-from hdx.database.views import view
 from sqlalchemy import CHAR, String, select
 from sqlalchemy.orm import Mapped, mapped_column
+
+from hapi_schema.utils.base import Base
+from hapi_schema.utils.view_params import ViewParams
 
 
 class DBGender(Base):
@@ -13,7 +14,7 @@ class DBGender(Base):
     description: Mapped[str] = mapped_column(String(256), nullable=False)
 
 
-gender_view = view(
+view_params_gender = ViewParams(
     name="gender_view",
     metadata=Base.metadata,
     selectable=select(*DBGender.__table__.columns),

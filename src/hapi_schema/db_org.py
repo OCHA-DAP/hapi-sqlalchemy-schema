@@ -1,8 +1,6 @@
 """Org table and view."""
 from datetime import datetime
 
-from hdx.database.no_timezone import Base
-from hdx.database.views import view
 from sqlalchemy import (
     DateTime,
     ForeignKey,
@@ -14,6 +12,8 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_org_type import DBOrgType
+from hapi_schema.utils.base import Base
+from hapi_schema.utils.view_params import ViewParams
 
 
 class DBOrg(Base):
@@ -36,7 +36,7 @@ class DBOrg(Base):
     org_type = relationship("DBOrgType")
 
 
-org_view = view(
+view_params_org = ViewParams(
     name="org_view",
     metadata=Base.metadata,
     selectable=select(

@@ -1,7 +1,5 @@
 """Resource table and view."""
 
-from hdx.database.no_timezone import Base
-from hdx.database.views import view
 from sqlalchemy import (
     Boolean,
     DateTime,
@@ -13,6 +11,8 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_dataset import DBDataset
+from hapi_schema.utils.base import Base
+from hapi_schema.utils.view_params import ViewParams
 
 
 class DBResource(Base):
@@ -37,7 +37,7 @@ class DBResource(Base):
     dataset = relationship("DBDataset")
 
 
-resource_view = view(
+view_params_resource = ViewParams(
     name="resource_view",
     metadata=Base.metadata,
     selectable=select(

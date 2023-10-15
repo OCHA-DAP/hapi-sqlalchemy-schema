@@ -1,10 +1,11 @@
 """Sector table and view."""
 from datetime import datetime
 
-from hdx.database.no_timezone import Base
-from hdx.database.views import view
 from sqlalchemy import DateTime, String, select, text
 from sqlalchemy.orm import Mapped, mapped_column
+
+from hapi_schema.utils.base import Base
+from hapi_schema.utils.view_params import ViewParams
 
 
 class DBSector(Base):
@@ -20,7 +21,7 @@ class DBSector(Base):
     )
 
 
-sector_view = view(
+view_params_sector = ViewParams(
     name="sector_view",
     metadata=Base.metadata,
     selectable=select(*DBSector.__table__.columns),
