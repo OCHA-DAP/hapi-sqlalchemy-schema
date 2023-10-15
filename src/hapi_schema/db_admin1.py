@@ -40,7 +40,7 @@ class DBAdmin1(Base):
     location = relationship("DBLocation")
 
 
-admin1_view_params = ViewParams(
+view_params_admin1 = ViewParams(
     name="admin1_view",
     metadata=Base.metadata,
     selectable=select(

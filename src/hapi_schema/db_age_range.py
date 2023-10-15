@@ -15,7 +15,7 @@ class DBAgeRange(Base):
     age_max: Mapped[int] = mapped_column(Integer, nullable=True)
 
 
-age_range_view_params = ViewParams(
+view_params_age_range = ViewParams(
     name="age_range_view",
     metadata=Base.metadata,
     selectable=select(*DBAgeRange.__table__.columns),

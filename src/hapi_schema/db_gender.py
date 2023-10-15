@@ -14,7 +14,7 @@ class DBGender(Base):
     description: Mapped[str] = mapped_column(String(256), nullable=False)
 
 
-gender_view_params = ViewParams(
+view_params_gender = ViewParams(
     name="gender_view",
     metadata=Base.metadata,
     selectable=select(*DBGender.__table__.columns),

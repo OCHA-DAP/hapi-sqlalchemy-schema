@@ -21,7 +21,7 @@ class DBSector(Base):
     )
 
 
-sector_view_params = ViewParams(
+view_params_sector = ViewParams(
     name="sector_view",
     metadata=Base.metadata,
     selectable=select(*DBSector.__table__.columns),

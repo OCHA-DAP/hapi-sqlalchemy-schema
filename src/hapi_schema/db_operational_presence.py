@@ -54,7 +54,7 @@ class DBOperationalPresence(Base):
     admin2 = relationship("DBAdmin2")
 
 
-operational_presence_view_params = ViewParams(
+view_params_operational_presence = ViewParams(
     name="operational_presence_view",
     metadata=Base.metadata,
     selectable=select(
