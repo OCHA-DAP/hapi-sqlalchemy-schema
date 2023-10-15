@@ -41,7 +41,7 @@ class DBAdmin2(Base):
     admin1 = relationship("DBAdmin1")
 
 
-admin2_view_params = ViewParams(
+view_params_admin2 = ViewParams(
     name="admin2_view",
     metadata=Base.metadata,
     selectable=select(

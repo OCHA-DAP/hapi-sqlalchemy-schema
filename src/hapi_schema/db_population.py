@@ -56,7 +56,7 @@ class DBPopulation(Base):
     gender = relationship("DBGender")
 
 
-population_view_params = ViewParams(
+view_params_population = ViewParams(
     name="population_view",
     metadata=Base.metadata,
     selectable=select(

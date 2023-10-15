@@ -36,7 +36,7 @@ class DBOrg(Base):
     org_type = relationship("DBOrgType")
 
 
-org_view_params = ViewParams(
+view_params_org = ViewParams(
     name="org_view",
     metadata=Base.metadata,
     selectable=select(

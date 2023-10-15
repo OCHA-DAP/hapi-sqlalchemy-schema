@@ -22,7 +22,7 @@ class DBLocation(Base):
     )
 
 
-location_view_params = ViewParams(
+view_params_location = ViewParams(
     name="location_view",
     metadata=Base.metadata,
     selectable=select(*DBLocation.__table__.columns),

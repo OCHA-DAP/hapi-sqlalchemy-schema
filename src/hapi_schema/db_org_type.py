@@ -14,7 +14,7 @@ class DBOrgType(Base):
     description: Mapped[str] = mapped_column(String(512), nullable=False)
 
 
-org_type_view_params = ViewParams(
+view_params_org_type = ViewParams(
     name="org_type_view",
     metadata=Base.metadata,
     selectable=select(*DBOrgType.__table__.columns),

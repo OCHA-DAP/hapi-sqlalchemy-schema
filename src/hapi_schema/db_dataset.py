@@ -26,7 +26,7 @@ class DBDataset(Base):
     )
 
 
-dataset_view_params = ViewParams(
+view_params_dataset = ViewParams(
     name="dataset_view",
     metadata=Base.metadata,
     selectable=select(*DBDataset.__table__.columns),

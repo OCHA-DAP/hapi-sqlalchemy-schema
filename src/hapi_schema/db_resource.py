@@ -37,7 +37,7 @@ class DBResource(Base):
     dataset = relationship("DBDataset")
 
 
-resource_view_params = ViewParams(
+view_params_resource = ViewParams(
     name="resource_view",
     metadata=Base.metadata,
     selectable=select(
