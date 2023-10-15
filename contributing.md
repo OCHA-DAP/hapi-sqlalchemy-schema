@@ -13,6 +13,13 @@ development by running:
 
     pip install -r requirements.txt
 
+## Testing
+
+To run the tests and view coverage, execute:
+
+    pytest -c .config/pytest.ini --cov hapi_schema --cov-config .config/coveragerc
+
+
 ## Pre-Commit
 
 Also be sure to install `pre-commit`, which is run every time
