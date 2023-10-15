@@ -1,0 +1,58 @@
+from datetime import datetime
+
+data_admin2 = [
+    dict(
+        id=1,
+        admin1_ref=1,
+        code="FOO-XXX-XXX",
+        name="Unspecified",
+        is_unspecified=True,
+        reference_period_start=datetime(2023, 1, 1),
+        reference_period_end=None,
+    ),
+    dict(
+        id=2,
+        admin1_ref=2,
+        code="FOO-001-XXX",
+        name="Unspecified",
+        is_unspecified=True,
+        reference_period_start=datetime(2023, 1, 1),
+        reference_period_end=None,
+    ),
+    dict(
+        id=3,
+        admin1_ref=3,
+        code="FOO-002-XXX",
+        name="Unspecified",
+        is_unspecified=True,
+        reference_period_start=datetime(2023, 1, 1),
+        reference_period_end=None,
+    ),
+    dict(
+        id=4,
+        admin1_ref=2,
+        code="FOO-001-A",
+        name="District A",
+        is_unspecified=False,
+        reference_period_start=datetime(2023, 1, 1),
+        reference_period_end=None,
+    ),
+    dict(
+        id=5,
+        admin1_ref=2,
+        code="FOO-001-B",
+        name="District B",
+        is_unspecified=False,
+        reference_period_start=datetime(2023, 1, 1),
+        reference_period_end=None,
+    ),
+    dict(
+        id=6,
+        admin1_ref=3,
+        code="FOO-002-C",
+        name="District C",
+        is_unspecified=False,
+        reference_period_start=datetime(2023, 1, 1),
+        reference_period_end=None,
+    ),
+]
