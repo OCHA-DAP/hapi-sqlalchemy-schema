@@ -9,3 +9,6 @@ select = [
   "F",   # pyflakes - default
   "I"    # isort
 ]
+
+[isort]
+known-local-folder=['hapi_schema', 'sample_data']

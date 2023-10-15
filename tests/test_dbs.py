@@ -1,4 +1,8 @@
 import pytest
+from hdx.database.views import view
+from sqlalchemy import create_engine, insert
+from sqlalchemy.orm import sessionmaker
+
 from hapi_schema.db_admin1 import DBAdmin1, admin1_view_params
 from hapi_schema.db_admin2 import DBAdmin2, admin2_view_params
 from hapi_schema.db_age_range import DBAgeRange, age_range_view_params
@@ -15,7 +19,6 @@ from hapi_schema.db_population import DBPopulation, population_view_params
 from hapi_schema.db_resource import DBResource, resource_view_params
 from hapi_schema.db_sector import DBSector, sector_view_params
 from hapi_schema.utils.base import Base
-from hdx.database.views import view
 from sample_data.data_admin1 import data_admin1
 from sample_data.data_admin2 import data_admin2
 from sample_data.data_age_range import data_age_range
@@ -28,8 +31,6 @@ from sample_data.data_org_type import data_org_type
 from sample_data.data_population import data_population
 from sample_data.data_resource import data_resource
 from sample_data.data_sector import data_sector
-from sqlalchemy import create_engine, insert
-from sqlalchemy.orm import sessionmaker
 
 
 @pytest.fixture
@@ -40,7 +41,7 @@ def session():
 
 
 def test_tables_and_views(session):
-    # Create all tables
+    # Populate all tables
     session.execute(insert(DBAdmin1), data_admin1)
     session.execute(insert(DBAdmin2), data_admin2)
     session.execute(insert(DBAgeRange), data_age_range)
