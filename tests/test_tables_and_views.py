@@ -1,5 +1,4 @@
-import pytest
-from hdx.database.views import build_views
+from hdx.database.views import build_view
 from sqlalchemy import create_engine, insert
 from sqlalchemy.orm import sessionmaker
 
@@ -33,14 +32,27 @@ from sample_data.data_resource import data_resource
 from sample_data.data_sector import data_sector
 
 
-@pytest.fixture
-def session():
+def test_table_and_views():
     engine = create_engine(url="sqlite:///:memory:")
+
+    # Create the views
+    view_admin1 = build_view(view_params_admin1.__dict__)
+    build_view(view_params_admin2.__dict__)
+    build_view(view_params_age_range.__dict__)
+    build_view(view_params_dataset.__dict__)
+    build_view(view_params_gender.__dict__)
+    build_view(view_params_location.__dict__)
+    build_view(view_params_operational_presence.__dict__)
+    build_view(view_params_org.__dict__)
+    build_view(view_params_org_type.__dict__)
+    build_view(view_params_population.__dict__)
+    build_view(view_params_resource.__dict__)
+    build_view(view_params_sector.__dict__)
+
+    # Build the DB
     Base.metadata.create_all(engine)
-    return sessionmaker(bind=engine)()
+    session = sessionmaker(bind=engine)()
 
-
-def test_tables_and_views(session):
     # Populate all tables
     session.execute(insert(DBAdmin1), data_admin1)
     session.execute(insert(DBAdmin2), data_admin2)
@@ -55,23 +67,15 @@ def test_tables_and_views(session):
     session.execute(insert(DBResource), data_resource)
     session.execute(insert(DBSector), data_sector)
 
-    # Create all views
-    build_views(
-        view_params_list=[
-            view_params.__dict__
-            for view_params in [
-                view_params_admin1,
-                view_params_admin2,
-                view_params_age_range,
-                view_params_dataset,
-                view_params_gender,
-                view_params_location,
-                view_params_operational_presence,
-                view_params_org,
-                view_params_org_type,
-                view_params_population,
-                view_params_resource,
-                view_params_sector,
-            ]
-        ]
+    session.commit()
+
+    # Test all views
+
+    # Admin1
+    select_admin1 = view_admin1.select().where(
+        view_admin1.c.id == 1, view_admin1.c.location_code == "FOO"
     )
+    select_admin1.compile(bind=engine)
+    result = engine.connect().execute(select_admin1)
+    row = result.fetchone()
+    assert row
