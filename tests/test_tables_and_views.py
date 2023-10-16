@@ -1,22 +1,22 @@
+import pytest
 from hdx.database.views import build_view
 from sqlalchemy import create_engine, insert
 from sqlalchemy.orm import sessionmaker
 
 from hapi_schema.db_admin1 import DBAdmin1, view_params_admin1
 from hapi_schema.db_admin2 import DBAdmin2, view_params_admin2
-from hapi_schema.db_age_range import DBAgeRange, view_params_age_range
-from hapi_schema.db_dataset import DBDataset, view_params_dataset
-from hapi_schema.db_gender import DBGender, view_params_gender
-from hapi_schema.db_location import DBLocation, view_params_location
+from hapi_schema.db_age_range import DBAgeRange
+from hapi_schema.db_dataset import DBDataset
+from hapi_schema.db_gender import DBGender
+from hapi_schema.db_location import DBLocation
 from hapi_schema.db_operational_presence import (
     DBOperationalPresence,
-    view_params_operational_presence,
 )
-from hapi_schema.db_org import DBOrg, view_params_org
-from hapi_schema.db_org_type import DBOrgType, view_params_org_type
-from hapi_schema.db_population import DBPopulation, view_params_population
-from hapi_schema.db_resource import DBResource, view_params_resource
-from hapi_schema.db_sector import DBSector, view_params_sector
+from hapi_schema.db_org import DBOrg
+from hapi_schema.db_org_type import DBOrgType
+from hapi_schema.db_population import DBPopulation
+from hapi_schema.db_resource import DBResource
+from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
 from sample_data.data_admin1 import data_admin1
 from sample_data.data_admin2 import data_admin2
@@ -32,22 +32,9 @@ from sample_data.data_resource import data_resource
 from sample_data.data_sector import data_sector
 
 
-def test_table_and_views():
+@pytest.fixture
+def engine():
     engine = create_engine(url="sqlite:///:memory:")
-
-    # Create the views
-    view_admin1 = build_view(view_params_admin1.__dict__)
-    build_view(view_params_admin2.__dict__)
-    build_view(view_params_age_range.__dict__)
-    build_view(view_params_dataset.__dict__)
-    build_view(view_params_gender.__dict__)
-    build_view(view_params_location.__dict__)
-    build_view(view_params_operational_presence.__dict__)
-    build_view(view_params_org.__dict__)
-    build_view(view_params_org_type.__dict__)
-    build_view(view_params_population.__dict__)
-    build_view(view_params_resource.__dict__)
-    build_view(view_params_sector.__dict__)
 
     # Build the DB
     Base.metadata.create_all(engine)
@@ -69,13 +56,36 @@ def test_table_and_views():
 
     session.commit()
 
-    # Test all views
+    return engine
 
-    # Admin1
-    select_admin1 = view_admin1.select().where(
-        view_admin1.c.id == 1, view_admin1.c.location_code == "FOO"
+
+def run_view_test(engine, view, whereclause):
+    Base.metadata.create_all(engine)
+    select_instance = view.select().where(*whereclause)
+    select_instance.compile(bind=engine)
+    result = engine.connect().execute(select_instance)
+    assert result.fetchone()
+
+
+def test_admin1_view(engine):
+    view_admin1 = build_view(view_params_admin1.__dict__)
+    run_view_test(
+        engine=engine,
+        view=view_admin1,
+        whereclause=(
+            view_admin1.c.id == 1,
+            view_admin1.c.location_code == "FOO",
+        ),
     )
-    select_admin1.compile(bind=engine)
-    result = engine.connect().execute(select_admin1)
-    row = result.fetchone()
-    assert row
+
+
+def test_admin2_view(engine):
+    view_admin2 = build_view(view_params_admin2.__dict__)
+    run_view_test(
+        engine=engine,
+        view=view_admin2,
+        whereclause=(
+            view_admin2.c.id == 1,
+            view_admin2.c.admin1_code == "FOO-XXX",
+        ),
+    )
