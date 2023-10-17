@@ -31,7 +31,7 @@ from sample_data.data_resource import data_resource
 from sample_data.data_sector import data_sector
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def engine():
     engine = create_engine(url="sqlite:///:memory:")
 
@@ -58,7 +58,7 @@ def engine():
     return engine
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def run_view_test(engine):
     def _run_view_test(view, whereclause):
         Base.metadata.create_all(engine)
