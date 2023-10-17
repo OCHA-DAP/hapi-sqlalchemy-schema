@@ -42,7 +42,9 @@ content-type = "text/markdown"
 Homepage = "https://github.com/OCHA-DAP/hapi-schemas"
 
 [project.optional-dependencies]
-database = ["hdx-python-database>=1.2.8"]
+database = ["hdx-python-database>=1.2.9"]
+dev = ["pre-commit"]
+test = ["hdx-python-database>=1.2.9", "pytest", "pytest-cov"]
 
 #########
 # Hatch #
@@ -56,6 +58,9 @@ packages = ["src/hapi_schema"]
 [tool.hatch.build.hooks.vcs]
 version-file = "src/hapi_schema/_version.py"
 
+[tool.hatch.metadata]
+allow-direct-references = true
+
 # Versioning
 
 [tool.hatch.version]
@@ -64,3 +69,31 @@ source = "vcs"
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
 version_scheme = "python-simplified-semver"
+
+# Tests
+
+[tool.hatch.envs.test]
+features = ["test"]
+
+[tool.hatch.envs.test.scripts]
+test = """
+       pytest -c .config/pytest.ini --rootdir=. --junitxml=test-results.xml \
+       --cov --cov-config=.config/coveragerc --no-cov-on-fail \
+       --cov-report=lcov --cov-report=term-missing
+       """
+
+[[tool.hatch.envs.test.matrix]]
+python = ["3.11"]
+
+[tool.hatch.envs.lint]
+detached = true
+dependencies = [
+  "black",
+  "ruff",
+]
+
+[tool.hatch.envs.lint.scripts]
+style = [
+  "ruff --config .config/ruff.toml {args:.}",
+  "black --config .config/black.toml --check --diff {args:.}",
+]
