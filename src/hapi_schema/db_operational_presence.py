@@ -65,7 +65,7 @@ view_params_operational_presence = ViewParams(
         DBDataset.provider_code.label("dataset_provider_code"),
         DBDataset.provider_name.label("dataset_provider_name"),
         DBResource.hdx_id.label("resource_hdx_id"),
-        DBResource.filename.label("resource_filename"),
+        DBResource.name.label("resource_name"),
         DBResource.update_date.label("resource_update_date"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),

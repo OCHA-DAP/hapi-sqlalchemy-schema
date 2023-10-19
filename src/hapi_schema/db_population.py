@@ -67,7 +67,7 @@ view_params_population = ViewParams(
         DBDataset.provider_code.label("dataset_provider_code"),
         DBDataset.provider_name.label("dataset_provider_name"),
         DBResource.hdx_id.label("resource_hdx_id"),
-        DBResource.filename.label("resource_filename"),
+        DBResource.name.label("resource_name"),
         DBResource.update_date.label("resource_update_date"),
         DBGender.description.label("gender_description"),
         DBLocation.code.label("location_code"),
