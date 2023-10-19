@@ -63,8 +63,8 @@ def test_dataset_view(run_view_test):
             view_dataset.c.id == 1,
             view_dataset.c.hdx_stub == "dataset01",
             view_dataset.c.title == "Dataset #1",
-            view_dataset.c.provider_code == "provider01",
-            view_dataset.c.provider_name == "Provider #1",
+            view_dataset.c.hdx_provider_stub == "provider01",
+            view_dataset.c.hdx_provider_name == "Provider #1",
         ),
     )
 
