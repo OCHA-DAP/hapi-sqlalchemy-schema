@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from sqlalchemy.orm import DeclarativeMeta
 from sqlalchemy.sql.expression import Selectable
+from sqlalchemy.sql.schema import MetaData
 
 
 @dataclass
@@ -9,5 +9,5 @@ class ViewParams:
     """Class for keeping view constructor parameters."""
 
     name: str
-    metadata: DeclarativeMeta
+    metadata: MetaData
     selectable: Selectable
