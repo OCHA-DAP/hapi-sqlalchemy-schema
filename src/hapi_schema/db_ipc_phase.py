@@ -11,7 +11,7 @@ class DBIpcPhase(Base):
     __tablename__ = "ipc_phase"
 
     code: Mapped[int] = mapped_column(Integer, primary_key=True)
-    short_name: Mapped[str] = mapped_column(String(32), nullable=False)
+    name: Mapped[str] = mapped_column(String(32), nullable=False)
     description: Mapped[str] = mapped_column(String(512), nullable=False)
 
 

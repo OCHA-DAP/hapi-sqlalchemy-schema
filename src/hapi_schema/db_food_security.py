@@ -69,6 +69,7 @@ view_params_food_security = ViewParams(
         DBDataset.title.label("dataset_title"),
         DBDataset.hdx_provider_stub.label("dataset_hdx_provider_stub"),
         DBDataset.hdx_provider_name.label("dataset_hdx_provider_name"),
+        DBIpcPhase.name.label("ipc_phase_name"),
         DBResource.hdx_id.label("resource_hdx_id"),
         DBResource.name.label("resource_name"),
         DBResource.update_date.label("resource_update_date"),
@@ -116,7 +117,7 @@ view_params_food_security = ViewParams(
         )
         # Join to ipc type
         .join(
-            DBIpcPhase.__table__,
+            DBIpcType.__table__,
             DBFoodSecurity.ipc_type_code == DBIpcType.code,
             isouter=True,
         )
