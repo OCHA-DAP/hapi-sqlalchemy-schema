@@ -130,8 +130,7 @@ def test_ipc_type_view(run_view_test):
         whereclause=(
             view_ipc_type.c.code == "current",
             view_ipc_type.c.description == "Food insecurity that is "
-            "occurring in the current "
-            "analysis period.",
+            "occurring in the current analysis period.",
         ),
     )
 
