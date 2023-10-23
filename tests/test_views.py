@@ -114,7 +114,7 @@ def test_ipc_phase_view(run_view_test):
     run_view_test(
         view=view_ipc_phase,
         whereclause=(
-            view_ipc_phase.c.code == 1,
+            view_ipc_phase.c.code == "1",
             view_ipc_phase.c.name == "Phase 1: None/Minimal",
             view_ipc_phase.c.description == phase1_description,
         ),
