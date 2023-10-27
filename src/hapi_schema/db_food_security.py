@@ -40,7 +40,6 @@ class DBFoodSecurity(Base):
     ipc_type_code: Mapped[str] = mapped_column(
         ForeignKey("ipc_type.code", onupdate="CASCADE"), nullable=False
     )
-    population_total: Mapped[int] = mapped_column(Integer, nullable=False)
     population_in_phase: Mapped[int] = mapped_column(Integer, nullable=False)
     population_fraction_in_phase: Mapped[float] = mapped_column(
         Float, nullable=False
