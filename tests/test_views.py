@@ -4,7 +4,10 @@ from hapi_schema.db_admin1 import view_params_admin1
 from hapi_schema.db_admin2 import view_params_admin2
 from hapi_schema.db_age_range import view_params_age_range
 from hapi_schema.db_dataset import view_params_dataset
+from hapi_schema.db_food_security import view_params_food_security
 from hapi_schema.db_gender import view_params_gender
+from hapi_schema.db_ipc_phase import view_params_ipc_phase
+from hapi_schema.db_ipc_type import view_params_ipc_type
 from hapi_schema.db_location import view_params_location
 from hapi_schema.db_operational_presence import (
     view_params_operational_presence,
@@ -69,6 +72,25 @@ def test_dataset_view(run_view_test):
     )
 
 
+def test_food_security_view(run_view_test):
+    """Check that food security view references other tables."""
+    view_food_security = build_view(view_params_food_security.__dict__)
+    run_view_test(
+        view=view_food_security,
+        whereclause=(
+            view_food_security.c.id == 3,
+            view_food_security.c.dataset_hdx_id
+            == "7cf3cec8-dbbc-4c96-9762-1464cd0bff75",
+            view_food_security.c.resource_hdx_id
+            == "62ad6e55-5f5d-4494-854c-4110687e9e25",
+            view_food_security.c.ipc_phase_name == "Phase 3: Crisis",
+            view_food_security.c.admin2_code == "FOO-001-A",
+            view_food_security.c.admin1_code == "FOO-001",
+            view_food_security.c.location_code == "FOO",
+        ),
+    )
+
+
 def test_gender_view(run_view_test):
     """Check gender view has all columns."""
     view_gender = build_view(view_params_gender.__dict__)
@@ -77,6 +99,38 @@ def test_gender_view(run_view_test):
         whereclause=(
             view_gender.c.code == "f",
             view_gender.c.description == "female",
+        ),
+    )
+
+
+def test_ipc_phase_view(run_view_test):
+    """Check IPC phase view has all columns."""
+    phase1_description = (
+        "Households are able to meet essential food and non-food "
+        "needs without engaging in atypical and unsustainable "
+        "strategies to access food and income."
+    )
+    view_ipc_phase = build_view(view_params_ipc_phase.__dict__)
+    run_view_test(
+        view=view_ipc_phase,
+        whereclause=(
+            view_ipc_phase.c.code == "1",
+            view_ipc_phase.c.name == "Phase 1: None/Minimal",
+            view_ipc_phase.c.description == phase1_description,
+        ),
+    )
+
+
+def test_ipc_type_view(run_view_test):
+    """Check IPC type view has all columns."""
+
+    view_ipc_type = build_view(view_params_ipc_type.__dict__)
+    run_view_test(
+        view=view_ipc_type,
+        whereclause=(
+            view_ipc_type.c.code == "current",
+            view_ipc_type.c.description == "Food insecurity that is "
+            "occurring in the current analysis period.",
         ),
     )
 
