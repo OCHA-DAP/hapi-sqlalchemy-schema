@@ -78,7 +78,7 @@ view_params_population = ViewParams(
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
         DBGender.description.label("gender_description")
-).select_from(
+    ).select_from(
         # Join pop to admin2 to admin1 to loc
         DBPopulation.__table__.join(
             DBAdmin2.__table__,

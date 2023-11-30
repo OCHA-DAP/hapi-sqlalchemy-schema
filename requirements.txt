@@ -7,16 +7,18 @@
 cfgv==3.4.0
     # via pre-commit
 coverage[toml]==7.3.2
-    # via pytest-cov
+    # via
+    #   coverage
+    #   pytest-cov
 distlib==0.3.7
     # via virtualenv
-filelock==3.12.4
+filelock==3.13.1
     # via virtualenv
-greenlet==3.0.0
+greenlet==3.0.1
     # via sqlalchemy
 hdx-python-database==1.2.9
     # via hapi-schema (pyproject.toml)
-identify==2.5.30
+identify==2.5.32
     # via pre-commit
 iniconfig==2.0.0
     # via pytest
@@ -24,13 +26,13 @@ nodeenv==1.8.0
     # via pre-commit
 packaging==23.2
     # via pytest
-platformdirs==3.11.0
+platformdirs==4.0.0
     # via virtualenv
 pluggy==1.3.0
     # via pytest
 pre-commit==3.5.0
     # via hapi-schema (pyproject.toml)
-pytest==7.4.2
+pytest==7.4.3
     # via
     #   hapi-schema (pyproject.toml)
     #   pytest-cov
@@ -38,13 +40,13 @@ pytest-cov==4.1.0
     # via hapi-schema (pyproject.toml)
 pyyaml==6.0.1
     # via pre-commit
-sqlalchemy==2.0.22
+sqlalchemy==2.0.23
     # via
     #   hapi-schema (pyproject.toml)
     #   hdx-python-database
 typing-extensions==4.8.0
     # via sqlalchemy
-virtualenv==20.24.5
+virtualenv==20.24.7
     # via pre-commit
 
 # The following packages are considered to be unsafe in a requirements file:

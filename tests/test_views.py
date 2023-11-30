@@ -106,7 +106,9 @@ def test_gender_view(run_view_test):
 
 def test_humanitarian_needs_view(run_view_test):
     """Check that humanitarian needs references other tables."""
-    view_humanitarian_needs = build_view(view_params_humanitarian_needs.__dict__)
+    view_humanitarian_needs = build_view(
+        view_params_humanitarian_needs.__dict__
+    )
     run_view_test(
         view=view_humanitarian_needs,
         whereclause=(
@@ -119,7 +121,8 @@ def test_humanitarian_needs_view(run_view_test):
             view_humanitarian_needs.c.admin1_code == "FOO-001",
             view_humanitarian_needs.c.location_code == "FOO",
             view_humanitarian_needs.c.gender_description == "female",
-            view_humanitarian_needs.c.sector_name == "Water Sanitation Hygiene",
+            view_humanitarian_needs.c.sector_name
+            == "Water Sanitation Hygiene",
         ),
     )
 
@@ -188,7 +191,8 @@ def test_operational_presence_view(run_view_test):
             view_operational_presence.c.org_type_description
             == "International NGO",
             view_operational_presence.c.org_acronym == "ORG02",
-            view_operational_presence.c.sector_name == "Water Sanitation Hygiene",
+            view_operational_presence.c.sector_name
+            == "Water Sanitation Hygiene",
         ),
     )
 

@@ -47,9 +47,7 @@ class DBHumanitarianNeeds(Base):
     sector_code = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"), nullable=True
     )
-    in_need: Mapped[int] = mapped_column(
-        Integer, nullable=False, index=True
-    )
+    in_need: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, index=True
     )
@@ -88,7 +86,7 @@ view_params_humanitarian_needs = ViewParams(
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
         DBGender.description.label("gender_description"),
         DBSector.name.label("sector_name")
-).select_from(
+    ).select_from(
         # Join pop to admin2 to admin1 to loc
         DBHumanitarianNeeds.__table__.join(
             DBAdmin2.__table__,
