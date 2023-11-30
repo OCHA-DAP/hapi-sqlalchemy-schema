@@ -34,11 +34,11 @@ class DBHumanitarianNeeds(Base):
     age_range_code: Mapped[str] = mapped_column(
         ForeignKey("age_range.code", onupdate="CASCADE"), nullable=True
     )
-    sector_code = mapped_column(
-        ForeignKey("sector.code", onupdate="CASCADE"), nullable=False
-    )
     is_disabled: Mapped[bool] = mapped_column(
-        Boolean, server_default=text("FALSE")
+        Boolean, nullable=True, server_default=text("NULL")
+    )
+    sector_code = mapped_column(
+        ForeignKey("sector.code", onupdate="CASCADE"), nullable=True
     )
     in_need: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
@@ -58,7 +58,7 @@ class DBHumanitarianNeeds(Base):
     sector = relationship("DBSector")
 
 
-view_params_population = ViewParams(
+view_params_humanitarian_needs = ViewParams(
     name="humanitarian_needs_view",
     metadata=Base.metadata,
     selectable=select(

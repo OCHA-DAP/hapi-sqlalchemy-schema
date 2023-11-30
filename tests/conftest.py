@@ -8,6 +8,7 @@ from hapi_schema.db_age_range import DBAgeRange
 from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_food_security import DBFoodSecurity
 from hapi_schema.db_gender import DBGender
+from hapi_schema.db_humanitarian_needs import DBHumanitarianNeeds
 from hapi_schema.db_ipc_phase import DBIpcPhase
 from hapi_schema.db_ipc_type import DBIpcType
 from hapi_schema.db_location import DBLocation
@@ -35,6 +36,7 @@ from sample_data.data_org_type import data_org_type
 from sample_data.data_population import data_population
 from sample_data.data_resource import data_resource
 from sample_data.data_sector import data_sector
+from sample_data.data_humanitarian_needs import data_humanitarian_needs
 
 
 @pytest.fixture(scope="session")
@@ -52,6 +54,7 @@ def engine():
     session.execute(insert(DBDataset), data_dataset)
     session.execute(insert(DBFoodSecurity), data_food_security)
     session.execute(insert(DBGender), data_gender)
+    session.execute(insert(DBHumanitarianNeeds), data_humanitarian_needs)
     session.execute(insert(DBIpcPhase), data_ipc_phase)
     session.execute(insert(DBIpcType), data_ipc_type)
     session.execute(insert(DBLocation), data_location)

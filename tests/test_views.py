@@ -6,6 +6,7 @@ from hapi_schema.db_age_range import view_params_age_range
 from hapi_schema.db_dataset import view_params_dataset
 from hapi_schema.db_food_security import view_params_food_security
 from hapi_schema.db_gender import view_params_gender
+from hapi_schema.db_humanitarian_needs import view_params_humanitarian_needs
 from hapi_schema.db_ipc_phase import view_params_ipc_phase
 from hapi_schema.db_ipc_type import view_params_ipc_type
 from hapi_schema.db_location import view_params_location
@@ -103,6 +104,26 @@ def test_gender_view(run_view_test):
     )
 
 
+def test_humanitarian_needs_view(run_view_test):
+    """Check that humanitarian needs references other tables."""
+    view_humanitarian_needs = build_view(view_params_humanitarian_needs.__dict__)
+    run_view_test(
+        view=view_humanitarian_needs,
+        whereclause=(
+            view_humanitarian_needs.c.id == 3,
+            view_humanitarian_needs.c.dataset_hdx_id
+            == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
+            view_humanitarian_needs.c.resource_hdx_id
+            == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_humanitarian_needs.c.admin2_code == "FOO-001-XXX",
+            view_humanitarian_needs.c.admin1_code == "FOO-001",
+            view_humanitarian_needs.c.location_code == "FOO",
+            view_humanitarian_needs.c.gender_description == "female",
+            view_humanitarian_needs.c.sector_name == "Water Sanitation Hygiene",
+        ),
+    )
+
+
 def test_ipc_phase_view(run_view_test):
     """Check IPC phase view has all columns."""
     phase1_description = (
@@ -167,6 +188,7 @@ def test_operational_presence_view(run_view_test):
             view_operational_presence.c.org_type_description
             == "International NGO",
             view_operational_presence.c.org_acronym == "ORG02",
+            view_operational_presence.c.sector_name == "Water Sanitation Hygiene",
         ),
     )
 
@@ -208,10 +230,10 @@ def test_population_view(run_view_test):
             == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
             view_population.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
-            view_population.c.gender_description == "female",
             view_population.c.admin2_code == "FOO-001-XXX",
             view_population.c.admin1_code == "FOO-001",
             view_population.c.location_code == "FOO",
+            view_population.c.gender_description == "female",
         ),
     )
 
