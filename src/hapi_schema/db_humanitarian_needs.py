@@ -1,8 +1,15 @@
 """HumanitarianNeeds table and view."""
 from datetime import datetime
 
-from sqlalchemy import Integer, ForeignKey, DateTime, text, Text, Boolean, \
-    select
+from sqlalchemy import (
+    Boolean,
+    DateTime,
+    ForeignKey,
+    Integer,
+    Text,
+    select,
+    text,
+)
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_admin1 import DBAdmin1

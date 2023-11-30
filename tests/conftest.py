@@ -27,6 +27,7 @@ from sample_data.data_age_range import data_age_range
 from sample_data.data_dataset import data_dataset
 from sample_data.data_food_security import data_food_security
 from sample_data.data_gender import data_gender
+from sample_data.data_humanitarian_needs import data_humanitarian_needs
 from sample_data.data_ipc_phase import data_ipc_phase
 from sample_data.data_ipc_type import data_ipc_type
 from sample_data.data_location import data_location
@@ -36,7 +37,6 @@ from sample_data.data_org_type import data_org_type
 from sample_data.data_population import data_population
 from sample_data.data_resource import data_resource
 from sample_data.data_sector import data_sector
-from sample_data.data_humanitarian_needs import data_humanitarian_needs
 
 
 @pytest.fixture(scope="session")
