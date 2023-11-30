@@ -1,14 +1,8 @@
-"""Population table and view."""
+"""HumanitarianNeeds table and view."""
 from datetime import datetime
 
-from sqlalchemy import (
-    DateTime,
-    ForeignKey,
-    Integer,
-    Text,
-    select,
-    text,
-)
+from sqlalchemy import Integer, ForeignKey, DateTime, text, Text, Boolean, \
+    select
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_admin1 import DBAdmin1
@@ -18,12 +12,13 @@ from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_gender import DBGender
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
+from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.view_params import ViewParams
 
 
-class DBPopulation(Base):
-    __tablename__ = "population"
+class DBHumanitarianNeeds(Base):
+    __tablename__ = "humanitarian_needs"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     resource_ref: Mapped[int] = mapped_column(
@@ -39,11 +34,17 @@ class DBPopulation(Base):
     age_range_code: Mapped[str] = mapped_column(
         ForeignKey("age_range.code", onupdate="CASCADE"), nullable=True
     )
-    population: Mapped[int] = mapped_column(
+    sector_code = mapped_column(
+        ForeignKey("sector.code", onupdate="CASCADE"), nullable=False
+    )
+    is_disabled: Mapped[bool] = mapped_column(
+        Boolean, server_default=text("FALSE")
+    )
+    in_need: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False
+        DateTime, nullable=False, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL")
@@ -54,13 +55,14 @@ class DBPopulation(Base):
     admin2 = relationship("DBAdmin2")
     gender = relationship("DBGender")
     age_range = relationship("DBAgeRange")
+    sector = relationship("DBSector")
 
 
 view_params_population = ViewParams(
-    name="population_view",
+    name="humanitarian_needs_view",
     metadata=Base.metadata,
     selectable=select(
-        *DBPopulation.__table__.columns,
+        *DBHumanitarianNeeds.__table__.columns,
         DBDataset.hdx_id.label("dataset_hdx_id"),
         DBDataset.hdx_stub.label("dataset_hdx_stub"),
         DBDataset.title.label("dataset_title"),
@@ -77,12 +79,13 @@ view_params_population = ViewParams(
         DBAdmin2.code.label("admin2_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
-        DBGender.description.label("gender_description")
+        DBGender.description.label("gender_description"),
+        DBSector.name.label("sector_name")
 ).select_from(
         # Join pop to admin2 to admin1 to loc
-        DBPopulation.__table__.join(
+        DBHumanitarianNeeds.__table__.join(
             DBAdmin2.__table__,
-            DBPopulation.admin2_ref == DBAdmin2.id,
+            DBHumanitarianNeeds.admin2_ref == DBAdmin2.id,
             isouter=True,
         )
         .join(
@@ -95,10 +98,10 @@ view_params_population = ViewParams(
             DBAdmin1.location_ref == DBLocation.id,
             isouter=True,
         )
-        # Join pop to resource to dataset
+        # Join needs to resource to dataset
         .join(
             DBResource.__table__,
-            DBPopulation.resource_ref == DBResource.id,
+            DBHumanitarianNeeds.resource_ref == DBResource.id,
             isouter=True,
         )
         .join(
@@ -106,16 +109,22 @@ view_params_population = ViewParams(
             DBResource.dataset_ref == DBDataset.id,
             isouter=True,
         )
-        # Join pop to gender
+        # Join needs to gender
         .join(
             DBGender.__table__,
-            DBPopulation.gender_code == DBGender.code,
+            DBHumanitarianNeeds.gender_code == DBGender.code,
             isouter=True,
         )
-        # Join pop to age range
+        # Join needs to age range
         .join(
             DBAgeRange.__table__,
-            DBPopulation.age_range_code == DBAgeRange.code,
+            DBHumanitarianNeeds.age_range_code == DBAgeRange.code,
+            isouter=True,
+        )
+        # Join needs to sector
+        .join(
+            DBSector.__table__,
+            DBHumanitarianNeeds.sector_code == DBSector.code,
             isouter=True,
         )
     ),
