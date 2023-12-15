@@ -41,13 +41,21 @@ class DBHumanitarianNeeds(Base):
     age_range_code: Mapped[str] = mapped_column(
         ForeignKey("age_range.code", onupdate="CASCADE"), nullable=True
     )
-    is_disabled: Mapped[bool] = mapped_column(
+    disabled_marker: Mapped[bool] = mapped_column(
         Boolean, nullable=True, server_default=text("NULL")
     )
     sector_code = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"), nullable=True
     )
-    in_need: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
+    population_group_code: Mapped[str] = mapped_column(
+        ForeignKey("population_group.code", onupdate="CASCADE"), nullable=True
+    )
+    population_status_code: Mapped[str] = mapped_column(
+        ForeignKey("population_status.code", onupdate="CASCADE"), nullable=True
+    )
+    population: Mapped[int] = mapped_column(
+        Integer, nullable=False, index=True
+    )
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, index=True
     )
@@ -61,6 +69,8 @@ class DBHumanitarianNeeds(Base):
     gender = relationship("DBGender")
     age_range = relationship("DBAgeRange")
     sector = relationship("DBSector")
+    population_group = relationship("DBPopulationGroup")
+    population_status = relationship("DBPopulationStatus")
 
 
 view_params_humanitarian_needs = ViewParams(
