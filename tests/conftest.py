@@ -2,9 +2,6 @@ import pytest
 from sqlalchemy import create_engine, insert
 from sqlalchemy.orm import sessionmaker
 
-from tests.sample_data.data_population_group import data_population_group
-from tests.sample_data.data_population_status import data_population_status
-
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_age_range import DBAgeRange
@@ -40,6 +37,8 @@ from sample_data.data_operational_presence import data_operational_presence
 from sample_data.data_org import data_org
 from sample_data.data_org_type import data_org_type
 from sample_data.data_population import data_population
+from sample_data.data_population_group import data_population_group
+from sample_data.data_population_status import data_population_status
 from sample_data.data_resource import data_resource
 from sample_data.data_sector import data_sector
 
