@@ -34,10 +34,10 @@ class DBOperationalPresence(Base):
     admin2_ref: Mapped[int] = mapped_column(
         ForeignKey("admin2.id", onupdate="CASCADE"), nullable=False
     )
-    org_ref = mapped_column(
+    org_ref: Mapped[str] = mapped_column(
         ForeignKey("org.id", onupdate="CASCADE"), nullable=False
     )
-    sector_code = mapped_column(
+    sector_code: Mapped[str] = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"), nullable=False
     )
     reference_period_start: Mapped[datetime] = mapped_column(

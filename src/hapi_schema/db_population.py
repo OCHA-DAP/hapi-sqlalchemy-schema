@@ -13,7 +13,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
-from hapi_schema.db_age_range import DBAgeRange
 from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_gender import DBGender
 from hapi_schema.db_location import DBLocation
@@ -110,12 +109,6 @@ view_params_population = ViewParams(
         .join(
             DBGender.__table__,
             DBPopulation.gender_code == DBGender.code,
-            isouter=True,
-        )
-        # Join pop to age range
-        .join(
-            DBAgeRange.__table__,
-            DBPopulation.age_range_code == DBAgeRange.code,
             isouter=True,
         )
     ),

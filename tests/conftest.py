@@ -2,6 +2,9 @@ import pytest
 from sqlalchemy import create_engine, insert
 from sqlalchemy.orm import sessionmaker
 
+from tests.sample_data.data_population_group import data_population_group
+from tests.sample_data.data_population_status import data_population_status
+
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_age_range import DBAgeRange
@@ -18,6 +21,8 @@ from hapi_schema.db_operational_presence import (
 from hapi_schema.db_org import DBOrg
 from hapi_schema.db_org_type import DBOrgType
 from hapi_schema.db_population import DBPopulation
+from hapi_schema.db_population_group import DBPopulationGroup
+from hapi_schema.db_population_status import DBPopulationStatus
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
@@ -48,22 +53,24 @@ def engine():
     session = sessionmaker(bind=engine)()
 
     # Populate all tables
+    session.execute(insert(DBResource), data_resource)
+    session.execute(insert(DBDataset), data_dataset)
+    session.execute(insert(DBLocation), data_location)
     session.execute(insert(DBAdmin1), data_admin1)
     session.execute(insert(DBAdmin2), data_admin2)
-    session.execute(insert(DBAgeRange), data_age_range)
-    session.execute(insert(DBDataset), data_dataset)
-    session.execute(insert(DBFoodSecurity), data_food_security)
     session.execute(insert(DBGender), data_gender)
-    session.execute(insert(DBHumanitarianNeeds), data_humanitarian_needs)
-    session.execute(insert(DBIpcPhase), data_ipc_phase)
-    session.execute(insert(DBIpcType), data_ipc_type)
-    session.execute(insert(DBLocation), data_location)
-    session.execute(insert(DBOperationalPresence), data_operational_presence)
+    session.execute(insert(DBAgeRange), data_age_range)
+    session.execute(insert(DBSector), data_sector)
     session.execute(insert(DBOrg), data_org)
     session.execute(insert(DBOrgType), data_org_type)
+    session.execute(insert(DBPopulationGroup), data_population_group)
+    session.execute(insert(DBPopulationStatus), data_population_status)
+    session.execute(insert(DBIpcPhase), data_ipc_phase)
+    session.execute(insert(DBIpcType), data_ipc_type)
     session.execute(insert(DBPopulation), data_population)
-    session.execute(insert(DBResource), data_resource)
-    session.execute(insert(DBSector), data_sector)
+    session.execute(insert(DBOperationalPresence), data_operational_presence)
+    session.execute(insert(DBFoodSecurity), data_food_security)
+    session.execute(insert(DBHumanitarianNeeds), data_humanitarian_needs)
 
     session.commit()
 

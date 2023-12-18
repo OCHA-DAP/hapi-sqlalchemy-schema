@@ -14,10 +14,11 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
-from hapi_schema.db_age_range import DBAgeRange
 from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_gender import DBGender
 from hapi_schema.db_location import DBLocation
+from hapi_schema.db_population_group import DBPopulationGroup
+from hapi_schema.db_population_status import DBPopulationStatus
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
@@ -44,14 +45,15 @@ class DBHumanitarianNeeds(Base):
     disabled_marker: Mapped[bool] = mapped_column(
         Boolean, nullable=True, server_default=text("NULL")
     )
-    sector_code = mapped_column(
+    sector_code: Mapped[str] = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"), nullable=True
     )
     population_group_code: Mapped[str] = mapped_column(
         ForeignKey("population_group.code", onupdate="CASCADE"), nullable=True
     )
     population_status_code: Mapped[str] = mapped_column(
-        ForeignKey("population_status.code", onupdate="CASCADE"), nullable=True
+        ForeignKey("population_status.code", onupdate="CASCADE"),
+        nullable=False,
     )
     population: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
@@ -95,7 +97,9 @@ view_params_humanitarian_needs = ViewParams(
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
         DBGender.description.label("gender_description"),
-        DBSector.name.label("sector_name")
+        DBSector.name.label("sector_name"),
+        DBPopulationGroup.description.label("population_group_description"),
+        DBPopulationStatus.description.label("population_status_description"),
     ).select_from(
         # Join pop to admin2 to admin1 to loc
         DBHumanitarianNeeds.__table__.join(
@@ -130,16 +134,24 @@ view_params_humanitarian_needs = ViewParams(
             DBHumanitarianNeeds.gender_code == DBGender.code,
             isouter=True,
         )
-        # Join needs to age range
-        .join(
-            DBAgeRange.__table__,
-            DBHumanitarianNeeds.age_range_code == DBAgeRange.code,
-            isouter=True,
-        )
         # Join needs to sector
         .join(
             DBSector.__table__,
             DBHumanitarianNeeds.sector_code == DBSector.code,
+            isouter=True,
+        )
+        # Join needs to pop group
+        .join(
+            DBPopulationGroup.__table__,
+            DBHumanitarianNeeds.population_group_code
+            == DBPopulationGroup.code,
+            isouter=True,
+        )
+        # Join needs to pop status
+        .join(
+            DBPopulationStatus.__table__,
+            DBHumanitarianNeeds.population_status_code
+            == DBPopulationStatus.code,
             isouter=True,
         )
     ),
