@@ -14,7 +14,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_dataset import DBDataset
-from hapi_schema.db_gender import DBGender
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
@@ -76,7 +75,6 @@ view_params_population = ViewParams(
         DBAdmin2.code.label("admin2_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
-        DBGender.description.label("gender_description")
     ).select_from(
         # Join pop to admin2 to admin1 to loc
         DBPopulation.__table__.join(
@@ -103,12 +101,6 @@ view_params_population = ViewParams(
         .join(
             DBDataset.__table__,
             DBResource.dataset_ref == DBDataset.id,
-            isouter=True,
-        )
-        # Join pop to gender
-        .join(
-            DBGender.__table__,
-            DBPopulation.gender_code == DBGender.code,
             isouter=True,
         )
     ),

@@ -17,6 +17,6 @@ def test_population_view(run_view_test):
             view_population.c.admin2_code == "FOO-001-XXX",
             view_population.c.admin1_code == "FOO-001",
             view_population.c.location_code == "FOO",
-            view_population.c.gender_description == "female",
+            view_population.c.gender_code == "f",
         ),
     )

@@ -19,13 +19,11 @@ def test_humanitarian_needs_view(run_view_test):
             view_humanitarian_needs.c.admin2_code == "FOO-001-XXX",
             view_humanitarian_needs.c.admin1_code == "FOO-001",
             view_humanitarian_needs.c.location_code == "FOO",
-            view_humanitarian_needs.c.gender_description == "female",
+            view_humanitarian_needs.c.gender_code == "f",
             view_humanitarian_needs.c.disabled_marker == True,  # noqa: E712
             view_humanitarian_needs.c.sector_name
             == "Water Sanitation Hygiene",
-            view_humanitarian_needs.c.population_group_description
-            == "internally displaced persons",
-            view_humanitarian_needs.c.population_status_description
-            == "number of people in need",
+            view_humanitarian_needs.c.population_group_code == "idps",
+            view_humanitarian_needs.c.population_status_code == "inneed",
         ),
     )
