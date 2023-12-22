@@ -34,11 +34,11 @@ class DBOperationalPresence(Base):
     admin2_ref: Mapped[int] = mapped_column(
         ForeignKey("admin2.id", onupdate="CASCADE"), nullable=False
     )
-    org_ref: Mapped[str] = mapped_column(
-        ForeignKey("org.id", onupdate="CASCADE"), nullable=False
-    )
     sector_code: Mapped[str] = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"), nullable=False
+    )
+    org_ref: Mapped[str] = mapped_column(
+        ForeignKey("org.id", onupdate="CASCADE"), nullable=False
     )
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, index=True
@@ -50,8 +50,8 @@ class DBOperationalPresence(Base):
 
     resource = relationship("DBResource")
     admin2 = relationship("DBAdmin2")
-    org = relationship("DBOrg")
     sector = relationship("DBSector")
+    org = relationship("DBOrg")
 
 
 view_params_operational_presence = ViewParams(
@@ -75,11 +75,11 @@ view_params_operational_presence = ViewParams(
         DBAdmin2.code.label("admin2_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
+        DBSector.name.label("sector_name"),
         DBOrg.acronym.label("org_acronym"),
         DBOrg.name.label("org_name"),
         DBOrg.org_type_code.label("org_type_code"),
-        DBOrgType.description.label("org_type_description"),
-        DBSector.name.label("sector_name")
+        DBOrgType.description.label("org_type_description")
     ).select_from(
         # Join op to admin2 to admin1 to loc
         DBOperationalPresence.__table__.join(
@@ -108,6 +108,12 @@ view_params_operational_presence = ViewParams(
             DBResource.dataset_ref == DBDataset.id,
             isouter=True,
         )
+        # Join op to sector
+        .join(
+            DBSector.__table__,
+            DBOperationalPresence.sector_code == DBSector.code,
+            isouter=True,
+        )
         # Join op to org to org type
         .join(
             DBOrg.__table__,
@@ -117,12 +123,6 @@ view_params_operational_presence = ViewParams(
         .join(
             DBOrgType.__table__,
             DBOrg.org_type_code == DBOrgType.code,
-            isouter=True,
-        )
-        # Join op to sector
-        .join(
-            DBSector.__table__,
-            DBOperationalPresence.sector_code == DBSector.code,
             isouter=True,
         )
     ),
