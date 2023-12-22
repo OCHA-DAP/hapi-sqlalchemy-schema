@@ -33,6 +33,13 @@ class DBHumanitarianNeeds(Base):
     admin2_ref: Mapped[int] = mapped_column(
         ForeignKey("admin2.id", onupdate="CASCADE"), nullable=False
     )
+    population_status_code: Mapped[str] = mapped_column(
+        ForeignKey("population_status.code", onupdate="CASCADE"),
+        nullable=True,
+    )
+    population_group_code: Mapped[str] = mapped_column(
+        ForeignKey("population_group.code", onupdate="CASCADE"), nullable=True
+    )
     sector_code: Mapped[str] = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"), nullable=True
     )
@@ -44,13 +51,6 @@ class DBHumanitarianNeeds(Base):
     )
     disabled_marker: Mapped[bool] = mapped_column(
         Boolean, nullable=True, server_default=text("NULL")
-    )
-    population_group_code: Mapped[str] = mapped_column(
-        ForeignKey("population_group.code", onupdate="CASCADE"), nullable=True
-    )
-    population_status_code: Mapped[str] = mapped_column(
-        ForeignKey("population_status.code", onupdate="CASCADE"),
-        nullable=True,
     )
     population: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
