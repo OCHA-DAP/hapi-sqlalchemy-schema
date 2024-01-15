@@ -30,24 +30,12 @@ class DBNationalRisk(Base):
     location_ref: Mapped[int] = mapped_column(
         ForeignKey("location.id", onupdate="CASCADE"), nullable=False
     )
-    risk_class: Mapped[int] = mapped_column(
-        Integer, nullable=False
-    )
-    global_rank: Mapped[int] = mapped_column(
-        Integer, nullable=False
-    )
-    overall_risk: Mapped[float] = mapped_column(
-        Float, nullable=False
-    )
-    hazard_exposure_risk: Mapped[float] = mapped_column(
-        Float, nullable=False
-    )
-    vulnerability_risk: Mapped[float] = mapped_column(
-        Float, nullable=False
-    )
-    coping_capacity_risk: Mapped[float] = mapped_column(
-        Float, nullable=False
-    )
+    risk_class: Mapped[int] = mapped_column(Integer, nullable=False)
+    global_rank: Mapped[int] = mapped_column(Integer, nullable=False)
+    overall_risk: Mapped[float] = mapped_column(Float, nullable=False)
+    hazard_exposure_risk: Mapped[float] = mapped_column(Float, nullable=False)
+    vulnerability_risk: Mapped[float] = mapped_column(Float, nullable=False)
+    coping_capacity_risk: Mapped[float] = mapped_column(Float, nullable=False)
     meta_missing_indicators_pct: Mapped[float] = mapped_column(
         Float, nullable=False
     )
@@ -93,8 +81,7 @@ view_params_national_risk = ViewParams(
             DBResource.__table__,
             DBNationalRisk.resource_ref == DBResource.id,
             isouter=True,
-        )
-        .join(
+        ).join(
             DBDataset.__table__,
             DBResource.dataset_ref == DBDataset.id,
             isouter=True,

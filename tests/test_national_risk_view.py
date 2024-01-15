@@ -5,9 +5,7 @@ from hapi_schema.db_national_risk import view_params_national_risk
 
 def test_national_risk_view(run_view_test):
     """Check that national risk references other tables."""
-    view_national_risk = build_view(
-        view_params_national_risk.__dict__
-    )
+    view_national_risk = build_view(view_params_national_risk.__dict__)
     run_view_test(
         view=view_national_risk,
         whereclause=(
