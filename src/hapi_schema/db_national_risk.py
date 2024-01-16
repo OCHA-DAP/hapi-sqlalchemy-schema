@@ -37,10 +37,10 @@ class DBNationalRisk(Base):
     vulnerability_risk: Mapped[float] = mapped_column(Float, nullable=False)
     coping_capacity_risk: Mapped[float] = mapped_column(Float, nullable=False)
     meta_missing_indicators_pct: Mapped[float] = mapped_column(
-        Float, nullable=False
+        Float, nullable=True
     )
     meta_avg_recentness_years: Mapped[float] = mapped_column(
-        Float, nullable=False
+        Float, nullable=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, index=True
