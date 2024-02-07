@@ -99,7 +99,8 @@ view_params_national_risk = ViewParams(
             DBResource.__table__,
             DBNationalRisk.resource_ref == DBResource.id,
             isouter=True,
-        ).join(
+        )
+        .join(
             DBDataset.__table__,
             DBResource.dataset_ref == DBDataset.id,
             isouter=True,
