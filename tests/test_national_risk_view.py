@@ -14,6 +14,8 @@ def test_national_risk_view(run_view_test):
             == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
             view_national_risk.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_national_risk.c.admin2_code == "FOO-XXX-XXX",
+            view_national_risk.c.admin1_code == "FOO-XXX",
             view_national_risk.c.location_code == "FOO",
         ),
     )

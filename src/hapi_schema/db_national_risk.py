@@ -12,6 +12,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from hapi_schema.db_admin1 import DBAdmin1
+from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
@@ -27,8 +29,8 @@ class DBNationalRisk(Base):
         ForeignKey("resource.id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
-    location_ref: Mapped[int] = mapped_column(
-        ForeignKey("location.id", onupdate="CASCADE"), nullable=False
+    admin2_ref: Mapped[int] = mapped_column(
+        ForeignKey("admin2.id", onupdate="CASCADE"), nullable=False
     )
     risk_class: Mapped[int] = mapped_column(Integer, nullable=False)
     global_rank: Mapped[int] = mapped_column(Integer, nullable=False)
@@ -51,7 +53,7 @@ class DBNationalRisk(Base):
     source_data: Mapped[str] = mapped_column(Text, nullable=True)
 
     resource = relationship("DBResource")
-    location = relationship("DBLocation")
+    admin2 = relationship("DBAdmin2")
 
 
 view_params_national_risk = ViewParams(
@@ -69,11 +71,27 @@ view_params_national_risk = ViewParams(
         DBResource.update_date.label("resource_update_date"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
+        DBAdmin1.code.label("admin1_code"),
+        DBAdmin1.name.label("admin1_name"),
+        DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
+        DBAdmin2.code.label("admin2_code"),
+        DBAdmin2.name.label("admin2_name"),
+        DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
     ).select_from(
-        # Join risk to loc
+        # Join risk to admin 2 to admin 1 to loc
         DBNationalRisk.__table__.join(
+            DBAdmin2.__table__,
+            DBNationalRisk.admin2_ref == DBAdmin2.id,
+            isouter=True,
+        )
+        .join(
+            DBAdmin1.__table__,
+            DBAdmin2.admin1_ref == DBAdmin1.id,
+            isouter=True,
+        )
+        .join(
             DBLocation.__table__,
-            DBNationalRisk.location_ref == DBLocation.id,
+            DBAdmin1.location_ref == DBLocation.id,
             isouter=True,
         )
         # Join risk to resource to dataset
