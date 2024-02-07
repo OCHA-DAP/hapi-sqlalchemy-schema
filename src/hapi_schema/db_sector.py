@@ -1,4 +1,5 @@
 """Sector table and view."""
+
 from datetime import datetime
 
 from sqlalchemy import DateTime, String, select, text

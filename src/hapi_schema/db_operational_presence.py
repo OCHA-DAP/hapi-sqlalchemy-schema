@@ -1,4 +1,5 @@
 """OperationalPresence table and view."""
+
 from datetime import datetime
 
 from sqlalchemy import (
@@ -79,7 +80,7 @@ view_params_operational_presence = ViewParams(
         DBOrg.name.label("org_name"),
         DBOrg.org_type_code.label("org_type_code"),
         DBOrgType.description.label("org_type_description"),
-        DBSector.name.label("sector_name")
+        DBSector.name.label("sector_name"),
     ).select_from(
         # Join op to admin2 to admin1 to loc
         DBOperationalPresence.__table__.join(
