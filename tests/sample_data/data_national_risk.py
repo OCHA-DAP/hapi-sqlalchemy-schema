@@ -4,7 +4,7 @@ data_national_risk = [
     dict(
         id=1,
         resource_ref=1,
-        location_ref=1,
+        admin2_ref=1,
         risk_class=5,
         global_rank=4,
         overall_risk=8.1,

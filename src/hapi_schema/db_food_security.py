@@ -1,4 +1,5 @@
 """Population table and view."""
+
 from datetime import datetime
 
 from sqlalchemy import (
@@ -79,7 +80,7 @@ view_params_food_security = ViewParams(
         DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
         DBAdmin2.code.label("admin2_code"),
         DBAdmin2.name.label("admin2_name"),
-        DBAdmin2.is_unspecified.label("admin2_is_unspecified")
+        DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
     ).select_from(
         # Join pop to admin2 to admin1 to loc
         DBFoodSecurity.__table__.join(
