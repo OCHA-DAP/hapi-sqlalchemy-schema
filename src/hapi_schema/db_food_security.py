@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from sqlalchemy import (
+    CheckConstraint,
     DateTime,
     Float,
     ForeignKey,
@@ -26,6 +27,23 @@ from hapi_schema.utils.view_params import ViewParams
 
 class DBFoodSecurity(Base):
     __tablename__ = "food_security"
+    __table_args__ = (
+        CheckConstraint(
+            "ipc_phase_code IN (1, 2, 3, 4, 5)", name="ipc_phase_code"
+        ),
+        CheckConstraint(
+            'ipc_type_code IN ("current", "first projection", "second projection")',
+            name="ipc_phase_code",
+        ),
+        CheckConstraint(
+            "population_fraction_in_phase >= 0 AND population_fraction_in_phase <=1",
+            name="population_fraction_in_phase",
+        ),
+        CheckConstraint(
+            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
+            name="reference_period",
+        ),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     resource_ref: Mapped[int] = mapped_column(
@@ -41,15 +59,17 @@ class DBFoodSecurity(Base):
     ipc_type_code: Mapped[str] = mapped_column(
         ForeignKey("ipc_type.code", onupdate="CASCADE"), nullable=False
     )
-    population_in_phase: Mapped[int] = mapped_column(Integer, nullable=False)
+    population_in_phase: Mapped[int] = mapped_column(
+        Integer, nullable=False, index=True
+    )
     population_fraction_in_phase: Mapped[float] = mapped_column(
-        Float, nullable=False
+        Float, nullable=False, index=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False
+        DateTime, nullable=False, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL")
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
     source_data: Mapped[str] = mapped_column(Text, nullable=True)
 

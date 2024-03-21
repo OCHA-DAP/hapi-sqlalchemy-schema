@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from sqlalchemy import (
+    CheckConstraint,
     DateTime,
     ForeignKey,
     Integer,
@@ -19,6 +20,16 @@ from hapi_schema.utils.view_params import ViewParams
 
 class DBOrg(Base):
     __tablename__ = "org"
+    __table_args__ = (
+        CheckConstraint(
+            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
+            name="reference_period",
+        ),
+        CheckConstraint(
+            "((hapi_replaced_date IS NULL) OR (hapi_replaced_date >= hapi_update_date)",
+            name="hapi_dates",
+        ),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     acronym = mapped_column(String(32), nullable=False, index=True)
@@ -31,7 +42,11 @@ class DBOrg(Base):
         DateTime, nullable=False, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL")
+        DateTime, nullable=True, server_default=text("NULL"), index=True
+    )
+    hapi_updated_date = mapped_column(DateTime, nullable=False, index=True)
+    hapi_replaced_date: Mapped[datetime] = mapped_column(
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
 
     org_type = relationship("DBOrgType")

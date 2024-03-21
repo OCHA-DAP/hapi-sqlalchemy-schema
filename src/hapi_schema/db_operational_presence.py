@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from sqlalchemy import (
+    CheckConstraint,
     DateTime,
     ForeignKey,
     Integer,
@@ -26,6 +27,12 @@ from hapi_schema.utils.view_params import ViewParams
 
 class DBOperationalPresence(Base):
     __tablename__ = "operational_presence"
+    __table_args__ = (
+        CheckConstraint(
+            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
+            name="reference_period",
+        ),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     resource_ref = mapped_column(
@@ -45,7 +52,7 @@ class DBOperationalPresence(Base):
         DateTime, nullable=False, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL")
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
     source_data: Mapped[str] = mapped_column(Text, nullable=True)
 

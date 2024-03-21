@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from sqlalchemy import (
+    CheckConstraint,
     DateTime,
     Float,
     ForeignKey,
@@ -24,6 +25,16 @@ from hapi_schema.utils.view_params import ViewParams
 
 class DBNationalRisk(Base):
     __tablename__ = "national_risk"
+    __table_args__ = (
+        CheckConstraint(
+            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
+            name="reference_period",
+        ),
+        CheckConstraint(
+            "((hapi_replaced_date IS NULL) OR (hapi_replaced_date >= hapi_update_date)",
+            name="hapi_dates",
+        ),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     resource_ref: Mapped[int] = mapped_column(
@@ -49,7 +60,7 @@ class DBNationalRisk(Base):
         DateTime, nullable=False, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL")
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
     source_data: Mapped[str] = mapped_column(Text, nullable=True)
 
