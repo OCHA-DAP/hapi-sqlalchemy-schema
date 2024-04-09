@@ -30,10 +30,6 @@ class DBNationalRisk(Base):
             "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
             name="reference_period",
         ),
-        CheckConstraint(
-            "((hapi_replaced_date IS NULL) OR (hapi_replaced_date >= hapi_update_date)",
-            name="hapi_dates",
-        ),
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

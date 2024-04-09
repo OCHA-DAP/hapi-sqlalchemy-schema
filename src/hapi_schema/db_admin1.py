@@ -28,7 +28,7 @@ class DBAdmin1(Base):
             name="reference_period",
         ),
         CheckConstraint(
-            "((hapi_replaced_date IS NULL) OR (hapi_replaced_date >= hapi_update_date)",
+            "(hapi_replaced_date IS NULL) OR (hapi_replaced_date >= hapi_updated_date)",
             name="hapi_dates",
         ),
         UniqueConstraint("code", "hapi_updated_date", name="code_date_unique"),
