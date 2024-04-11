@@ -1,6 +1,11 @@
+from datetime import datetime
+
 from hdx.database.views import build_view
 
-from hapi_schema.db_food_security import view_params_food_security
+from hapi_schema.db_food_security import (
+    DBFoodSecurity,
+    view_params_food_security,
+)
 
 
 def test_food_security_view(run_view_test):
@@ -19,4 +24,62 @@ def test_food_security_view(run_view_test):
             view_food_security.c.admin1_code == "FOO-001",
             view_food_security.c.location_code == "FOO",
         ),
+    )
+
+
+def test_reference_period_constraint(run_constraints_test):
+    """Check that reference_period_end cannot be less than start"""
+    run_constraints_test(
+        new_rows=[
+            DBFoodSecurity(
+                resource_ref=3,
+                admin2_ref=4,
+                ipc_phase_code="all",
+                ipc_type_code="current",
+                population_in_phase=1_000,
+                population_fraction_in_phase=1,
+                reference_period_start=datetime(2023, 2, 1),
+                reference_period_end=datetime(2023, 1, 1),
+                source_data="DATA,DATA,DATA",
+            )
+        ],
+        expected_constraint="reference_period",
+    )
+
+
+def test_population_fraction(run_constraints_test):
+    """Check that pop fraction msut be between 0 and 1"""
+    # Greater than 1
+    run_constraints_test(
+        new_rows=[
+            DBFoodSecurity(
+                resource_ref=3,
+                admin2_ref=4,
+                ipc_phase_code="all",
+                ipc_type_code="current",
+                population_in_phase=1_000,
+                population_fraction_in_phase=10,
+                reference_period_start=None,
+                reference_period_end=None,
+                source_data="DATA,DATA,DATA",
+            )
+        ],
+        expected_constraint="population_fraction_in_phase",
+    )
+    # Less than 0
+    run_constraints_test(
+        new_rows=[
+            DBFoodSecurity(
+                resource_ref=3,
+                admin2_ref=4,
+                ipc_phase_code="all",
+                ipc_type_code="current",
+                population_in_phase=1_000,
+                population_fraction_in_phase=-10,
+                reference_period_start=None,
+                reference_period_end=None,
+                source_data="DATA,DATA,DATA",
+            )
+        ],
+        expected_constraint="population_fraction_in_phase",
     )
