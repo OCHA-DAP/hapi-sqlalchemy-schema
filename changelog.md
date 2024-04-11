@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0]
+
+### Added
+- Missing constraints
+- Tests on the constraints
+- `hapi_updated_date` and `hapi_replaced_date` fields
+
+### Changed
+
+- Small changes to other dates for HAPI v2
+
 ## [0.6.2]
 
 ### Changed
