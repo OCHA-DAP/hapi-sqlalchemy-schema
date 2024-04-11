@@ -29,13 +29,6 @@ class DBFoodSecurity(Base):
     __tablename__ = "food_security"
     __table_args__ = (
         CheckConstraint(
-            "ipc_phase_code IN (1, 2, 3, 4, 5)", name="ipc_phase_code"
-        ),
-        CheckConstraint(
-            'ipc_type_code IN ("current", "first projection", "second projection")',
-            name="ipc_phase_code",
-        ),
-        CheckConstraint(
             "population_fraction_in_phase >= 0 AND population_fraction_in_phase <=1",
             name="population_fraction_in_phase",
         ),

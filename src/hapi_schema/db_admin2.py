@@ -46,11 +46,12 @@ class DBAdmin2(Base):
         Boolean, server_default=text("FALSE")
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL")
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
+
     hapi_updated_date = mapped_column(DateTime, nullable=False, index=True)
     hapi_replaced_date: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL"), index=True
