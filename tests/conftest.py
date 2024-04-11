@@ -1,6 +1,9 @@
+from typing import List
+
 import pytest
 from sqlalchemy import create_engine, insert, text
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.ext.declarative import DeclarativeMeta
 from sqlalchemy.orm import sessionmaker
 
 from hapi_schema.db_admin1 import DBAdmin1
@@ -101,10 +104,15 @@ def run_view_test(engine):
 
 @pytest.fixture(scope="session")
 def run_constraints_test(engine):
-    def _run_constraints_test(new_row, expected_constraint):
+    def _run_constraints_test(
+        new_rows: List[DeclarativeMeta], expected_constraint: str
+    ):
+        """Test that a constraint will be triggered by passing its name
+        and a list of one or more rows that violate it."""
         Base.metadata.create_all(engine)
         session = sessionmaker(bind=engine)()
-        session.add(new_row)
+        for new_row in new_rows:
+            session.add(new_row)
         with pytest.raises(IntegrityError) as exc_info:
             session.commit()
         assert expected_constraint in str(exc_info.value)

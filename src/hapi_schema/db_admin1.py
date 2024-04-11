@@ -31,7 +31,7 @@ class DBAdmin1(Base):
             "(hapi_replaced_date IS NULL) OR (hapi_replaced_date >= hapi_updated_date)",
             name="hapi_dates",
         ),
-        UniqueConstraint("code", "hapi_updated_date", name="code_date_unique"),
+        UniqueConstraint("code", "hapi_updated_date"),
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -39,7 +39,7 @@ class DBAdmin1(Base):
         ForeignKey("location.id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
-    code: Mapped[str] = mapped_column(String(128), unique=True, nullable=False)
+    code: Mapped[str] = mapped_column(String(128), nullable=False)
     name: Mapped[str] = mapped_column(String(512), nullable=False)
     is_unspecified: Mapped[bool] = mapped_column(
         Boolean, server_default=text("FALSE")
