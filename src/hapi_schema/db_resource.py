@@ -22,7 +22,10 @@ from hapi_schema.utils.view_params import ViewParams
 class DBResource(Base):
     __tablename__ = "resource"
     __table_args__ = (
-        CheckConstraint("hapi_replaced_date >= hapi_updated_date"),
+        CheckConstraint(
+            "(hapi_replaced_date IS NULL) OR (hapi_replaced_date >= hapi_updated_date)",
+            name="hapi_dates",
+        ),
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

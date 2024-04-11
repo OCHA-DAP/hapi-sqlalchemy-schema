@@ -1,6 +1,8 @@
+from datetime import datetime
+
 from hdx.database.views import build_view
 
-from hapi_schema.db_population import view_params_population
+from hapi_schema.db_population import DBPopulation, view_params_population
 
 
 def test_population_view(run_view_test):
@@ -19,4 +21,42 @@ def test_population_view(run_view_test):
             view_population.c.location_code == "FOO",
             view_population.c.gender_code == "f",
         ),
+    )
+
+
+def test_reference_period_constraint(run_constraints_test):
+    """Check that reference_period_end cannot be less than start"""
+    run_constraints_test(
+        new_rows=[
+            DBPopulation(
+                resource_ref=1,
+                admin2_ref=1,
+                gender_code=None,
+                age_range_code=None,
+                population=1_000_000,
+                reference_period_start=datetime(2023, 1, 2),
+                reference_period_end=datetime(2023, 1, 1),
+                source_data="DATA,DATA,DATA",
+            )
+        ],
+        expected_constraint="reference_period",
+    )
+
+
+def test_population_positive(run_constraints_test):
+    """Check that the population value is positive"""
+    run_constraints_test(
+        new_rows=[
+            DBPopulation(
+                resource_ref=1,
+                admin2_ref=1,
+                gender_code=None,
+                age_range_code=None,
+                population=-1,
+                reference_period_start=None,
+                reference_period_end=None,
+                source_data="DATA,DATA,DATA",
+            ),
+        ],
+        expected_constraint="population",
     )

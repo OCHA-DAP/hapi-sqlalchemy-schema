@@ -37,7 +37,7 @@ def test_reference_period_constraint(run_constraints_test):
 
 
 def test_hapi_date_constraint(run_constraints_test):
-    """Check that hapi_replaced_date cannot be less than hapi_udpated_date"""
+    """Check that hapi_replaced_date cannot be less than hapi_updated_date"""
     run_constraints_test(
         new_rows=[
             DBAdmin1(
