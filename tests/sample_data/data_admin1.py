@@ -10,7 +10,7 @@ data_admin1 = [
         reference_period_start=None,
         reference_period_end=None,
         hapi_updated_date=datetime(2023, 1, 1),
-        hapi_replacement_date=None,
+        hapi_replaced_date=None,
     ),
     dict(
         id=2,
@@ -21,7 +21,7 @@ data_admin1 = [
         reference_period_start=None,
         reference_period_end=None,
         hapi_updated_date=datetime(2023, 1, 1),
-        hapi_replacement_date=None,
+        hapi_replaced_date=None,
     ),
     dict(
         id=3,
@@ -32,6 +32,6 @@ data_admin1 = [
         reference_period_start=None,
         reference_period_end=None,
         hapi_updated_date=datetime(2023, 1, 1),
-        hapi_replacement_date=None,
+        hapi_replaced_date=None,
     ),
 ]

@@ -1,5 +1,6 @@
 import pytest
-from sqlalchemy import create_engine, insert
+from sqlalchemy import create_engine, insert, text
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
 from hapi_schema.db_admin1 import DBAdmin1
@@ -49,25 +50,32 @@ from sample_data.data_sector import data_sector
 def engine():
     engine = create_engine(url="sqlite:///:memory:")
 
+    # Execute pragma statement to enable foreign key constraints
+    with engine.connect() as conn:
+        conn.execute(text("PRAGMA foreign_keys = ON;"))
+
     # Build the DB
     Base.metadata.create_all(engine)
     session = sessionmaker(bind=engine)()
 
     # Populate all tables
-    session.execute(insert(DBResource), data_resource)
     session.execute(insert(DBDataset), data_dataset)
+    session.execute(insert(DBResource), data_resource)
+
     session.execute(insert(DBLocation), data_location)
     session.execute(insert(DBAdmin1), data_admin1)
     session.execute(insert(DBAdmin2), data_admin2)
+
     session.execute(insert(DBPopulationStatus), data_population_status)
     session.execute(insert(DBPopulationGroup), data_population_group)
-    session.execute(insert(DBOrg), data_org)
     session.execute(insert(DBOrgType), data_org_type)
+    session.execute(insert(DBOrg), data_org)
     session.execute(insert(DBSector), data_sector)
     session.execute(insert(DBIpcPhase), data_ipc_phase)
     session.execute(insert(DBIpcType), data_ipc_type)
     session.execute(insert(DBGender), data_gender)
     session.execute(insert(DBAgeRange), data_age_range)
+
     session.execute(insert(DBNationalRisk), data_national_risk)
     session.execute(insert(DBPopulation), data_population)
     session.execute(insert(DBOperationalPresence), data_operational_presence)
@@ -89,3 +97,16 @@ def run_view_test(engine):
         assert result.fetchone()
 
     return _run_view_test
+
+
+@pytest.fixture(scope="session")
+def run_constraints_test(engine):
+    def _run_constraints_test(new_row, expected_constraint):
+        Base.metadata.create_all(engine)
+        session = sessionmaker(bind=engine)()
+        session.add(new_row)
+        with pytest.raises(IntegrityError) as exc_info:
+            session.commit()
+        assert expected_constraint in str(exc_info.value)
+
+    return _run_constraints_test
