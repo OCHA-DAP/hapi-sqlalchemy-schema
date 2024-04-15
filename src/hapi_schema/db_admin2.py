@@ -4,10 +4,12 @@ from datetime import datetime
 
 from sqlalchemy import (
     Boolean,
+    CheckConstraint,
     DateTime,
     ForeignKey,
     Integer,
     String,
+    UniqueConstraint,
     select,
     text,
 )
@@ -21,22 +23,38 @@ from hapi_schema.utils.view_params import ViewParams
 
 class DBAdmin2(Base):
     __tablename__ = "admin2"
+    __table_args__ = (
+        CheckConstraint(
+            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
+            name="reference_period",
+        ),
+        CheckConstraint(
+            "(hapi_replaced_date IS NULL) OR (hapi_replaced_date >= hapi_updated_date)",
+            name="hapi_dates",
+        ),
+        UniqueConstraint("code", "hapi_updated_date", name="code_date_unique"),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     admin1_ref: Mapped[int] = mapped_column(
         ForeignKey("admin1.id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
-    code: Mapped[str] = mapped_column(String(128), unique=True, nullable=False)
+    code: Mapped[str] = mapped_column(String(128), nullable=False)
     name: Mapped[str] = mapped_column(String(512), nullable=False)
     is_unspecified: Mapped[bool] = mapped_column(
         Boolean, server_default=text("FALSE")
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL")
+        DateTime, nullable=True, server_default=text("NULL"), index=True
+    )
+
+    hapi_updated_date = mapped_column(DateTime, nullable=False, index=True)
+    hapi_replaced_date: Mapped[datetime] = mapped_column(
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
 
     admin1 = relationship("DBAdmin1")

@@ -1,6 +1,9 @@
+from datetime import datetime
+
 from hdx.database.views import build_view
 
 from hapi_schema.db_operational_presence import (
+    DBOperationalPresence,
     view_params_operational_presence,
 )
 
@@ -27,4 +30,22 @@ def test_operational_presence_view(run_view_test):
             view_operational_presence.c.sector_name
             == "Water Sanitation Hygiene",
         ),
+    )
+
+
+def test_reference_period_constraint(run_constraints_test):
+    """Check that reference_period_end cannot be less than start"""
+    run_constraints_test(
+        new_rows=[
+            DBOperationalPresence(
+                resource_ref=1,
+                admin2_ref=2,
+                org_ref=1,
+                sector_code="SHL",
+                reference_period_start=datetime(2023, 1, 2),
+                reference_period_end=datetime(2023, 1, 1),
+                source_data="DATA,DATA,DATA",
+            )
+        ],
+        expected_constraint="reference_period",
     )
