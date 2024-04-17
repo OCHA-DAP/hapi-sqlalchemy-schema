@@ -42,8 +42,8 @@ class DBOperationalPresence(Base):
     admin2_ref: Mapped[int] = mapped_column(
         ForeignKey("admin2.id", onupdate="CASCADE"), nullable=False
     )
-    org_ref: Mapped[str] = mapped_column(
-        ForeignKey("org.id", onupdate="CASCADE"), nullable=False
+    org_ident: Mapped[str] = mapped_column(
+        ForeignKey("org.ident", onupdate="CASCADE"), nullable=False
     )
     sector_code: Mapped[str] = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"), nullable=False
@@ -123,7 +123,7 @@ view_params_operational_presence = ViewParams(
         # Join op to org to org type
         .join(
             DBOrg.__table__,
-            DBOperationalPresence.org_ref == DBOrg.id,
+            DBOperationalPresence.org_ident == DBOrg.ident,
             isouter=True,
         )
         .join(

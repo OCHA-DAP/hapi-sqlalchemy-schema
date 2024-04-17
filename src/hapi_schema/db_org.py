@@ -6,8 +6,8 @@ from sqlalchemy import (
     CheckConstraint,
     DateTime,
     ForeignKey,
-    Integer,
     String,
+    UniqueConstraint,
     select,
     text,
 )
@@ -25,13 +25,10 @@ class DBOrg(Base):
             "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
             name="reference_period",
         ),
-        CheckConstraint(
-            "(hapi_replaced_date IS NULL) OR (hapi_replaced_date >= hapi_updated_date)",
-            name="hapi_dates",
-        ),
+        UniqueConstraint("acronym", "name"),
     )
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    ident: Mapped[int] = mapped_column(String(32), primary_key=True)
     acronym = mapped_column(String(32), nullable=False, index=True)
     name: Mapped[str] = mapped_column(String(512), nullable=False)
     org_type_code: Mapped[str] = mapped_column(
@@ -42,10 +39,6 @@ class DBOrg(Base):
         DateTime, nullable=True, server_default=text("NULL"), index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL"), index=True
-    )
-    hapi_updated_date = mapped_column(DateTime, nullable=False, index=True)
-    hapi_replaced_date: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL"), index=True
     )
 

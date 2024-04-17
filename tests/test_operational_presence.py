@@ -40,7 +40,7 @@ def test_reference_period_constraint(run_constraints_test):
             DBOperationalPresence(
                 resource_ref=1,
                 admin2_ref=2,
-                org_ref=1,
+                org_ident="611c255706bfb8370827cba2a149a45f",
                 sector_code="SHL",
                 reference_period_start=datetime(2023, 1, 2),
                 reference_period_end=datetime(2023, 1, 1),
