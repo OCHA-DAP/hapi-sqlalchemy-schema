@@ -16,6 +16,7 @@ def test_population_view(run_view_test):
             == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
             view_population.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_population.c.resource_name == "resource-01.csv",
             view_population.c.admin2_code == "FOO-001-XXX",
             view_population.c.admin1_code == "FOO-001",
             view_population.c.location_code == "FOO",
@@ -29,7 +30,7 @@ def test_reference_period_constraint(run_constraints_test):
     run_constraints_test(
         new_rows=[
             DBPopulation(
-                resource_ref=1,
+                resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
                 admin2_ref=1,
                 gender_code=None,
                 age_range_code=None,
@@ -48,7 +49,7 @@ def test_population_positive(run_constraints_test):
     run_constraints_test(
         new_rows=[
             DBPopulation(
-                resource_ref=1,
+                resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
                 admin2_ref=1,
                 gender_code=None,
                 age_range_code=None,

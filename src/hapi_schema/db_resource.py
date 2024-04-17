@@ -7,7 +7,6 @@ from sqlalchemy import (
     CheckConstraint,
     DateTime,
     ForeignKey,
-    Integer,
     String,
     select,
     text,
@@ -28,13 +27,10 @@ class DBResource(Base):
         ),
     )
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    dataset_ref: Mapped[int] = mapped_column(
-        ForeignKey("dataset.id", onupdate="CASCADE", ondelete="CASCADE"),
+    hdx_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    dataset_hdx_id: Mapped[int] = mapped_column(
+        ForeignKey("dataset.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
-    )
-    hdx_id: Mapped[str] = mapped_column(
-        String(36), unique=True, nullable=False
     )
     name: Mapped[str] = mapped_column(String(256), nullable=False)
     format: Mapped[str] = mapped_column(String(32), nullable=False)
@@ -55,7 +51,6 @@ view_params_resource = ViewParams(
     metadata=Base.metadata,
     selectable=select(
         *DBResource.__table__.columns,
-        DBDataset.hdx_id.label("dataset_hdx_id"),
         DBDataset.hdx_stub.label("dataset_hdx_stub"),
         DBDataset.title.label("dataset_title"),
         DBDataset.hdx_provider_stub.label("dataset_hdx_provider_stub"),
@@ -63,7 +58,7 @@ view_params_resource = ViewParams(
     ).select_from(
         DBResource.__table__.join(
             DBDataset.__table__,
-            DBResource.dataset_ref == DBDataset.id,
+            DBResource.dataset_hdx_id == DBDataset.hdx_id,
             isouter=True,
         )
     ),
