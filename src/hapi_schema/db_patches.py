@@ -21,13 +21,11 @@ class DBPatches(Base):
         String(48), unique=True, nullable=False
     )
     commit_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
-    patch_path: Mapped[str] = mapped_column(
-        String(128), unique=True, nullable=False
-    )
+    patch_path: Mapped[str] = mapped_column(String(128), nullable=False)
     permanent_download_url: Mapped[str] = mapped_column(
         String(1024), nullable=False, unique=True
     )
-    state: Mapped[str] = mapped_column(String(16), unique=True, nullable=False)
+    state: Mapped[str] = mapped_column(String(16), nullable=False)
     # discovered -> it was found in the patch repo
     # executed -> the patch was executed successfully
     # failed -> HWA tried to execute the patch but it failed (either pre-conditions

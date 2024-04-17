@@ -19,9 +19,7 @@ def test_db_patches(capfd):
         state VARCHAR(16) NOT NULL,
         PRIMARY KEY (id),
         UNIQUE (commit_hash),
-        UNIQUE (patch_path),
-        UNIQUE (permanent_download_url),
-        UNIQUE (state)
+        UNIQUE (permanent_download_url)
 )
 """
     captured_sql, _ = capfd.readouterr()
