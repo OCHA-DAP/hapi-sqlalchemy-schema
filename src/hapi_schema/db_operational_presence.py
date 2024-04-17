@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from sqlalchemy import (
+    CheckConstraint,
     DateTime,
     ForeignKey,
     Integer,
@@ -26,6 +27,12 @@ from hapi_schema.utils.view_params import ViewParams
 
 class DBOperationalPresence(Base):
     __tablename__ = "operational_presence"
+    __table_args__ = (
+        CheckConstraint(
+            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
+            name="reference_period",
+        ),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     resource_ref = mapped_column(
@@ -45,7 +52,7 @@ class DBOperationalPresence(Base):
         DateTime, nullable=False, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL")
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
     source_data: Mapped[str] = mapped_column(Text, nullable=True)
 
@@ -68,14 +75,18 @@ view_params_operational_presence = ViewParams(
         DBResource.hdx_id.label("resource_hdx_id"),
         DBResource.name.label("resource_name"),
         DBResource.update_date.label("resource_update_date"),
+        DBResource.hapi_updated_date.label("hapi_updated_date"),
+        DBResource.hapi_replaced_date.label("hapi_replaced_date"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
         DBAdmin1.code.label("admin1_code"),
         DBAdmin1.name.label("admin1_name"),
         DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
+        DBAdmin1.location_ref.label("location_ref"),
         DBAdmin2.code.label("admin2_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
+        DBAdmin2.admin1_ref.label("admin1_ref"),
         DBOrg.acronym.label("org_acronym"),
         DBOrg.name.label("org_name"),
         DBOrg.org_type_code.label("org_type_code"),

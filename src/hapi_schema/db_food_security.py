@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from sqlalchemy import (
+    CheckConstraint,
     DateTime,
     Float,
     ForeignKey,
@@ -26,6 +27,16 @@ from hapi_schema.utils.view_params import ViewParams
 
 class DBFoodSecurity(Base):
     __tablename__ = "food_security"
+    __table_args__ = (
+        CheckConstraint(
+            "population_fraction_in_phase >= 0 AND population_fraction_in_phase <=1",
+            name="population_fraction_in_phase",
+        ),
+        CheckConstraint(
+            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
+            name="reference_period",
+        ),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     resource_ref: Mapped[int] = mapped_column(
@@ -41,15 +52,17 @@ class DBFoodSecurity(Base):
     ipc_type_code: Mapped[str] = mapped_column(
         ForeignKey("ipc_type.code", onupdate="CASCADE"), nullable=False
     )
-    population_in_phase: Mapped[int] = mapped_column(Integer, nullable=False)
+    population_in_phase: Mapped[int] = mapped_column(
+        Integer, nullable=False, index=True
+    )
     population_fraction_in_phase: Mapped[float] = mapped_column(
-        Float, nullable=False
+        Float, nullable=False, index=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False
+        DateTime, nullable=False, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL")
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
     source_data: Mapped[str] = mapped_column(Text, nullable=True)
 
@@ -73,14 +86,18 @@ view_params_food_security = ViewParams(
         DBResource.hdx_id.label("resource_hdx_id"),
         DBResource.name.label("resource_name"),
         DBResource.update_date.label("resource_update_date"),
+        DBResource.hapi_updated_date.label("hapi_updated_date"),
+        DBResource.hapi_replaced_date.label("hapi_replaced_date"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
         DBAdmin1.code.label("admin1_code"),
         DBAdmin1.name.label("admin1_name"),
         DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
+        DBAdmin1.location_ref.label("location_ref"),
         DBAdmin2.code.label("admin2_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
+        DBAdmin2.admin1_ref.label("admin1_ref"),
     ).select_from(
         # Join pop to admin2 to admin1 to loc
         DBFoodSecurity.__table__.join(

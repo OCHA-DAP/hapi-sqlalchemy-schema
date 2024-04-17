@@ -1,6 +1,6 @@
 """IPC type table and view."""
 
-from sqlalchemy import String, select
+from sqlalchemy import CheckConstraint, String, select
 from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.utils.base import Base
@@ -9,7 +9,12 @@ from hapi_schema.utils.view_params import ViewParams
 
 class DBIpcType(Base):
     __tablename__ = "ipc_type"
-
+    __table_args__ = (
+        CheckConstraint(
+            'code IN ("current", "first projection", "second projection")',
+            name="ipc_phase_type",
+        ),
+    )
     code: Mapped[str] = mapped_column(String(32), primary_key=True)
     description: Mapped[str] = mapped_column(String(512), nullable=False)
 

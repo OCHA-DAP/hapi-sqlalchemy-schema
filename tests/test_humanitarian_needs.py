@@ -1,6 +1,11 @@
+from datetime import datetime
+
 from hdx.database.views import build_view
 
-from hapi_schema.db_humanitarian_needs import view_params_humanitarian_needs
+from hapi_schema.db_humanitarian_needs import (
+    DBHumanitarianNeeds,
+    view_params_humanitarian_needs,
+)
 
 
 def test_humanitarian_needs_view(run_view_test):
@@ -26,4 +31,27 @@ def test_humanitarian_needs_view(run_view_test):
             view_humanitarian_needs.c.gender_code == "f",
             view_humanitarian_needs.c.disabled_marker == True,  # noqa: E712
         ),
+    )
+
+
+def test_reference_period_constraint(run_constraints_test):
+    """Check that reference_period_end cannot be less than start"""
+    run_constraints_test(
+        new_rows=[
+            DBHumanitarianNeeds(
+                resource_ref=1,
+                admin2_ref=1,
+                gender_code=None,
+                age_range_code=None,
+                disabled_marker=None,
+                sector_code=None,
+                population_group_code=None,
+                population_status_code="affected",
+                population=1_000_000,
+                reference_period_start=datetime(2023, 1, 2),
+                reference_period_end=datetime(2023, 1, 1),
+                source_data="DATA,DATA,DATA",
+            )
+        ],
+        expected_constraint="reference_period",
     )
