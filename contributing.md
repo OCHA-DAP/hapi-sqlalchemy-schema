@@ -13,6 +13,10 @@ development by running:
 
     pip install -r requirements.txt
 
+and then make an editable installation of the package:
+
+    pip install -e .
+
 ## Pre-Commit
 
 Also be sure to install `pre-commit`, which is run every time
