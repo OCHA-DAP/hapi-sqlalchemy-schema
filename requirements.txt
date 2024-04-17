@@ -48,7 +48,7 @@ sqlalchemy==2.0.29
     #   hdx-python-database
 typing-extensions==4.11.0
     # via sqlalchemy
-virtualenv==20.25.2
+virtualenv==20.25.3
     # via pre-commit
 
 # The following packages are considered to be unsafe in a requirements file:
