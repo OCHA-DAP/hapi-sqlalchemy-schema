@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from sqlalchemy import (
+    CheckConstraint,
     DateTime,
     Integer,
     String,
@@ -14,6 +15,12 @@ from hapi_schema.utils.base import Base
 
 class DBPatches(Base):
     __tablename__ = "patches"
+    __table_args__ = (
+        CheckConstraint(
+            "state ='discovered' or state = 'executed' or state = 'failed' or state = 'canceled'",
+            name="state_constraint",
+        ),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     patch_sequence_number: Mapped[int] = mapped_column(Integer, nullable=False)

@@ -18,6 +18,8 @@ def test_db_patches(capfd):
         permanent_download_url VARCHAR(1024) NOT NULL,
         state VARCHAR(16) NOT NULL,
         PRIMARY KEY (id),
+        CONSTRAINT state_constraint CHECK (state ='discovered' or state =
+        'executed' or state = 'failed' or state = 'canceled'),
         UNIQUE (commit_hash),
         UNIQUE (permanent_download_url)
 )
