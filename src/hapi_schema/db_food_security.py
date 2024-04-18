@@ -29,10 +29,6 @@ class DBFoodSecurity(Base):
     __tablename__ = "food_security"
     __table_args__ = (
         CheckConstraint(
-            "population_fraction_in_phase >= 0 AND population_fraction_in_phase <=1",
-            name="population_fraction_in_phase",
-        ),
-        CheckConstraint(
             "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
             name="reference_period",
         ),
