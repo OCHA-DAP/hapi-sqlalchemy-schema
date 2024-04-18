@@ -34,7 +34,7 @@ def test_reference_period_constraint(run_constraints_test):
             DBFoodSecurity(
                 resource_ref=3,
                 admin2_ref=4,
-                ipc_phase_code="all",
+                ipc_phase_code="1",
                 ipc_type_code="current",
                 population_in_phase=1_000,
                 population_fraction_in_phase=1,
