@@ -22,6 +22,7 @@ class DBPatches(Base):
         ),
     )
 
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     patch_sequence_number: Mapped[int] = mapped_column(Integer, nullable=False)
     commit_hash: Mapped[str] = mapped_column(
