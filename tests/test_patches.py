@@ -16,10 +16,8 @@ def test_db_patches(capfd):
         commit_date DATETIME NOT NULL,
         patch_path VARCHAR(128) NOT NULL,
         permanent_download_url VARCHAR(1024) NOT NULL,
-        state VARCHAR(16) NOT NULL,
+        state VARCHAR(10) NOT NULL,
         PRIMARY KEY (id),
-        CONSTRAINT state_constraint CHECK (state ='discovered' or state =
-        'executed' or state = 'failed' or state = 'canceled'),
         UNIQUE (commit_hash),
         UNIQUE (permanent_download_url)
 )

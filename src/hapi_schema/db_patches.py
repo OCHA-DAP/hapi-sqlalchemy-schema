@@ -1,26 +1,29 @@
 """Patches table"""
 
+import enum
 from datetime import datetime
 
-from sqlalchemy import (
-    CheckConstraint,
-    DateTime,
-    Integer,
-    String,
-)
+from sqlalchemy import DateTime, Enum, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.utils.base import Base
 
 
+class StateEnum(str, enum.Enum):
+    discovered = 1
+    executed = 2
+    failed = 3
+    canceled = 4
+
+
 class DBPatches(Base):
     __tablename__ = "patches"
-    __table_args__ = (
-        CheckConstraint(
-            "state ='discovered' or state = 'executed' or state = 'failed' or state = 'canceled'",
-            name="state_constraint",
-        ),
-    )
+    # __table_args__ = (
+    #     CheckConstraint(
+    #         "state ='discovered' or state = 'executed' or state = 'failed' or state = 'canceled'",
+    #         name="state_constraint",
+    #     ),
+    # )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     patch_sequence_number: Mapped[int] = mapped_column(Integer, nullable=False)
@@ -32,7 +35,7 @@ class DBPatches(Base):
     permanent_download_url: Mapped[str] = mapped_column(
         String(1024), nullable=False, unique=True
     )
-    state: Mapped[str] = mapped_column(String(16), nullable=False)
+    state: Mapped[StateEnum] = mapped_column(Enum(StateEnum), nullable=False)
     # discovered -> it was found in the patch repo
     # executed -> the patch was executed successfully
     # failed -> HWA tried to execute the patch but it failed (either pre-conditions
