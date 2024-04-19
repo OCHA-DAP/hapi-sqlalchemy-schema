@@ -1,4 +1,4 @@
-"""Patches table"""
+"""Patch table"""
 
 import enum
 from datetime import datetime
@@ -16,17 +16,17 @@ class StateEnum(str, enum.Enum):
     canceled = 4
 
 
-class DBPatches(Base):
-    __tablename__ = "patches"
+class DBPatch(Base):
+    __tablename__ = "patch"
     # __table_args__ = (
-    #     CheckConstraint(
-    #         "state ='discovered' or state = 'executed' or state = 'failed' or state = 'canceled'",
-    #         name="state_constraint",
-    #     ),
+    #     Index(None, "patch_sequence_number"),
+    #     Index(None, "state"),
     # )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    patch_sequence_number: Mapped[int] = mapped_column(Integer, nullable=False)
+    patch_sequence_number: Mapped[int] = mapped_column(
+        Integer, nullable=False, index=True
+    )
     commit_hash: Mapped[str] = mapped_column(
         String(48), unique=True, nullable=False
     )
@@ -35,7 +35,9 @@ class DBPatches(Base):
     permanent_download_url: Mapped[str] = mapped_column(
         String(1024), nullable=False, unique=True
     )
-    state: Mapped[StateEnum] = mapped_column(Enum(StateEnum), nullable=False)
+    state: Mapped[StateEnum] = mapped_column(
+        Enum(StateEnum), nullable=False, index=True
+    )
     # discovered -> it was found in the patch repo
     # executed -> the patch was executed successfully
     # failed -> HWA tried to execute the patch but it failed (either pre-conditions

@@ -72,5 +72,5 @@ To add a new table to the schema:
 3. Add the table to the `tests/conftest.py` with an import like:
    `from sample_data.data_[table_name] import data_[table_name]`
    and data inserted with:
-   `session.execute(insert(DBPatches), data_patches)`
+   `session.execute(insert(DBPatch), data_patch)`
 4. Add a test file for the new table as `tests/test_[table_name].py`

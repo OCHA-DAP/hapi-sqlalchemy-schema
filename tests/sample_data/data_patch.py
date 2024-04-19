@@ -1,6 +1,6 @@
 from datetime import datetime
 
-data_patches = [
+data_patch = [
     dict(
         id=1,
         patch_sequence_number=1,

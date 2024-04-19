@@ -22,7 +22,7 @@ from hapi_schema.db_operational_presence import (
 )
 from hapi_schema.db_org import DBOrg
 from hapi_schema.db_org_type import DBOrgType
-from hapi_schema.db_patches import DBPatches
+from hapi_schema.db_patch import DBPatch
 from hapi_schema.db_population import DBPopulation
 from hapi_schema.db_population_group import DBPopulationGroup
 from hapi_schema.db_population_status import DBPopulationStatus
@@ -43,7 +43,7 @@ from sample_data.data_national_risk import data_national_risk
 from sample_data.data_operational_presence import data_operational_presence
 from sample_data.data_org import data_org
 from sample_data.data_org_type import data_org_type
-from sample_data.data_patches import data_patches
+from sample_data.data_patch import data_patch
 from sample_data.data_population import data_population
 from sample_data.data_population_group import data_population_group
 from sample_data.data_population_status import data_population_status
@@ -87,7 +87,7 @@ def engine():
     session.execute(insert(DBFoodSecurity), data_food_security)
     session.execute(insert(DBHumanitarianNeeds), data_humanitarian_needs)
 
-    session.execute(insert(DBPatches), data_patches)
+    session.execute(insert(DBPatch), data_patch)
 
     session.commit()
 
