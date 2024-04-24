@@ -28,7 +28,7 @@ class DBLocation(Base):
             "(hapi_replaced_date IS NULL) OR (hapi_replaced_date >= hapi_updated_date)",
             name="hapi_dates",
         ),
-        UniqueConstraint("code", "hapi_updated_date", name="code_date_unique"),
+        UniqueConstraint("code", "hapi_updated_date"),
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
