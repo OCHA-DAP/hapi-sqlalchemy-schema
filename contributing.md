@@ -13,6 +13,10 @@ development by running:
 
     pip install -r requirements.txt
 
+and then make an editable installation of the package:
+
+    pip install -e .
+
 ## Pre-Commit
 
 Also be sure to install `pre-commit`, which is run every time
@@ -58,3 +62,15 @@ Any changes to the dependencies will be automatically reflected in
 the file without committing by executing:
 
     pre-commit run pip-compile --all-files --config=.config/pre-commit-config.yaml
+
+## Adding a new table
+
+To add a new table to the schema:
+
+1. Add a `db_[table_name].py` file to `src/hapi_schema` which implements the table as a class derived from `hapi_schema.utils.base.Base`
+2. Add a file `data_[table_name].py` to `tests/sample_data` which contains three rows of data for the new table as a list of dictionaries.
+3. Add the table to the `tests/conftest.py` with an import like:
+   `from sample_data.data_[table_name] import data_[table_name]`
+   and data inserted with:
+   `session.execute(insert(DBPatch), data_patch)`
+4. Add a test file for the new table as `tests/test_[table_name].py`

@@ -5,17 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.8.0]
+## [Unreleased]
 
 ### Changed
 - `resource` and `dataset` primary keys are now the UUID
 
-## [0.7.0]
+## [0.7.3]
+
+### Fixed
+
+- Incorrect constraint quotes in IPC type
+- Clashing unique constraint names in admins
+
+## [0.7.2]
+
+### Added
+
+- Patches table
+
+## [0.7.1]
+
+### Changed
+
+- Removed constraint from food security
 
 ### Added
 - Missing constraints
 - Tests on the constraints
 - `hapi_updated_date` and `hapi_replaced_date` fields
+
+## [0.7.0]
 
 ### Changed
 

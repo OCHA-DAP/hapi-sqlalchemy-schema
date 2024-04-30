@@ -35,7 +35,7 @@ def test_reference_period_constraint(run_constraints_test):
             DBFoodSecurity(
                 resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
                 admin2_ref=4,
-                ipc_phase_code="all",
+                ipc_phase_code="1",
                 ipc_type_code="current",
                 population_in_phase=1_000,
                 population_fraction_in_phase=1,
@@ -45,42 +45,4 @@ def test_reference_period_constraint(run_constraints_test):
             )
         ],
         expected_constraint="reference_period",
-    )
-
-
-def test_population_fraction(run_constraints_test):
-    """Check that pop fraction msut be between 0 and 1"""
-    # Greater than 1
-    run_constraints_test(
-        new_rows=[
-            DBFoodSecurity(
-                resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
-                admin2_ref=4,
-                ipc_phase_code="all",
-                ipc_type_code="current",
-                population_in_phase=1_000,
-                population_fraction_in_phase=10,
-                reference_period_start=None,
-                reference_period_end=None,
-                source_data="DATA,DATA,DATA",
-            )
-        ],
-        expected_constraint="population_fraction_in_phase",
-    )
-    # Less than 0
-    run_constraints_test(
-        new_rows=[
-            DBFoodSecurity(
-                resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
-                admin2_ref=4,
-                ipc_phase_code="all",
-                ipc_type_code="current",
-                population_in_phase=1_000,
-                population_fraction_in_phase=-10,
-                reference_period_start=None,
-                reference_period_end=None,
-                source_data="DATA,DATA,DATA",
-            )
-        ],
-        expected_constraint="population_fraction_in_phase",
     )

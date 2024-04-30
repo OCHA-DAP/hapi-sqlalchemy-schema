@@ -11,7 +11,7 @@ class DBIpcType(Base):
     __tablename__ = "ipc_type"
     __table_args__ = (
         CheckConstraint(
-            'code IN ("current", "first projection", "second projection")',
+            "code IN ('current', 'first projection', 'second projection')",
             name="ipc_phase_type",
         ),
     )
