@@ -32,9 +32,9 @@ data_patch = [
         commit_date=datetime(2023, 1, 3),
         patch_path="2024/01/hapi_patch_3_hno.json",
         patch_target="humanitarian_needs",
-        patch_hash="554f18a92cf6a23a14e0f29356a6dec150f651gg",
-        permanent_download_url="https://github.com/OCHA-DAP/hapi-patch-repo/blob/35ea27da009e5add8d8d227e02fd2c4bbcc84b76/2024/01/hapi_patch_3_hno.json",
+        patch_hash="554f18a92cf6a23a14e0f29356a6dec150f65187",
+        patch_permalink_url="https://github.com/OCHA-DAP/hapi-patch-repo/blob/35ea27da009e5add8d8d227e02fd2c4bbcc84b76/2024/01/hapi_patch_3_hno.json",
         state="discovered",
-        execution_date="",
+        execution_date=None,
     ),
 ]
