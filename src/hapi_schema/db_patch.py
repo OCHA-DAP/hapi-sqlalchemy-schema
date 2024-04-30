@@ -10,18 +10,15 @@ from hapi_schema.utils.base import Base
 
 
 class StateEnum(str, enum.Enum):
-    discovered = 1
-    executed = 2
-    failed = 3
-    canceled = 4
+    discovered = 1  # -> it was found in the patch repo
+    executed = 2  # -> the patch was executed successfully
+    failed = 3  # -> HWA tried to execute the patch but it failed (either pre-conditions
+    #                were not met OR the transaction failed and was rolled back)
+    canceled = 4  # -> it was marked as canceled in the patch repo
 
 
 class DBPatch(Base):
     __tablename__ = "patch"
-    # __table_args__ = (
-    #     Index(None, "patch_sequence_number"),
-    #     Index(None, "state"),
-    # )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     patch_sequence_number: Mapped[int] = mapped_column(
@@ -31,15 +28,19 @@ class DBPatch(Base):
         String(48), unique=True, nullable=False
     )
     commit_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
-    patch_path: Mapped[str] = mapped_column(String(128), nullable=False)
-    permanent_download_url: Mapped[str] = mapped_column(
+    patch_path: Mapped[str] = mapped_column(
+        String(512), nullable=False, index=True
+    )
+    patch_permalink_url: Mapped[str] = mapped_column(
         String(1024), nullable=False, unique=True
+    )
+    patch_target: Mapped[str] = mapped_column(String(128), nullable=False)
+    patch_hash: Mapped[str] = mapped_column(
+        String(48), unique=True, nullable=False
     )
     state: Mapped[StateEnum] = mapped_column(
         Enum(StateEnum), nullable=False, index=True
     )
-    # discovered -> it was found in the patch repo
-    # executed -> the patch was executed successfully
-    # failed -> HWA tried to execute the patch but it failed (either pre-conditions
-    #     were not met OR the transaction failed and was rolled back)
-    # canceled -> it was marked as canceled in the patch repo
+    execution_date: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, index=True
+    )
