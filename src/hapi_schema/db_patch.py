@@ -42,5 +42,5 @@ class DBPatch(Base):
         Enum(StateEnum), nullable=False, index=True
     )
     execution_date: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        DateTime, nullable=True, index=True
     )
