@@ -21,6 +21,7 @@ def test_operational_presence_view(run_view_test):
             == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
             view_operational_presence.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_operational_presence.c.resource_name == "resource-01.csv",
             view_operational_presence.c.admin2_code == "FOO-XXX-XXX",
             view_operational_presence.c.admin1_code == "FOO-XXX",
             view_operational_presence.c.location_code == "FOO",
@@ -38,7 +39,7 @@ def test_reference_period_constraint(run_constraints_test):
     run_constraints_test(
         new_rows=[
             DBOperationalPresence(
-                resource_ref=1,
+                resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
                 admin2_ref=2,
                 org_ref=1,
                 sector_code="SHL",

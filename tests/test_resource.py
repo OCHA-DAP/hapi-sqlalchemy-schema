@@ -11,9 +11,8 @@ def test_resource_view(run_view_test):
     run_view_test(
         view=view_resource,
         whereclause=(
-            view_resource.c.id == 1,
-            view_resource.c.dataset_hdx_id
-            == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
+            view_resource.c.hdx_id == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_resource.c.dataset_hdx_stub == "dataset01",
         ),
     )
 
@@ -23,8 +22,8 @@ def test_hapi_date_constraint(run_constraints_test):
     run_constraints_test(
         new_rows=[
             DBResource(
-                dataset_ref=2,
                 hdx_id="9d9e07c9-a758-43bd-87dc-5cdd3b3f7e9f",
+                dataset_hdx_id="7cf3cec8-dbbc-4c96-9762-1464cd0bff75",
                 name="resource-04.csv",
                 format="csv",
                 update_date=datetime(2023, 1, 1),
@@ -39,8 +38,8 @@ def test_hapi_date_constraint(run_constraints_test):
 
     (
         dict(
-            dataset_ref=2,
             hdx_id="9d9e07c9-a758-43bd-87dc-5cdd3b3f7e9f",
+            dataset_hdx_id="7cf3cec8-dbbc-4c96-9762-1464cd0bff75",
             name="resource-04.csv",
             format="csv",
             update_date=datetime(2023, 1, 1),

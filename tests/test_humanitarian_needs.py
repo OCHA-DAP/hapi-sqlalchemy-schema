@@ -21,6 +21,7 @@ def test_humanitarian_needs_view(run_view_test):
             == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
             view_humanitarian_needs.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_humanitarian_needs.c.resource_name == "resource-01.csv",
             view_humanitarian_needs.c.admin2_code == "FOO-001-XXX",
             view_humanitarian_needs.c.admin1_code == "FOO-001",
             view_humanitarian_needs.c.location_code == "FOO",
@@ -39,7 +40,7 @@ def test_reference_period_constraint(run_constraints_test):
     run_constraints_test(
         new_rows=[
             DBHumanitarianNeeds(
-                resource_ref=1,
+                resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
                 admin2_ref=1,
                 gender_code=None,
                 age_range_code=None,
