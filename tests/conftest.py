@@ -1,11 +1,14 @@
+import logging
+import os
 from typing import List
 
 import pytest
 from sqlalchemy import create_engine, insert, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.declarative import DeclarativeMeta
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session, sessionmaker
 
+from hapi_schema.config.config import get_config
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_age_range import DBAgeRange
@@ -51,13 +54,71 @@ from sample_data.data_resource import data_resource
 from sample_data.data_sector import data_sector
 
 
+def pytest_sessionstart(session):
+    os.environ["HAPI_DB_NAME"] = "hapi_schema_test"
+
+
+@pytest.fixture(scope="session")
+def log():
+    return logging.getLogger(__name__)
+
+
+@pytest.fixture(scope="session")
+def session_maker() -> sessionmaker[Session]:
+    engine = create_engine(
+        get_config().SQL_ALCHEMY_PSYCOPG2_DB_URI,
+    )
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    return SessionLocal
+
+
+@pytest.fixture(scope="session")
+def list_of_db_tables(
+    log: logging.Logger, session_maker: sessionmaker[Session]
+) -> List[str]:
+    # log.info('Getting list of db tables')
+    session = session_maker()
+    try:
+        result = session.execute(
+            text("SELECT tablename FROM pg_tables WHERE schemaname = 'public'")
+        )
+        return [row[0] for row in result if row != "alembic_version"]
+    except Exception as e:
+        raise e
+    finally:
+        session.close()
+
+
+@pytest.fixture(scope="session")
+def clear_db_tables(
+    log: logging.Logger,
+    session_maker: sessionmaker[Session],
+    list_of_db_tables: List[str],
+):
+    log.info("Clearing database")
+    db_session = session_maker()
+    try:
+        for table in list_of_db_tables:
+            db_session.execute(text(f"TRUNCATE TABLE {table} CASCADE;"))
+        db_session.commit()
+    except Exception as e:
+        log.error(f"Error while clearing test data: {str(e).splitlines()[0]}")
+        db_session.rollback()
+        raise e
+    finally:
+        db_session.close()
+
+
 @pytest.fixture(scope="session")
 def engine():
-    engine = create_engine(url="sqlite:///:memory:")
+    engine = create_engine(
+        get_config().SQL_ALCHEMY_PSYCOPG2_DB_URI,
+    )
+    # engine = create_engine(url="sqlite:///:memory:")
 
     # Execute pragma statement to enable foreign key constraints
-    with engine.connect() as conn:
-        conn.execute(text("PRAGMA foreign_keys = ON;"))
+    # with engine.connect() as conn:
+    #     conn.execute(text("PRAGMA foreign_keys = ON;"))
 
     # Build the DB
     Base.metadata.create_all(engine)
@@ -92,6 +153,11 @@ def engine():
     session.commit()
 
     return engine
+
+
+@pytest.fixture(scope="session", autouse=True)
+def refresh_db(clear_db_tables, engine):
+    pass
 
 
 @pytest.fixture(scope="session")

@@ -17,6 +17,10 @@ and then make an editable installation of the package:
 
     pip install -e .
 
+The tests for this package use a postgres database which is currently hosted in a docker container specified in the `hdx-hapi-write-app` project. This needs be be started with:
+
+`docker-compose --profile=testing up -d`
+
 ## Pre-Commit
 
 Also be sure to install `pre-commit`, which is run every time
