@@ -43,7 +43,8 @@ def test_reference_period_constraint(run_constraints_test):
                 resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
                 admin2_ref=1,
                 gender_code=None,
-                age_range_code=None,
+                min_age=None,
+                max_age=None,
                 disabled_marker=None,
                 sector_code=None,
                 population_group_code=None,
@@ -51,7 +52,6 @@ def test_reference_period_constraint(run_constraints_test):
                 population=1_000_000,
                 reference_period_start=datetime(2023, 1, 2),
                 reference_period_end=datetime(2023, 1, 1),
-                source_data="DATA,DATA,DATA",
             )
         ],
         expected_constraint="reference_period",

@@ -8,9 +8,8 @@ from sqlalchemy import (
     DateTime,
     ForeignKey,
     Integer,
-    Text,
     select,
-    text,
+    text, Enum,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -21,8 +20,8 @@ from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
+from hapi_schema.utils.shared_enums import Gender
 from hapi_schema.utils.view_params import ViewParams
-
 
 class DBHumanitarianNeeds(Base):
     __tablename__ = "humanitarian_needs"
@@ -34,49 +33,43 @@ class DBHumanitarianNeeds(Base):
         ),
     )
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     resource_hdx_id: Mapped[int] = mapped_column(
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
     admin2_ref: Mapped[int] = mapped_column(
-        ForeignKey("admin2.id", onupdate="CASCADE"), nullable=False
+        ForeignKey("admin2.id", onupdate="CASCADE"), nullable=False, primary_key=True,
     )
     population_status_code: Mapped[str] = mapped_column(
-        ForeignKey("population_status.code", onupdate="CASCADE"),
+        ForeignKey("population_status.code", onupdate="CASCADE"), primary_key=True,
         nullable=True,
     )
     population_group_code: Mapped[str] = mapped_column(
-        ForeignKey("population_group.code", onupdate="CASCADE"), nullable=True
+        ForeignKey("population_group.code", onupdate="CASCADE"), nullable=True, primary_key=True,
     )
     sector_code: Mapped[str] = mapped_column(
-        ForeignKey("sector.code", onupdate="CASCADE"), nullable=True
+        ForeignKey("sector.code", onupdate="CASCADE"), nullable=True, primary_key=True,
     )
-    gender_code: Mapped[str] = mapped_column(
-        ForeignKey("gender.code", onupdate="CASCADE"), nullable=True
-    )
-    age_range_code: Mapped[str] = mapped_column(
-        ForeignKey("age_range.code", onupdate="CASCADE"), nullable=True
-    )
+    gender: Mapped[Gender] = mapped_column(Enum, primary_key=True)
+    min_age: Mapped[int] = mapped_column(Integer, nullable=True, primary_key=True)
+    max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     disabled_marker: Mapped[bool] = mapped_column(
-        Boolean, nullable=True, server_default=text("NULL")
+        Boolean, nullable=True, server_default=text("NULL"), primary_key=True,
     )
     population: Mapped[int] = mapped_column(
-        Integer, nullable=False, index=True
+        Integer, nullable=False
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        DateTime, nullable=False, primary_key=True,
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL"), index=True
+        DateTime, nullable=True, server_default=text("NULL"), index=True,
     )
-    source_data: Mapped[str] = mapped_column(Text, nullable=True)
 
     resource = relationship("DBResource")
     admin2 = relationship("DBAdmin2")
     sector = relationship("DBSector")
     gender = relationship("DBGender")
-    age_range = relationship("DBAgeRange")
     population_group = relationship("DBPopulationGroup")
     population_status = relationship("DBPopulationStatus")
 

@@ -7,7 +7,8 @@ data_humanitarian_needs = [
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
         gender_code=None,
-        age_range_code=None,
+        min_age=None,
+        max_age=None,
         disabled_marker=None,
         sector_code=None,
         population_group_code=None,
@@ -15,7 +16,6 @@ data_humanitarian_needs = [
         population=1_000_000,
         reference_period_start=datetime(2023, 1, 1),
         reference_period_end=datetime(2023, 6, 30),
-        source_data="DATA,DATA,DATA",
     ),
     # national f, all ages, disabled, sector SHL
     dict(
@@ -23,7 +23,8 @@ data_humanitarian_needs = [
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
         gender_code="f",
-        age_range_code=None,
+        min_age=None,
+        max_age=None,
         disabled_marker=True,
         sector_code="SHL",
         population_group_code="refugees",
@@ -31,7 +32,6 @@ data_humanitarian_needs = [
         population=500_000,
         reference_period_start=datetime(2023, 1, 1),
         reference_period_end=datetime(2023, 6, 30),
-        source_data="DATA,DATA,DATA",
     ),
     # admin1 f, age 0-4, not disabled, sector WSH
     dict(
@@ -39,7 +39,8 @@ data_humanitarian_needs = [
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=2,
         gender_code="f",
-        age_range_code="0-4",
+        min_age=None,
+        max_age=4,
         disabled_marker=True,
         sector_code="WSH",
         population_group_code="idps",
@@ -47,7 +48,6 @@ data_humanitarian_needs = [
         population=5_000,
         reference_period_start=datetime(2023, 1, 1),
         reference_period_end=datetime(2023, 6, 30),
-        source_data="DATA,DATA,DATA",
     ),
     # admin2 ages 80+, disabled, sector HEA
     dict(
@@ -55,7 +55,8 @@ data_humanitarian_needs = [
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
         gender_code=None,
-        age_range_code="80+",
+        min_age=80,
+        max_age=None,
         disabled_marker=False,
         sector_code="HEA",
         population_group_code="idps",
@@ -63,6 +64,5 @@ data_humanitarian_needs = [
         population=500,
         reference_period_start=datetime(2023, 1, 1),
         reference_period_end=datetime(2023, 6, 30),
-        source_data="DATA,DATA,DATA",
     ),
 ]
