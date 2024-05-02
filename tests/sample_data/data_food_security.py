@@ -4,7 +4,7 @@ data_food_security = [
     # Phase 1 current national
     dict(
         id=1,
-        resource_ref=3,
+        resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
         admin2_ref=1,
         ipc_phase_code="1",
         ipc_type_code="current",
@@ -17,7 +17,7 @@ data_food_security = [
     # Phase 2 first projection admin1
     dict(
         id=2,
-        resource_ref=3,
+        resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
         admin2_ref=2,
         ipc_phase_code="2",
         ipc_type_code="first projection",
@@ -30,7 +30,7 @@ data_food_security = [
     # Phase 3 second projection admin2
     dict(
         id=3,
-        resource_ref=3,
+        resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
         admin2_ref=4,
         ipc_phase_code="3",
         ipc_type_code="second projection",

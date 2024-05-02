@@ -9,7 +9,7 @@ def test_dataset_view(run_view_test):
     run_view_test(
         view=view_dataset,
         whereclause=(
-            view_dataset.c.id == 1,
+            view_dataset.c.hdx_id == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
             view_dataset.c.hdx_stub == "dataset01",
             view_dataset.c.title == "Dataset #1",
             view_dataset.c.hdx_provider_stub == "provider01",

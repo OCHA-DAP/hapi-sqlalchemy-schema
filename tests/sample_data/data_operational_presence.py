@@ -3,7 +3,7 @@ from datetime import datetime
 data_operational_presence = [
     dict(
         id=1,
-        resource_ref=1,
+        resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=2,
         org_ref=1,
         sector_code="SHL",
@@ -13,7 +13,7 @@ data_operational_presence = [
     ),
     dict(
         id=2,
-        resource_ref=1,
+        resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
         org_ref=2,
         sector_code="FSC",
@@ -23,7 +23,7 @@ data_operational_presence = [
     ),
     dict(
         id=3,
-        resource_ref=1,
+        resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
         org_ref=3,
         sector_code="WSH",
@@ -33,7 +33,7 @@ data_operational_presence = [
     ),
     dict(
         id=4,
-        resource_ref=1,
+        resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=6,
         org_ref=3,
         sector_code="HEA",
@@ -43,7 +43,7 @@ data_operational_presence = [
     ),
     dict(
         id=5,
-        resource_ref=1,
+        resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
         org_ref=2,
         sector_code="WSH",
