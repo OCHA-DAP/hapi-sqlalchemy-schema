@@ -9,19 +9,17 @@ from sqlalchemy import (
     Enum,
     ForeignKey,
     Integer,
-    select,
 )
-from sqlalchemy.orm import Mapped, aliased, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from hapi_schema.db_location import DBLocation
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.shared_enums import Gender
-from hapi_schema.utils.view_params import ViewParams
 
 
 class PopulationGroup(enum.Enum):
     REFUGEES = "refugees"
     POC = "PoC"
+    NULL = "*"
 
 
 class DBRefugees(Base):
@@ -48,12 +46,10 @@ class DBRefugees(Base):
     )
     origin_location_ref: Mapped[int] = mapped_column(
         ForeignKey("location.id", onupdate="CASCADE"),
-        nullable=False,
         primary_key=True,
     )
     asylum_location_ref: Mapped[int] = mapped_column(
         ForeignKey("location.id", onupdate="CASCADE"),
-        nullable=False,
         primary_key=True,
     )
     population_group: Mapped[PopulationGroup] = mapped_column(
@@ -73,9 +69,20 @@ class DBRefugees(Base):
         DateTime, nullable=False, index=True
     )
 
-    location = relationship("Location")
+    origin_location = relationship(
+        "DBLocation",
+        foreign_keys=[origin_location_ref],
+        primaryjoin="DBRefugees.origin_location_ref == DBLocation.id",
+    )
+
+    asylum_location = relationship(
+        "DBLocation",
+        foreign_keys=[asylum_location_ref],
+        primaryjoin="DBRefugees.asylum_location_ref == DBLocation.id",
+    )
 
 
+"""
 DBLocationOrigin = aliased(DBLocation, name="location_origin")
 DBLocationAsylum = aliased(DBLocation, name="location_asylum")
 view_params_operational_presence = ViewParams(
@@ -100,3 +107,4 @@ view_params_operational_presence = ViewParams(
         )
     ),
 )
+"""
