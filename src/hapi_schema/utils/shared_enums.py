@@ -12,9 +12,21 @@ class PopulationGroup(str, enum.Enum):
     ROC = "ROC"
     ASYLUM_SEEKERS = "ASY"
     OIP = "OIP"
-    IDPS = "IDP"
+    IDP = "IDP"
     IOC = "IOC"
-    STATELESS_PEOPLE = "STA"
+    STATELESS = "STA"
     OOC = "OOC"
     HOST_COMMUNITY = "HST"
+    RET = "RET"
+    RESETTLED = "RST"
+    NATURALIZED = "NAT"
+    RDP = "RDP"
+    RRI = "RRI"
 
+
+class PopulationStatus(str, enum.Enum):
+    POPULATION = "POP"
+    AFFECTED = "AFF"
+    INNEED = "INN"
+    TARGETED = "TGT"
+    REACHED = "REA"

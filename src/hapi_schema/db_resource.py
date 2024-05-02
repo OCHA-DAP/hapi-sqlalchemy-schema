@@ -28,7 +28,7 @@ class DBResource(Base):
     )
 
     hdx_id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    dataset_hdx_id: Mapped[int] = mapped_column(
+    dataset_hdx_id: Mapped[str] = mapped_column(
         ForeignKey("dataset.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )

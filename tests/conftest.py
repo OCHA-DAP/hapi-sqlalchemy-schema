@@ -1,17 +1,18 @@
 from typing import List
 
 import pytest
-from sqlalchemy import create_engine, insert, text
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy import create_engine, insert, text, inspect, Table, MetaData, \
+    ForeignKeyConstraint
+from sqlalchemy.exc import IntegrityError, ProgrammingError
 from sqlalchemy.ext.declarative import DeclarativeMeta
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql.ddl import DropTable, DropConstraint, CreateSchema, \
+    DropSchema
 
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
-from hapi_schema.db_age_range import DBAgeRange
 from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_food_security import DBFoodSecurity
-from hapi_schema.db_gender import DBGender
 from hapi_schema.db_humanitarian_needs import DBHumanitarianNeeds
 from hapi_schema.db_ipc_phase import DBIpcPhase
 from hapi_schema.db_ipc_type import DBIpcType
@@ -24,8 +25,6 @@ from hapi_schema.db_org import DBOrg
 from hapi_schema.db_org_type import DBOrgType
 from hapi_schema.db_patch import DBPatch
 from hapi_schema.db_population import DBPopulation
-from hapi_schema.db_population_group import DBPopulationGroup
-from hapi_schema.db_population_status import DBPopulationStatus
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
@@ -53,11 +52,16 @@ from sample_data.data_sector import data_sector
 
 @pytest.fixture(scope="session")
 def engine():
-    engine = create_engine(url="sqlite:///:memory:")
+    engine = create_engine(
+        url="postgresql+psycopg://postgres:postgres@localhost:5432/hapi"
+    )
 
-    # Execute pragma statement to enable foreign key constraints
-    with engine.connect() as conn:
-        conn.execute(text("PRAGMA foreign_keys = ON;"))
+    # Create an empty schema
+    with engine.connect() as connection:
+        connection.execute(DropSchema("public", cascade=True, if_exists=True))
+        connection.commit()
+        connection.execute(CreateSchema("public", if_not_exists=True))
+        connection.commit()
 
     # Build the DB
     Base.metadata.create_all(engine)
@@ -71,15 +75,11 @@ def engine():
     session.execute(insert(DBAdmin1), data_admin1)
     session.execute(insert(DBAdmin2), data_admin2)
 
-    session.execute(insert(DBPopulationStatus), data_population_status)
-    session.execute(insert(DBPopulationGroup), data_population_group)
     session.execute(insert(DBOrgType), data_org_type)
     session.execute(insert(DBOrg), data_org)
     session.execute(insert(DBSector), data_sector)
     session.execute(insert(DBIpcPhase), data_ipc_phase)
     session.execute(insert(DBIpcType), data_ipc_type)
-    session.execute(insert(DBGender), data_gender)
-    session.execute(insert(DBAgeRange), data_age_range)
 
     session.execute(insert(DBNationalRisk), data_national_risk)
     session.execute(insert(DBPopulation), data_population)

@@ -1,15 +1,17 @@
 """HumanitarianNeeds table and view."""
 
 from datetime import datetime
+from typing import get_args
 
 from sqlalchemy import (
     Boolean,
     CheckConstraint,
     DateTime,
+    Enum,
     ForeignKey,
     Integer,
     select,
-    text, Enum,
+    text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -20,8 +22,13 @@ from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
-from hapi_schema.utils.shared_enums import Gender
+from hapi_schema.utils.shared_enums import (
+    Gender,
+    PopulationGroup,
+    PopulationStatus,
+)
 from hapi_schema.utils.view_params import ViewParams
+
 
 class DBHumanitarianNeeds(Base):
     __tablename__ = "humanitarian_needs"
@@ -33,45 +40,71 @@ class DBHumanitarianNeeds(Base):
         ),
     )
 
-    resource_hdx_id: Mapped[int] = mapped_column(
+    resource_hdx_id: Mapped[str] = mapped_column(
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
     admin2_ref: Mapped[int] = mapped_column(
-        ForeignKey("admin2.id", onupdate="CASCADE"), nullable=False, primary_key=True,
+        ForeignKey("admin2.id", onupdate="CASCADE"),
+        nullable=False,
+        primary_key=True,
     )
-    population_status_code: Mapped[str] = mapped_column(
-        ForeignKey("population_status.code", onupdate="CASCADE"), primary_key=True,
+    population_status: Mapped[PopulationStatus] = mapped_column(
+        Enum(
+        *get_args(PopulationStatus),
+        name="populationgroup",
+        create_constraint=True,
+        validate_strings=True,),
         nullable=True,
+        primary_key=True,
     )
-    population_group_code: Mapped[str] = mapped_column(
-        ForeignKey("population_group.code", onupdate="CASCADE"), nullable=True, primary_key=True,
+    population_group: Mapped[PopulationGroup] = mapped_column(
+        Enum(
+        *get_args(PopulationGroup),
+        name="populationgroup",
+        create_constraint=True,
+        validate_strings=True,),
+        nullable=True,
+        primary_key=True,
     )
     sector_code: Mapped[str] = mapped_column(
-        ForeignKey("sector.code", onupdate="CASCADE"), nullable=True, primary_key=True,
+        ForeignKey("sector.code", onupdate="CASCADE"),
+        nullable=True,
+        primary_key=True,
     )
-    gender: Mapped[Gender] = mapped_column(Enum, primary_key=True)
-    min_age: Mapped[int] = mapped_column(Integer, nullable=True, primary_key=True)
+    gender: Mapped[Gender] = mapped_column(
+        Enum(
+            *get_args(Gender),
+            name="gender",
+            create_constraint=True,
+            validate_strings=True, ), nullable=True, primary_key=True
+    )
+    min_age: Mapped[int] = mapped_column(
+        Integer, nullable=True, primary_key=True
+    )
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     disabled_marker: Mapped[bool] = mapped_column(
-        Boolean, nullable=True, server_default=text("NULL"), primary_key=True,
+        Boolean,
+        nullable=True,
+        server_default=text("NULL"),
+        primary_key=True,
     )
-    population: Mapped[int] = mapped_column(
-        Integer, nullable=False
-    )
+    population: Mapped[int] = mapped_column(Integer, nullable=False)
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, primary_key=True,
+        DateTime,
+        nullable=False,
+        primary_key=True,
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL"), index=True,
+        DateTime,
+        nullable=True,
+        server_default=text("NULL"),
+        index=True,
     )
 
     resource = relationship("DBResource")
     admin2 = relationship("DBAdmin2")
     sector = relationship("DBSector")
-    gender = relationship("DBGender")
-    population_group = relationship("DBPopulationGroup")
-    population_status = relationship("DBPopulationStatus")
 
 
 view_params_humanitarian_needs = ViewParams(

@@ -24,6 +24,9 @@ platformdirs==4.2.1
 pluggy==1.5.0
     # via pytest
 pre-commit==3.7.0
+psycopg==3.1.18
+psycopg-binary==3.1.18
+    # via psycopg
 pytest==8.2.0
     # via pytest-cov
 pytest-cov==5.0.0
@@ -34,6 +37,8 @@ setuptools==69.5.1
 sqlalchemy==2.0.29
     # via hdx-python-database
 typing-extensions==4.11.0
-    # via sqlalchemy
+    # via
+    #   psycopg
+    #   sqlalchemy
 virtualenv==20.26.1
     # via pre-commit

@@ -1,6 +1,7 @@
 """Population table and view."""
 
 from datetime import datetime
+from typing import get_args
 
 from sqlalchemy import (
     CheckConstraint,
@@ -9,7 +10,7 @@ from sqlalchemy import (
     Integer,
     Text,
     select,
-    text,
+    text, Enum,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -19,6 +20,7 @@ from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
+from hapi_schema.utils.shared_enums import Gender
 from hapi_schema.utils.view_params import ViewParams
 
 
@@ -40,12 +42,17 @@ class DBPopulation(Base):
     admin2_ref: Mapped[int] = mapped_column(
         ForeignKey("admin2.id", onupdate="CASCADE"), nullable=False
     )
-    gender_code: Mapped[str] = mapped_column(
-        ForeignKey("gender.code", onupdate="CASCADE"), nullable=True
+    gender: Mapped[Gender] = mapped_column(
+        Enum(
+            *get_args(Gender),
+            name="gender",
+            create_constraint=True,
+            validate_strings=True, ), nullable=True, primary_key=True
     )
-    age_range_code: Mapped[str] = mapped_column(
-        ForeignKey("age_range.code", onupdate="CASCADE"), nullable=True
+    min_age: Mapped[int] = mapped_column(
+        Integer, nullable=True, primary_key=True
     )
+    max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     population: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
     )
@@ -59,8 +66,6 @@ class DBPopulation(Base):
 
     resource = relationship("DBResource")
     admin2 = relationship("DBAdmin2")
-    gender = relationship("DBGender")
-    age_range = relationship("DBAgeRange")
 
 
 view_params_population = ViewParams(
