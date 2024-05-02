@@ -35,8 +35,8 @@ class DBOperationalPresence(Base):
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    resource_ref = mapped_column(
-        ForeignKey("resource.id", onupdate="CASCADE", ondelete="CASCADE"),
+    resource_hdx_id = mapped_column(
+        ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
     admin2_ref: Mapped[int] = mapped_column(
@@ -72,7 +72,6 @@ view_params_operational_presence = ViewParams(
         DBDataset.title.label("dataset_title"),
         DBDataset.hdx_provider_stub.label("dataset_hdx_provider_stub"),
         DBDataset.hdx_provider_name.label("dataset_hdx_provider_name"),
-        DBResource.hdx_id.label("resource_hdx_id"),
         DBResource.name.label("resource_name"),
         DBResource.update_date.label("resource_update_date"),
         DBResource.hapi_updated_date.label("hapi_updated_date"),
@@ -112,12 +111,12 @@ view_params_operational_presence = ViewParams(
         # Join op to resource to dataset
         .join(
             DBResource.__table__,
-            DBOperationalPresence.resource_ref == DBResource.id,
+            DBOperationalPresence.resource_hdx_id == DBResource.hdx_id,
             isouter=True,
         )
         .join(
             DBDataset.__table__,
-            DBResource.dataset_ref == DBDataset.id,
+            DBResource.dataset_hdx_id == DBDataset.hdx_id,
             isouter=True,
         )
         # Join op to org to org type

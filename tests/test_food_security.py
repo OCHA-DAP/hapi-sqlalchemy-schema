@@ -19,6 +19,7 @@ def test_food_security_view(run_view_test):
             == "7cf3cec8-dbbc-4c96-9762-1464cd0bff75",
             view_food_security.c.resource_hdx_id
             == "62ad6e55-5f5d-4494-854c-4110687e9e25",
+            view_food_security.c.resource_name == "resource-03.csv",
             view_food_security.c.ipc_phase_name == "Phase 3: Crisis",
             view_food_security.c.admin2_code == "FOO-001-A",
             view_food_security.c.admin1_code == "FOO-001",
@@ -32,7 +33,7 @@ def test_reference_period_constraint(run_constraints_test):
     run_constraints_test(
         new_rows=[
             DBFoodSecurity(
-                resource_ref=3,
+                resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
                 admin2_ref=4,
                 ipc_phase_code="1",
                 ipc_type_code="current",
