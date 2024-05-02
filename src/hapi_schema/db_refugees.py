@@ -9,11 +9,14 @@ from sqlalchemy import (
     Enum,
     ForeignKey,
     Integer,
+    select,
 )
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, aliased, mapped_column, relationship
 
+from hapi_schema.db_location import DBLocation
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.shared_enums import Gender
+from hapi_schema.utils.view_params import ViewParams
 
 
 class PopulationGroup(enum.Enum):
@@ -53,9 +56,11 @@ class DBRefugees(Base):
         primary_key=True,
     )
     population_group: Mapped[PopulationGroup] = mapped_column(
-        Enum, primary_key=True
+        Enum(PopulationGroup, name="population_group_enum"), primary_key=True
     )
-    gender: Mapped[Gender] = mapped_column(Enum, primary_key=True)
+    gender: Mapped[Gender] = mapped_column(
+        Enum(Gender, name="gender_enum"), primary_key=True
+    )
     min_age: Mapped[int] = mapped_column(Integer, primary_key=True)
     max_age: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
     population: Mapped[int] = mapped_column(
@@ -82,29 +87,27 @@ class DBRefugees(Base):
     )
 
 
-"""
-DBLocationOrigin = aliased(DBLocation, name="location_origin")
-DBLocationAsylum = aliased(DBLocation, name="location_asylum")
+DBLocationOrigin = aliased(DBLocation)
+DBLocationAsylum = aliased(DBLocation)
 view_params_operational_presence = ViewParams(
     name="operational_presence_view",
     metadata=Base.metadata,
     selectable=select(
         *DBRefugees.__table__.columns,
-        DBLocationOrigin.code.label("origin_location_code"),
-        DBLocationOrigin.name.label("origin_location_name"),
-        DBLocationAsylum.code.label("asylum_location_code"),
-        DBLocationAsylum.name.label("asylum_location_name"),
-    ).select_from(
+        # DBLocationOrigin.code.label("origin_location_code"),
+        # DBLocationOrigin.name.label("origin_location_name"),
+        # DBLocationAsylum.code.label("asylum_location_code"),
+        # DBLocationAsylum.name.label("asylum_location_name"),
+        # ).select_from(
         # Join origin and asylum location refs to location table
-        DBRefugees.__table__.join(
-            DBLocationOrigin.__table__,
-            DBRefugees.origin_location_ref == DBLocationOrigin.id,
-            isouter=True,
-        ).join(
-            DBLocationAsylum.__table__,
-            DBRefugees.asylum_location_ref == DBLocationAsylum.id,
-            isouter=True,
-        )
+        #    DBRefugees.__table__.join(
+        #        DBLocationOrigin.__table__,
+        #        DBRefugees.origin_location_ref == DBLocationOrigin.id,
+        #        isouter=True,
+        #   )#.join(
+        #   DBLocationAsylum.__table__,
+        #   DBRefugees.asylum_location_ref == DBLocationAsylum.id,
+        #   isouter=True,
+        # )
     ),
 )
-"""
