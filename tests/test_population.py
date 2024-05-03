@@ -11,7 +11,6 @@ def test_population_view(run_view_test):
     run_view_test(
         view=view_population,
         whereclause=(
-            view_population.c.id == 3,
             view_population.c.dataset_hdx_id
             == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
             view_population.c.resource_hdx_id

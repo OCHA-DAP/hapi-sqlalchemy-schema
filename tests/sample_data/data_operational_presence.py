@@ -2,7 +2,6 @@ from datetime import datetime
 
 data_operational_presence = [
     dict(
-        id=1,
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=2,
         org_ref=1,
@@ -12,7 +11,6 @@ data_operational_presence = [
         source_data="DATA,DATA,DATA",
     ),
     dict(
-        id=2,
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
         org_ref=2,
@@ -22,7 +20,6 @@ data_operational_presence = [
         source_data="DATA,DATA,DATA",
     ),
     dict(
-        id=3,
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
         org_ref=3,
@@ -32,7 +29,6 @@ data_operational_presence = [
         source_data="DATA,DATA,DATA",
     ),
     dict(
-        id=4,
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=6,
         org_ref=3,
@@ -42,7 +38,6 @@ data_operational_presence = [
         source_data="DATA,DATA,DATA",
     ),
     dict(
-        id=5,
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
         org_ref=2,

@@ -2,7 +2,6 @@ from datetime import datetime
 
 data_org = [
     dict(
-        id=1,
         acronym="ORG01",
         name="Organisation 1",
         org_type_code="433",
@@ -12,7 +11,6 @@ data_org = [
         hapi_replaced_date=None,
     ),
     dict(
-        id=2,
         acronym="ORG02",
         name="Organisation 2",
         org_type_code="437",
@@ -22,7 +20,6 @@ data_org = [
         hapi_replaced_date=None,
     ),
     dict(
-        id=3,
         acronym="ORG03",
         name="Organisation 3",
         org_type_code="447",

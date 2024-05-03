@@ -35,7 +35,6 @@ class DBPopulation(Base):
         ),
     )
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     resource_hdx_id: Mapped[int] = mapped_column(
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,

@@ -3,7 +3,6 @@ from datetime import datetime
 data_population = [
     # total national
     dict(
-        id=1,
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
         gender_marker="*",
@@ -14,7 +13,6 @@ data_population = [
     ),
     # national f, all ages
     dict(
-        id=2,
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
         gender_marker="f",
@@ -25,7 +23,6 @@ data_population = [
     ),
     # admin1 f, age 0-4
     dict(
-        id=3,
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=2,
         gender_marker="f",
@@ -37,7 +34,6 @@ data_population = [
     ),
     # admin2 ages 80+
     dict(
-        id=4,
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
         gender_marker="*",
