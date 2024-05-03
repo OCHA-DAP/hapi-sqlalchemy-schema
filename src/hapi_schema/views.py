@@ -2,11 +2,17 @@ import inspect
 import os
 from importlib import import_module
 
-from hdx.database.views import build_view
+try:
+    from hdx.database.views import build_view
+except ImportError:
+    build_view = None
+    pass
 
 
 def build_hapi_views():
-    # Programmatically get views and build them
+    # Programmatically get views and build them.
+    # Views must be in files with filename of form: db_{name}.py in the same
+    # directory. Views must be named like this: view_params_{name}.
     path = inspect.getabsfile(build_hapi_views)
     dirpath, _ = os.path.split(path)
     for path in os.listdir(dirpath):
