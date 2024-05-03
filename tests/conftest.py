@@ -1,7 +1,6 @@
 from typing import List
 
 import pytest
-from hdx.database.views import build_views
 from sqlalchemy import (
     create_engine,
     insert,
@@ -14,35 +13,32 @@ from sqlalchemy.sql.ddl import (
     DropSchema,
 )
 
-from hapi_schema.db_admin1 import DBAdmin1, view_params_admin1
-from hapi_schema.db_admin2 import DBAdmin2, view_params_admin2
-from hapi_schema.db_dataset import DBDataset, view_params_dataset
+from hapi_schema.db_admin1 import DBAdmin1
+from hapi_schema.db_admin2 import DBAdmin2
+from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_food_security import (
     DBFoodSecurity,
-    view_params_food_security,
 )
 from hapi_schema.db_humanitarian_needs import (
     DBHumanitarianNeeds,
-    view_params_humanitarian_needs,
 )
-from hapi_schema.db_ipc_phase import DBIpcPhase, view_params_ipc_phase
-from hapi_schema.db_ipc_type import DBIpcType, view_params_ipc_type
-from hapi_schema.db_location import DBLocation, view_params_location
+from hapi_schema.db_ipc_phase import DBIpcPhase
+from hapi_schema.db_ipc_type import DBIpcType
+from hapi_schema.db_location import DBLocation
 from hapi_schema.db_national_risk import (
     DBNationalRisk,
-    view_params_national_risk,
 )
 from hapi_schema.db_operational_presence import (
     DBOperationalPresence,
-    view_params_operational_presence,
 )
-from hapi_schema.db_org import DBOrg, view_params_org
-from hapi_schema.db_org_type import DBOrgType, view_params_org_type
+from hapi_schema.db_org import DBOrg
+from hapi_schema.db_org_type import DBOrgType
 from hapi_schema.db_patch import DBPatch
-from hapi_schema.db_population import DBPopulation, view_params_population
-from hapi_schema.db_resource import DBResource, view_params_resource
-from hapi_schema.db_sector import DBSector, view_params_sector
+from hapi_schema.db_population import DBPopulation
+from hapi_schema.db_resource import DBResource
+from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
+from hapi_schema.views import build_hapi_views
 from sample_data.data_admin1 import data_admin1
 from sample_data.data_admin2 import data_admin2
 from sample_data.data_dataset import data_dataset
@@ -74,31 +70,8 @@ def session():
         connection.execute(CreateSchema("public", if_not_exists=True))
         connection.commit()
 
-    # Build the Views
-    build_views(
-        view_params_list=[
-            view_params.__dict__
-            for view_params in [
-                view_params_admin1,
-                view_params_admin2,
-                view_params_dataset,
-                view_params_food_security,
-                view_params_humanitarian_needs,
-                view_params_ipc_phase,
-                view_params_ipc_type,
-                view_params_location,
-                view_params_national_risk,
-                view_params_operational_presence,
-                view_params_org,
-                view_params_org_type,
-                view_params_population,
-                view_params_resource,
-                view_params_sector,
-            ]
-        ]
-    )
-
     # Build the DB
+    build_hapi_views()
     Base.metadata.create_all(engine)
     session = sessionmaker(bind=engine)()
 
