@@ -1,7 +1,7 @@
 from typing import List
 
 import pytest
-from hdx.database.views import build_views
+from hdx.database.views import build_views, build_view
 from sqlalchemy import (
     create_engine,
     insert,
@@ -74,29 +74,11 @@ def session():
         connection.execute(CreateSchema("public", if_not_exists=True))
         connection.commit()
 
-    # Build the Views
-    build_views(
-        view_params_list=[
-            view_params.__dict__
-            for view_params in [
-                view_params_admin1,
-                view_params_admin2,
-                view_params_dataset,
-                view_params_food_security,
-                view_params_humanitarian_needs,
-                view_params_ipc_phase,
-                view_params_ipc_type,
-                view_params_location,
-                view_params_national_risk,
-                view_params_operational_presence,
-                view_params_org,
-                view_params_org_type,
-                view_params_population,
-                view_params_resource,
-                view_params_sector,
-            ]
-        ]
-    )
+    # Build views
+    for variable in list(globals().keys()):
+        if variable.startswith("view_params_"):
+            view_params = globals()[variable]
+            build_view(view_params.__dict__)
 
     # Build the DB
     Base.metadata.create_all(engine)
