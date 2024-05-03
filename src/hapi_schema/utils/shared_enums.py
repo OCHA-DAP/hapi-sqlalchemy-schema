@@ -1,10 +1,20 @@
 import enum
 
 
-class Gender(str, enum.Enum):
+class GenderMarker(str, enum.Enum):
     FEMALE = "f"
     MALE = "m"
     NONBINARY = "x"
+    UNSPECIFIED = "u"
+    OTHER = "o"
+    EUNUCH = "e"
+    ALL = "*"
+
+
+class DisabledMarker(str, enum.Enum):
+    YES = "y"
+    NO = "n"
+    ALL = "*"
 
 
 class PopulationGroup(str, enum.Enum):
@@ -22,6 +32,7 @@ class PopulationGroup(str, enum.Enum):
     NATURALIZED = "NAT"
     RDP = "RDP"
     RRI = "RRI"
+    ALL = "*"
 
 
 class PopulationStatus(str, enum.Enum):
@@ -30,3 +41,4 @@ class PopulationStatus(str, enum.Enum):
     INNEED = "INN"
     TARGETED = "TGT"
     REACHED = "REA"
+    ALL = "*"

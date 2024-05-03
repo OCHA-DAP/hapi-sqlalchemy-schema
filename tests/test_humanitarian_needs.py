@@ -28,8 +28,8 @@ def test_humanitarian_needs_view(run_view_test):
             view_humanitarian_needs.c.population_group == "IDP",
             view_humanitarian_needs.c.sector_name
             == "Water Sanitation Hygiene",
-            view_humanitarian_needs.c.gender == "f",
-            view_humanitarian_needs.c.disabled_marker == True,  # noqa: E712
+            view_humanitarian_needs.c.gender_marker == "f",
+            view_humanitarian_needs.c.disabled_marker == "y",  # noqa: E712
         ),
     )
 
@@ -41,12 +41,11 @@ def test_reference_period_constraint(run_constraints_test):
             DBHumanitarianNeeds(
                 resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
                 admin2_ref=1,
-                gender=None,
-                min_age=None,
-                max_age=None,
-                disabled_marker=None,
-                sector_code=None,
-                population_group=None,
+                gender_marker="*",
+                age_range="*",
+                disabled_marker="*",
+                sector_code="*",
+                population_group="*",
                 population_status="AFF",
                 population=1_000_000,
                 reference_period_start=datetime(2023, 1, 2),

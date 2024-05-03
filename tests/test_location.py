@@ -73,5 +73,5 @@ def test_code_date_unique(run_constraints_test):
                 hapi_replaced_date=None,
             ),
         ],
-        expected_constraint="UNIQUE constraint failed",
+        expected_constraint="location_code_hapi_updated_date",
     )

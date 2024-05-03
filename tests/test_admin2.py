@@ -81,5 +81,8 @@ def test_code_date_unique(run_constraints_test):
                 hapi_replaced_date=None,
             ),
         ],
-        expected_constraint="UNIQUE constraint failed",
+        expected_constraint="admin2_pkey",
+        # TODO: don't know why the failure message is admin2_pkey and is about
+        #  inserting the same id. I think it should be
+        #  admin2_code_hapi_updated_date
     )

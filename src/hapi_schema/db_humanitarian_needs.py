@@ -1,17 +1,15 @@
 """HumanitarianNeeds table and view."""
 
 from datetime import datetime
-from typing import get_args
 
 from sqlalchemy import (
-    Boolean,
     CheckConstraint,
     DateTime,
     Enum,
     ForeignKey,
     Integer,
     select,
-    text,
+    text, String,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -23,7 +21,8 @@ from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.shared_enums import (
-    Gender,
+    DisabledMarker,
+    GenderMarker,
     PopulationGroup,
     PopulationStatus,
 )
@@ -46,53 +45,38 @@ class DBHumanitarianNeeds(Base):
     )
     admin2_ref: Mapped[int] = mapped_column(
         ForeignKey("admin2.id", onupdate="CASCADE"),
-        nullable=False,
         primary_key=True,
     )
     population_status: Mapped[PopulationStatus] = mapped_column(
-        Enum(
-        *get_args(PopulationStatus),
-        name="populationgroup",
-        create_constraint=True,
-        validate_strings=True,),
-        nullable=True,
+        Enum(PopulationStatus,
+        name="population_status_enum"),
         primary_key=True,
     )
     population_group: Mapped[PopulationGroup] = mapped_column(
-        Enum(
-        *get_args(PopulationGroup),
-        name="populationgroup",
-        create_constraint=True,
-        validate_strings=True,),
-        nullable=True,
+        Enum(PopulationGroup,
+        name="population_group_enum"),
         primary_key=True,
     )
     sector_code: Mapped[str] = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"),
-        nullable=True,
         primary_key=True,
     )
-    gender: Mapped[Gender] = mapped_column(
-        Enum(
-            *get_args(Gender),
-            name="gender",
-            create_constraint=True,
-            validate_strings=True, ), nullable=True, primary_key=True
+    gender_marker: Mapped[GenderMarker] = mapped_column(
+        Enum(GenderMarker,
+        name="gender_marker_enum"), primary_key=True
     )
+    age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
     min_age: Mapped[int] = mapped_column(
-        Integer, nullable=True, primary_key=True
+        Integer, nullable=True, index=True
     )
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
-    disabled_marker: Mapped[bool] = mapped_column(
-        Boolean,
-        nullable=True,
-        server_default=text("NULL"),
-        primary_key=True,
+    disabled_marker: Mapped[DisabledMarker] = mapped_column(
+        Enum(DisabledMarker,
+        name="disabled_marker_enum"), primary_key=True
     )
     population: Mapped[int] = mapped_column(Integer, nullable=False)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime,
-        nullable=False,
         primary_key=True,
     )
     reference_period_end: Mapped[datetime] = mapped_column(

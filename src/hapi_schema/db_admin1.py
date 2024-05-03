@@ -31,7 +31,7 @@ class DBAdmin1(Base):
             "(hapi_replaced_date IS NULL) OR (hapi_replaced_date >= hapi_updated_date)",
             name="hapi_dates",
         ),
-        UniqueConstraint("code", "hapi_updated_date"),
+        UniqueConstraint("code", "hapi_updated_date", name="admin1_code_hapi_updated_date"),
     )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

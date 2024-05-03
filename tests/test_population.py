@@ -20,7 +20,7 @@ def test_population_view(run_view_test):
             view_population.c.admin2_code == "FOO-001-XXX",
             view_population.c.admin1_code == "FOO-001",
             view_population.c.location_code == "FOO",
-            view_population.c.gender_code == "f",
+            view_population.c.gender_marker == "f",
         ),
     )
 
@@ -32,12 +32,11 @@ def test_reference_period_constraint(run_constraints_test):
             DBPopulation(
                 resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
                 admin2_ref=1,
-                gender_code=None,
-                age_range_code=None,
+                gender_marker="*",
+                age_range="*",
                 population=1_000_000,
                 reference_period_start=datetime(2023, 1, 2),
                 reference_period_end=datetime(2023, 1, 1),
-                source_data="DATA,DATA,DATA",
             )
         ],
         expected_constraint="reference_period",
@@ -51,8 +50,8 @@ def test_population_positive(run_constraints_test):
             DBPopulation(
                 resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
                 admin2_ref=1,
-                gender_code=None,
-                age_range_code=None,
+                gender_marker="*",
+                age_range="*",
                 population=-1,
                 reference_period_start=None,
                 reference_period_end=None,
