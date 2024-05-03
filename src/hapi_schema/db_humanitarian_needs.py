@@ -8,8 +8,9 @@ from sqlalchemy import (
     Enum,
     ForeignKey,
     Integer,
+    String,
     select,
-    text, String,
+    text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -48,13 +49,11 @@ class DBHumanitarianNeeds(Base):
         primary_key=True,
     )
     population_status: Mapped[PopulationStatus] = mapped_column(
-        Enum(PopulationStatus,
-        name="population_status_enum"),
+        Enum(PopulationStatus, name="population_status_enum"),
         primary_key=True,
     )
     population_group: Mapped[PopulationGroup] = mapped_column(
-        Enum(PopulationGroup,
-        name="population_group_enum"),
+        Enum(PopulationGroup, name="population_group_enum"),
         primary_key=True,
     )
     sector_code: Mapped[str] = mapped_column(
@@ -62,17 +61,13 @@ class DBHumanitarianNeeds(Base):
         primary_key=True,
     )
     gender_marker: Mapped[GenderMarker] = mapped_column(
-        Enum(GenderMarker,
-        name="gender_marker_enum"), primary_key=True
+        Enum(GenderMarker, name="gender_marker_enum"), primary_key=True
     )
     age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
-    min_age: Mapped[int] = mapped_column(
-        Integer, nullable=True, index=True
-    )
+    min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     disabled_marker: Mapped[DisabledMarker] = mapped_column(
-        Enum(DisabledMarker,
-        name="disabled_marker_enum"), primary_key=True
+        Enum(DisabledMarker, name="disabled_marker_enum"), primary_key=True
     )
     population: Mapped[int] = mapped_column(Integer, nullable=False)
     reference_period_start: Mapped[datetime] = mapped_column(

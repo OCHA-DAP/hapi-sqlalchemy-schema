@@ -2,28 +2,39 @@ from typing import List
 
 import pytest
 from hdx.database.views import build_views
-from sqlalchemy import create_engine, insert, text, inspect, Table, MetaData, \
-    ForeignKeyConstraint
-from sqlalchemy.exc import IntegrityError, ProgrammingError
+from sqlalchemy import (
+    create_engine,
+    insert,
+)
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.declarative import DeclarativeMeta
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.sql.ddl import DropTable, DropConstraint, CreateSchema, \
-    DropSchema
+from sqlalchemy.sql.ddl import (
+    CreateSchema,
+    DropSchema,
+)
 
 from hapi_schema.db_admin1 import DBAdmin1, view_params_admin1
 from hapi_schema.db_admin2 import DBAdmin2, view_params_admin2
 from hapi_schema.db_dataset import DBDataset, view_params_dataset
-from hapi_schema.db_food_security import DBFoodSecurity, \
-    view_params_food_security
-from hapi_schema.db_humanitarian_needs import DBHumanitarianNeeds, \
-    view_params_humanitarian_needs
+from hapi_schema.db_food_security import (
+    DBFoodSecurity,
+    view_params_food_security,
+)
+from hapi_schema.db_humanitarian_needs import (
+    DBHumanitarianNeeds,
+    view_params_humanitarian_needs,
+)
 from hapi_schema.db_ipc_phase import DBIpcPhase, view_params_ipc_phase
 from hapi_schema.db_ipc_type import DBIpcType, view_params_ipc_type
 from hapi_schema.db_location import DBLocation, view_params_location
-from hapi_schema.db_national_risk import DBNationalRisk, \
-    view_params_national_risk
+from hapi_schema.db_national_risk import (
+    DBNationalRisk,
+    view_params_national_risk,
+)
 from hapi_schema.db_operational_presence import (
-    DBOperationalPresence, view_params_operational_presence,
+    DBOperationalPresence,
+    view_params_operational_presence,
 )
 from hapi_schema.db_org import DBOrg, view_params_org
 from hapi_schema.db_org_type import DBOrgType, view_params_org_type

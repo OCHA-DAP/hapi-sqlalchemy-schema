@@ -5,11 +5,13 @@ from datetime import datetime
 from sqlalchemy import (
     CheckConstraint,
     DateTime,
+    Enum,
     ForeignKey,
     Integer,
+    String,
     Text,
     select,
-    text, Enum, String,
+    text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -39,16 +41,14 @@ class DBPopulation(Base):
         nullable=False,
     )
     admin2_ref: Mapped[int] = mapped_column(
-        ForeignKey("admin2.id", onupdate="CASCADE"), primary_key=True,
+        ForeignKey("admin2.id", onupdate="CASCADE"),
+        primary_key=True,
     )
     gender_marker: Mapped[GenderMarker] = mapped_column(
-        Enum(GenderMarker,
-        name="gender_marker_enum"), primary_key=True
+        Enum(GenderMarker, name="gender_marker_enum"), primary_key=True
     )
     age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
-    min_age: Mapped[int] = mapped_column(
-        Integer, nullable=True, index=True
-    )
+    min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     population: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
