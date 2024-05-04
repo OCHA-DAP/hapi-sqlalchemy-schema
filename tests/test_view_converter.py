@@ -10,66 +10,68 @@ columns = None
 def test_admin1_view_table(engine):
     """Check that admin1 view references location."""
     global columns
+    target_view = "admin1_view"
+    target_table = target_view.replace("view", "vat")
+    expected_indexes = [
+        "reference_period_start",
+        "reference_period_end",
+        "hapi_updated_date",
+        "hapi_replaced_date",
+    ]
+
     _ = build_view(view_params_admin1.__dict__)
     Base.metadata.create_all(engine)
-    # whereclause = (
-    #     view_admin1.c.id == 1,
-    #     view_admin1.c.location_code == "FOO",
-    # )
-    # select_instance = view_admin1.select().where(*whereclause)
-    # select_instance.compile(bind=engine)
-    # result = engine.connect().execute(select_instance)
-
-    # result = result.fetchone()
-
-    # print(result, flush=True)
-
-    # view_metadata = MetaData().reflect(views=True)
-
     Base.metadata.reflect(bind=engine, views=True)
+    columns = Base.metadata.tables[target_view].columns
 
-    columns = Base.metadata.tables["admin1_view"].columns
-    # for item in dir(columns[0]):
-    #     if not item.startswith("_"):
-    #         print(item, getattr(columns[0], item), flush=True)
-    # print(dir(Base.metadata), flush=True)
+    new_columns = make_table_template_from_view(
+        target_table, columns, expected_indexes
+    )
+
+    #
+    _ = Table(target_table, Base.metadata, *new_columns)
+
+    Base.metadata.create_all(engine)
+
+    print(Base.metadata.tables.keys(), flush=True)
+
+    assert target_table in Base.metadata.tables.keys()
+    assert False
+
+
+def make_table_template_from_view(target_table, columns, expected_indexes):
+    print(f"class DB{target_table}(Base):", flush=True)
+    print(f"\t__tablename__ = '{target_table}'", flush=True)
     new_columns = []
     for column in columns:
         new_column = column.copy()
         if column.name == "id":
             column.primary_key = True
+
+        primary_key_str = ""
+        index_str = ""
+        if column.name == "id":
+            primary_key_str = ", primary_key=True"
+        if column.name in expected_indexes:
+            index_str = ", index=True"
+        column_type = str(column.type)
+        mapped_type_1 = column_type
+        mapped_type_2 = column_type
+        if column_type == "INTEGER":
+            mapped_type_1 = "int"
+            mapped_type_2 = "Integer"
+        elif column_type.startswith("VARCHAR"):
+            mapped_type_1 = "str"
+            mapped_type_2 = column_type.replace("VARCHAR", "String")
+        elif column_type == "BOOLEAN":
+            mapped_type_1 = "bool"
+            mapped_type_2 = "Boolean"
+        elif column_type == "DATETIME":
+            mapped_type_1 = "datetime"
+            mapped_type_2 = "DateTime"
         print(
-            column.name,
-            column.primary_key,
-            column.type,
-            column.unique,
-            column.nullable,
-            column.index,
-            flush=True,
+            f"\t{column.name}: Mapped[{mapped_type_1}] = mapped_column({mapped_type_2}{primary_key_str}{index_str})"
         )
+
         new_columns.append(new_column)
-    # view_metadata.
-    # view_metadata = Base.metadata.tables[
-    #     "admin1"
-    # ]  # .keys()  # ["admin1_view"]
-    # print(view_metadata, flush=True)
-
-    # Create the Metadata Object
-    # metadata_obj = MetaData()
-
-    # Define the profile table
-
-    # database name
-    admin1_vat = Table("admin1_vat", Base.metadata, *new_columns)
-
-    print(admin1_vat)
-    Base.metadata.create_all(engine)
-
-    print(Base.metadata.tables.keys(), flush=True)
-
-    # class DBAdmin1vat(Base):
-    #     __tablename__ = "admin1_vat"
-
-    #     columns = columns
-
-    assert False
+    return new_columns

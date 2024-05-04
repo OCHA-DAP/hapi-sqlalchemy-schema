@@ -77,3 +77,24 @@ view_params_admin1 = ViewParams(
         )
     ),
 )
+
+
+class DBadmin1_vat(Base):
+    __tablename__ = "admin1_vat"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    location_ref: Mapped[int] = mapped_column(Integer)
+    code: Mapped[str] = mapped_column(String(128))
+    name: Mapped[str] = mapped_column(String(512))
+    is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime, index=True)
+    hapi_replaced_date: Mapped[datetime] = mapped_column(DateTime, index=True)
+    location_code: Mapped[str] = mapped_column(String(128))
+    location_name: Mapped[str] = mapped_column(String(512))
+    location_reference_period_start: Mapped[datetime] = mapped_column(DateTime)
+    location_reference_period_end: Mapped[datetime] = mapped_column(DateTime)
