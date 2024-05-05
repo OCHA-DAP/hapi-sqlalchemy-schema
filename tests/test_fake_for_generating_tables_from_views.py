@@ -1,16 +1,16 @@
 from hdx.database.views import build_view
 from sqlalchemy import Table
 
+# Edit this to import the view parameters
 from hapi_schema.db_admin1 import view_params_admin1
 from hapi_schema.utils.base import Base
 
-columns = None
 
-
-def test_admin1_view_table(engine):
-    """Check that admin1 view references location."""
-    global columns
+def test_output_table_code_to_stdout(engine):
+    # Change these two
     target_view = "admin1_view"
+    _ = build_view(view_params_admin1.__dict__)
+
     target_table = target_view.replace("view", "vat")
     expected_indexes = [
         "reference_period_start",
@@ -19,7 +19,6 @@ def test_admin1_view_table(engine):
         "hapi_replaced_date",
     ]
 
-    _ = build_view(view_params_admin1.__dict__)
     Base.metadata.create_all(engine)
     Base.metadata.reflect(bind=engine, views=True)
     columns = Base.metadata.tables[target_view].columns
@@ -28,7 +27,6 @@ def test_admin1_view_table(engine):
         target_table, columns, expected_indexes
     )
 
-    #
     _ = Table(target_table, Base.metadata, *new_columns)
 
     Base.metadata.create_all(engine)
