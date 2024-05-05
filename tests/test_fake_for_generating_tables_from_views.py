@@ -1,15 +1,17 @@
+import pytest
 from hdx.database.views import build_view
 from sqlalchemy import Table
 
 # Edit this to import the view parameters
-from hapi_schema.db_admin1 import view_params_admin1
+from hapi_schema.db_admin2 import view_params_admin2
 from hapi_schema.utils.base import Base
 
 
+@pytest.mark.skip(reason="This is not a real test")
 def test_output_table_code_to_stdout(engine):
     # Change these two
-    target_view = "admin1_view"
-    _ = build_view(view_params_admin1.__dict__)
+    target_view = "admin2_view"
+    _ = build_view(view_params_admin2.__dict__)
 
     target_table = target_view.replace("view", "vat")
     expected_indexes = [
