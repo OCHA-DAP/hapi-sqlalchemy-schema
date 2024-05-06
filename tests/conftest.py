@@ -11,6 +11,7 @@ from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_age_range import DBAgeRange
 from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_food_security import DBFoodSecurity
+from hapi_schema.db_funding import DBFunding
 from hapi_schema.db_gender import DBGender
 from hapi_schema.db_humanitarian_needs import DBHumanitarianNeeds
 from hapi_schema.db_ipc_phase import DBIpcPhase
@@ -34,6 +35,7 @@ from sample_data.data_admin2 import data_admin2
 from sample_data.data_age_range import data_age_range
 from sample_data.data_dataset import data_dataset
 from sample_data.data_food_security import data_food_security
+from sample_data.data_funding import data_funding
 from sample_data.data_gender import data_gender
 from sample_data.data_humanitarian_needs import data_humanitarian_needs
 from sample_data.data_ipc_phase import data_ipc_phase
@@ -84,6 +86,7 @@ def engine():
     session.execute(insert(DBNationalRisk), data_national_risk)
     session.execute(insert(DBPopulation), data_population)
     session.execute(insert(DBOperationalPresence), data_operational_presence)
+    session.execute(insert(DBFunding), data_funding)
     session.execute(insert(DBFoodSecurity), data_food_security)
     session.execute(insert(DBHumanitarianNeeds), data_humanitarian_needs)
 
