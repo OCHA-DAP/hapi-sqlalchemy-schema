@@ -1,32 +1,34 @@
-import pytest
 from hdx.database.views import build_view
 from sqlalchemy import Table
 
 # Edit this to import the view parameters
-from hapi_schema.db_admin2 import view_params_admin2
+from hapi_schema.db_food_security import view_params_food_security
 from hapi_schema.utils.base import Base
 
 
-@pytest.mark.skip(reason="This is not a real test")
+# @pytest.mark.skip(reason="This is not a real test")
 def test_output_table_code_to_stdout(engine):
     # Change these two
-    target_view = "admin2_view"
-    _ = build_view(view_params_admin2.__dict__)
+    target_view = "food_security_view"
+    _ = build_view(view_params_food_security.__dict__)
+    primary_key = "id"
 
-    target_table = target_view.replace("view", "vat")
     expected_indexes = [
-        "reference_period_start",
-        "reference_period_end",
+        "dataset_hdx_provider_stub",
+        "dataset_hdx_provider_name",
+        "resource_update_date",
         "hapi_updated_date",
         "hapi_replaced_date",
+        "reference_period_start",
+        "reference_period_end",
     ]
-
+    target_table = target_view.replace("view", "vat")
     Base.metadata.create_all(engine)
     Base.metadata.reflect(bind=engine, views=True)
     columns = Base.metadata.tables[target_view].columns
 
     new_columns = make_table_template_from_view(
-        target_table, columns, expected_indexes
+        target_table, columns, expected_indexes, primary_key=primary_key
     )
 
     _ = Table(target_table, Base.metadata, *new_columns)
@@ -39,7 +41,9 @@ def test_output_table_code_to_stdout(engine):
     assert False
 
 
-def make_table_template_from_view(target_table, columns, expected_indexes):
+def make_table_template_from_view(
+    target_table, columns, expected_indexes, primary_key="id"
+):
     print(f"class DB{target_table}(Base):", flush=True)
     print(f"\t__tablename__ = '{target_table}'", flush=True)
     new_columns = []
@@ -50,7 +54,7 @@ def make_table_template_from_view(target_table, columns, expected_indexes):
 
         primary_key_str = ""
         index_str = ""
-        if column.name == "id":
+        if column.name == primary_key:
             primary_key_str = ", primary_key=True"
         if column.name in expected_indexes:
             index_str = ", index=True"
@@ -69,6 +73,12 @@ def make_table_template_from_view(target_table, columns, expected_indexes):
         elif column_type == "DATETIME":
             mapped_type_1 = "datetime"
             mapped_type_2 = "DateTime"
+        elif column_type == "FLOAT":
+            mapped_type_1 = "float"
+            mapped_type_2 = "Float"
+        elif column_type == "TEXT":
+            mapped_type_1 = "str"
+            mapped_type_2 = "Text"
         print(
             f"\t{column.name}: Mapped[{mapped_type_1}] = mapped_column({mapped_type_2}{primary_key_str}{index_str})"
         )
