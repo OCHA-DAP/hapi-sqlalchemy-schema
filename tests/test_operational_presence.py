@@ -34,6 +34,28 @@ def test_operational_presence_view(run_view_test):
     )
 
 
+def test_operational_presence_vat(run_indexes_test, run_columns_test):
+    """Check that the operational_presence view as table is correct - columns match, expected indexes present"""
+    expected_indexes = [
+        "org_acronym",
+        "org_type_description",
+        "dataset_hdx_provider_stub",
+        "dataset_hdx_provider_name",
+        "resource_update_date",
+        "hapi_updated_date",
+        "hapi_replaced_date",
+        "reference_period_start",
+        "reference_period_end",
+        "sector_name",
+    ]
+    run_columns_test(
+        "operational_presence_vat",
+        "operational_presence_view",
+        view_params_operational_presence,
+    )
+    run_indexes_test("operational_presence_vat", expected_indexes)
+
+
 def test_reference_period_constraint(run_constraints_test):
     """Check that reference_period_end cannot be less than start"""
     run_constraints_test(
