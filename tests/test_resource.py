@@ -17,6 +17,22 @@ def test_resource_view(run_view_test):
     )
 
 
+def test_resource_vat(run_indexes_test, run_columns_test):
+    """Check that the resource view as table is correct - columns match, expected indexes present"""
+    expected_indexes = [
+        "dataset_hdx_provider_stub",
+        "dataset_hdx_provider_name",
+        "hapi_updated_date",
+        "hapi_replaced_date",
+    ]
+    run_columns_test(
+        "resource_vat",
+        "resource_view",
+        view_params_resource,
+    )
+    run_indexes_test("resource_vat", expected_indexes)
+
+
 def test_hapi_date_constraint(run_constraints_test):
     """Check that hapi_replaced_date cannot be less than hapi_updated_date"""
     run_constraints_test(
