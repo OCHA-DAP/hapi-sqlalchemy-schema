@@ -28,10 +28,6 @@ class PopulationGroup(enum.Enum):
 class DBRefugees(Base):
     __tablename__ = "refugees"
     __table_args__ = (
-        CheckConstraint(
-            "origin_location_ref != asylum_location_ref",
-            name="origin_location",
-        ),
         CheckConstraint("min_age >= 0", name="min_age"),
         CheckConstraint(
             "(max_age >= min_age) OR (max_age IS NULL)", name="max_age"
