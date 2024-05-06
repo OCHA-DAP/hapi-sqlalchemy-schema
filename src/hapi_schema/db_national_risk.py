@@ -3,11 +3,13 @@
 from datetime import datetime
 
 from sqlalchemy import (
+    Boolean,
     CheckConstraint,
     DateTime,
     Float,
     ForeignKey,
     Integer,
+    String,
     Text,
     select,
     text,
@@ -120,3 +122,48 @@ view_params_national_risk = ViewParams(
         )
     ),
 )
+
+
+class DBnational_risk_vat(Base):
+    __tablename__ = "national_risk_vat"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    resource_hdx_id: Mapped[str] = mapped_column(String(36))
+    admin2_ref: Mapped[int] = mapped_column(Integer)
+    risk_class: Mapped[int] = mapped_column(Integer)
+    global_rank: Mapped[int] = mapped_column(Integer)
+    overall_risk: Mapped[float] = mapped_column(Float)
+    hazard_exposure_risk: Mapped[float] = mapped_column(Float)
+    vulnerability_risk: Mapped[float] = mapped_column(Float)
+    coping_capacity_risk: Mapped[float] = mapped_column(Float)
+    meta_missing_indicators_pct: Mapped[float] = mapped_column(Float)
+    meta_avg_recentness_years: Mapped[float] = mapped_column(Float)
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    source_data: Mapped[str] = mapped_column(Text)
+    dataset_hdx_id: Mapped[str] = mapped_column(String(36))
+    dataset_hdx_stub: Mapped[str] = mapped_column(String(128))
+    dataset_title: Mapped[str] = mapped_column(String(1024))
+    dataset_hdx_provider_stub: Mapped[str] = mapped_column(
+        String(128), index=True
+    )
+    dataset_hdx_provider_name: Mapped[str] = mapped_column(
+        String(512), index=True
+    )
+    resource_name: Mapped[str] = mapped_column(String(256))
+    resource_update_date: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime, index=True)
+    hapi_replaced_date: Mapped[datetime] = mapped_column(DateTime, index=True)
+    location_code: Mapped[str] = mapped_column(String(128))
+    location_name: Mapped[str] = mapped_column(String(512))
+    admin1_code: Mapped[str] = mapped_column(String(128))
+    admin1_name: Mapped[str] = mapped_column(String(512))
+    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    admin2_code: Mapped[str] = mapped_column(String(128))
+    admin2_name: Mapped[str] = mapped_column(String(512))
+    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)

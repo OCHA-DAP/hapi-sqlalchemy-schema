@@ -27,6 +27,23 @@ def test_national_risk_view(run_view_test):
     )
 
 
+def test_national_risk_vat(run_indexes_test, run_columns_test):
+    """Check that the national_risk view as table is correct - columns match, expected indexes present"""
+    expected_indexes = [
+        "dataset_hdx_provider_stub",
+        "dataset_hdx_provider_name",
+        "resource_update_date",
+        "hapi_updated_date",
+        "hapi_replaced_date",
+        "reference_period_start",
+        "reference_period_end",
+    ]
+    run_columns_test(
+        "national_risk_vat", "national_risk_view", view_params_national_risk
+    )
+    run_indexes_test("national_risk_vat", expected_indexes)
+
+
 def test_reference_period_constraint(run_constraints_test):
     """Check that reference_period_end cannot be less than start"""
     run_constraints_test(
