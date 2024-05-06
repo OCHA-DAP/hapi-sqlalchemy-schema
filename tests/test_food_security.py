@@ -28,6 +28,23 @@ def test_food_security_view(run_view_test):
     )
 
 
+def test_food_security_vat(run_indexes_test, run_columns_test):
+    """Check that the food_security view as table is correct - columns match, expected indexes present"""
+    expected_indexes = [
+        "dataset_hdx_provider_stub",
+        "dataset_hdx_provider_name",
+        "resource_update_date",
+        "hapi_updated_date",
+        "hapi_replaced_date",
+        "reference_period_start",
+        "reference_period_end",
+    ]
+    run_columns_test(
+        "food_security_vat", "food_security_view", view_params_food_security
+    )
+    run_indexes_test("food_security_vat", expected_indexes)
+
+
 def test_reference_period_constraint(run_constraints_test):
     """Check that reference_period_end cannot be less than start"""
     run_constraints_test(
