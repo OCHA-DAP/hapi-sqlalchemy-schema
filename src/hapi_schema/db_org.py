@@ -66,3 +66,20 @@ view_params_org = ViewParams(
         )
     ),
 )
+
+
+class DBorg_vat(Base):
+    __tablename__ = "org_vat"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    acronym: Mapped[str] = mapped_column(String(32), index=True)
+    name: Mapped[str] = mapped_column(String(512))
+    org_type_code: Mapped[str] = mapped_column(String(32))
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime, index=True)
+    hapi_replaced_date: Mapped[datetime] = mapped_column(DateTime, index=True)
+    org_type_description: Mapped[str] = mapped_column(String(512), index=True)
