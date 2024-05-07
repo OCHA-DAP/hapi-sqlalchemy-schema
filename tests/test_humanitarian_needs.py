@@ -22,11 +22,8 @@ def test_humanitarian_needs_view(run_view_test):
     run_view_test(
         view=view_humanitarian_needs,
         whereclause=(
-            view_humanitarian_needs.c.dataset_hdx_id
-            == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
             view_humanitarian_needs.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
-            view_humanitarian_needs.c.resource_name == "resource-01.csv",
             view_humanitarian_needs.c.admin2_code == "FOO-001-XXX",
             view_humanitarian_needs.c.admin1_code == "FOO-001",
             view_humanitarian_needs.c.location_code == "FOO",

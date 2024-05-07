@@ -35,6 +35,7 @@ data_humanitarian_needs = [
         admin2_ref=2,
         gender="f",
         age_range="0-4",
+        min_age=0,
         max_age=4,
         disabled_marker="y",
         sector_code="WSH",
