@@ -56,10 +56,6 @@ view_params_admin1 = ViewParams(
         *DBAdmin1.__table__.columns,
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
-        DBLocation.reference_period_start.label(
-            "location_reference_period_start"
-        ),
-        DBLocation.reference_period_end.label("location_reference_period_end"),
     ).select_from(
         DBAdmin1.__table__.join(
             DBLocation.__table__,
