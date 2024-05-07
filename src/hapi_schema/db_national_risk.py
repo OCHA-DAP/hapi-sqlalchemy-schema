@@ -11,7 +11,6 @@ from sqlalchemy import (
     Integer,
     Text,
     select,
-    text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -72,7 +71,7 @@ class DBNationalRisk(Base):
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL"), index=True
+        DateTime, nullable=False, index=True
     )
     source_data: Mapped[str] = mapped_column(Text, nullable=True)
 

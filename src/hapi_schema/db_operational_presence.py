@@ -45,7 +45,6 @@ class DBOperationalPresence(Base):
     org_acronym: Mapped[str] = mapped_column(String, primary_key=True)
     # Foreign key
     org_name: Mapped[str] = mapped_column(String, primary_key=True)
-    # TODO: org_type added instead on view
     sector_code: Mapped[str] = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"), primary_key=True
     )

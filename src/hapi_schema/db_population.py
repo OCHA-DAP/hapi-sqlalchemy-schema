@@ -52,7 +52,7 @@ class DBPopulation(Base):
         Integer, nullable=False, index=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL"), index=True
