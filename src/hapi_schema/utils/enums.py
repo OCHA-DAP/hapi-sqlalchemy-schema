@@ -1,7 +1,7 @@
 import enum
 
 
-class GenderMarker(str, enum.Enum):
+class Gender(str, enum.Enum):
     FEMALE = "f"
     MALE = "m"
     NONBINARY = "x"

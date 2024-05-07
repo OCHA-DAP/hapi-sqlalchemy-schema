@@ -1,4 +1,4 @@
-from hdx.database.views import build_view
+from hdx.database import Database
 
 from hapi_schema.db_ipc_type import DBIpcType, view_params_ipc_type
 
@@ -6,7 +6,7 @@ from hapi_schema.db_ipc_type import DBIpcType, view_params_ipc_type
 def test_ipc_type_view(run_view_test):
     """Check IPC type view has all columns."""
 
-    view_ipc_type = build_view(view_params_ipc_type.__dict__)
+    view_ipc_type = Database.prepare_view(view_params_ipc_type.__dict__)
     run_view_test(
         view=view_ipc_type,
         whereclause=(

@@ -21,9 +21,9 @@ from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
-from hapi_schema.utils.shared_enums import (
+from hapi_schema.utils.enums import (
     DisabledMarker,
-    GenderMarker,
+    Gender,
     PopulationGroup,
     PopulationStatus,
 )
@@ -33,6 +33,8 @@ from hapi_schema.utils.view_params import ViewParams
 class DBHumanitarianNeeds(Base):
     __tablename__ = "humanitarian_needs"
     __table_args__ = (
+        CheckConstraint("min_age >= 0", name="min_age"),
+        CheckConstraint("max_age >= 0", name="max_age"),
         CheckConstraint("population >= 0", name="population"),
         CheckConstraint(
             "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
@@ -60,8 +62,8 @@ class DBHumanitarianNeeds(Base):
         ForeignKey("sector.code", onupdate="CASCADE"),
         primary_key=True,
     )
-    gender_marker: Mapped[GenderMarker] = mapped_column(
-        Enum(GenderMarker, name="gender_marker_enum"), primary_key=True
+    gender: Mapped[Gender] = mapped_column(
+        Enum(Gender, name="gender_enum"), primary_key=True
     )
     age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
     min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)

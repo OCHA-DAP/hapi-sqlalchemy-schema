@@ -1,17 +1,12 @@
 from typing import List
 
 import pytest
+from hdx.database import Database
 from sqlalchemy import (
-    create_engine,
     insert,
 )
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.declarative import DeclarativeMeta
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.sql.ddl import (
-    CreateSchema,
-    DropSchema,
-)
 
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
@@ -37,8 +32,7 @@ from hapi_schema.db_patch import DBPatch
 from hapi_schema.db_population import DBPopulation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
-from hapi_schema.utils.base import Base
-from hapi_schema.views import build_hapi_views
+from hapi_schema.views import prepare_hapi_views
 from sample_data.data_admin1 import data_admin1
 from sample_data.data_admin2 import data_admin2
 from sample_data.data_dataset import data_dataset
@@ -59,21 +53,12 @@ from sample_data.data_sector import data_sector
 
 @pytest.fixture(scope="session")
 def session():
-    engine = create_engine(
-        url="postgresql+psycopg://postgres:postgres@localhost:5432/hapitest"
-    )
-
-    # Create an empty schema
-    with engine.connect() as connection:
-        connection.execute(DropSchema("public", cascade=True, if_exists=True))
-        connection.commit()
-        connection.execute(CreateSchema("public", if_not_exists=True))
-        connection.commit()
-
     # Build the DB
-    build_hapi_views()
-    Base.metadata.create_all(engine)
-    session = sessionmaker(bind=engine)()
+    db_uri = "postgresql+psycopg://postgres:postgres@localhost:5432/hapitest"
+    database = Database(
+        db_uri=db_uri, recreate_schema=True, prepare_fn=prepare_hapi_views
+    )
+    session = database.get_session()
 
     # Populate all tables
     session.execute(insert(DBDataset), data_dataset)

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from hdx.database.views import build_view
+from hdx.database import Database
 
 from hapi_schema.db_operational_presence import (
     DBOperationalPresence,
@@ -10,7 +10,7 @@ from hapi_schema.db_operational_presence import (
 
 def test_operational_presence_view(run_view_test):
     """Check that OP view has all references."""
-    view_operational_presence = build_view(
+    view_operational_presence = Database.prepare_view(
         view_params_operational_presence.__dict__
     )
     run_view_test(

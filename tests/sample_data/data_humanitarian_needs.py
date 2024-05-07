@@ -5,7 +5,7 @@ data_humanitarian_needs = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
-        gender_marker="*",
+        gender="*",
         age_range="*",
         disabled_marker="*",
         sector_code="*",
@@ -19,7 +19,7 @@ data_humanitarian_needs = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
-        gender_marker="f",
+        gender="f",
         age_range="*",
         disabled_marker="n",
         sector_code="SHL",
@@ -33,7 +33,7 @@ data_humanitarian_needs = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=2,
-        gender_marker="f",
+        gender="f",
         age_range="0-4",
         max_age=4,
         disabled_marker="y",
@@ -48,7 +48,7 @@ data_humanitarian_needs = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
-        gender_marker="*",
+        gender="*",
         age_range="80+",
         min_age=80,
         disabled_marker="y",

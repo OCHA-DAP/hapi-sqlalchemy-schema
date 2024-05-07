@@ -9,7 +9,6 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
-    Text,
     select,
     text,
 )
@@ -21,13 +20,15 @@ from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
-from hapi_schema.utils.shared_enums import GenderMarker
+from hapi_schema.utils.enums import Gender
 from hapi_schema.utils.view_params import ViewParams
 
 
 class DBPopulation(Base):
     __tablename__ = "population"
     __table_args__ = (
+        CheckConstraint("min_age >= 0", name="min_age"),
+        CheckConstraint("max_age >= 0", name="max_age"),
         CheckConstraint("population >= 0", name="population"),
         CheckConstraint(
             "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
@@ -35,7 +36,7 @@ class DBPopulation(Base):
         ),
     )
 
-    resource_hdx_id: Mapped[int] = mapped_column(
+    resource_hdx_id: Mapped[str] = mapped_column(
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
@@ -43,8 +44,8 @@ class DBPopulation(Base):
         ForeignKey("admin2.id", onupdate="CASCADE"),
         primary_key=True,
     )
-    gender_marker: Mapped[GenderMarker] = mapped_column(
-        Enum(GenderMarker, name="gender_marker_enum"), primary_key=True
+    gender: Mapped[Gender] = mapped_column(
+        Enum(Gender, name="gender_enum"), primary_key=True
     )
     age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
     min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
@@ -58,7 +59,6 @@ class DBPopulation(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL"), index=True
     )
-    source_data: Mapped[str] = mapped_column(Text, nullable=True)
 
     resource = relationship("DBResource")
     admin2 = relationship("DBAdmin2")
