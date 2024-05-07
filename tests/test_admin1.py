@@ -1,13 +1,13 @@
 from datetime import datetime
 
-from hdx.database.views import build_view
+from hdx.database import Database
 
 from hapi_schema.db_admin1 import DBAdmin1, view_params_admin1
 
 
 def test_admin1_view(run_view_test):
     """Check that admin1 view references location."""
-    view_admin1 = build_view(view_params_admin1.__dict__)
+    view_admin1 = Database.prepare_view(view_params_admin1.__dict__)
     run_view_test(
         view=view_admin1,
         whereclause=(
@@ -80,5 +80,5 @@ def test_code_date_unique(run_constraints_test):
                 hapi_replaced_date=None,
             ),
         ],
-        expected_constraint="UNIQUE constraint failed",
+        expected_constraint="admin1_code_hapi_updated_date",
     )

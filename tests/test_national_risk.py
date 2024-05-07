@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from hdx.database.views import build_view
+from hdx.database import Database
 
 from hapi_schema.db_national_risk import (
     DBNationalRisk,
@@ -10,7 +10,9 @@ from hapi_schema.db_national_risk import (
 
 def test_national_risk_view(run_view_test):
     """Check that national risk references other tables."""
-    view_national_risk = build_view(view_params_national_risk.__dict__)
+    view_national_risk = Database.prepare_view(
+        view_params_national_risk.__dict__
+    )
     run_view_test(
         view=view_national_risk,
         whereclause=(

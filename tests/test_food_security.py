@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from hdx.database.views import build_view
+from hdx.database import Database
 
 from hapi_schema.db_food_security import (
     DBFoodSecurity,
@@ -10,7 +10,9 @@ from hapi_schema.db_food_security import (
 
 def test_food_security_view(run_view_test):
     """Check that food security view references other tables."""
-    view_food_security = build_view(view_params_food_security.__dict__)
+    view_food_security = Database.prepare_view(
+        view_params_food_security.__dict__
+    )
     run_view_test(
         view=view_food_security,
         whereclause=(

@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - `resource` and `dataset` primary keys are now the UUID
+- Use postgres for testing
+- Gender, DisabledMarker, PopulationGroup, PopulationStatus enums
+- Programmatically obtain views
+- Update tables like Population and HumanitarianNeeds to match document 6
+- Add constraints
+- Fix and add tests
+- Update GitHub Actions workflow to use postgres
 
 ## [0.7.3]
 

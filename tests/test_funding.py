@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from hdx.database.views import build_view
+from hdx.database import Database
 
 from hapi_schema.db_funding import (
     DBFunding,
@@ -10,7 +10,7 @@ from hapi_schema.db_funding import (
 
 def test_funding_view(run_view_test):
     """Check gender view has all columns."""
-    view_funding = build_view(view_params_funding.__dict__)
+    view_funding = Database.prepare_view(view_params_funding.__dict__)
     run_view_test(
         view=view_funding,
         whereclause=(
