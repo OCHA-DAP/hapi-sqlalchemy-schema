@@ -15,6 +15,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_location import DBLocation
+from hapi_schema.db_org import DBOrg
 from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.shared_constraints import reference_period_constraint
@@ -44,7 +45,7 @@ class DBOperationalPresence(Base):
     org_acronym: Mapped[str] = mapped_column(String, primary_key=True)
     # Foreign key
     org_name: Mapped[str] = mapped_column(String, primary_key=True)
-    # TODO: how to add org_type_code - perhaps it is not needed?
+    # TODO: org_type added instead on view
     sector_code: Mapped[str] = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"), primary_key=True
     )
@@ -65,6 +66,7 @@ view_params_operational_presence = ViewParams(
     metadata=Base.metadata,
     selectable=select(
         *DBOperationalPresence.__table__.columns,
+        DBOrg.org_type_code.label("org_type_code"),
         DBSector.name.label("sector_name"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
@@ -91,6 +93,13 @@ view_params_operational_presence = ViewParams(
         .join(
             DBLocation.__table__,
             DBAdmin1.location_ref == DBLocation.id,
+            isouter=True,
+        )
+        # Join to org
+        .join(
+            DBOrg.__table__,
+            (DBOperationalPresence.org_name == DBOrg.name)
+            & (DBOperationalPresence.org_acronym == DBOrg.acronym),
             isouter=True,
         )
         # Join op to sector

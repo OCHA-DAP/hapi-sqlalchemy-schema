@@ -22,6 +22,7 @@ def test_operational_presence_view(run_view_test):
             view_operational_presence.c.admin1_code == "FOO-XXX",
             view_operational_presence.c.location_code == "FOO",
             view_operational_presence.c.org_acronym == "ORG02",
+            view_operational_presence.c.org_type_code == "437",
             view_operational_presence.c.sector_name
             == "Water Sanitation Hygiene",
         ),
