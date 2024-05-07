@@ -35,14 +35,14 @@ class DBNationalRisk(Base):
         general_risk_constraint("vulnerability"),
         general_risk_constraint("coping_capacity"),
         CheckConstraint(
-            "(global_rank >= 0) AND (global_rank <= 250)", name="global_rank"
+            "(global_rank >= 1) AND (global_rank <= 250)", name="global_rank"
         ),
         CheckConstraint(
             "meta_avg_recentness_years >= 0.0",
             name="meta_avg_recentness_years",
         ),
         CheckConstraint(
-            "(meta_missing_indicators_pct >= 0.0) AND (meta_missing_indicators_pct <= 10.0)",
+            "(meta_missing_indicators_pct >= 0.0) AND (meta_missing_indicators_pct <= 100.0)",
             name="meta_missing_indicators_pct",
         ),
         reference_period_constraint(),
