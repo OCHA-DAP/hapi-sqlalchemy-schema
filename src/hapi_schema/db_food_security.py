@@ -3,12 +3,11 @@
 from datetime import datetime
 
 from sqlalchemy import (
-    CheckConstraint,
     DateTime,
+    Enum,
     Float,
     ForeignKey,
     Integer,
-    Text,
     select,
     text,
 )
@@ -16,38 +15,28 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
-from hapi_schema.db_dataset import DBDataset
-from hapi_schema.db_ipc_phase import DBIpcPhase
-from hapi_schema.db_ipc_type import DBIpcType
 from hapi_schema.db_location import DBLocation
-from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
+from hapi_schema.utils.enums import IPCPhase, IPCType
+from hapi_schema.utils.shared_constraints import reference_period_constraint
 from hapi_schema.utils.view_params import ViewParams
 
 
 class DBFoodSecurity(Base):
     __tablename__ = "food_security"
-    __table_args__ = (
-        CheckConstraint(
-            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
-            name="reference_period",
-        ),
-    )
+    __table_args__ = (reference_period_constraint(),)
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     resource_hdx_id: Mapped[int] = mapped_column(
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
     admin2_ref: Mapped[int] = mapped_column(
-        ForeignKey("admin2.id", onupdate="CASCADE"), nullable=False
+        ForeignKey("admin2.id", onupdate="CASCADE"), primary_key=True
     )
-    ipc_phase_code: Mapped[str] = mapped_column(
-        ForeignKey("ipc_phase.code", onupdate="CASCADE"), nullable=False
+    ipc_phase: Mapped[IPCPhase] = mapped_column(
+        Enum(IPCPhase), primary_key=True
     )
-    ipc_type_code: Mapped[str] = mapped_column(
-        ForeignKey("ipc_type.code", onupdate="CASCADE"), nullable=False
-    )
+    ipc_type: Mapped[IPCType] = mapped_column(Enum(IPCType), primary_key=True)
     population_in_phase: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
     )
@@ -60,12 +49,9 @@ class DBFoodSecurity(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL"), index=True
     )
-    source_data: Mapped[str] = mapped_column(Text, nullable=True)
 
     resource = relationship("DBResource")
     admin2 = relationship("DBAdmin2")
-    ipc_phase = relationship("DBIpcPhase")
-    ipc_type = relationship("DBIpcType")
 
 
 view_params_food_security = ViewParams(
@@ -73,16 +59,6 @@ view_params_food_security = ViewParams(
     metadata=Base.metadata,
     selectable=select(
         *DBFoodSecurity.__table__.columns,
-        DBDataset.hdx_id.label("dataset_hdx_id"),
-        DBDataset.hdx_stub.label("dataset_hdx_stub"),
-        DBDataset.title.label("dataset_title"),
-        DBDataset.hdx_provider_stub.label("dataset_hdx_provider_stub"),
-        DBDataset.hdx_provider_name.label("dataset_hdx_provider_name"),
-        DBIpcPhase.name.label("ipc_phase_name"),
-        DBResource.name.label("resource_name"),
-        DBResource.update_date.label("resource_update_date"),
-        DBResource.hapi_updated_date.label("hapi_updated_date"),
-        DBResource.hapi_replaced_date.label("hapi_replaced_date"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
         DBAdmin1.code.label("admin1_code"),
@@ -108,29 +84,6 @@ view_params_food_security = ViewParams(
         .join(
             DBLocation.__table__,
             DBAdmin1.location_ref == DBLocation.id,
-            isouter=True,
-        )
-        # Join pop to resource to dataset
-        .join(
-            DBResource.__table__,
-            DBFoodSecurity.resource_hdx_id == DBResource.hdx_id,
-            isouter=True,
-        )
-        .join(
-            DBDataset.__table__,
-            DBResource.dataset_hdx_id == DBDataset.hdx_id,
-            isouter=True,
-        )
-        # Join to ipc phase
-        .join(
-            DBIpcPhase.__table__,
-            DBFoodSecurity.ipc_phase_code == DBIpcPhase.code,
-            isouter=True,
-        )
-        # Join to ipc type
-        .join(
-            DBIpcType.__table__,
-            DBFoodSecurity.ipc_type_code == DBIpcType.code,
             isouter=True,
         )
     ),

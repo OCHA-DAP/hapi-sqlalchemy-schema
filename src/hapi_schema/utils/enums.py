@@ -42,3 +42,19 @@ class PopulationStatus(str, enum.Enum):
     TARGETED = "TGT"
     REACHED = "REA"
     ALL = "*"
+
+
+class IPCPhase(str, enum.Enum):
+    PHASE_1 = "1"
+    PHASE_2 = "2"
+    PHASE_3 = "3"
+    PHASE_4 = "4"
+    PHASE_5 = "5"
+    PHASE_3_PLUS = "3+"
+    ALL = "*"
+
+
+class IPCType(str, enum.Enum):
+    CURRENT = "current"
+    FIRST_PROJECTION = "first projection"
+    SECOND_PROJECTION = "second projection"

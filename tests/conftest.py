@@ -17,8 +17,6 @@ from hapi_schema.db_food_security import (
 from hapi_schema.db_humanitarian_needs import (
     DBHumanitarianNeeds,
 )
-from hapi_schema.db_ipc_phase import DBIpcPhase
-from hapi_schema.db_ipc_type import DBIpcType
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_national_risk import (
     DBNationalRisk,
@@ -38,8 +36,6 @@ from sample_data.data_admin2 import data_admin2
 from sample_data.data_dataset import data_dataset
 from sample_data.data_food_security import data_food_security
 from sample_data.data_humanitarian_needs import data_humanitarian_needs
-from sample_data.data_ipc_phase import data_ipc_phase
-from sample_data.data_ipc_type import data_ipc_type
 from sample_data.data_location import data_location
 from sample_data.data_national_risk import data_national_risk
 from sample_data.data_operational_presence import data_operational_presence
@@ -71,8 +67,6 @@ def session():
     session.execute(insert(DBOrgType), data_org_type)
     session.execute(insert(DBOrg), data_org)
     session.execute(insert(DBSector), data_sector)
-    session.execute(insert(DBIpcPhase), data_ipc_phase)
-    session.execute(insert(DBIpcType), data_ipc_type)
 
     session.execute(insert(DBNationalRisk), data_national_risk)
     session.execute(insert(DBPopulation), data_population)
