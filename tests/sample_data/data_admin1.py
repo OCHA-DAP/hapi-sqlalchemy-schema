@@ -2,7 +2,6 @@ from datetime import datetime
 
 data_admin1 = [
     dict(
-        id=1,
         location_ref=1,
         code="FOO-XXX",
         name="Unspecified",
@@ -13,7 +12,6 @@ data_admin1 = [
         hapi_replaced_date=None,
     ),
     dict(
-        id=2,
         location_ref=1,
         code="FOO-001",
         name="Province 01",
@@ -24,7 +22,6 @@ data_admin1 = [
         hapi_replaced_date=None,
     ),
     dict(
-        id=3,
         location_ref=1,
         code="FOO-002",
         name="Province 02",

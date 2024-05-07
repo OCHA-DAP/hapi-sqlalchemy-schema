@@ -1,13 +1,13 @@
 from datetime import datetime
 
-from hdx.database.views import build_view
+from hdx.database import Database
 
 from hapi_schema.db_location import DBLocation, view_params_location
 
 
 def test_location_view(run_view_test):
     """Check that location view has some columns."""
-    view_location = build_view(view_params_location.__dict__)
+    view_location = Database.prepare_view(view_params_location.__dict__)
     run_view_test(
         view=view_location,
         whereclause=(
@@ -73,5 +73,5 @@ def test_code_date_unique(run_constraints_test):
                 hapi_replaced_date=None,
             ),
         ],
-        expected_constraint="UNIQUE constraint failed",
+        expected_constraint="location_code_hapi_updated_date",
     )

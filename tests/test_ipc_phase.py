@@ -1,4 +1,4 @@
-from hdx.database.views import build_view
+from hdx.database import Database
 
 from hapi_schema.db_ipc_phase import DBIpcPhase, view_params_ipc_phase
 
@@ -10,7 +10,7 @@ def test_ipc_phase_view(run_view_test):
         "needs without engaging in atypical and unsustainable "
         "strategies to access food and income."
     )
-    view_ipc_phase = build_view(view_params_ipc_phase.__dict__)
+    view_ipc_phase = Database.prepare_view(view_params_ipc_phase.__dict__)
     run_view_test(
         view=view_ipc_phase,
         whereclause=(
