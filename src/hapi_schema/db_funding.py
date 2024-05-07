@@ -12,10 +12,10 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from hapi_schema.db_location import DBLocation
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.view_params import ViewParams
 
-from hapi_schema.db_location import DBLocation
 
 class DBFunding(Base):
     __tablename__ = "funding"
@@ -43,12 +43,16 @@ class DBFunding(Base):
         nullable=False,
     )
 
-    appeal_code: Mapped[str] = mapped_column(String(32), primary_key=True, nullable=False)
+    appeal_code: Mapped[str] = mapped_column(
+        String(32), primary_key=True, nullable=False
+    )
 
     location_ref: Mapped[int] = mapped_column(
-        ForeignKey("location.id", onupdate="CASCADE"), primary_key=True, nullable=False
+        ForeignKey("location.id", onupdate="CASCADE"),
+        primary_key=True,
+        nullable=False,
     )
-    
+
     appeal_name: Mapped[str] = mapped_column(String(256), nullable=False)
 
     appeal_type: Mapped[str] = mapped_column(String(32), nullable=False)
@@ -70,6 +74,7 @@ class DBFunding(Base):
     resource = relationship("DBResource")
     location = relationship("DBLocation")
 
+
 view_params_funding = ViewParams(
     name="funding_view",
     metadata=Base.metadata,
@@ -83,5 +88,5 @@ view_params_funding = ViewParams(
             DBFunding.location_ref == DBLocation.id,
             isouter=True,
         )
-    )
+    ),
 )
