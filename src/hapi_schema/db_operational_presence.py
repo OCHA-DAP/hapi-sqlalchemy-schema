@@ -18,7 +18,7 @@ from hapi_schema.db_location import DBLocation
 from hapi_schema.db_org import DBOrg
 from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
-from hapi_schema.utils.shared_constraints import reference_period_constraint
+from hapi_schema.utils.constraints import reference_period_constraint
 from hapi_schema.utils.view_params import ViewParams
 
 

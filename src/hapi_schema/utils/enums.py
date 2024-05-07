@@ -58,3 +58,11 @@ class IPCType(str, enum.Enum):
     CURRENT = "current"
     FIRST_PROJECTION = "first projection"
     SECOND_PROJECTION = "second projection"
+
+
+class RiskClass(str, enum.Enum):
+    VERY_LOW = "1"
+    LOW = "2"
+    MEDIUM = "3"
+    HIGH = "4"
+    VERY_HIGH = "5"

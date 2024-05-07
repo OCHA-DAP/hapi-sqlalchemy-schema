@@ -5,6 +5,7 @@ from datetime import datetime
 from sqlalchemy import (
     CheckConstraint,
     DateTime,
+    Enum,
     Float,
     ForeignKey,
     Integer,
@@ -20,31 +21,42 @@ from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
+from hapi_schema.utils.constraints import (
+    general_risk_constraint,
+    reference_period_constraint,
+)
+from hapi_schema.utils.enums import RiskClass
 from hapi_schema.utils.view_params import ViewParams
 
 
 class DBNationalRisk(Base):
     __tablename__ = "national_risk"
     __table_args__ = (
+        general_risk_constraint("overall"),
+        general_risk_constraint("hazard_exposure"),
+        general_risk_constraint("vulnerability"),
+        general_risk_constraint("coping_capacity"),
         CheckConstraint(
             "meta_avg_recentness_years >= 0.0",
             name="meta_avg_recentness_years",
         ),
         CheckConstraint(
-            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
-            name="reference_period",
+            "(meta_missing_indicators_pct >= 0.0) AND (meta_missing_indicators_pct <= 10.0)",
+            name="meta_missing_indicators_pct",
         ),
+        reference_period_constraint(),
     )
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     resource_hdx_id: Mapped[int] = mapped_column(
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
     admin2_ref: Mapped[int] = mapped_column(
-        ForeignKey("admin2.id", onupdate="CASCADE"), nullable=False
+        ForeignKey("admin2.id", onupdate="CASCADE"), primary_key=True
     )
-    risk_class: Mapped[int] = mapped_column(Integer, nullable=False)
+    risk_class: Mapped[RiskClass] = mapped_column(
+        Enum(RiskClass), nullable=False
+    )
     global_rank: Mapped[int] = mapped_column(Integer, nullable=False)
     overall_risk: Mapped[float] = mapped_column(Float, nullable=False)
     hazard_exposure_risk: Mapped[float] = mapped_column(Float, nullable=False)
@@ -57,7 +69,7 @@ class DBNationalRisk(Base):
         Float, nullable=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL"), index=True
+        DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL"), index=True

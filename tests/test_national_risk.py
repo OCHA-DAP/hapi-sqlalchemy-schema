@@ -16,7 +16,6 @@ def test_national_risk_view(run_view_test):
     run_view_test(
         view=view_national_risk,
         whereclause=(
-            view_national_risk.c.id == 1,
             view_national_risk.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_national_risk.c.admin2_code == "FOO-XXX-XXX",
@@ -33,7 +32,7 @@ def test_reference_period_constraint(run_constraints_test):
             DBNationalRisk(
                 resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
                 admin2_ref=1,
-                risk_class=5,
+                risk_class="5",
                 global_rank=4,
                 overall_risk=8.1,
                 hazard_exposure_risk=8.7,
@@ -57,7 +56,7 @@ def test_meta_avg_recentness_constraint(run_constraints_test):
             DBNationalRisk(
                 resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
                 admin2_ref=1,
-                risk_class=5,
+                risk_class="5",
                 global_rank=4,
                 overall_risk=8.1,
                 hazard_exposure_risk=8.7,

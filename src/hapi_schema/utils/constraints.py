@@ -30,3 +30,8 @@ def reference_period_constraint() -> CheckConstraint:
     """reference_period_end should be greater than reference_period_start"""
     sqltext = "reference_period_end >= reference_period_start "
     return CheckConstraint(sqltext=sqltext, name="reference_period")
+
+
+def general_risk_constraint(risk_name: str) -> CheckConstraint:
+    sqltext = f"({risk_name}_risk >= 0) AND ({risk_name}_risk <= 10)"
+    return CheckConstraint(sqltext=sqltext, name=f"{risk_name}_risk")

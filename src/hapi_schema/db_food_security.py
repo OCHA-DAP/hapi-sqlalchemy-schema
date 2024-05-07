@@ -17,8 +17,8 @@ from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_location import DBLocation
 from hapi_schema.utils.base import Base
+from hapi_schema.utils.constraints import reference_period_constraint
 from hapi_schema.utils.enums import IPCPhase, IPCType
-from hapi_schema.utils.shared_constraints import reference_period_constraint
 from hapi_schema.utils.view_params import ViewParams
 
 
@@ -44,7 +44,7 @@ class DBFoodSecurity(Base):
         Float, nullable=False, index=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL"), index=True
