@@ -20,6 +20,12 @@ def max_age_constraint() -> CheckConstraint:
     return CheckConstraint(sqltext=sqltext, name="max_age_constraint")
 
 
+def populateion_constraint() -> CheckConstraint:
+    """Population must not be a negative number."""
+    sqltext = "population >= 0"
+    return CheckConstraint(sqltext=sqltext, name="population_constraint")
+
+
 def reference_period_constraint() -> CheckConstraint:
     """reference_period_end should be greater than reference_period_start"""
     sqltext = "reference_period_end >= reference_period_start "

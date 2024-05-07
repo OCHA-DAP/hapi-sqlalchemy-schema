@@ -27,6 +27,7 @@ data_population = [
         admin2_ref=2,
         gender="f",
         age_range="0-4",
+        min_age=0,
         max_age=4,
         population=5_000,
         reference_period_start=datetime(2023, 1, 1),

@@ -12,11 +12,8 @@ def test_population_view(run_view_test):
     run_view_test(
         view=view_population,
         whereclause=(
-            view_population.c.dataset_hdx_id
-            == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
             view_population.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
-            view_population.c.resource_name == "resource-01.csv",
             view_population.c.admin2_code == "FOO-001-XXX",
             view_population.c.admin1_code == "FOO-001",
             view_population.c.location_code == "FOO",

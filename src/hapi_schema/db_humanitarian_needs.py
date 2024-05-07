@@ -3,7 +3,6 @@
 from datetime import datetime
 
 from sqlalchemy import (
-    CheckConstraint,
     DateTime,
     Enum,
     ForeignKey,
@@ -28,6 +27,7 @@ from hapi_schema.utils.enums import (
 from hapi_schema.utils.shared_constraints import (
     max_age_constraint,
     min_age_constraint,
+    populateion_constraint,
     reference_period_constraint,
 )
 from hapi_schema.utils.view_params import ViewParams
@@ -38,8 +38,8 @@ class DBHumanitarianNeeds(Base):
     __table_args__ = (
         min_age_constraint(),
         max_age_constraint(),
+        populateion_constraint(),
         reference_period_constraint(),
-        CheckConstraint("population >= 0", name="population"),
     )
 
     resource_hdx_id: Mapped[str] = mapped_column(
@@ -50,9 +50,7 @@ class DBHumanitarianNeeds(Base):
         ForeignKey("admin2.id", onupdate="CASCADE"),
         primary_key=True,
     )
-    gender: Mapped[Gender] = mapped_column(
-        Enum(Gender, name="gender_enum"), primary_key=True
-    )
+    gender: Mapped[Gender] = mapped_column(Enum(Gender), primary_key=True)
     age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
     min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
@@ -61,17 +59,17 @@ class DBHumanitarianNeeds(Base):
         primary_key=True,
     )
     population_group: Mapped[PopulationGroup] = mapped_column(
-        Enum(PopulationGroup, name="population_group_enum"),
+        Enum(PopulationGroup),
         primary_key=True,
     )
 
     population_status: Mapped[PopulationStatus] = mapped_column(
-        Enum(PopulationStatus, name="population_status_enum"),
+        Enum(PopulationStatus),
         primary_key=True,
     )
 
     disabled_marker: Mapped[DisabledMarker] = mapped_column(
-        Enum(DisabledMarker, name="disabled_marker_enum"), primary_key=True
+        Enum(DisabledMarker), primary_key=True
     )
     population: Mapped[int] = mapped_column(Integer, nullable=False)
     reference_period_start: Mapped[datetime] = mapped_column(
