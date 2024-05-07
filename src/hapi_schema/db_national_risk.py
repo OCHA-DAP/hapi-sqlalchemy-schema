@@ -9,7 +9,6 @@ from sqlalchemy import (
     Float,
     ForeignKey,
     Integer,
-    Text,
     select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -36,6 +35,9 @@ class DBNationalRisk(Base):
         general_risk_constraint("vulnerability"),
         general_risk_constraint("coping_capacity"),
         CheckConstraint(
+            "(global_rank >= 0) AND (global_rank <= 250)", name="global_rank"
+        ),
+        CheckConstraint(
             "meta_avg_recentness_years >= 0.0",
             name="meta_avg_recentness_years",
         ),
@@ -46,7 +48,7 @@ class DBNationalRisk(Base):
         reference_period_constraint(),
     )
 
-    resource_hdx_id: Mapped[int] = mapped_column(
+    resource_hdx_id: Mapped[str] = mapped_column(
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
@@ -73,7 +75,6 @@ class DBNationalRisk(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, index=True
     )
-    source_data: Mapped[str] = mapped_column(Text, nullable=True)
 
     resource = relationship("DBResource")
     admin2 = relationship("DBAdmin2")

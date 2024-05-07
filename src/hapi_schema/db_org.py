@@ -16,7 +16,7 @@ class DBOrg(Base):
         String(512), nullable=False, primary_key=True
     )
     org_type_code: Mapped[str] = mapped_column(
-        ForeignKey("org_type.code", onupdate="CASCADE", ondelete="CASCADE"),
+        ForeignKey("org_type.code"),
         nullable=True,
     )
 

@@ -20,7 +20,7 @@ from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import (
     max_age_constraint,
     min_age_constraint,
-    populateion_constraint,
+    population_constraint,
     reference_period_constraint,
 )
 from hapi_schema.utils.enums import (
@@ -37,7 +37,7 @@ class DBHumanitarianNeeds(Base):
     __table_args__ = (
         min_age_constraint(),
         max_age_constraint(),
-        populateion_constraint(),
+        population_constraint(),
         reference_period_constraint(),
     )
 

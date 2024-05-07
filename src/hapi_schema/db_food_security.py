@@ -16,16 +16,22 @@ from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_location import DBLocation
 from hapi_schema.utils.base import Base
-from hapi_schema.utils.constraints import reference_period_constraint
+from hapi_schema.utils.constraints import (
+    population_constraint,
+    reference_period_constraint,
+)
 from hapi_schema.utils.enums import IPCPhase, IPCType
 from hapi_schema.utils.view_params import ViewParams
 
 
 class DBFoodSecurity(Base):
     __tablename__ = "food_security"
-    __table_args__ = (reference_period_constraint(),)
+    __table_args__ = (
+        reference_period_constraint(),
+        population_constraint(population_var_name="population_in_phase"),
+    )
 
-    resource_hdx_id: Mapped[int] = mapped_column(
+    resource_hdx_id: Mapped[str] = mapped_column(
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
