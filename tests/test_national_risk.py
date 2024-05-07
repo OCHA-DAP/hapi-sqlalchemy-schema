@@ -42,7 +42,6 @@ def test_reference_period_constraint(run_constraints_test):
                 meta_avg_recentness_years=0.26,
                 reference_period_start=datetime(2023, 1, 2),
                 reference_period_end=datetime(2023, 1, 1),
-                source_data="DATA,DATA,DATA",
             )
         ],
         expected_constraint="reference_period",
@@ -66,7 +65,6 @@ def test_meta_avg_recentness_constraint(run_constraints_test):
                 meta_avg_recentness_years=-100,
                 reference_period_start=None,
                 reference_period_end=None,
-                source_data="DATA,DATA,DATA",
             )
         ],
         expected_constraint="meta_avg_recentness_years",
