@@ -1,4 +1,4 @@
-from sqlalchemy.schema import CheckConstraint
+from sqlalchemy.schema import CheckConstraint, UniqueConstraint
 
 # TODO: should these remain as functions or just be turned into variables?
 #  Functions could be handy in case of future need for parameterization
@@ -35,3 +35,13 @@ def reference_period_constraint() -> CheckConstraint:
 def general_risk_constraint(risk_name: str) -> CheckConstraint:
     sqltext = f"({risk_name}_risk >= 0) AND ({risk_name}_risk <= 10)"
     return CheckConstraint(sqltext=sqltext, name=f"{risk_name}_risk")
+
+
+def code_and_reference_period_unique_constraint(
+    admin_level: str,
+) -> UniqueConstraint:
+    return UniqueConstraint(
+        "code",
+        "reference_period_start",
+        name=f"{admin_level}_code_and_reference_period_unique",
+    )

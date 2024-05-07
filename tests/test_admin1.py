@@ -28,35 +28,14 @@ def test_reference_period_constraint(run_constraints_test):
                 is_unspecified=False,
                 reference_period_start=datetime(2023, 1, 2),
                 reference_period_end=datetime(2023, 1, 1),
-                hapi_updated_date=datetime(2023, 1, 1),
-                hapi_replaced_date=None,
             )
         ],
         expected_constraint="reference_period",
     )
 
 
-def test_hapi_date_constraint(run_constraints_test):
-    """Check that hapi_replaced_date cannot be less than hapi_updated_date"""
-    run_constraints_test(
-        new_rows=[
-            DBAdmin1(
-                location_ref=1,
-                code="FOO-003",
-                name="Province 3",
-                is_unspecified=False,
-                reference_period_start=None,
-                reference_period_end=None,
-                hapi_updated_date=datetime(2023, 1, 2),
-                hapi_replaced_date=datetime(2023, 1, 1),
-            )
-        ],
-        expected_constraint="hapi_dates",
-    )
-
-
 def test_code_date_unique(run_constraints_test):
-    """Check that hapi_updated_date and code must be unique together"""
+    """Check that reference_period_start and code must be unique together"""
     run_constraints_test(
         new_rows=[
             DBAdmin1(
@@ -64,21 +43,15 @@ def test_code_date_unique(run_constraints_test):
                 code="FOO-003",
                 name="Province 3",
                 is_unspecified=False,
-                reference_period_start=None,
-                reference_period_end=None,
-                hapi_updated_date=datetime(2023, 1, 1),
-                hapi_replaced_date=None,
+                reference_period_start=datetime(2023, 1, 1),
             ),
             DBAdmin1(
                 location_ref=1,
                 code="FOO-003",
                 name="Province 3",
                 is_unspecified=False,
-                reference_period_start=None,
-                reference_period_end=None,
-                hapi_updated_date=datetime(2023, 1, 1),
-                hapi_replaced_date=None,
+                reference_period_start=datetime(2023, 1, 1),
             ),
         ],
-        expected_constraint="admin1_code_hapi_updated_date",
+        expected_constraint="admin1_code_and_reference_period_unique",
     )
