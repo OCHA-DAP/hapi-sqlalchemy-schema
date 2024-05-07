@@ -6,23 +6,23 @@ from sqlalchemy.schema import CheckConstraint, UniqueConstraint
 
 def min_age_constraint() -> CheckConstraint:
     """If the age range is rolled up, min_age should be NULL.
-    Otherwise, it should be in integer of 0 or greater."""
+    Otherwise, it can be NULL for unknown, or should be an
+    integer of 0 or greater."""
     sqltext = (
         "(age_range = '*' AND min_age IS NULL) OR "
-        "(age_range != '*' AND min_age >= 0)"
+        "(age_range != '*' AND (min_age >= 0 OR min_age is NULL))"
     )
     return CheckConstraint(sqltext=sqltext, name="min_age_constraint")
 
 
 def max_age_constraint() -> CheckConstraint:
-    """If the age range is rolled up, min_age will be NULL and
-    max_age should also be null. Otherwise, min_age will be an integer,
-    and max age should be equal to or greater, or NULL."""
+    """If min_age is NULL, max age should also be NULL.
+    Otherwise, when min_age is an integer, max age should be equal to
+    or greater, or NULL."""
     # TODO: can this logic be simplified a bit?
     sqltext = (
         "(min_age IS NULL AND max_age IS NULL) OR "
-        "(min_age IS NOT NULL AND "
-        "(max_age is NULL OR max_age >= min_age))"
+        "(min_age IS NOT NULL AND (max_age is NULL OR max_age >= min_age))"
     )
     return CheckConstraint(sqltext=sqltext, name="max_age_constraint")
 
