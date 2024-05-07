@@ -79,10 +79,7 @@ class DBHumanitarianNeeds(Base):
         primary_key=True,
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime,
-        nullable=True,
-        server_default=text("NULL"),
-        index=True,
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
 
     resource = relationship("DBResource")
