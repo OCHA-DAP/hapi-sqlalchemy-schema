@@ -79,9 +79,5 @@ class DBadmin1_vat(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, index=True
     )
-    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime, index=True)
-    hapi_replaced_date: Mapped[datetime] = mapped_column(DateTime, index=True)
-    location_code: Mapped[str] = mapped_column(String(128))
-    location_name: Mapped[str] = mapped_column(String(512))
-    location_reference_period_start: Mapped[datetime] = mapped_column(DateTime)
-    location_reference_period_end: Mapped[datetime] = mapped_column(DateTime)
+    location_code: Mapped[str] = mapped_column(String(128), index=True)
+    location_name: Mapped[str] = mapped_column(String(512), index=True)

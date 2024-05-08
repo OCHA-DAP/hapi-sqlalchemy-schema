@@ -1,34 +1,29 @@
-import pytest
 from hdx.database import Database
 from sqlalchemy import Table
 
 # Edit this to import the view parameters
-from hapi_schema.db_org import (
-    view_params_org,
+from hapi_schema.db_admin1 import (
+    view_params_admin1,
 )
 from hapi_schema.utils.base import Base
 
 
-@pytest.mark.skip(reason="This is not a real test")
-def test_output_table_code_to_stdout(engine):
+# @pytest.mark.skip(reason="This is not a real test")
+def test_output_table_code_to_stdout(session):
     # Change these two
-    target_view = "org_view"
-    _ = Database.prepare_view(view_params_org.__dict__)
+    target_view = "admin1_view"
+    _ = Database.prepare_view(view_params_admin1.__dict__)
     primary_key = "id"
 
     expected_indexes = [
-        "acronym",
-        "dataset_hdx_provider_stub",
-        "dataset_hdx_provider_name",
-        "resource_update_date",
-        "hapi_updated_date",
-        "hapi_replaced_date",
+        "location_code",
+        "location_name",
         "reference_period_start",
         "reference_period_end",
     ]
     target_table = target_view.replace("view", "vat")
-    Base.metadata.create_all(engine)
-    Base.metadata.reflect(bind=engine, views=True)
+    Base.metadata.create_all(session.get_bind())
+    Base.metadata.reflect(bind=session.get_bind(), views=True)
     columns = Base.metadata.tables[target_view].columns
 
     new_columns = make_table_template_from_view(
@@ -37,7 +32,7 @@ def test_output_table_code_to_stdout(engine):
 
     _ = Table(target_table, Base.metadata, *new_columns)
 
-    Base.metadata.create_all(engine)
+    Base.metadata.create_all(session.get_bind())
 
     print(Base.metadata.tables.keys(), flush=True)
 
@@ -74,7 +69,7 @@ def make_table_template_from_view(
         elif column_type == "BOOLEAN":
             mapped_type_1 = "bool"
             mapped_type_2 = "Boolean"
-        elif column_type == "DATETIME":
+        elif column_type in ["DATETIME", "TIMESTAMP"]:
             mapped_type_1 = "datetime"
             mapped_type_2 = "DateTime"
         elif column_type == "FLOAT":

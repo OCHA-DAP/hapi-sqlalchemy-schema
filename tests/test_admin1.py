@@ -20,10 +20,10 @@ def test_admin1_view(run_view_test):
 def test_admin1_vat(run_indexes_test, run_columns_test):
     """Check that the admin1 view as table is correct - columns match, expected indexes present"""
     expected_indexes = [
+        "location_code",
+        "location_name",
         "reference_period_start",
         "reference_period_end",
-        "hapi_updated_date",
-        "hapi_replaced_date",
     ]
     run_columns_test("admin1_vat", "admin1_view", view_params_admin1)
     run_indexes_test("admin1_vat", expected_indexes)
