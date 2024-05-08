@@ -1,6 +1,6 @@
 """Resource table and view."""
 
-import datetime
+from datetime import datetime
 
 from sqlalchemy import (
     Boolean,
@@ -61,15 +61,10 @@ class DBresource_vat(Base):
     name: Mapped[str] = mapped_column(String(256))
     format: Mapped[str] = mapped_column(String(32))
     update_date: Mapped[datetime] = mapped_column(DateTime)
-    download_url: Mapped[str] = mapped_column(String(1024))
     is_hxl: Mapped[bool] = mapped_column(Boolean)
-    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime, index=True)
-    hapi_replaced_date: Mapped[datetime] = mapped_column(DateTime, index=True)
+    download_url: Mapped[str] = mapped_column(String(1024))
+    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime)
     dataset_hdx_stub: Mapped[str] = mapped_column(String(128))
     dataset_title: Mapped[str] = mapped_column(String(1024))
-    dataset_hdx_provider_stub: Mapped[str] = mapped_column(
-        String(128), index=True
-    )
-    dataset_hdx_provider_name: Mapped[str] = mapped_column(
-        String(512), index=True
-    )
+    dataset_hdx_provider_stub: Mapped[str] = mapped_column(String(128))
+    dataset_hdx_provider_name: Mapped[str] = mapped_column(String(512))

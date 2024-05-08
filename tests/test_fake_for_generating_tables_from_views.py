@@ -1,33 +1,34 @@
+import pytest
 from hdx.database import Database
 from sqlalchemy import Table
 
 # Edit this to import the view parameters
-from hapi_schema.db_admin1 import (
-    view_params_admin1,
+from hapi_schema.db_resource import (
+    view_params_resource,
 )
 from hapi_schema.utils.base import Base
 
 
-# @pytest.mark.skip(reason="This is not a real test")
+@pytest.mark.skip(reason="This is not a real test")
 def test_output_table_code_to_stdout(session):
     # Change these two
-    target_view = "admin1_view"
-    _ = Database.prepare_view(view_params_admin1.__dict__)
-    primary_key = "id"
-
-    expected_indexes = [
-        "location_code",
-        "location_name",
-        "reference_period_start",
-        "reference_period_end",
+    target_view = "resource_view"
+    _ = Database.prepare_view(view_params_resource.__dict__)
+    expected_primary_keys = [
+        "hdx_id",
     ]
+
+    expected_indexes = []
     target_table = target_view.replace("view", "vat")
     Base.metadata.create_all(session.get_bind())
     Base.metadata.reflect(bind=session.get_bind(), views=True)
     columns = Base.metadata.tables[target_view].columns
 
     new_columns = make_table_template_from_view(
-        target_table, columns, expected_indexes, primary_key=primary_key
+        target_table,
+        columns,
+        expected_indexes,
+        primary_keys=expected_primary_keys,
     )
 
     _ = Table(target_table, Base.metadata, *new_columns)
@@ -41,7 +42,7 @@ def test_output_table_code_to_stdout(session):
 
 
 def make_table_template_from_view(
-    target_table, columns, expected_indexes, primary_key="id"
+    target_table, columns, expected_indexes, primary_keys=["id"]
 ):
     print(f"class DB{target_table}(Base):", flush=True)
     print(f"\t__tablename__ = '{target_table}'", flush=True)
@@ -53,7 +54,7 @@ def make_table_template_from_view(
 
         primary_key_str = ""
         index_str = ""
-        if column.name == primary_key:
+        if column.name in primary_keys:
             primary_key_str = ", primary_key=True"
         if column.name in expected_indexes:
             index_str = ", index=True"
@@ -72,7 +73,7 @@ def make_table_template_from_view(
         elif column_type in ["DATETIME", "TIMESTAMP"]:
             mapped_type_1 = "datetime"
             mapped_type_2 = "DateTime"
-        elif column_type == "FLOAT":
+        elif column_type in ["FLOAT", "DOUBLE PRECISION"]:
             mapped_type_1 = "float"
             mapped_type_2 = "Float"
         elif column_type == "TEXT":
