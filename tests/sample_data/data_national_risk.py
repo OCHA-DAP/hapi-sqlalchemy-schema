@@ -3,7 +3,7 @@ from datetime import datetime
 data_national_risk = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
-        admin2_ref=1,
+        location_ref=1,
         risk_class="5",
         global_rank=4,
         overall_risk=8.1,
