@@ -23,14 +23,19 @@ def test_population_view(run_view_test):
     )
 
 
-def test_population_vat(run_indexes_test, run_columns_test):
+def test_population_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
     """Check that the population view as table is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "admin2_ref",
+        "gender",
+        "age_range",
+    ]
+
     expected_indexes = [
-        "dataset_hdx_provider_stub",
-        "dataset_hdx_provider_name",
-        "resource_update_date",
-        "hapi_updated_date",
-        "hapi_replaced_date",
+        "min_age",
+        "max_age",
         "reference_period_start",
         "reference_period_end",
     ]
@@ -40,6 +45,8 @@ def test_population_vat(run_indexes_test, run_columns_test):
         view_params_population,
     )
     run_indexes_test("population_vat", expected_indexes)
+    run_primary_keys_test("population_vat", expected_primary_keys)
+
 
 @pytest.fixture
 def base_parameters():

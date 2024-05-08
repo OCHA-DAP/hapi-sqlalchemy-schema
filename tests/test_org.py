@@ -15,19 +15,18 @@ def test_org_view(run_view_test):
     )
 
 
-def test_org_vat(run_indexes_test, run_columns_test):
+def test_org_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that the org view as table is correct - columns match, expected indexes present"""
-    expected_indexes = [
+    expected_primary_keys = [
         "acronym",
-        "org_type_description",
-        "hapi_updated_date",
-        "hapi_replaced_date",
-        "reference_period_start",
-        "reference_period_end",
+        "name",
     ]
+
+    expected_indexes = []
     run_columns_test(
         "org_vat",
         "org_view",
         view_params_org,
     )
     run_indexes_test("org_vat", expected_indexes)
+    run_primary_keys_test("org_vat", expected_primary_keys)

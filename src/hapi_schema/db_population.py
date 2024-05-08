@@ -9,7 +9,6 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
-    Text,
     select,
     text,
 )
@@ -102,11 +101,12 @@ view_params_population = ViewParams(
 
 class DBpopulation_vat(Base):
     __tablename__ = "population_vat"
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
-    admin2_ref: Mapped[int] = mapped_column(Integer)
-    gender_code: Mapped[str] = mapped_column(String(1))
-    age_range_code: Mapped[str] = mapped_column(String(32))
+    admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    gender: Mapped[str] = mapped_column(String(11), primary_key=True)
+    age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
+    min_age: Mapped[int] = mapped_column(Integer, index=True)
+    max_age: Mapped[int] = mapped_column(Integer, index=True)
     population: Mapped[int] = mapped_column(Integer)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, index=True
@@ -114,22 +114,6 @@ class DBpopulation_vat(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, index=True
     )
-    source_data: Mapped[str] = mapped_column(Text)
-    dataset_hdx_id: Mapped[str] = mapped_column(String(36))
-    dataset_hdx_stub: Mapped[str] = mapped_column(String(128))
-    dataset_title: Mapped[str] = mapped_column(String(1024))
-    dataset_hdx_provider_stub: Mapped[str] = mapped_column(
-        String(128), index=True
-    )
-    dataset_hdx_provider_name: Mapped[str] = mapped_column(
-        String(512), index=True
-    )
-    resource_name: Mapped[str] = mapped_column(String(256))
-    resource_update_date: Mapped[datetime] = mapped_column(
-        DateTime, index=True
-    )
-    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime, index=True)
-    hapi_replaced_date: Mapped[datetime] = mapped_column(DateTime, index=True)
     location_code: Mapped[str] = mapped_column(String(128))
     location_name: Mapped[str] = mapped_column(String(512))
     admin1_code: Mapped[str] = mapped_column(String(128))
