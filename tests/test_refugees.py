@@ -16,7 +16,8 @@ def test_refugees_view(run_view_test):
         whereclause=(
             view_refugees.c.resource_hdx_id
             == "62ad6e55-5f5d-4494-854c-4110687e9e25",
-            view_refugees.c.location_code == "FOO",
+            view_refugees.c.origin_location_code == "FOO",
+            view_refugees.c.asylum_location_code == "BAR",
         ),
     )
 
@@ -27,11 +28,14 @@ def test_reference_period_constraint(run_constraints_test):
         new_rows=[
             DBRefugees(
                 resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
-                admin2_ref=4,
-                ipc_phase="1",
-                ipc_type="current",
-                population_in_phase=1_000,
-                population_fraction_in_phase=1,
+                origin_location_ref=1,
+                asylum_location_ref=2,
+                population_group="REF",
+                gender="f",
+                age_range="children",
+                min_age=5,
+                max_age=12,
+                population=2000,
                 reference_period_start=datetime(2023, 2, 1),
                 reference_period_end=datetime(2023, 1, 1),
             )
@@ -40,20 +44,23 @@ def test_reference_period_constraint(run_constraints_test):
     )
 
 
-def test_population_in_phase_positive(run_constraints_test):
+def test_population_positive(run_constraints_test):
     """Check that the population value is positive"""
     run_constraints_test(
         new_rows=[
             DBRefugees(
                 resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
-                admin2_ref=4,
-                ipc_phase="1",
-                ipc_type="current",
-                population_in_phase=-1,
-                population_fraction_in_phase=1,
+                origin_location_ref=1,
+                asylum_location_ref=2,
+                population_group="REF",
+                gender="f",
+                age_range="children",
+                min_age=5,
+                max_age=12,
+                population=-2000,
                 reference_period_start=datetime(2023, 1, 1),
-                reference_period_end=datetime(2023, 1, 2),
+                reference_period_end=datetime(2023, 12, 31),
             )
         ],
-        expected_constraint="population_in_phase",
+        expected_constraint="population",
     )

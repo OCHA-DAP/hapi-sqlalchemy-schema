@@ -28,9 +28,7 @@ from hapi_schema.db_org import DBOrg
 from hapi_schema.db_org_type import DBOrgType
 from hapi_schema.db_patch import DBPatch
 from hapi_schema.db_population import DBPopulation
-from hapi_schema.db_refugees import (
-    DBRefugees,
-)
+from hapi_schema.db_refugees import DBRefugees
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
 from hapi_schema.views import prepare_hapi_views

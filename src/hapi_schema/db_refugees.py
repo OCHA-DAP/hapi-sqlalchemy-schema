@@ -1,26 +1,27 @@
 """Refugees and persons of concern table and view."""
 
+# Note: this one is a bit tricky, because the view has to join with
+# the location table twice
+
 from datetime import datetime
 
 from sqlalchemy import (
     DateTime,
     Enum,
-    Float,
     ForeignKey,
     Integer,
+    String,
     select,
 )
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, aliased, mapped_column, relationship
 
-from hapi_schema.db_admin1 import DBAdmin1
-from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_location import DBLocation
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import (
     population_constraint,
     reference_period_constraint,
 )
-from hapi_schema.utils.enums import IPCPhase, IPCType
+from hapi_schema.utils.enums import Gender, PopulationGroup
 from hapi_schema.utils.view_params import ViewParams
 
 
@@ -28,25 +29,29 @@ class DBRefugees(Base):
     __tablename__ = "refugees"
     __table_args__ = (
         reference_period_constraint(),
-        population_constraint(population_var_name="population_in_phase"),
+        population_constraint(population_var_name="population"),
     )
 
     resource_hdx_id: Mapped[str] = mapped_column(
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
-    admin2_ref: Mapped[int] = mapped_column(
-        ForeignKey("admin2.id", onupdate="CASCADE"), primary_key=True
+    origin_location_ref: Mapped[int] = mapped_column(
+        ForeignKey("location.id", onupdate="CASCADE"), primary_key=True
     )
-    ipc_phase: Mapped[IPCPhase] = mapped_column(
-        Enum(IPCPhase), primary_key=True
+    asylum_location_ref: Mapped[int] = mapped_column(
+        ForeignKey("location.id", onupdate="CASCADE"), primary_key=True
     )
-    ipc_type: Mapped[IPCType] = mapped_column(Enum(IPCType), primary_key=True)
-    population_in_phase: Mapped[int] = mapped_column(
+    # population_group is broader than we need, but it will do
+    population_group: Mapped[PopulationGroup] = mapped_column(
+        Enum(PopulationGroup), primary_key=True
+    )
+    gender: Mapped[Gender] = mapped_column(Enum(Gender), primary_key=True)
+    age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
+    min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    population: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
-    )
-    population_fraction_in_phase: Mapped[float] = mapped_column(
-        Float, nullable=False, index=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
@@ -56,39 +61,36 @@ class DBRefugees(Base):
     )
 
     resource = relationship("DBResource")
-    admin2 = relationship("DBAdmin2")
+    origin_country = relationship(
+        "DBLocation", foreign_keys=(origin_location_ref)
+    )
+    asylum_country = relationship(
+        "DBLocation", foreign_keys=(asylum_location_ref)
+    )
 
+
+# Use aliases because we join to DBLocation twice
+origin_location = aliased(DBLocation)
+asylum_location = aliased(DBLocation)
 
 view_params_refugees = ViewParams(
     name="refugees_view",
     metadata=Base.metadata,
     selectable=select(
         *DBRefugees.__table__.columns,
-        DBLocation.code.label("location_code"),
-        DBLocation.name.label("location_name"),
-        DBAdmin1.code.label("admin1_code"),
-        DBAdmin1.name.label("admin1_name"),
-        DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
-        DBAdmin1.location_ref.label("location_ref"),
-        DBAdmin2.code.label("admin2_code"),
-        DBAdmin2.name.label("admin2_name"),
-        DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
-        DBAdmin2.admin1_ref.label("admin1_ref"),
+        origin_location.code.label("origin_location_code"),
+        origin_location.name.label("origin_location_name"),
+        asylum_location.code.label("asylum_location_code"),
+        asylum_location.name.label("asylum_location_name"),
     ).select_from(
         # Join pop to admin2 to admin1 to loc
         DBRefugees.__table__.join(
-            DBAdmin2.__table__,
-            DBRefugees.admin2_ref == DBAdmin2.id,
+            origin_location,
+            DBRefugees.origin_location_ref == origin_location.id,
             isouter=True,
-        )
-        .join(
-            DBAdmin1.__table__,
-            DBAdmin2.admin1_ref == DBAdmin1.id,
-            isouter=True,
-        )
-        .join(
-            DBLocation.__table__,
-            DBAdmin1.location_ref == DBLocation.id,
+        ).join(
+            asylum_location,
+            DBRefugees.asylum_location_ref == asylum_location.id,
             isouter=True,
         )
     ),

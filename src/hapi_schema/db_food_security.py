@@ -1,4 +1,4 @@
-"""Population table and view."""
+"""Food security table and view."""
 
 from datetime import datetime
 
