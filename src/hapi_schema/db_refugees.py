@@ -1,42 +1,29 @@
 """OperationalPresence table and view."""
 
-import enum
 from datetime import datetime
 
-from sqlalchemy import (
-    CheckConstraint,
-    DateTime,
-    Enum,
-    ForeignKey,
-    Integer,
-    select,
-)
+from sqlalchemy import DateTime, Enum, ForeignKey, Integer, String, select
 from sqlalchemy.orm import Mapped, aliased, mapped_column, relationship
 
 from hapi_schema.db_location import DBLocation
 from hapi_schema.utils.base import Base
-from hapi_schema.utils.shared_enums import Gender
+from hapi_schema.utils.constraints import (
+    max_age_constraint,
+    min_age_constraint,
+    population_constraint,
+    reference_period_constraint,
+)
+from hapi_schema.utils.enums import Gender, PopulationGroup
 from hapi_schema.utils.view_params import ViewParams
-
-
-class PopulationGroup(enum.Enum):
-    REFUGEES = "refugees"
-    POC = "PoC"
-    NULL = "*"
 
 
 class DBRefugees(Base):
     __tablename__ = "refugees"
     __table_args__ = (
-        CheckConstraint("min_age >= 0", name="min_age"),
-        CheckConstraint(
-            "(max_age >= min_age) OR (max_age IS NULL)", name="max_age"
-        ),
-        CheckConstraint("population >= 0", name="population"),
-        CheckConstraint(
-            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
-            name="reference_period",
-        ),
+        min_age_constraint(),
+        max_age_constraint(),
+        population_constraint(),
+        reference_period_constraint(),
     )
 
     resource_hdx_id = mapped_column(
@@ -57,8 +44,9 @@ class DBRefugees(Base):
     gender: Mapped[Gender] = mapped_column(
         Enum(Gender, name="gender_enum"), primary_key=True
     )
-    min_age: Mapped[int] = mapped_column(Integer, primary_key=True)
-    max_age: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
+    age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
+    min_age: Mapped[int] = mapped_column(Integer, index=True)
+    max_age: Mapped[int] = mapped_column(Integer, index=True)
     population: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
     )
