@@ -1,13 +1,11 @@
-from datetime import datetime
+from hdx.database import Database
 
-from hdx.database.views import build_view
-
-from hapi_schema.db_resource import DBResource, view_params_resource
+from hapi_schema.db_resource import view_params_resource
 
 
 def test_resource_view(run_view_test):
     """Check that resource references dataset."""
-    view_resource = build_view(view_params_resource.__dict__)
+    view_resource = Database.prepare_view(view_params_resource.__dict__)
     run_view_test(
         view=view_resource,
         whereclause=(
@@ -15,7 +13,6 @@ def test_resource_view(run_view_test):
             view_resource.c.dataset_hdx_stub == "dataset01",
         ),
     )
-
 
 def test_resource_vat(run_indexes_test, run_columns_test):
     """Check that the resource view as table is correct - columns match, expected indexes present"""

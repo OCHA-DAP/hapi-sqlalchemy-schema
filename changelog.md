@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added columns to the patches table
 
+=======
+- Many small changes to align with V1 of the schema
+- `resource` and `dataset` primary keys are now the UUID
+- Use postgres instead of sqlite for testing
+- Programmatically obtain views
+- Update GitHub Actions workflow to use postgres
+
+### Added
+- New tables: huminitarian_needs
+- New enums: Gender, DisabledMarker, PopulationGroup, PopulationStatus, IPCPhase,
+  IPCType, and RiskClass
+- Generalized constraints
+
+### Removed
+
+- ipc_phase, ipc_type, age_range, and gender tables
 
 ## [0.7.3]
 
