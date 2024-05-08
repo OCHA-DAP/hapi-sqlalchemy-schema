@@ -3,23 +3,25 @@
 from datetime import datetime
 
 from sqlalchemy import (
-    CheckConstraint,
     DateTime,
     Enum,
     ForeignKey,
     Integer,
     String,
     select,
-    text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
-from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_location import DBLocation
-from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
+from hapi_schema.utils.constraints import (
+    max_age_constraint,
+    min_age_constraint,
+    population_constraint,
+    reference_period_constraint,
+)
 from hapi_schema.utils.enums import Gender
 from hapi_schema.utils.view_params import ViewParams
 
@@ -27,13 +29,10 @@ from hapi_schema.utils.view_params import ViewParams
 class DBPopulation(Base):
     __tablename__ = "population"
     __table_args__ = (
-        CheckConstraint("min_age >= 0", name="min_age"),
-        CheckConstraint("max_age >= 0", name="max_age"),
-        CheckConstraint("population >= 0", name="population"),
-        CheckConstraint(
-            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
-            name="reference_period",
-        ),
+        min_age_constraint(),
+        max_age_constraint(),
+        population_constraint(),
+        reference_period_constraint(),
     )
 
     resource_hdx_id: Mapped[str] = mapped_column(
@@ -44,9 +43,7 @@ class DBPopulation(Base):
         ForeignKey("admin2.id", onupdate="CASCADE"),
         primary_key=True,
     )
-    gender: Mapped[Gender] = mapped_column(
-        Enum(Gender, name="gender_enum"), primary_key=True
-    )
+    gender: Mapped[Gender] = mapped_column(Enum(Gender), primary_key=True)
     age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
     min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
@@ -57,7 +54,7 @@ class DBPopulation(Base):
         DateTime, nullable=False, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL"), index=True
+        DateTime, nullable=False, index=True
     )
 
     resource = relationship("DBResource")
@@ -69,15 +66,6 @@ view_params_population = ViewParams(
     metadata=Base.metadata,
     selectable=select(
         *DBPopulation.__table__.columns,
-        DBDataset.hdx_id.label("dataset_hdx_id"),
-        DBDataset.hdx_stub.label("dataset_hdx_stub"),
-        DBDataset.title.label("dataset_title"),
-        DBDataset.hdx_provider_stub.label("dataset_hdx_provider_stub"),
-        DBDataset.hdx_provider_name.label("dataset_hdx_provider_name"),
-        DBResource.name.label("resource_name"),
-        DBResource.update_date.label("resource_update_date"),
-        DBResource.hapi_updated_date.label("hapi_updated_date"),
-        DBResource.hapi_replaced_date.label("hapi_replaced_date"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
         DBAdmin1.code.label("admin1_code"),
@@ -103,17 +91,6 @@ view_params_population = ViewParams(
         .join(
             DBLocation.__table__,
             DBAdmin1.location_ref == DBLocation.id,
-            isouter=True,
-        )
-        # Join pop to resource to dataset
-        .join(
-            DBResource.__table__,
-            DBPopulation.resource_hdx_id == DBResource.hdx_id,
-            isouter=True,
-        )
-        .join(
-            DBDataset.__table__,
-            DBResource.dataset_hdx_id == DBDataset.hdx_id,
             isouter=True,
         )
     ),
