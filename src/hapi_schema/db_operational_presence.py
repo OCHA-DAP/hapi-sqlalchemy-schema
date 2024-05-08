@@ -4,16 +4,12 @@ from datetime import datetime
 
 from sqlalchemy import (
     Boolean,
-    CheckConstraint,
-    DateTime,
-    ForeignKey,
-    Integer,
-    String,
-    Text,
     DateTime,
     ForeignKey,
     ForeignKeyConstraint,
+    Integer,
     String,
+    Text,
     select,
     text,
 )
