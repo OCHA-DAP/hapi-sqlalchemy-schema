@@ -1,6 +1,8 @@
 """Org table and view."""
 
-from sqlalchemy import ForeignKey, String, select
+from datetime import datetime
+
+from sqlalchemy import DateTime, ForeignKey, Integer, String, select
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_org_type import DBOrgType

@@ -30,6 +30,7 @@ from hapi_schema.db_patch import DBPatch
 from hapi_schema.db_population import DBPopulation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
+from hapi_schema.utils.base import Base
 from hapi_schema.views import prepare_hapi_views
 from sample_data.data_admin1 import data_admin1
 from sample_data.data_admin2 import data_admin2
@@ -130,7 +131,7 @@ def run_indexes_test(engine):
 def run_columns_test(engine):
     def _run_columns_test(target_table: str, target_view: str, view_params):
         """Test that a table has the same columns as its corresponding view"""
-        _ = build_view(view_params.__dict__)
+        _ = Database.prepare_view(view_params.__dict__)
         Base.metadata.create_all(engine)
         Base.metadata.reflect(bind=engine, views=True)
         table_columns = Base.metadata.tables[target_table].columns

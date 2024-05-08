@@ -1,5 +1,7 @@
 """Resource table and view."""
 
+import datetime
+
 from sqlalchemy import (
     Boolean,
     DateTime,
