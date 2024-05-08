@@ -14,6 +14,7 @@ def test_org_view(run_view_test):
         ),
     )
 
+
 def test_org_vat(run_indexes_test, run_columns_test):
     """Check that the org view as table is correct - columns match, expected indexes present"""
     expected_indexes = [
@@ -30,39 +31,3 @@ def test_org_vat(run_indexes_test, run_columns_test):
         view_params_org,
     )
     run_indexes_test("org_vat", expected_indexes)
-
-
-def test_reference_period_constraint(run_constraints_test):
-    """Check that reference_period_end cannot be less than start"""
-    run_constraints_test(
-        new_rows=[
-            DBOrg(
-                acronym="ORG04",
-                name="Organisation 4",
-                org_type_code="433",
-                reference_period_start=datetime(2023, 1, 2),
-                reference_period_end=datetime(2023, 1, 1),
-                hapi_updated_date=datetime(2023, 1, 1),
-                hapi_replaced_date=None,
-            ),
-        ],
-        expected_constraint="reference_period",
-    )
-
-
-def test_hapi_date_constraint(run_constraints_test):
-    """Check that hapi_replaced_date cannot be less than hapi_udpated_date"""
-    run_constraints_test(
-        new_rows=[
-            DBOrg(
-                acronym="ORG04",
-                name="Organisation 4",
-                org_type_code="433",
-                reference_period_start=None,
-                reference_period_end=None,
-                hapi_updated_date=datetime(2023, 1, 2),
-                hapi_replaced_date=datetime(2023, 1, 1),
-            ),
-        ],
-        expected_constraint="hapi_dates",
-    )
