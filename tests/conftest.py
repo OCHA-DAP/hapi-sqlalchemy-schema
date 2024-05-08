@@ -128,6 +128,25 @@ def run_indexes_test(session):
 
 
 @pytest.fixture(scope="session")
+def run_primary_keys_test(session):
+    def _run_primary_keys_test(target_table: str, expected_primary_keys: str):
+        """Test that the expected primary_keys are in a specified table"""
+        Base.metadata.create_all(session.get_bind())
+        Base.metadata.reflect(bind=session.get_bind(), views=True)
+        columns = Base.metadata.tables[target_table].columns
+
+        found_primary_keys = []
+
+        for column in columns:
+            if column.primary_key:
+                found_primary_keys.append(column.name)
+
+        assert set(expected_primary_keys) == set(found_primary_keys)
+
+    return _run_primary_keys_test
+
+
+@pytest.fixture(scope="session")
 def run_columns_test(session):
     def _run_columns_test(target_table: str, target_view: str, view_params):
         """Test that a table has the same columns as its corresponding view"""

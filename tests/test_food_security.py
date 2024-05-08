@@ -28,11 +28,13 @@ def test_food_security_view(run_view_test):
 def test_food_security_vat(run_indexes_test, run_columns_test):
     """Check that the food_security view as table is correct - columns match, expected indexes present"""
     expected_indexes = [
-        "dataset_hdx_provider_stub",
-        "dataset_hdx_provider_name",
-        "resource_update_date",
-        "hapi_updated_date",
-        "hapi_replaced_date",
+        "admin2_ref",
+        "population_fraction_in_phase",
+        "ipc_phase",
+        "ipc_type",
+        "admin2_code",
+        "admin2_name",
+        "location_name",
         "reference_period_start",
         "reference_period_end",
     ]

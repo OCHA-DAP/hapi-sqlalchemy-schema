@@ -41,14 +41,13 @@ def test_humanitarian_needs_view(run_view_test):
 def test_humanitarian_needs_vat(run_indexes_test, run_columns_test):
     """Check that the humanitarian_needs view as table is correct - columns match, expected indexes present"""
     expected_indexes = [
-        "dataset_hdx_provider_stub",
-        "dataset_hdx_provider_name",
-        "resource_update_date",
-        "hapi_updated_date",
-        "hapi_replaced_date",
-        "reference_period_start",
+        "admin2_ref",
+        "admin2_code",
+        "admin2_name",
+        "location_name",
+        "min_age",
+        "max_age",
         "reference_period_end",
-        "sector_name",
     ]
     run_columns_test(
         "humanitarian_needs_vat",

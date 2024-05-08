@@ -9,7 +9,6 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
-    Text,
     select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -131,46 +130,35 @@ view_params_humanitarian_needs = ViewParams(
 
 class DBhumanitarian_needs_vat(Base):
     __tablename__ = "humanitarian_needs_vat"
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
-    admin2_ref: Mapped[int] = mapped_column(Integer)
-    population_status_code: Mapped[str] = mapped_column(String(32))
-    population_group_code: Mapped[str] = mapped_column(String(32))
-    sector_code: Mapped[str] = mapped_column(String(32))
-    gender_code: Mapped[str] = mapped_column(String(1))
-    age_range_code: Mapped[str] = mapped_column(String(32))
-    disabled_marker: Mapped[bool] = mapped_column(Boolean)
-    population: Mapped[int] = mapped_column(Integer)
+    admin2_ref: Mapped[int] = mapped_column(
+        Integer, index=True, primary_key=True
+    )
+    gender: Mapped[str] = mapped_column(String(11), primary_key=True)
+    age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
+    min_age: Mapped[int] = mapped_column(Integer, index=True)
+    max_age: Mapped[int] = mapped_column(Integer, index=True)
+    sector_code: Mapped[str] = mapped_column(String(32), primary_key=True)
+    population_group: Mapped[str] = mapped_column(String(14), primary_key=True)
+    population_status: Mapped[str] = mapped_column(
+        String(10), primary_key=True
+    )
+    disabled_marker: Mapped[str] = mapped_column(String(3), primary_key=True)
+    population: Mapped[int] = mapped_column(Integer, primary_key=True)
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, index=True
     )
-    source_data: Mapped[str] = mapped_column(Text)
-    dataset_hdx_id: Mapped[str] = mapped_column(String(36))
-    dataset_hdx_stub: Mapped[str] = mapped_column(String(128))
-    dataset_title: Mapped[str] = mapped_column(String(1024))
-    dataset_hdx_provider_stub: Mapped[str] = mapped_column(
-        String(128), index=True
-    )
-    dataset_hdx_provider_name: Mapped[str] = mapped_column(
-        String(512), index=True
-    )
-    resource_name: Mapped[str] = mapped_column(String(256))
-    resource_update_date: Mapped[datetime] = mapped_column(
-        DateTime, index=True
-    )
-    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime, index=True)
-    hapi_replaced_date: Mapped[datetime] = mapped_column(DateTime, index=True)
+    sector_name: Mapped[str] = mapped_column(String(512))
     location_code: Mapped[str] = mapped_column(String(128))
-    location_name: Mapped[str] = mapped_column(String(512))
+    location_name: Mapped[str] = mapped_column(String(512), index=True)
+    location_ref: Mapped[int] = mapped_column(Integer)
     admin1_code: Mapped[str] = mapped_column(String(128))
     admin1_name: Mapped[str] = mapped_column(String(512))
     admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
-    location_ref: Mapped[int] = mapped_column(Integer)
-    admin2_code: Mapped[str] = mapped_column(String(128))
-    admin2_name: Mapped[str] = mapped_column(String(512))
+    admin2_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
-    sector_name: Mapped[str] = mapped_column(String(512), index=True)
