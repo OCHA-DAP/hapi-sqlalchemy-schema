@@ -3,8 +3,8 @@ from hdx.database import Database
 from sqlalchemy import Table
 
 # Edit this to import the view parameters
-from hapi_schema.db_resource import (
-    view_params_resource,
+from hapi_schema.db_national_risk import (
+    view_params_national_risk,
 )
 from hapi_schema.utils.base import Base
 
@@ -12,10 +12,12 @@ from hapi_schema.utils.base import Base
 @pytest.mark.skip(reason="This is not a real test")
 def test_output_table_code_to_stdout(session):
     # Change these two
-    target_view = "resource_view"
-    _ = Database.prepare_view(view_params_resource.__dict__)
+    target_view = "national_risk_view"
+    _ = Database.prepare_view(view_params_national_risk.__dict__)
     expected_primary_keys = [
-        "hdx_id",
+        "location_ref",
+        "reference_period_start",
+        "reference_period_end",
     ]
 
     expected_indexes = []

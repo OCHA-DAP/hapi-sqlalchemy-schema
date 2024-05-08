@@ -3,7 +3,6 @@
 from datetime import datetime
 
 from sqlalchemy import (
-    Boolean,
     CheckConstraint,
     DateTime,
     Enum,
@@ -99,9 +98,7 @@ view_params_national_risk = ViewParams(
 class DBnational_risk_vat(Base):
     __tablename__ = "national_risk_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
-    admin2_ref: Mapped[int] = mapped_column(
-        Integer, primary_key=True, index=True
-    )
+    location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
     risk_class: Mapped[str] = mapped_column(String(9))
     global_rank: Mapped[int] = mapped_column(Integer)
     overall_risk: Mapped[float] = mapped_column(Float)
@@ -114,13 +111,7 @@ class DBnational_risk_vat(Base):
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime, primary_key=True
     )
     location_code: Mapped[str] = mapped_column(String(128))
-    location_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin1_code: Mapped[str] = mapped_column(String(128))
-    admin1_name: Mapped[str] = mapped_column(String(512))
-    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
-    admin2_code: Mapped[str] = mapped_column(String(128), index=True)
-    admin2_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    location_name: Mapped[str] = mapped_column(String(512))
