@@ -1,10 +1,10 @@
 import pytest
-from hdx.database.views import build_view
+from hdx.database import Database
 from sqlalchemy import Table
 
 # Edit this to import the view parameters
-from hapi_schema.db_resource import (
-    view_params_resource,
+from hapi_schema.db_org import (
+    view_params_org,
 )
 from hapi_schema.utils.base import Base
 
@@ -12,11 +12,12 @@ from hapi_schema.utils.base import Base
 @pytest.mark.skip(reason="This is not a real test")
 def test_output_table_code_to_stdout(engine):
     # Change these two
-    target_view = "resource_view"
-    _ = build_view(view_params_resource.__dict__)
-    primary_key = "hdx_id"
+    target_view = "org_view"
+    _ = Database.prepare_view(view_params_org.__dict__)
+    primary_key = "id"
 
     expected_indexes = [
+        "acronym",
         "dataset_hdx_provider_stub",
         "dataset_hdx_provider_name",
         "resource_update_date",
