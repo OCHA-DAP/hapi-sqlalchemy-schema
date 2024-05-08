@@ -128,12 +128,12 @@ def run_indexes_test(session):
 
 
 @pytest.fixture(scope="session")
-def run_columns_test(engine):
+def run_columns_test(session):
     def _run_columns_test(target_table: str, target_view: str, view_params):
         """Test that a table has the same columns as its corresponding view"""
         _ = Database.prepare_view(view_params.__dict__)
-        Base.metadata.create_all(engine)
-        Base.metadata.reflect(bind=engine, views=True)
+        Base.metadata.create_all(session.get_bind())
+        Base.metadata.reflect(bind=session.get_bind(), views=True)
         table_columns = Base.metadata.tables[target_table].columns
         view_columns = Base.metadata.tables[target_view].columns
 
