@@ -109,11 +109,11 @@ def run_constraints_test(session):
 
 
 @pytest.fixture(scope="session")
-def run_indexes_test(engine):
+def run_indexes_test(session):
     def _run_indexes_test(target_table: str, expected_indexes: str):
         """Test that the expected indexes are in a specified table"""
-        Base.metadata.create_all(engine)
-        Base.metadata.reflect(bind=engine, views=True)
+        Base.metadata.create_all(session.get_bind())
+        Base.metadata.reflect(bind=session.get_bind(), views=True)
         columns = Base.metadata.tables[target_table].columns
 
         found_indexes = []
