@@ -29,6 +29,7 @@ from hapi_schema.db_org import DBOrg
 from hapi_schema.db_org_type import DBOrgType
 from hapi_schema.db_patch import DBPatch
 from hapi_schema.db_population import DBPopulation
+from hapi_schema.db_refugees import DBRefugees
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
@@ -46,6 +47,7 @@ from sample_data.data_org import data_org
 from sample_data.data_org_type import data_org_type
 from sample_data.data_patch import data_patch
 from sample_data.data_population import data_population
+from sample_data.data_refugees import data_refugees
 from sample_data.data_resource import data_resource
 from sample_data.data_sector import data_sector
 
@@ -71,10 +73,11 @@ def session():
     session.execute(insert(DBOrg), data_org)
     session.execute(insert(DBSector), data_sector)
 
+    session.execute(insert(DBFunding), data_funding)
     session.execute(insert(DBNationalRisk), data_national_risk)
     session.execute(insert(DBPopulation), data_population)
     session.execute(insert(DBOperationalPresence), data_operational_presence)
-    session.execute(insert(DBFunding), data_funding)
+    session.execute(insert(DBRefugees), data_refugees)
     session.execute(insert(DBFoodSecurity), data_food_security)
     session.execute(insert(DBHumanitarianNeeds), data_humanitarian_needs)
 
