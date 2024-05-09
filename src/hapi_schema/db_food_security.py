@@ -58,8 +58,8 @@ class DBFoodSecurity(Base):
         DateTime, nullable=False, index=True
     )
 
-    resource = relationship("DBResource")
-    admin2 = relationship("DBAdmin2")
+    resource = relationship(DBResource)
+    admin2 = relationship(DBAdmin2)
 
 
 view_params_food_security = ViewParams(
