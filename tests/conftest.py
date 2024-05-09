@@ -14,6 +14,7 @@ from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_food_security import (
     DBFoodSecurity,
 )
+from hapi_schema.db_funding import DBFunding
 from hapi_schema.db_humanitarian_needs import (
     DBHumanitarianNeeds,
 )
@@ -31,11 +32,13 @@ from hapi_schema.db_population import DBPopulation
 from hapi_schema.db_refugees import DBRefugees
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
+from hapi_schema.utils.base import Base
 from hapi_schema.views import prepare_hapi_views
 from sample_data.data_admin1 import data_admin1
 from sample_data.data_admin2 import data_admin2
 from sample_data.data_dataset import data_dataset
 from sample_data.data_food_security import data_food_security
+from sample_data.data_funding import data_funding
 from sample_data.data_humanitarian_needs import data_humanitarian_needs
 from sample_data.data_location import data_location
 from sample_data.data_national_risk import data_national_risk
@@ -70,6 +73,7 @@ def session():
     session.execute(insert(DBOrg), data_org)
     session.execute(insert(DBSector), data_sector)
 
+    session.execute(insert(DBFunding), data_funding)
     session.execute(insert(DBNationalRisk), data_national_risk)
     session.execute(insert(DBPopulation), data_population)
     session.execute(insert(DBOperationalPresence), data_operational_presence)
@@ -108,3 +112,59 @@ def run_constraints_test(session):
         assert expected_constraint in str(exc_info.value)
 
     return _run_constraints_test
+
+
+@pytest.fixture(scope="session")
+def run_indexes_test(session):
+    def _run_indexes_test(target_table: str, expected_indexes: str):
+        """Test that the expected indexes are in a specified table"""
+        Base.metadata.create_all(session.get_bind())
+        Base.metadata.reflect(bind=session.get_bind(), views=True)
+        columns = Base.metadata.tables[target_table].columns
+
+        found_indexes = []
+
+        for column in columns:
+            if column.index:
+                found_indexes.append(column.name)
+
+        assert set(expected_indexes) == set(found_indexes)
+
+    return _run_indexes_test
+
+
+@pytest.fixture(scope="session")
+def run_primary_keys_test(session):
+    def _run_primary_keys_test(target_table: str, expected_primary_keys: str):
+        """Test that the expected primary_keys are in a specified table"""
+        Base.metadata.create_all(session.get_bind())
+        Base.metadata.reflect(bind=session.get_bind(), views=True)
+        columns = Base.metadata.tables[target_table].columns
+
+        found_primary_keys = []
+
+        for column in columns:
+            if column.primary_key:
+                found_primary_keys.append(column.name)
+
+        assert set(expected_primary_keys) == set(found_primary_keys)
+
+    return _run_primary_keys_test
+
+
+@pytest.fixture(scope="session")
+def run_columns_test(session):
+    def _run_columns_test(target_table: str, target_view: str, view_params):
+        """Test that a table has the same columns as its corresponding view"""
+        _ = Database.prepare_view(view_params.__dict__)
+        Base.metadata.create_all(session.get_bind())
+        Base.metadata.reflect(bind=session.get_bind(), views=True)
+        table_columns = Base.metadata.tables[target_table].columns
+        view_columns = Base.metadata.tables[target_view].columns
+
+        table_column_names = [x.name for x in table_columns]
+        view_column_names = [x.name for x in view_columns]
+
+        assert set(table_column_names) == set(view_column_names)
+
+    return _run_columns_test
