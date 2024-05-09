@@ -128,7 +128,7 @@ view_params_humanitarian_needs = ViewParams(
 )
 
 
-class DBHumanitarianNeeds_vat(Base):
+class DBHumanitarianNeedsVAT(Base):
     __tablename__ = "humanitarian_needs_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(

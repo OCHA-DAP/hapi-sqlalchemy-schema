@@ -95,7 +95,7 @@ view_params_national_risk = ViewParams(
 )
 
 
-class DBNationalRisk_vat(Base):
+class DBNationalRiskVAT(Base):
     __tablename__ = "national_risk_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)

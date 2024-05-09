@@ -69,7 +69,7 @@ def make_table_template_from_view(
         .replace("_", " ")
         .title()
         .replace(" ", "")
-        + "_vat"
+        + "VAT"
     )
     print(f"class {class_name}(Base):", flush=True)
     print(f"    __tablename__ = '{target_table}'", flush=True)

@@ -66,7 +66,7 @@ view_params_admin1 = ViewParams(
 )
 
 
-class DBAdmin1_vat(Base):
+class DBAdmin1VAT(Base):
     __tablename__ = "admin1_vat"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     location_ref: Mapped[int] = mapped_column(Integer)

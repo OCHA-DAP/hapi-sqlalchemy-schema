@@ -54,7 +54,7 @@ view_params_resource = ViewParams(
 )
 
 
-class DBResource_vat(Base):
+class DBResourceVAT(Base):
     __tablename__ = "resource_vat"
     hdx_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     dataset_hdx_id: Mapped[str] = mapped_column(String(36))
