@@ -38,6 +38,25 @@ def test_humanitarian_needs_view(run_view_test):
     )
 
 
+def test_humanitarian_needs_vat(run_indexes_test, run_columns_test):
+    """Check that the humanitarian_needs view as table is correct - columns match, expected indexes present"""
+    expected_indexes = [
+        "admin2_ref",
+        "admin2_code",
+        "admin2_name",
+        "location_name",
+        "min_age",
+        "max_age",
+        "reference_period_end",
+    ]
+    run_columns_test(
+        "humanitarian_needs_vat",
+        "humanitarian_needs_view",
+        view_params_humanitarian_needs,
+    )
+    run_indexes_test("humanitarian_needs_vat", expected_indexes)
+
+
 @pytest.fixture(scope="module")
 def base_parameters():
     return dict(

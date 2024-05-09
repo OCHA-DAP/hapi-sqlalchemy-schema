@@ -24,6 +24,24 @@ def test_national_risk_view(run_view_test):
     )
 
 
+def test_national_risk_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that the national_risk view as table is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "location_ref",
+        "reference_period_start",
+        "reference_period_end",
+    ]
+
+    expected_indexes = []
+    run_columns_test(
+        "national_risk_vat", "national_risk_view", view_params_national_risk
+    )
+    run_indexes_test("national_risk_vat", expected_indexes)
+    run_primary_keys_test("national_risk_vat", expected_primary_keys)
+
+
 @pytest.fixture
 def base_parameters():
     return dict(

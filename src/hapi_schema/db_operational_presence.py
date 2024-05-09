@@ -3,9 +3,11 @@
 from datetime import datetime
 
 from sqlalchemy import (
+    Boolean,
     DateTime,
     ForeignKey,
     ForeignKeyConstraint,
+    Integer,
     String,
     select,
     text,
@@ -109,3 +111,32 @@ view_params_operational_presence = ViewParams(
         )
     ),
 )
+
+
+class DBOperationalPresenceVAT(Base):
+    __tablename__ = "operational_presence_vat"
+    resource_hdx_id: Mapped[str] = mapped_column(String(36))
+    admin2_ref: Mapped[int] = mapped_column(
+        Integer, primary_key=True, index=True
+    )
+    org_acronym: Mapped[str] = mapped_column(String, primary_key=True)
+    org_name: Mapped[str] = mapped_column(String, primary_key=True)
+    sector_code: Mapped[str] = mapped_column(String(32))
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, primary_key=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    org_type_code: Mapped[str] = mapped_column(String(32))
+    sector_name: Mapped[str] = mapped_column(String(512))
+    location_code: Mapped[str] = mapped_column(String(128))
+    location_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_code: Mapped[str] = mapped_column(String(128))
+    admin1_name: Mapped[str] = mapped_column(String(512))
+    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    location_ref: Mapped[int] = mapped_column(Integer)
+    admin2_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin2_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    admin1_ref: Mapped[int] = mapped_column(Integer)

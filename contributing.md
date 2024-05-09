@@ -40,6 +40,10 @@ To check if your changes pass pre-commit without committing, run:
 
 ## Testing
 
+Testing is now done against a Postgres database which can be deployed from the Docker definition in the `docker` directory using:
+
+`docker-compose up -d`
+
 To run the tests and view coverage, execute:
 
     pytest -c .config/pytest.ini --cov hapi_schema --cov-config .config/coveragerc

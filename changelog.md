@@ -5,9 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [unreleased]
 
 ### Changed
+
+- Created tables which reflect the views
+- Added columns to the patches table
 - Many small changes to align with V1 of the schema
 - `resource` and `dataset` primary keys are now the UUID
 - Use postgres instead of sqlite for testing
@@ -23,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - ipc_phase, ipc_type, age_range, and gender tables
+
 
 ## [0.7.3]
 

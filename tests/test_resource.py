@@ -13,3 +13,21 @@ def test_resource_view(run_view_test):
             view_resource.c.dataset_hdx_stub == "dataset01",
         ),
     )
+
+
+def test_resource_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that the resource view as table is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "hdx_id",
+    ]
+
+    expected_indexes = []
+    run_columns_test(
+        "resource_vat",
+        "resource_view",
+        view_params_resource,
+    )
+    run_indexes_test("resource_vat", expected_indexes)
+    run_primary_keys_test("resource_vat", expected_primary_keys)

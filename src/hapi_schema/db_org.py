@@ -37,3 +37,11 @@ view_params_org = ViewParams(
         )
     ),
 )
+
+
+class DBOrgVAT(Base):
+    __tablename__ = "org_vat"
+    acronym: Mapped[str] = mapped_column(String(32), primary_key=True)
+    name: Mapped[str] = mapped_column(String(512), primary_key=True)
+    org_type_code: Mapped[str] = mapped_column(String(32))
+    org_type_description: Mapped[str] = mapped_column(String(512))
