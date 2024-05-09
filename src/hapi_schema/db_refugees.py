@@ -18,6 +18,8 @@ from sqlalchemy.orm import Mapped, aliased, mapped_column, relationship
 from hapi_schema.db_location import DBLocation
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import (
+    max_age_constraint,
+    min_age_constraint,
     population_constraint,
     reference_period_constraint,
 )
@@ -28,8 +30,10 @@ from hapi_schema.utils.view_params import ViewParams
 class DBRefugees(Base):
     __tablename__ = "refugees"
     __table_args__ = (
+        min_age_constraint(),
+        max_age_constraint(),
+        population_constraint(),
         reference_period_constraint(),
-        population_constraint(population_var_name="population"),
     )
 
     resource_hdx_id: Mapped[str] = mapped_column(
