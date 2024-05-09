@@ -17,6 +17,12 @@ class DisabledMarker(str, enum.Enum):
     ALL = "*"
 
 
+class EventType(str, enum.Enum):
+    CIVILIAN_TARGETING = "civilian_targeting"
+    DEMONSTRATION = "demonstration"
+    POLITICAL_VIOLENCE = "political_violence"
+
+
 class PopulationGroup(str, enum.Enum):
     REFUGEES = "REF"
     ROC = "ROC"

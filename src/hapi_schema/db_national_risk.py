@@ -74,7 +74,7 @@ class DBNationalRisk(Base):
     )
 
     resource = relationship("DBResource")
-    admin2 = relationship("DBLocation")
+    location = relationship("DBLocation")
 
 
 view_params_national_risk = ViewParams(
