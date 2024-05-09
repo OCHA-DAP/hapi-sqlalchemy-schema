@@ -113,7 +113,7 @@ view_params_operational_presence = ViewParams(
 )
 
 
-class DBoperational_presence_vat(Base):
+class DBOperationalPresence_vat(Base):
     __tablename__ = "operational_presence_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(

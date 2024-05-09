@@ -97,7 +97,7 @@ view_params_food_security = ViewParams(
 )
 
 
-class DBfood_security_vat(Base):
+class DBFoodSecurity_vat(Base):
     __tablename__ = "food_security_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(

@@ -39,7 +39,7 @@ view_params_org = ViewParams(
 )
 
 
-class DBorg_vat(Base):
+class DBOrg_vat(Base):
     __tablename__ = "org_vat"
     acronym: Mapped[str] = mapped_column(String(32), primary_key=True)
     name: Mapped[str] = mapped_column(String(512), primary_key=True)

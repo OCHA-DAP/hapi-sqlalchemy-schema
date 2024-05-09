@@ -98,7 +98,7 @@ view_params_population = ViewParams(
 )
 
 
-class DBpopulation_vat(Base):
+class DBPopulation_vat(Base):
     __tablename__ = "population_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
