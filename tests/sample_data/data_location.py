@@ -6,5 +6,11 @@ data_location = [
         name="Foolandia",
         reference_period_start=datetime(2023, 1, 1),
         reference_period_end=None,
-    )
+    ),
+    dict(
+        code="BAR",
+        name="Barovia",
+        reference_period_start=datetime(2023, 1, 1),
+        reference_period_end=None,
+    ),
 ]

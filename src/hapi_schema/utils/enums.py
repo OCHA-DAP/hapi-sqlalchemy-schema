@@ -36,6 +36,7 @@ class PopulationGroup(str, enum.Enum):
     RET = "RET"
     RESETTLED = "RST"
     NATURALIZED = "NAT"
+    POC = "POC"
     RDP = "RDP"
     RRI = "RRI"
     ALL = "*"
