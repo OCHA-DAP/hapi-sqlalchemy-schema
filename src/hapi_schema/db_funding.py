@@ -14,6 +14,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_location import DBLocation
 from hapi_schema.utils.base import Base
+from hapi_schema.utils.constraints import reference_period_constraint
 from hapi_schema.utils.view_params import ViewParams
 
 
@@ -32,10 +33,7 @@ class DBFunding(Base):
             "funding_pct >= 0.0",
             name="funding_pct",
         ),
-        CheckConstraint(
-            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
-            name="reference_period",
-        ),
+        reference_period_constraint(),
     )
 
     resource_hdx_id = mapped_column(
@@ -44,13 +42,13 @@ class DBFunding(Base):
     )
 
     appeal_code: Mapped[str] = mapped_column(
-        String(32), primary_key=True, nullable=False
+        String(32),
+        primary_key=True,
     )
 
     location_ref: Mapped[int] = mapped_column(
         ForeignKey("location.id", onupdate="CASCADE"),
         primary_key=True,
-        nullable=False,
     )
 
     appeal_name: Mapped[str] = mapped_column(String(256), nullable=False)
@@ -64,11 +62,14 @@ class DBFunding(Base):
     funding_pct: Mapped[float] = mapped_column(nullable=False, index=True)
 
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, primary_key=True, nullable=False, index=True
+        DateTime,
+        primary_key=True,
     )
 
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL"), index=True
+        DateTime,
+        nullable=True,
+        server_default=text("NULL"),
     )
 
     resource = relationship("DBResource")
