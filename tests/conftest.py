@@ -30,6 +30,7 @@ from hapi_schema.db_patch import DBPatch
 from hapi_schema.db_population import DBPopulation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
+from hapi_schema.utils.base import Base
 from hapi_schema.views import prepare_hapi_views
 from sample_data.data_admin1 import data_admin1
 from sample_data.data_admin2 import data_admin2
@@ -105,3 +106,59 @@ def run_constraints_test(session):
         assert expected_constraint in str(exc_info.value)
 
     return _run_constraints_test
+
+
+@pytest.fixture(scope="session")
+def run_indexes_test(session):
+    def _run_indexes_test(target_table: str, expected_indexes: str):
+        """Test that the expected indexes are in a specified table"""
+        Base.metadata.create_all(session.get_bind())
+        Base.metadata.reflect(bind=session.get_bind(), views=True)
+        columns = Base.metadata.tables[target_table].columns
+
+        found_indexes = []
+
+        for column in columns:
+            if column.index:
+                found_indexes.append(column.name)
+
+        assert set(expected_indexes) == set(found_indexes)
+
+    return _run_indexes_test
+
+
+@pytest.fixture(scope="session")
+def run_primary_keys_test(session):
+    def _run_primary_keys_test(target_table: str, expected_primary_keys: str):
+        """Test that the expected primary_keys are in a specified table"""
+        Base.metadata.create_all(session.get_bind())
+        Base.metadata.reflect(bind=session.get_bind(), views=True)
+        columns = Base.metadata.tables[target_table].columns
+
+        found_primary_keys = []
+
+        for column in columns:
+            if column.primary_key:
+                found_primary_keys.append(column.name)
+
+        assert set(expected_primary_keys) == set(found_primary_keys)
+
+    return _run_primary_keys_test
+
+
+@pytest.fixture(scope="session")
+def run_columns_test(session):
+    def _run_columns_test(target_table: str, target_view: str, view_params):
+        """Test that a table has the same columns as its corresponding view"""
+        _ = Database.prepare_view(view_params.__dict__)
+        Base.metadata.create_all(session.get_bind())
+        Base.metadata.reflect(bind=session.get_bind(), views=True)
+        table_columns = Base.metadata.tables[target_table].columns
+        view_columns = Base.metadata.tables[target_view].columns
+
+        table_column_names = [x.name for x in table_columns]
+        view_column_names = [x.name for x in view_columns]
+
+        assert set(table_column_names) == set(view_column_names)
+
+    return _run_columns_test

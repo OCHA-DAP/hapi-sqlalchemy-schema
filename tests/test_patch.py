@@ -7,19 +7,23 @@ from hapi_schema.utils.base import Base
 
 def test_db_patch(capfd):
     engine = create_engine("sqlite://", echo=True)
-    Base.metadata.create_all(engine)
+    Base.metadata.create_all(engine, tables=[Base.metadata.tables["patch"]])
 
     sql_table_creation_code = """CREATE TABLE patch (
         id INTEGER NOT NULL,
         patch_sequence_number INTEGER NOT NULL,
         commit_hash VARCHAR(48) NOT NULL,
         commit_date DATETIME NOT NULL,
-        patch_path VARCHAR(128) NOT NULL,
-        permanent_download_url VARCHAR(1024) NOT NULL,
+        patch_path VARCHAR(512) NOT NULL,
+        patch_permalink_url VARCHAR(1024) NOT NULL,
+        patch_target VARCHAR(128) NOT NULL,
+        patch_hash VARCHAR(48) NOT NULL,
         state VARCHAR(10) NOT NULL,
+        execution_date DATETIME,
         PRIMARY KEY (id),
         UNIQUE (commit_hash),
-        UNIQUE (permanent_download_url)
+        UNIQUE (patch_permalink_url),
+        UNIQUE (patch_hash)
 )
 """
     sql_patch_sequence_number_index_creation = """

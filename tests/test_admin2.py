@@ -18,6 +18,21 @@ def test_admin2_view(run_view_test):
     )
 
 
+def test_admin2_vat(run_indexes_test, run_columns_test):
+    """Check that the view as table is correct - columns match, expected indexes present"""
+    expected_indexes = [
+        "location_code",
+        "location_name",
+        "code",
+        "name",
+        "location_name",
+        "reference_period_start",
+        "reference_period_end",
+    ]
+    run_columns_test("admin2_vat", "admin2_view", view_params_admin2)
+    run_indexes_test("admin2_vat", expected_indexes)
+
+
 def test_reference_period_constraint(run_constraints_test):
     """Check that reference_period_end cannot be less than start"""
     run_constraints_test(
