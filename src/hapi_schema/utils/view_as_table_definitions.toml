@@ -1,0 +1,10 @@
+[[tables]]
+db_module = "db_national_risk"
+target_view = "national_risk_view"
+view_params_name="view_params_national_risk"
+expected_primary_keys = [
+        "location_ref",
+        "reference_period_start",
+        "reference_period_end",
+    ]
+expected_indexes = []

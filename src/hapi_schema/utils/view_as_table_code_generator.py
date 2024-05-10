@@ -16,28 +16,49 @@ To use it the code needs to be edited appropriately before running it:
 Ian Hopkinson 2024-05-09
 """
 
+import os
+import sys
+from importlib import import_module
+
+import tomllib
 from hdx.database import Database
 from sqlalchemy import Table
 
 # Edit this to import the view parameters
-from hapi_schema.db_national_risk import (
-    view_params_national_risk,
-)
 from hapi_schema.utils.base import Base
 from hapi_schema.views import prepare_hapi_views
 
 
-def output_table_code_to_stdout():
-    # Change these the target_view, prepare_view, expected_primary_keys and expected_indexes
+def parse_toml():
     target_view = "national_risk_view"
-    _ = Database.prepare_view(view_params_national_risk.__dict__)
-    expected_primary_keys = [
-        "location_ref",
-        "reference_period_start",
-        "reference_period_end",
-    ]
+    if len(sys.argv) == 2:
+        target_view = sys.argv[1]
 
-    expected_indexes = []
+    config_file_path = os.path.join(
+        os.path.dirname(__file__), "view_as_table_definitions.toml"
+    )
+    with open(config_file_path, "rb") as file_handle:
+        config = tomllib.load(file_handle)
+
+    parameters = None
+    for table in config["tables"]:
+        if table["target_view"] == target_view:
+            parameters = table
+            break
+
+    output_table_code_to_stdout(parameters)
+
+
+def output_table_code_to_stdout(parameters: dict):
+    # Change these the target_view, prepare_view, expected_primary_keys and expected_indexes
+    target_view = parameters["target_view"]
+    expected_primary_keys = parameters["expected_primary_keys"]
+    expected_indexes = parameters["expected_indexes"]
+
+    view_params_dict = dynamically_load_view_params(
+        parameters["db_module"], parameters["view_params_name"]
+    )
+    _ = Database.prepare_view(view_params_dict)
     #
     session = make_session()
     target_table = target_view.replace("view", "vat")
@@ -121,5 +142,13 @@ def make_session():
     return session
 
 
+def dynamically_load_view_params(db_module, view_name):
+    module = import_module(f"hapi_schema.{db_module}")
+    target_view_params = getattr(module, f"{view_name}")
+
+    return target_view_params.__dict__
+
+
 if __name__ == "__main__":
-    output_table_code_to_stdout()
+    parse_toml()
+    # output_table_code_to_stdout()
