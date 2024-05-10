@@ -101,29 +101,23 @@ view_params_food_security = ViewParams(
 class DBFoodSecurityVAT(Base):
     __tablename__ = "food_security_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
-    admin2_ref: Mapped[int] = mapped_column(
-        Integer, index=True, primary_key=True
-    )
-    ipc_phase: Mapped[IPCPhase] = mapped_column(
-        Enum(IPCPhase), index=True, primary_key=True
-    )
-    ipc_type: Mapped[IPCType] = mapped_column(
-        Enum(IPCType), index=True, primary_key=True
-    )
-    population_in_phase: Mapped[int] = mapped_column(Integer, primary_key=True)
+    admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    ipc_phase: Mapped[str] = mapped_column(String(12), primary_key=True)
+    ipc_type: Mapped[str] = mapped_column(String(17), primary_key=True)
+    population_in_phase: Mapped[int] = mapped_column(Integer, index=True)
     population_fraction_in_phase: Mapped[float] = mapped_column(
-        Float, index=True, primary_key=True
+        Float, index=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, index=True
     )
-    location_code: Mapped[str] = mapped_column(String(128))
+    location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin1_code: Mapped[str] = mapped_column(String(128))
-    admin1_name: Mapped[str] = mapped_column(String(512))
+    admin1_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin1_name: Mapped[str] = mapped_column(String(512), index=True)
     admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer)
     admin2_code: Mapped[str] = mapped_column(String(128), index=True)

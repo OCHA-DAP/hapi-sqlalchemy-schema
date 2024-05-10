@@ -22,6 +22,15 @@ expected_primary_keys = ["hdx_id"]
 expected_indexes = ["hdx_stub", "hdx_provider_stub", "hdx_provider_name"]
 
 [[tables]]
+db_module = "db_food_security"
+target_view = "food_security_view"
+view_params_name="view_params_food_security"
+expected_primary_keys = ["admin2_ref", "ipc_type", "ipc_phase", "reference_period_start"]
+expected_indexes = ["population_in_phase", "population_fraction_in_phase", "reference_period_end",
+"location_code", "location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
+
+
+[[tables]]
 db_module = "db_national_risk"
 target_view = "national_risk_view"
 view_params_name="view_params_national_risk"
