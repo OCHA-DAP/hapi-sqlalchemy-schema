@@ -18,19 +18,22 @@ def test_admin2_view(run_view_test):
     )
 
 
-def test_admin2_vat(run_indexes_test, run_columns_test):
+def test_admin2_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that the view as table is correct - columns match, expected indexes present"""
+    expected_primary_keys = ["id"]
     expected_indexes = [
-        "location_code",
-        "location_name",
         "code",
         "name",
-        "location_name",
         "reference_period_start",
         "reference_period_end",
+        "location_code",
+        "location_name",
+        "admin1_code",
+        "admin1_name",
     ]
     run_columns_test("admin2_vat", "admin2_view", view_params_admin2)
     run_indexes_test("admin2_vat", expected_indexes)
+    run_primary_keys_test("admin2_vat", expected_primary_keys)
 
 
 def test_reference_period_constraint(run_constraints_test):

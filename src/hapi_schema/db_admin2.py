@@ -87,8 +87,8 @@ class DBAdmin2VAT(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime, index=True
     )
-    admin1_code: Mapped[str] = mapped_column(String(128))
-    admin1_name: Mapped[str] = mapped_column(String(512))
+    admin1_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin1_name: Mapped[str] = mapped_column(String(512), index=True)
     admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)

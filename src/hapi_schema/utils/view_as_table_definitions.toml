@@ -6,6 +6,16 @@ expected_primary_keys = ["id"]
 expected_indexes = ["code", "name", "reference_period_start", "reference_period_end", "location_code", "location_name"]
 
 [[tables]]
+db_module = "db_admin2"
+target_view = "admin2_view"
+view_params_name="view_params_admin2"
+expected_primary_keys = ["id"]
+expected_indexes = ["code", "name",
+                    "reference_period_start", "reference_period_end",
+                    "location_code", "location_name",
+                    "admin1_code", "admin1_name"]
+
+[[tables]]
 db_module = "db_national_risk"
 target_view = "national_risk_view"
 view_params_name="view_params_national_risk"
