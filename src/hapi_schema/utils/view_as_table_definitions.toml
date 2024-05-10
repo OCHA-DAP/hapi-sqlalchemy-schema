@@ -12,8 +12,14 @@ view_params_name="view_params_admin2"
 expected_primary_keys = ["id"]
 expected_indexes = ["code", "name",
                     "reference_period_start", "reference_period_end",
-                    "location_code", "location_name",
-                    "admin1_code", "admin1_name"]
+                    "location_code", "location_name"]
+
+[[tables]]
+db_module = "db_dataset"
+target_view = "dataset_view"
+view_params_name="view_params_dataset"
+expected_primary_keys = ["hdx_id"]
+expected_indexes = ["hdx_stub", "hdx_provider_stub", "hdx_provider_name"]
 
 [[tables]]
 db_module = "db_national_risk"

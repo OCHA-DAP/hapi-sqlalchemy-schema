@@ -28,3 +28,12 @@ view_params_dataset = ViewParams(
     metadata=Base.metadata,
     selectable=select(*DBDataset.__table__.columns),
 )
+
+
+class DBDatasetVAT(Base):
+    __tablename__ = "dataset_vat"
+    hdx_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    hdx_stub: Mapped[str] = mapped_column(String(128), index=True)
+    title: Mapped[str] = mapped_column(String(1024))
+    hdx_provider_stub: Mapped[str] = mapped_column(String(128), index=True)
+    hdx_provider_name: Mapped[str] = mapped_column(String(512), index=True)
