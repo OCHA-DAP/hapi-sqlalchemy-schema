@@ -29,6 +29,13 @@ expected_primary_keys = ["admin2_ref", "ipc_type", "ipc_phase", "reference_perio
 expected_indexes = ["population_in_phase", "population_fraction_in_phase", "reference_period_end",
 "location_code", "location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
 
+[[tables]]
+db_module = "db_funding"
+target_view = "funding_view"
+view_params_name="view_params_funding"
+expected_primary_keys = ["appeal_code", "location_ref"]
+expected_indexes = ["requirements_usd", "funding_usd", "funding_pct", "reference_period_start",
+"location_code", "location_name"]
 
 [[tables]]
 db_module = "db_national_risk"
