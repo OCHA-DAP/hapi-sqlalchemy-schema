@@ -4,6 +4,7 @@ target_view = "admin1_view"
 view_params_name="view_params_admin1"
 expected_primary_keys = ["id"]
 expected_indexes = ["code", "name", "reference_period_start", "reference_period_end", "location_code", "location_name"]
+expected_nullables = ["reference_period_start", "reference_period_end"]
 
 [[tables]]
 db_module = "db_admin2"
@@ -13,6 +14,7 @@ expected_primary_keys = ["id"]
 expected_indexes = ["code", "name",
                     "reference_period_start", "reference_period_end",
                     "location_code", "location_name"]
+expected_nullables = ["reference_period_start", "reference_period_end"]
 
 [[tables]]
 db_module = "db_dataset"
@@ -20,6 +22,7 @@ target_view = "dataset_view"
 view_params_name="view_params_dataset"
 expected_primary_keys = ["hdx_id"]
 expected_indexes = ["hdx_stub", "hdx_provider_stub", "hdx_provider_name"]
+expected_nullables = []
 
 [[tables]]
 db_module = "db_food_security"
@@ -28,6 +31,7 @@ view_params_name="view_params_food_security"
 expected_primary_keys = ["admin2_ref", "ipc_type", "ipc_phase", "reference_period_start"]
 expected_indexes = ["population_in_phase", "population_fraction_in_phase", "reference_period_end",
 "location_code", "location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
+expected_nullables = []
 
 [[tables]]
 db_module = "db_funding"
@@ -36,6 +40,7 @@ view_params_name="view_params_funding"
 expected_primary_keys = ["appeal_code", "location_ref"]
 expected_indexes = ["requirements_usd", "funding_usd", "funding_pct", "reference_period_start",
 "location_code", "location_name"]
+expected_nullables = ["reference_period_end"]
 
 [[tables]]
 db_module = "db_national_risk"
@@ -44,6 +49,6 @@ view_params_name="view_params_national_risk"
 expected_primary_keys = [
         "location_ref",
         "reference_period_start",
-        "reference_period_end",
     ]
-expected_indexes = []
+expected_indexes = ["reference_period_end", "location_code", "location_name"]
+expected_nullables = ["meta_missing_indicators_pct", "meta_avg_recentness_years"]

@@ -54,6 +54,7 @@ def output_table_code_to_stdout(parameters: dict):
     target_view = parameters["target_view"]
     expected_primary_keys = parameters["expected_primary_keys"]
     expected_indexes = parameters["expected_indexes"]
+    expected_nullables = parameters["expected_nullables"]
 
     view_params_dict = dynamically_load_view_params(
         parameters["db_module"], parameters["view_params_name"]
@@ -69,8 +70,9 @@ def output_table_code_to_stdout(parameters: dict):
     new_columns = make_table_template_from_view(
         target_table,
         columns,
-        expected_indexes,
-        primary_keys=expected_primary_keys,
+        expected_indexes=expected_indexes,
+        expected_nullables=expected_nullables,
+        expected_primary_keys=expected_primary_keys,
     )
 
     _ = Table(target_table, Base.metadata, *new_columns)
@@ -81,8 +83,19 @@ def output_table_code_to_stdout(parameters: dict):
 
 
 def make_table_template_from_view(
-    target_table, columns, expected_indexes, primary_keys=["id"]
+    target_table,
+    columns,
+    expected_indexes=None,
+    expected_primary_keys=None,
+    expected_nullables=None,
 ):
+    if expected_primary_keys is None:
+        expected_primary_keys = ["id"]
+    if expected_indexes is None:
+        expected_indexes = []
+    if expected_nullables is None:
+        expected_nullables = []
+
     # Make a CamelCase name from the supplied table name
     class_name = (
         "DB"
@@ -100,10 +113,13 @@ def make_table_template_from_view(
         new_column = column._copy()
         primary_key_str = ""
         index_str = ""
-        if column.name in primary_keys:
+        nullable_str = ""
+        if column.name in expected_primary_keys:
             primary_key_str = ", primary_key=True"
         if column.name in expected_indexes:
             index_str = ", index=True"
+        if column.name in expected_nullables:
+            nullable_str = ", nullable=True"
         column_type = str(column.type)
         mapped_type_1 = column_type
         mapped_type_2 = column_type
@@ -126,7 +142,7 @@ def make_table_template_from_view(
             mapped_type_1 = "str"
             mapped_type_2 = "Text"
         print(
-            f"    {column.name}: Mapped[{mapped_type_1}] = mapped_column({mapped_type_2}{primary_key_str}{index_str})"
+            f"    {column.name}: Mapped[{mapped_type_1}] = mapped_column({mapped_type_2}{primary_key_str}{nullable_str}{index_str})"
         )
 
         new_columns.append(new_column)
