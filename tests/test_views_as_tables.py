@@ -2,7 +2,7 @@ from hapi_schema.db_admin1 import view_params_admin1
 
 
 def test_admin1_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
-    """Check that the admin1 view as table is correct - columns match, expected indexes present"""
+    """Check that the admin1_vat as table is correct - columns match, expected indexes present"""
     expected_primary_keys = ["id"]
     expected_indexes = [
         "code",

@@ -22,7 +22,6 @@ from importlib import import_module
 
 import tomllib
 from hdx.database import Database
-from sqlalchemy import Table
 
 # Edit this to import the view parameters
 from hapi_schema.utils.base import Base
@@ -46,10 +45,16 @@ def parse_toml():
             parameters = table
             break
 
-    output_table_code_to_stdout(parameters)
+    test_code = create_test_code(parameters)
+    for line in test_code:
+        print(line, flush=True)
+
+    table_code = create_table_code(parameters)
+    for line in table_code:
+        print(line, flush=True)
 
 
-def output_table_code_to_stdout(parameters: dict):
+def create_table_code(parameters: dict) -> list[str]:
     # Change these the target_view, prepare_view, expected_primary_keys and expected_indexes
     target_view = parameters["target_view"]
     expected_primary_keys = parameters["expected_primary_keys"]
@@ -67,7 +72,7 @@ def output_table_code_to_stdout(parameters: dict):
     Base.metadata.reflect(bind=session.get_bind(), views=True)
     columns = Base.metadata.tables[target_view].columns
 
-    new_columns = make_table_template_from_view(
+    new_columns, table_code = make_table_template_from_view(
         target_table,
         columns,
         expected_indexes=expected_indexes,
@@ -75,11 +80,30 @@ def output_table_code_to_stdout(parameters: dict):
         expected_primary_keys=expected_primary_keys,
     )
 
-    _ = Table(target_table, Base.metadata, *new_columns)
+    return table_code
 
-    Base.metadata.create_all(session.get_bind())
 
-    assert target_table in Base.metadata.tables.keys()
+def create_test_code(parameters: dict) -> list[str]:
+    test_code = []
+
+    test_code.append(
+        f"from hapi_schema.{parameters['db_module']} import {parameters['view_params_name']}"
+    )
+
+    table_name = parameters["target_view"].replace("view", "vat")
+    test_code.append(
+        f""
+        f"def test_{table_name}(\n"
+        f"    run_indexes_test, run_columns_test, run_primary_keys_test\n"
+        f"):\n"
+        f"    '''Check that {table_name} is correct - columns match, expected indexes present'''\n"
+        f"    expected_primary_keys = {parameters['expected_primary_keys']}\n"
+        f"    expected_indexes = {parameters['expected_indexes']}\n"
+        f"    run_columns_test('{table_name}', '{parameters['target_view']}', {parameters['view_params_name']})\n"
+        f"    run_indexes_test('{table_name}', expected_indexes)\n"
+        f"    run_primary_keys_test('{table_name}', expected_primary_keys)\n"
+    )
+    return test_code
 
 
 def make_table_template_from_view(
@@ -105,8 +129,9 @@ def make_table_template_from_view(
         .replace(" ", "")
         + "VAT"
     )
-    print(f"class {class_name}(Base):", flush=True)
-    print(f"    __tablename__ = '{target_table}'", flush=True)
+    table_code = []
+    table_code.append(f"class {class_name}(Base):")
+    table_code.append(f"    __tablename__ = '{target_table}'")
 
     new_columns = []
     for column in columns:
@@ -141,12 +166,12 @@ def make_table_template_from_view(
         elif column_type == "TEXT":
             mapped_type_1 = "str"
             mapped_type_2 = "Text"
-        print(
+        table_code.append(
             f"    {column.name}: Mapped[{mapped_type_1}] = mapped_column({mapped_type_2}{primary_key_str}{nullable_str}{index_str})"
         )
 
         new_columns.append(new_column)
-    return new_columns
+    return new_columns, table_code
 
 
 def make_session():
