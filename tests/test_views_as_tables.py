@@ -9,6 +9,7 @@ from hapi_schema.db_national_risk import view_params_national_risk
 from hapi_schema.db_operational_presence import (
     view_params_operational_presence,
 )
+from hapi_schema.db_org import view_params_org
 from hapi_schema.db_org_type import view_params_org_type
 
 
@@ -206,3 +207,12 @@ def test_org_type_vat(
     run_columns_test("org_type_vat", "org_type_view", view_params_org_type)
     run_indexes_test("org_type_vat", expected_indexes)
     run_primary_keys_test("org_type_vat", expected_primary_keys)
+
+
+def test_org_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
+    """Check that org_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = ["acronym", "name"]
+    expected_indexes = ["org_type_code", "org_type_description"]
+    run_columns_test("org_vat", "org_view", view_params_org)
+    run_indexes_test("org_vat", expected_indexes)
+    run_primary_keys_test("org_vat", expected_primary_keys)

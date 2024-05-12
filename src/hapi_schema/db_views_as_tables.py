@@ -210,3 +210,13 @@ class DBOrgTypeVAT(Base):
     __tablename__ = "org_type_vat"
     code: Mapped[str] = mapped_column(String(32), primary_key=True)
     description: Mapped[str] = mapped_column(String(512), index=True)
+
+
+class DBOrgVAT(Base):
+    __tablename__ = "org_vat"
+    acronym: Mapped[str] = mapped_column(String(32), primary_key=True)
+    name: Mapped[str] = mapped_column(String(512), primary_key=True)
+    org_type_code: Mapped[str] = mapped_column(
+        String(32), nullable=True, index=True
+    )
+    org_type_description: Mapped[str] = mapped_column(String(512), index=True)

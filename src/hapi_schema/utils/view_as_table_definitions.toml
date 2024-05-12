@@ -93,3 +93,11 @@ expected_primary_keys = [
     ]
 expected_indexes = ["description"]
 expected_nullables = []
+
+[[tables]]
+db_module = "db_org"
+target_view = "org_view"
+view_params_name="view_params_org"
+expected_primary_keys = ["acronym", "name"]
+expected_indexes = ["org_type_code", "org_type_description"]
+expected_nullables = ["org_type_code"]
