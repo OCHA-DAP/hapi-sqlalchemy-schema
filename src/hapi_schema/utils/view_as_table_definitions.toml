@@ -83,3 +83,13 @@ expected_primary_keys = [
     ]
 expected_indexes = ["reference_period_end", "location_code", "location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
 expected_nullables = []
+
+[[tables]]
+db_module = "db_org_type"
+target_view = "org_type_view"
+view_params_name="view_params_org_type"
+expected_primary_keys = [
+        "code"
+    ]
+expected_indexes = ["description"]
+expected_nullables = []

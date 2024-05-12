@@ -204,3 +204,9 @@ class DBOperationalPresenceVAT(Base):
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
+
+
+class DBOrgTypeVAT(Base):
+    __tablename__ = "org_type_vat"
+    code: Mapped[str] = mapped_column(String(32), primary_key=True)
+    description: Mapped[str] = mapped_column(String(512), index=True)
