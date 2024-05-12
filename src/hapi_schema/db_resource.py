@@ -1,7 +1,5 @@
 """Resource table and view."""
 
-from datetime import datetime
-
 from sqlalchemy import (
     Boolean,
     DateTime,
@@ -52,19 +50,3 @@ view_params_resource = ViewParams(
         )
     ),
 )
-
-
-class DBResourceVAT(Base):
-    __tablename__ = "resource_vat"
-    hdx_id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    dataset_hdx_id: Mapped[str] = mapped_column(String(36))
-    name: Mapped[str] = mapped_column(String(256))
-    format: Mapped[str] = mapped_column(String(32))
-    update_date: Mapped[datetime] = mapped_column(DateTime)
-    is_hxl: Mapped[bool] = mapped_column(Boolean)
-    download_url: Mapped[str] = mapped_column(String(1024))
-    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime)
-    dataset_hdx_stub: Mapped[str] = mapped_column(String(128))
-    dataset_title: Mapped[str] = mapped_column(String(1024))
-    dataset_hdx_provider_stub: Mapped[str] = mapped_column(String(128))
-    dataset_hdx_provider_name: Mapped[str] = mapped_column(String(512))

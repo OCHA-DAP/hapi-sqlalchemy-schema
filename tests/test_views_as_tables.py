@@ -12,6 +12,8 @@ from hapi_schema.db_operational_presence import (
 from hapi_schema.db_org import view_params_org
 from hapi_schema.db_org_type import view_params_org_type
 from hapi_schema.db_population import view_params_population
+from hapi_schema.db_refugees import view_params_refugees
+from hapi_schema.db_resource import view_params_resource
 
 
 def test_admin1_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
@@ -242,3 +244,44 @@ def test_population_vat(
     )
     run_indexes_test("population_vat", expected_indexes)
     run_primary_keys_test("population_vat", expected_primary_keys)
+
+
+def test_refugees_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that refugees_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "origin_location_ref",
+        "asylum_location_ref",
+        "gender",
+        "age_range",
+        "reference_period_start",
+    ]
+    expected_indexes = [
+        "min_age",
+        "max_age",
+        "population",
+        "reference_period_end",
+        "origin_location_code",
+        "origin_location_name",
+        "asylum_location_code",
+        "asylum_location_name",
+    ]
+    run_columns_test("refugees_vat", "refugees_view", view_params_refugees)
+    run_indexes_test("refugees_vat", expected_indexes)
+    run_primary_keys_test("refugees_vat", expected_primary_keys)
+
+
+def test_resource_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that resource_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = ["hdx_id"]
+    expected_indexes = [
+        "dataset_hdx_stub",
+        "dataset_hdx_provider_stub",
+        "dataset_hdx_provider_name",
+    ]
+    run_columns_test("resource_vat", "resource_view", view_params_resource)
+    run_indexes_test("resource_vat", expected_indexes)
+    run_primary_keys_test("resource_vat", expected_primary_keys)

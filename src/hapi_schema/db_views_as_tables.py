@@ -247,3 +247,46 @@ class DBPopulationVAT(Base):
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
+
+
+class DBRefugeesVAT(Base):
+    __tablename__ = "refugees_vat"
+    resource_hdx_id: Mapped[str] = mapped_column(String(36))
+    origin_location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    asylum_location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    population_group: Mapped[str] = mapped_column(String(14))
+    gender: Mapped[str] = mapped_column(String(11), primary_key=True)
+    age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
+    min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    population: Mapped[int] = mapped_column(Integer, index=True)
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, primary_key=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    origin_location_code: Mapped[str] = mapped_column(String(128), index=True)
+    origin_location_name: Mapped[str] = mapped_column(String(512), index=True)
+    asylum_location_code: Mapped[str] = mapped_column(String(128), index=True)
+    asylum_location_name: Mapped[str] = mapped_column(String(512), index=True)
+
+
+class DBResourceVAT(Base):
+    __tablename__ = "resource_vat"
+    hdx_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    dataset_hdx_id: Mapped[str] = mapped_column(String(36))
+    name: Mapped[str] = mapped_column(String(256))
+    format: Mapped[str] = mapped_column(String(32))
+    update_date: Mapped[datetime] = mapped_column(DateTime)
+    is_hxl: Mapped[bool] = mapped_column(Boolean)
+    download_url: Mapped[str] = mapped_column(String(1024))
+    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime)
+    dataset_hdx_stub: Mapped[str] = mapped_column(String(128), index=True)
+    dataset_title: Mapped[str] = mapped_column(String(1024))
+    dataset_hdx_provider_stub: Mapped[str] = mapped_column(
+        String(128), index=True
+    )
+    dataset_hdx_provider_name: Mapped[str] = mapped_column(
+        String(512), index=True
+    )
