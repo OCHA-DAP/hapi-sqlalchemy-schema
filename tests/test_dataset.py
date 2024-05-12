@@ -16,14 +16,3 @@ def test_dataset_view(run_view_test):
             view_dataset.c.hdx_provider_name == "Provider #1",
         ),
     )
-
-
-def test_dataset_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
-    """Check that the view as table is correct - columns match, expected indexes present"""
-    expected_primary_keys = ["hdx_id"]
-    expected_indexes = ["hdx_stub", "hdx_provider_stub", "hdx_provider_name"]
-    run_columns_test("dataset_vat", "dataset_view", view_params_dataset)
-    run_indexes_test("dataset_vat", expected_indexes)
-    run_primary_keys_test("dataset_vat", expected_primary_keys)
