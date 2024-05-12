@@ -11,6 +11,7 @@ from hapi_schema.db_operational_presence import (
 )
 from hapi_schema.db_org import view_params_org
 from hapi_schema.db_org_type import view_params_org_type
+from hapi_schema.db_population import view_params_population
 
 
 def test_admin1_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
@@ -216,3 +217,28 @@ def test_org_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     run_columns_test("org_vat", "org_view", view_params_org)
     run_indexes_test("org_vat", expected_indexes)
     run_primary_keys_test("org_vat", expected_primary_keys)
+
+
+def test_population_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that population_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = ["admin2_ref", "gender", "age_range"]
+    expected_indexes = [
+        "min_age",
+        "max_age",
+        "population",
+        "reference_period_start",
+        "reference_period_end",
+        "location_code",
+        "location_name",
+        "admin1_code",
+        "admin1_name",
+        "admin2_code",
+        "admin2_name",
+    ]
+    run_columns_test(
+        "population_vat", "population_view", view_params_population
+    )
+    run_indexes_test("population_vat", expected_indexes)
+    run_primary_keys_test("population_vat", expected_primary_keys)

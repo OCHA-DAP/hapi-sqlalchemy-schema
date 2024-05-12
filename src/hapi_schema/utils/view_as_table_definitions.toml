@@ -101,3 +101,17 @@ view_params_name="view_params_org"
 expected_primary_keys = ["acronym", "name"]
 expected_indexes = ["org_type_code", "org_type_description"]
 expected_nullables = ["org_type_code"]
+
+[[tables]]
+db_module = "db_population"
+target_view = "population_view"
+view_params_name="view_params_population"
+expected_primary_keys = [
+        "admin2_ref",
+        "gender",
+        "age_range",
+    ]
+expected_indexes = ["min_age", "max_age", "population", "reference_period_start", "reference_period_end",
+                    "location_code", "location_name",
+                    "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
+expected_nullables = ["min_age", "max_age"]
