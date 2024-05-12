@@ -14,6 +14,7 @@ from hapi_schema.db_org_type import view_params_org_type
 from hapi_schema.db_population import view_params_population
 from hapi_schema.db_refugees import view_params_refugees
 from hapi_schema.db_resource import view_params_resource
+from hapi_schema.db_sector import view_params_sector
 
 
 def test_admin1_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
@@ -285,3 +286,12 @@ def test_resource_vat(
     run_columns_test("resource_vat", "resource_view", view_params_resource)
     run_indexes_test("resource_vat", expected_indexes)
     run_primary_keys_test("resource_vat", expected_primary_keys)
+
+
+def test_sector_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
+    """Check that sector_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = ["code"]
+    expected_indexes = ["name"]
+    run_columns_test("sector_vat", "sector_view", view_params_sector)
+    run_indexes_test("sector_vat", expected_indexes)
+    run_primary_keys_test("sector_vat", expected_primary_keys)

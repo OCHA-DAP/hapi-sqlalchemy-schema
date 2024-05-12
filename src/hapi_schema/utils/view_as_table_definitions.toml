@@ -139,3 +139,13 @@ view_params_name="view_params_resource"
 expected_primary_keys = ["hdx_id"]
 expected_indexes = ["dataset_hdx_stub", "dataset_hdx_provider_stub", "dataset_hdx_provider_name"]
 expected_nullables = []
+
+[[tables]]
+db_module = "db_sector"
+target_view = "sector_view"
+view_params_name="view_params_sector"
+expected_primary_keys = [
+        "code"
+    ]
+expected_indexes = ["name"]
+expected_nullables = []

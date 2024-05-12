@@ -290,3 +290,9 @@ class DBResourceVAT(Base):
     dataset_hdx_provider_name: Mapped[str] = mapped_column(
         String(512), index=True
     )
+
+
+class DBSectorVAT(Base):
+    __tablename__ = "sector_vat"
+    code: Mapped[str] = mapped_column(String(32), primary_key=True)
+    name: Mapped[str] = mapped_column(String(512), index=True)
