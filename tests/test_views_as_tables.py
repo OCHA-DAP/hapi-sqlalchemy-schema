@@ -4,6 +4,7 @@ from hapi_schema.db_dataset import view_params_dataset
 from hapi_schema.db_food_security import view_params_food_security
 from hapi_schema.db_funding import view_params_funding
 from hapi_schema.db_humanitarian_needs import view_params_humanitarian_needs
+from hapi_schema.db_location import view_params_location
 
 
 def test_admin1_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
@@ -127,3 +128,19 @@ def test_humanitarian_needs_vat(
     )
     run_indexes_test("humanitarian_needs_vat", expected_indexes)
     run_primary_keys_test("humanitarian_needs_vat", expected_primary_keys)
+
+
+def test_location_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that location_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = ["id"]
+    expected_indexes = [
+        "code",
+        "name",
+        "reference_period_start",
+        "reference_period_end",
+    ]
+    run_columns_test("location_vat", "location_view", view_params_location)
+    run_indexes_test("location_vat", expected_indexes)
+    run_primary_keys_test("location_vat", expected_primary_keys)

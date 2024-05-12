@@ -52,6 +52,14 @@ expected_indexes = ["min_age", "max_age", "reference_period_end",
 expected_nullables = ["min_age", "max_age"]
 
 [[tables]]
+db_module = "db_location"
+target_view = "location_view"
+view_params_name="view_params_location"
+expected_primary_keys = ["id"]
+expected_indexes = ["code", "name", "reference_period_start", "reference_period_end"]
+expected_nullables = []
+
+[[tables]]
 db_module = "db_national_risk"
 target_view = "national_risk_view"
 view_params_name="view_params_national_risk"

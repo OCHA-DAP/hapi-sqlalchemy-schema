@@ -138,3 +138,16 @@ class DBHumanitarianNeedsVAT(Base):
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
+
+
+class DBLocationVAT(Base):
+    __tablename__ = "location_vat"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    code: Mapped[str] = mapped_column(String(128), index=True)
+    name: Mapped[str] = mapped_column(String(512), index=True)
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
