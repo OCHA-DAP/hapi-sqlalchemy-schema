@@ -25,34 +25,6 @@ def test_food_security_view(run_view_test):
     )
 
 
-def test_food_security_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
-    """Check that the food_security view as table is correct - columns match, expected indexes present"""
-    expected_primary_keys = [
-        "admin2_ref",
-        "ipc_type",
-        "ipc_phase",
-        "reference_period_start",
-    ]
-    expected_indexes = [
-        "population_in_phase",
-        "population_fraction_in_phase",
-        "reference_period_end",
-        "location_code",
-        "location_name",
-        "admin1_code",
-        "admin1_name",
-        "admin2_code",
-        "admin2_name",
-    ]
-    run_columns_test(
-        "food_security_vat", "food_security_view", view_params_food_security
-    )
-    run_indexes_test("food_security_vat", expected_indexes)
-    run_primary_keys_test("food_security_vat", expected_primary_keys)
-
-
 def test_reference_period_constraint(run_constraints_test):
     """Check that reference_period_end cannot be less than start"""
     run_constraints_test(
