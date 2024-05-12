@@ -3,6 +3,7 @@ from hapi_schema.db_admin2 import view_params_admin2
 from hapi_schema.db_dataset import view_params_dataset
 from hapi_schema.db_food_security import view_params_food_security
 from hapi_schema.db_funding import view_params_funding
+from hapi_schema.db_humanitarian_needs import view_params_humanitarian_needs
 
 
 def test_admin1_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
@@ -92,3 +93,37 @@ def test_funding_vat(
     run_columns_test("funding_vat", "funding_view", view_params_funding)
     run_indexes_test("funding_vat", expected_indexes)
     run_primary_keys_test("funding_vat", expected_primary_keys)
+
+
+def test_humanitarian_needs_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that humanitarian_needs_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "admin2_ref",
+        "gender",
+        "age_range",
+        "population_group",
+        "population_status",
+        "disabled_marker",
+        "population",
+        "reference_period_start",
+    ]
+    expected_indexes = [
+        "min_age",
+        "max_age",
+        "reference_period_end",
+        "location_code",
+        "location_name",
+        "admin1_code",
+        "admin1_name",
+        "admin2_code",
+        "admin2_name",
+    ]
+    run_columns_test(
+        "humanitarian_needs_vat",
+        "humanitarian_needs_view",
+        view_params_humanitarian_needs,
+    )
+    run_indexes_test("humanitarian_needs_vat", expected_indexes)
+    run_primary_keys_test("humanitarian_needs_vat", expected_primary_keys)

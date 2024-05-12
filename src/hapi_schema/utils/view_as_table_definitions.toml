@@ -43,6 +43,15 @@ expected_indexes = ["requirements_usd", "funding_usd", "funding_pct", "reference
 expected_nullables = ["reference_period_end"]
 
 [[tables]]
+db_module = "db_humanitarian_needs"
+target_view = "humanitarian_needs_view"
+view_params_name="view_params_humanitarian_needs"
+expected_primary_keys = ["admin2_ref", "gender", "age_range", "population_group", "population_status", "disabled_marker", "population", "reference_period_start"]
+expected_indexes = ["min_age", "max_age", "reference_period_end",
+"location_code", "location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
+expected_nullables = ["min_age", "max_age"]
+
+[[tables]]
 db_module = "db_national_risk"
 target_view = "national_risk_view"
 view_params_name="view_params_national_risk"
