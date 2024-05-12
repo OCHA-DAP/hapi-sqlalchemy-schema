@@ -5,6 +5,7 @@ from hapi_schema.db_food_security import view_params_food_security
 from hapi_schema.db_funding import view_params_funding
 from hapi_schema.db_humanitarian_needs import view_params_humanitarian_needs
 from hapi_schema.db_location import view_params_location
+from hapi_schema.db_national_risk import view_params_national_risk
 
 
 def test_admin1_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
@@ -144,3 +145,20 @@ def test_location_vat(
     run_columns_test("location_vat", "location_view", view_params_location)
     run_indexes_test("location_vat", expected_indexes)
     run_primary_keys_test("location_vat", expected_primary_keys)
+
+
+def test_national_risk_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that national_risk_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = ["location_ref", "reference_period_start"]
+    expected_indexes = [
+        "reference_period_end",
+        "location_code",
+        "location_name",
+    ]
+    run_columns_test(
+        "national_risk_vat", "national_risk_view", view_params_national_risk
+    )
+    run_indexes_test("national_risk_vat", expected_indexes)
+    run_primary_keys_test("national_risk_vat", expected_primary_keys)
