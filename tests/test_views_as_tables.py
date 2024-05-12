@@ -6,6 +6,9 @@ from hapi_schema.db_funding import view_params_funding
 from hapi_schema.db_humanitarian_needs import view_params_humanitarian_needs
 from hapi_schema.db_location import view_params_location
 from hapi_schema.db_national_risk import view_params_national_risk
+from hapi_schema.db_operational_presence import (
+    view_params_operational_presence,
+)
 
 
 def test_admin1_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
@@ -162,3 +165,32 @@ def test_national_risk_vat(
     )
     run_indexes_test("national_risk_vat", expected_indexes)
     run_primary_keys_test("national_risk_vat", expected_primary_keys)
+
+
+def test_operational_presence_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that operational_presence_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "admin2_ref",
+        "org_acronym",
+        "org_name",
+        "sector_code",
+        "reference_period_start",
+    ]
+    expected_indexes = [
+        "reference_period_end",
+        "location_code",
+        "location_name",
+        "admin1_code",
+        "admin1_name",
+        "admin2_code",
+        "admin2_name",
+    ]
+    run_columns_test(
+        "operational_presence_vat",
+        "operational_presence_view",
+        view_params_operational_presence,
+    )
+    run_indexes_test("operational_presence_vat", expected_indexes)
+    run_primary_keys_test("operational_presence_vat", expected_primary_keys)

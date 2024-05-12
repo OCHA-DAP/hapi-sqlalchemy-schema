@@ -69,3 +69,17 @@ expected_primary_keys = [
     ]
 expected_indexes = ["reference_period_end", "location_code", "location_name"]
 expected_nullables = ["meta_missing_indicators_pct", "meta_avg_recentness_years"]
+
+[[tables]]
+db_module = "db_operational_presence"
+target_view = "operational_presence_view"
+view_params_name="view_params_operational_presence"
+expected_primary_keys = [
+        "admin2_ref",
+        "org_acronym",
+        "org_name",
+        "sector_code",
+        "reference_period_start"
+    ]
+expected_indexes = ["reference_period_end", "location_code", "location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
+expected_nullables = []
