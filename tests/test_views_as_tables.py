@@ -2,6 +2,7 @@ from hapi_schema.db_admin1 import view_params_admin1
 from hapi_schema.db_admin2 import view_params_admin2
 from hapi_schema.db_dataset import view_params_dataset
 from hapi_schema.db_food_security import view_params_food_security
+from hapi_schema.db_funding import view_params_funding
 
 
 def test_admin1_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
@@ -73,3 +74,21 @@ def test_food_security_vat(
     )
     run_indexes_test("food_security_vat", expected_indexes)
     run_primary_keys_test("food_security_vat", expected_primary_keys)
+
+
+def test_funding_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that funding_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = ["appeal_code", "location_ref"]
+    expected_indexes = [
+        "requirements_usd",
+        "funding_usd",
+        "funding_pct",
+        "reference_period_start",
+        "location_code",
+        "location_name",
+    ]
+    run_columns_test("funding_vat", "funding_view", view_params_funding)
+    run_indexes_test("funding_vat", expected_indexes)
+    run_primary_keys_test("funding_vat", expected_primary_keys)
