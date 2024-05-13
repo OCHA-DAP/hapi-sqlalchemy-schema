@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from hdx.database import Database
+from hdx.database.views import build_view
 
 from hapi_schema.db_operational_presence import (
     DBOperationalPresence,
@@ -10,50 +10,28 @@ from hapi_schema.db_operational_presence import (
 
 def test_operational_presence_view(run_view_test):
     """Check that OP view has all references."""
-    view_operational_presence = Database.prepare_view(
+    view_operational_presence = build_view(
         view_params_operational_presence.__dict__
     )
     run_view_test(
         view=view_operational_presence,
         whereclause=(
+            view_operational_presence.c.id == 5,
+            view_operational_presence.c.dataset_hdx_id
+            == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
             view_operational_presence.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_operational_presence.c.resource_name == "resource-01.csv",
             view_operational_presence.c.admin2_code == "FOO-XXX-XXX",
             view_operational_presence.c.admin1_code == "FOO-XXX",
             view_operational_presence.c.location_code == "FOO",
+            view_operational_presence.c.org_type_description
+            == "International NGO",
             view_operational_presence.c.org_acronym == "ORG02",
-            view_operational_presence.c.org_type_code == "437",
             view_operational_presence.c.sector_name
             == "Water Sanitation Hygiene",
         ),
     )
-
-
-def test_operational_presence_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
-    """Check that the operational_presence view as table is correct - columns match, expected indexes present"""
-    expected_primary_keys = [
-        "admin2_ref",
-        "org_acronym",
-        "org_name",
-        "reference_period_start",
-    ]
-
-    expected_indexes = [
-        "admin2_ref",
-        "admin2_code",
-        "admin2_name",
-        "location_name",
-        "reference_period_end",
-    ]
-    run_columns_test(
-        "operational_presence_vat",
-        "operational_presence_view",
-        view_params_operational_presence,
-    )
-    run_indexes_test("operational_presence_vat", expected_indexes)
-    run_primary_keys_test("operational_presence_vat", expected_primary_keys)
 
 
 def test_reference_period_constraint(run_constraints_test):
@@ -63,11 +41,11 @@ def test_reference_period_constraint(run_constraints_test):
             DBOperationalPresence(
                 resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
                 admin2_ref=2,
-                org_acronym="ORG01",
-                org_name="Organisation 1",
+                org_ref=1,
                 sector_code="SHL",
                 reference_period_start=datetime(2023, 1, 2),
                 reference_period_end=datetime(2023, 1, 1),
+                source_data="DATA,DATA,DATA",
             )
         ],
         expected_constraint="reference_period",

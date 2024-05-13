@@ -1,6 +1,16 @@
 """Org table and view."""
 
-from sqlalchemy import ForeignKey, String, select
+from datetime import datetime
+
+from sqlalchemy import (
+    CheckConstraint,
+    DateTime,
+    ForeignKey,
+    Integer,
+    String,
+    select,
+    text,
+)
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_org_type import DBOrgType
@@ -10,14 +20,33 @@ from hapi_schema.utils.view_params import ViewParams
 
 class DBOrg(Base):
     __tablename__ = "org"
-
-    acronym = mapped_column(String(32), primary_key=True)
-    name: Mapped[str] = mapped_column(
-        String(512), nullable=False, primary_key=True
+    __table_args__ = (
+        CheckConstraint(
+            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
+            name="reference_period",
+        ),
+        CheckConstraint(
+            "(hapi_replaced_date IS NULL) OR (hapi_replaced_date >= hapi_updated_date)",
+            name="hapi_dates",
+        ),
     )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    acronym = mapped_column(String(32), nullable=False, index=True)
+    name: Mapped[str] = mapped_column(String(512), nullable=False)
     org_type_code: Mapped[str] = mapped_column(
-        ForeignKey("org_type.code"),
+        ForeignKey("org_type.code", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=True,
+    )
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, nullable=True, server_default=text("NULL"), index=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime, nullable=True, server_default=text("NULL"), index=True
+    )
+    hapi_updated_date = mapped_column(DateTime, nullable=False, index=True)
+    hapi_replaced_date: Mapped[datetime] = mapped_column(
+        DateTime, nullable=True, server_default=text("NULL"), index=True
     )
 
     org_type = relationship("DBOrgType")
@@ -37,11 +66,3 @@ view_params_org = ViewParams(
         )
     ),
 )
-
-
-class DBOrgVAT(Base):
-    __tablename__ = "org_vat"
-    acronym: Mapped[str] = mapped_column(String(32), primary_key=True)
-    name: Mapped[str] = mapped_column(String(512), primary_key=True)
-    org_type_code: Mapped[str] = mapped_column(String(32))
-    org_type_description: Mapped[str] = mapped_column(String(512))
