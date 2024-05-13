@@ -18,8 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update GitHub Actions workflow to use postgres
 
 ### Added
-- New tables: humanitarian\_needs, funding, refugees, conflict\_event, food\_price, wfp\_commodity, wfp\_market
-- New enums: Gender, DisabledMarker, EventType, PopulationGroup, PopulationStatus, IPCPhase, PriceFlag, PriceType, CommodityCategory
+- New tables: humanitarian\_needs, funding, refugees, conflict\_event, poverty\_rate, food\_price, wfp\_commodity, wfp\_market
+- New enums: Gender, DisabledMarker, EventType, PopulationGroup, PopulationStatus, IPCPhase, PovertyClassification, PriceFlag, PriceType, CommodityCategory
   IPCType, and RiskClass
 - Generalized constraints
 
