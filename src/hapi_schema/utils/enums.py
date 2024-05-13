@@ -51,6 +51,13 @@ class PopulationStatus(str, enum.Enum):
     ALL = "*"
 
 
+class PovertyClassification(str, enum.Enum):
+    POOR = "poor"
+    VULNERABLE = "vulnerable"
+    EXTREMELY_POOR = "extremely_poor"
+    ALL = "*"
+
+
 class IPCPhase(str, enum.Enum):
     PHASE_1 = "1"
     PHASE_2 = "2"
