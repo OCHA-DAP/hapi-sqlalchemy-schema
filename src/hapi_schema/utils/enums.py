@@ -85,3 +85,14 @@ class RiskClass(str, enum.Enum):
     MEDIUM = "3"
     HIGH = "4"
     VERY_HIGH = "5"
+
+
+class CommodityCategory(str, enum.Enum):
+    CEREALS_TUBORS = "cereals and tubors"
+    MEAT_FISH_EGGS = "meat, fish and eggs"
+    MILK_DAIRY = "milk and dairy"
+    MISCELLANEOUS_FOOD = "miscellaneous food"
+    NON_FOOD = "non-food"
+    OILS_FATS = "oils and fats"
+    PULSES_NUTS = "pulses and nuts"
+    VEGETABLES_FRUITS = "vegetables and fruits"

@@ -1,22 +1,12 @@
 data_wfp_commodity = [
     dict(
-        code="SHL",
-        name="Emergency Shelter and NFI",
+        code="001",
+        category="vegetables and fruits",
+        name="Commodity #1",
     ),
     dict(
-        code="FSC",
-        name="Food Security",
-    ),
-    dict(
-        code="WSH",
-        name="Water Sanitation Hygiene",
-    ),
-    dict(
-        code="HEA",
-        name="Health",
-    ),
-    dict(
-        code="*",
-        name="All",
+        code="002",
+        category="cereals and tubors",
+        name="Commodity #2",
     ),
 ]

@@ -1,9 +1,10 @@
 """wfp_commodity table and view."""
 
-from sqlalchemy import String, select
+from sqlalchemy import Enum, String, select
 from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.utils.base import Base
+from hapi_schema.utils.enums import CommodityCategory
 from hapi_schema.utils.view_params import ViewParams
 
 
@@ -11,6 +12,9 @@ class DBWFPCommodity(Base):
     __tablename__ = "wfp_commodity"
 
     code: Mapped[str] = mapped_column(String(32), primary_key=True)
+    category: Mapped[CommodityCategory] = mapped_column(
+        Enum(CommodityCategory), index=True
+    )
     name: Mapped[str] = mapped_column(String(512), nullable=False, index=True)
 
 

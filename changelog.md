@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - New tables: humanitarian\_needs, funding, refugees, conflict\_event, food\_price, wfp\_commodity, wfp\_market
-- New enums: Gender, DisabledMarker, EventType, PopulationGroup, PopulationStatus, IPCPhase, PriceFlag, PriceType
+- New enums: Gender, DisabledMarker, EventType, PopulationGroup, PopulationStatus, IPCPhase, PriceFlag, PriceType, CommodityCategory
   IPCType, and RiskClass
 - Generalized constraints
 
