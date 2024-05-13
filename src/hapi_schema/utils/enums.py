@@ -51,6 +51,18 @@ class PopulationStatus(str, enum.Enum):
     ALL = "*"
 
 
+class PriceFlag(str, enum.Enum):
+    ACTUAL = "actual"
+    AGGREGATE = "aggregate"
+    ACTUAL_AGGREGATE = "actual,aggregate"
+
+
+class PriceType(str, enum.Enum):
+    FARM_GATE = "Farm Gate"
+    RETAIL = "Retail"
+    WHOLESALE = "Wholesale"
+
+
 class IPCPhase(str, enum.Enum):
     PHASE_1 = "1"
     PHASE_2 = "2"

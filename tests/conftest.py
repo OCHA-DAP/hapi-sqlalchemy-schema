@@ -36,6 +36,8 @@ from hapi_schema.db_population import DBPopulation
 from hapi_schema.db_refugees import DBRefugees
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
+from hapi_schema.db_wfp_commodity import DBWFPCommodity
+from hapi_schema.db_wfp_market import DBWFPMarket
 from hapi_schema.utils.base import Base
 from hapi_schema.views import prepare_hapi_views
 from sample_data.data_admin1 import data_admin1
@@ -56,6 +58,8 @@ from sample_data.data_population import data_population
 from sample_data.data_refugees import data_refugees
 from sample_data.data_resource import data_resource
 from sample_data.data_sector import data_sector
+from sample_data.data_wfp_commodity import data_wfp_commodity
+from sample_data.data_wfp_market import data_wfp_market
 
 
 @pytest.fixture(scope="session")
@@ -78,6 +82,8 @@ def session():
     session.execute(insert(DBOrgType), data_org_type)
     session.execute(insert(DBOrg), data_org)
     session.execute(insert(DBSector), data_sector)
+    session.execute(insert(DBWFPCommodity), data_wfp_commodity)
+    session.execute(insert(DBWFPMarket), data_wfp_market)
 
     session.execute(insert(DBConflictEvent), data_conflict_event)
     session.execute(insert(DBFunding), data_funding)
