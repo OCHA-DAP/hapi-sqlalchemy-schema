@@ -1,6 +1,9 @@
 from hdx.database import Database
 
-from hapi_schema.db_wfp_market import view_params_wfp_market
+from hapi_schema.db_wfp_market import (
+    DBWFPMarket,
+    view_params_wfp_market,
+)
 
 
 def test_wfp_market_view(run_view_test):
@@ -20,4 +23,39 @@ def test_wfp_market_view(run_view_test):
     )
 
 
+def test_lat_constraint(run_constraints_test):
+    """Check that latlon constraint works with latitude"""
+    data = _sample_data()
+    data["lat"] = 91
+    run_constraints_test(
+        new_rows=[
+            DBWFPMarket(**data),
+        ],
+        expected_constraint="latlon",
+    )
+
+
+def test_lon_constraint(run_constraints_test):
+    """Check that latlon constraint works with longitude"""
+    data = _sample_data()
+    data["lon"] = -181
+    run_constraints_test(
+        new_rows=[
+            DBWFPMarket(**data),
+        ],
+        expected_constraint="latlon",
+    )
+
+
 # Util functions
+
+
+def _sample_data():
+    # return the whole record, then tests can change as needed
+    return dict(
+        code="001",
+        admin2_ref=4,
+        name="Market #1",
+        lat=0.1,
+        lon=-0.1,
+    )
