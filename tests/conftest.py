@@ -12,6 +12,9 @@ from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_conflict_event import DBConflictEvent
 from hapi_schema.db_dataset import DBDataset
+from hapi_schema.db_food_price import (
+    DBFoodPrice,
+)
 from hapi_schema.db_food_security import (
     DBFoodSecurity,
 )
@@ -39,6 +42,7 @@ from sample_data.data_admin1 import data_admin1
 from sample_data.data_admin2 import data_admin2
 from sample_data.data_conflict_event import data_conflict_event
 from sample_data.data_dataset import data_dataset
+from sample_data.data_food_price import data_food_price
 from sample_data.data_food_security import data_food_security
 from sample_data.data_funding import data_funding
 from sample_data.data_humanitarian_needs import data_humanitarian_needs
@@ -81,6 +85,7 @@ def session():
     session.execute(insert(DBPopulation), data_population)
     session.execute(insert(DBOperationalPresence), data_operational_presence)
     session.execute(insert(DBRefugees), data_refugees)
+    session.execute(insert(DBFoodPrice), data_food_price)
     session.execute(insert(DBFoodSecurity), data_food_security)
     session.execute(insert(DBHumanitarianNeeds), data_humanitarian_needs)
 
