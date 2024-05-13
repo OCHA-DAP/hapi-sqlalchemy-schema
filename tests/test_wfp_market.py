@@ -9,7 +9,15 @@ def test_wfp_market_view(run_view_test):
     run_view_test(
         view=view_wfp_market,
         whereclause=(
-            view_wfp_market.c.code == "SHL",
-            view_wfp_market.c.name == "Emergency Shelter and NFI",
+            view_wfp_market.c.code == "001",
+            view_wfp_market.c.name == "Market #1",
+            view_wfp_market.c.lat == 0.1,
+            view_wfp_market.c.lon == -0.1,
+            view_wfp_market.c.location_name == "Foolandia",
+            view_wfp_market.c.admin1_name == "Province 01",
+            view_wfp_market.c.admin2_name == "District A",
         ),
     )
+
+
+# Util functions

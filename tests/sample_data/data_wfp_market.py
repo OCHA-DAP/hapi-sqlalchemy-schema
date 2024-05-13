@@ -1,22 +1,9 @@
 data_wfp_market = [
     dict(
-        code="SHL",
-        name="Emergency Shelter and NFI",
-    ),
-    dict(
-        code="FSC",
-        name="Food Security",
-    ),
-    dict(
-        code="WSH",
-        name="Water Sanitation Hygiene",
-    ),
-    dict(
-        code="HEA",
-        name="Health",
-    ),
-    dict(
-        code="*",
-        name="All",
+        code="001",
+        admin2_ref=4,
+        name="Market #1",
+        lat=0.1,  # Foolandia is in the middle of the Gulf of Guinea :)
+        lon=-0.1,
     ),
 ]

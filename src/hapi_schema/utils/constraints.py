@@ -54,3 +54,9 @@ def code_and_reference_period_unique_constraint(
         "reference_period_start",
         name=f"{admin_level}_code_and_reference_period_unique",
     )
+
+
+def latlon_constraint() -> CheckConstraint:
+    """Latitude and longitude must be valid"""
+    sqltext = "lat <= 90.0 AND lat >= -90.0 AND lon <= 180.0 AND lon >= -180.0"
+    return CheckConstraint(sqltext=sqltext, name="latlon")
