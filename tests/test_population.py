@@ -1,63 +1,127 @@
 from datetime import datetime
 
-from hdx.database.views import build_view
+import pytest
+from hdx.database import Database
 
 from hapi_schema.db_population import DBPopulation, view_params_population
+from hapi_schema.utils.enums import Gender
 
 
 def test_population_view(run_view_test):
     """Check that population references other tables."""
-    view_population = build_view(view_params_population.__dict__)
+    view_population = Database.prepare_view(view_params_population.__dict__)
     run_view_test(
         view=view_population,
         whereclause=(
-            view_population.c.id == 3,
-            view_population.c.dataset_hdx_id
-            == "c3f001fa-b45b-464c-9460-1ca79fd39b40",
             view_population.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
-            view_population.c.resource_name == "resource-01.csv",
             view_population.c.admin2_code == "FOO-001-XXX",
             view_population.c.admin1_code == "FOO-001",
             view_population.c.location_code == "FOO",
-            view_population.c.gender_code == "f",
+            view_population.c.gender == "f",
         ),
     )
 
 
-def test_reference_period_constraint(run_constraints_test):
+def test_population_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that the population view as table is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "admin2_ref",
+        "gender",
+        "age_range",
+    ]
+
+    expected_indexes = [
+        "min_age",
+        "max_age",
+        "reference_period_start",
+        "reference_period_end",
+    ]
+    run_columns_test(
+        "population_vat",
+        "population_view",
+        view_params_population,
+    )
+    run_indexes_test("population_vat", expected_indexes)
+    run_primary_keys_test("population_vat", expected_primary_keys)
+
+
+@pytest.fixture
+def base_parameters():
+    return dict(
+        resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
+        admin2_ref=1,
+        gender=Gender.ALL,
+        population=1_000_000,
+    )
+
+
+def test_reference_period_constraint(run_constraints_test, base_parameters):
     """Check that reference_period_end cannot be less than start"""
+    modified_params = {
+        **base_parameters,
+        **dict(
+            reference_period_start=datetime(2023, 1, 2),
+            reference_period_end=datetime(2023, 1, 1),
+        ),
+    }
     run_constraints_test(
-        new_rows=[
-            DBPopulation(
-                resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
-                admin2_ref=1,
-                gender_code=None,
-                age_range_code=None,
-                population=1_000_000,
-                reference_period_start=datetime(2023, 1, 2),
-                reference_period_end=datetime(2023, 1, 1),
-                source_data="DATA,DATA,DATA",
-            )
-        ],
+        new_rows=[DBPopulation(**modified_params)],
         expected_constraint="reference_period",
     )
 
 
-def test_population_positive(run_constraints_test):
+def test_population_positive(run_constraints_test, base_parameters):
     """Check that the population value is positive"""
+    modified_params = {**base_parameters, "population": -1}
     run_constraints_test(
         new_rows=[
-            DBPopulation(
-                resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
-                admin2_ref=1,
-                gender_code=None,
-                age_range_code=None,
-                population=-1,
-                reference_period_start=None,
-                reference_period_end=None,
-                source_data="DATA,DATA,DATA",
-            ),
+            DBPopulation(**modified_params),
         ],
         expected_constraint="population",
+    )
+
+
+def test_minage(run_constraints_test, base_parameters):
+    """Check that the min_age value is positive, and NULL if
+    age_range is *"""
+    modified_params = {**base_parameters, **dict(age_range="5-10", min_age=-1)}
+    run_constraints_test(
+        new_rows=[
+            DBPopulation(**modified_params),
+        ],
+        expected_constraint="min_age",
+    )
+    modified_params = {**base_parameters, **dict(age_range="*", min_age=10)}
+    run_constraints_test(
+        new_rows=[
+            DBPopulation(**modified_params),
+        ],
+        expected_constraint="min_age",
+    )
+
+
+def test_maxage(run_constraints_test, base_parameters):
+    """Check that the max_age is > min_age, and NULL when min_age is NULL"""
+    modified_params = {
+        **base_parameters,
+        **dict(age_range="5-10", min_age=5, max_age=4),
+    }
+    run_constraints_test(
+        new_rows=[
+            DBPopulation(**modified_params),
+        ],
+        expected_constraint="min_age",
+    )
+    modified_params = {
+        **base_parameters,
+        **dict(age_range="unknown", min_age=None, max_age=10),
+    }
+    run_constraints_test(
+        new_rows=[
+            DBPopulation(**modified_params),
+        ],
+        expected_constraint="min_age",
     )

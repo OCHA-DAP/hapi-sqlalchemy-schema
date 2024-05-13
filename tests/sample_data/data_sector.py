@@ -15,4 +15,8 @@ data_sector = [
         code="HEA",
         name="Health",
     ),
+    dict(
+        code="*",
+        name="All",
+    ),
 ]
