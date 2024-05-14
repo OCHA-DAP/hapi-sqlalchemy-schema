@@ -13,7 +13,10 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_admin2 import DBAdmin1, DBAdmin2, DBLocation
+from hapi_schema.db_currency import DBCurrency
 from hapi_schema.db_resource import DBResource
+from hapi_schema.db_wfp_commodity import DBWFPCommodity
+from hapi_schema.db_wfp_market import DBWFPMarket
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import (
     reference_period_constraint,
@@ -31,9 +34,8 @@ class DBFoodPrice(Base):
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
-    admin2_ref: Mapped[int] = mapped_column(
-        ForeignKey("admin2.id", onupdate="CASCADE"),
-        primary_key=True,
+    market_code: Mapped[str] = mapped_column(
+        ForeignKey("wfp_market.code"), primary_key=True
     )
     commodity_code: Mapped[str] = mapped_column(
         ForeignKey("wfp_commodity.code"), primary_key=True
@@ -59,7 +61,8 @@ class DBFoodPrice(Base):
     )
 
     resource = relationship(DBResource)
-    admin2 = relationship(DBAdmin2)
+    commodity = relationship(DBWFPCommodity)
+    currency = relationship(DBCurrency)
 
 
 # view
@@ -68,6 +71,12 @@ view_params_food_price = ViewParams(
     metadata=Base.metadata,
     selectable=select(
         *DBFoodPrice.__table__.columns,
+        DBWFPMarket.admin2_ref.label("admin2_ref"),
+        DBWFPMarket.name.label("market_name"),
+        DBWFPMarket.lat.label("lat"),
+        DBWFPMarket.lon.label("lon"),
+        DBWFPCommodity.category.label("commodity_category"),
+        DBWFPCommodity.name.label("commodity_name"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
         DBAdmin1.code.label("admin1_code"),
@@ -81,8 +90,13 @@ view_params_food_price = ViewParams(
     ).select_from(
         # Join risk to admin2
         DBFoodPrice.__table__.join(
+            DBWFPMarket.__table__,
+            DBFoodPrice.market_code == DBWFPMarket.code,
+            isouter=True,
+        )
+        .join(
             DBAdmin2.__table__,
-            DBFoodPrice.admin2_ref == DBAdmin2.id,
+            DBWFPMarket.admin2_ref == DBAdmin2.id,
             isouter=True,
         )
         .join(
@@ -93,6 +107,11 @@ view_params_food_price = ViewParams(
         .join(
             DBLocation.__table__,
             DBAdmin1.location_ref == DBLocation.id,
+            isouter=True,
+        )
+        .join(
+            DBWFPCommodity.__table__,
+            DBFoodPrice.commodity_code == DBWFPCommodity.code,
             isouter=True,
         )
     ),

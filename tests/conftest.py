@@ -97,8 +97,8 @@ def session():
     session.execute(insert(DBOperationalPresence), data_operational_presence)
     session.execute(insert(DBPovertyRate), data_poverty_rate)
     session.execute(insert(DBRefugees), data_refugees)
-    session.execute(insert(DBFoodPrice), data_food_price)
     session.execute(insert(DBFoodSecurity), data_food_security)
+    session.execute(insert(DBFoodPrice), data_food_price)
     session.execute(insert(DBHumanitarianNeeds), data_humanitarian_needs)
 
     session.execute(insert(DBPatch), data_patch)

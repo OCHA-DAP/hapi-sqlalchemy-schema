@@ -20,7 +20,14 @@ def test_food_price_view(run_view_test):
             view_food_price.c.currency_code == "FOO",
             view_food_price.c.price_flag == "actual",
             view_food_price.c.price_type == "Retail",
+            view_food_price.c.unit == "basket",
             view_food_price.c.price == 100.00,
+            view_food_price.c.admin2_ref == 4,
+            view_food_price.c.market_name == "Market #1",
+            view_food_price.c.lat == 0.1,
+            view_food_price.c.lon == -0.1,
+            view_food_price.c.commodity_category == "vegetables and fruits",
+            view_food_price.c.commodity_name == "Commodity #1",
             view_food_price.c.location_name == "Foolandia",
             view_food_price.c.admin1_name == "Province 01",
             view_food_price.c.admin2_name == "District A",
@@ -32,7 +39,7 @@ def _sample_data():
     # KISS principle (return the whole record, then change as needed)
     return dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
-        admin2_ref=4,
+        market_code="001",
         commodity_code="001",
         currency_code="FOO",
         unit="basket",
