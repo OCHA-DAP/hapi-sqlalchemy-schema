@@ -16,6 +16,11 @@ def test_food_price_view(run_view_test):
         whereclause=(
             view_food_price.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_food_price.c.commodity_code == "001",
+            view_food_price.c.currency_code == "FOO",
+            view_food_price.c.price_flag == "actual",
+            view_food_price.c.price_type == "Retail",
+            view_food_price.c.price == 100.00,
             view_food_price.c.location_name == "Foolandia",
             view_food_price.c.admin1_name == "Province 01",
             view_food_price.c.admin2_name == "District A",
@@ -28,35 +33,14 @@ def _sample_data():
     return dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
-        event_type="political_violence",
-        events=10,
-        fatalities=2,
+        commodity_code="001",
+        currency_code="FOO",
+        unit="basket",
+        price_flag="actual",
+        price_type="Retail",
+        price=100.00,
         reference_period_start=datetime(2024, 1, 1),
         reference_period_end=datetime(2024, 1, 31),
-    )
-
-
-def test_events_constraint(run_constraints_test):
-    """Check that reference_period_end cannot be less than start"""
-    data = _sample_data()
-    data["events"] = -1
-    run_constraints_test(
-        new_rows=[
-            DBFoodPrice(**data),
-        ],
-        expected_constraint="events",
-    )
-
-
-def test_fatalities_constraint(run_constraints_test):
-    """Check that reference_period_end cannot be less than start"""
-    data = _sample_data()
-    data["fatalities"] = -1
-    run_constraints_test(
-        new_rows=[
-            DBFoodPrice(**data),
-        ],
-        expected_constraint="fatalities",
     )
 
 

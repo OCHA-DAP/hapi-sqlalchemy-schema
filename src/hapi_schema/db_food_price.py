@@ -5,33 +5,27 @@ from datetime import datetime
 from sqlalchemy import (
     DateTime,
     Enum,
+    Float,
     ForeignKey,
-    Integer,
+    String,
     select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from hapi_schema.db_admin1 import DBAdmin1, DBLocation
-from hapi_schema.db_admin2 import DBAdmin2
+from hapi_schema.db_admin2 import DBAdmin1, DBAdmin2, DBLocation
+from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import (
-    population_constraint,
     reference_period_constraint,
 )
-from hapi_schema.utils.enums import EventType
+from hapi_schema.utils.enums import PriceFlag, PriceType
 from hapi_schema.utils.view_params import ViewParams
 
 
 # normalised table
 class DBFoodPrice(Base):
     __tablename__ = "food_price"
-    __table_args__ = (
-        population_constraint(
-            population_var_name="events"
-        ),  # not really a population
-        population_constraint(population_var_name="fatalities"),
-        reference_period_constraint(),
-    )
+    __table_args__ = (reference_period_constraint(),)
 
     resource_hdx_id: Mapped[str] = mapped_column(
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
@@ -39,14 +33,24 @@ class DBFoodPrice(Base):
     )
     admin2_ref: Mapped[int] = mapped_column(
         ForeignKey("admin2.id", onupdate="CASCADE"),
-        nullable=False,
         primary_key=True,
     )
-    event_type: Mapped[EventType] = mapped_column(
-        Enum(EventType), nullable=False, primary_key=True
+    commodity_code: Mapped[str] = mapped_column(
+        ForeignKey("wfp_commodity.code"), primary_key=True
     )
-    events: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
-    fatalities: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    currency_code: Mapped[str] = mapped_column(
+        ForeignKey("currency.code", onupdate="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    unit: Mapped[str] = mapped_column(String(32), nullable=False)
+    price_flag: Mapped[PriceFlag] = mapped_column(
+        Enum(PriceFlag), nullable=False, primary_key=True
+    )
+    price_type: Mapped[PriceType] = mapped_column(
+        Enum(PriceType), nullable=False, primary_key=True
+    )
+    price: Mapped[float] = mapped_column(Float, nullable=False)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
     )
@@ -54,8 +58,8 @@ class DBFoodPrice(Base):
         DateTime, nullable=False, index=True
     )
 
-    resource = relationship("DBResource")
-    admin2 = relationship("DBAdmin2")
+    resource = relationship(DBResource)
+    admin2 = relationship(DBAdmin2)
 
 
 # view
