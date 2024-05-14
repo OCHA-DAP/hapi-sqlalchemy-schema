@@ -12,7 +12,7 @@ class DBDataset(Base):
 
     hdx_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     hdx_stub: Mapped[str] = mapped_column(
-        String(128), unique=True, nullable=False, index=True
+        String(128), unique=True, nullable=False
     )
     title = mapped_column(String(1024), nullable=False)
     hdx_provider_stub: Mapped[str] = mapped_column(
