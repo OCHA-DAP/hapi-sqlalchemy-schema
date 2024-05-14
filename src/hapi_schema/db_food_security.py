@@ -1,53 +1,50 @@
-"""Population table and view."""
+"""Food security table and view."""
 
 from datetime import datetime
 
 from sqlalchemy import (
-    CheckConstraint,
+    Boolean,
     DateTime,
+    Enum,
     Float,
     ForeignKey,
     Integer,
-    Text,
+    String,
     select,
-    text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
-from hapi_schema.db_dataset import DBDataset
-from hapi_schema.db_ipc_phase import DBIpcPhase
-from hapi_schema.db_ipc_type import DBIpcType
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
+from hapi_schema.utils.constraints import (
+    population_constraint,
+    reference_period_constraint,
+)
+from hapi_schema.utils.enums import IPCPhase, IPCType
 from hapi_schema.utils.view_params import ViewParams
 
 
 class DBFoodSecurity(Base):
     __tablename__ = "food_security"
     __table_args__ = (
-        CheckConstraint(
-            "(reference_period_end >= reference_period_start) OR (reference_period_start IS NULL)",
-            name="reference_period",
-        ),
+        reference_period_constraint(),
+        population_constraint(population_var_name="population_in_phase"),
     )
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    resource_hdx_id: Mapped[int] = mapped_column(
+    resource_hdx_id: Mapped[str] = mapped_column(
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
     admin2_ref: Mapped[int] = mapped_column(
-        ForeignKey("admin2.id", onupdate="CASCADE"), nullable=False
+        ForeignKey("admin2.id", onupdate="CASCADE"), primary_key=True
     )
-    ipc_phase_code: Mapped[str] = mapped_column(
-        ForeignKey("ipc_phase.code", onupdate="CASCADE"), nullable=False
+    ipc_phase: Mapped[IPCPhase] = mapped_column(
+        Enum(IPCPhase), primary_key=True
     )
-    ipc_type_code: Mapped[str] = mapped_column(
-        ForeignKey("ipc_type.code", onupdate="CASCADE"), nullable=False
-    )
+    ipc_type: Mapped[IPCType] = mapped_column(Enum(IPCType), primary_key=True)
     population_in_phase: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
     )
@@ -55,17 +52,14 @@ class DBFoodSecurity(Base):
         Float, nullable=False, index=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL"), index=True
+        DateTime, nullable=False, index=True
     )
-    source_data: Mapped[str] = mapped_column(Text, nullable=True)
 
-    resource = relationship("DBResource")
-    admin2 = relationship("DBAdmin2")
-    ipc_phase = relationship("DBIpcPhase")
-    ipc_type = relationship("DBIpcType")
+    resource = relationship(DBResource)
+    admin2 = relationship(DBAdmin2)
 
 
 view_params_food_security = ViewParams(
@@ -73,16 +67,6 @@ view_params_food_security = ViewParams(
     metadata=Base.metadata,
     selectable=select(
         *DBFoodSecurity.__table__.columns,
-        DBDataset.hdx_id.label("dataset_hdx_id"),
-        DBDataset.hdx_stub.label("dataset_hdx_stub"),
-        DBDataset.title.label("dataset_title"),
-        DBDataset.hdx_provider_stub.label("dataset_hdx_provider_stub"),
-        DBDataset.hdx_provider_name.label("dataset_hdx_provider_name"),
-        DBIpcPhase.name.label("ipc_phase_name"),
-        DBResource.name.label("resource_name"),
-        DBResource.update_date.label("resource_update_date"),
-        DBResource.hapi_updated_date.label("hapi_updated_date"),
-        DBResource.hapi_replaced_date.label("hapi_replaced_date"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
         DBAdmin1.code.label("admin1_code"),
@@ -110,28 +94,39 @@ view_params_food_security = ViewParams(
             DBAdmin1.location_ref == DBLocation.id,
             isouter=True,
         )
-        # Join pop to resource to dataset
-        .join(
-            DBResource.__table__,
-            DBFoodSecurity.resource_hdx_id == DBResource.hdx_id,
-            isouter=True,
-        )
-        .join(
-            DBDataset.__table__,
-            DBResource.dataset_hdx_id == DBDataset.hdx_id,
-            isouter=True,
-        )
-        # Join to ipc phase
-        .join(
-            DBIpcPhase.__table__,
-            DBFoodSecurity.ipc_phase_code == DBIpcPhase.code,
-            isouter=True,
-        )
-        # Join to ipc type
-        .join(
-            DBIpcType.__table__,
-            DBFoodSecurity.ipc_type_code == DBIpcType.code,
-            isouter=True,
-        )
     ),
 )
+
+
+class DBFoodSecurityVAT(Base):
+    __tablename__ = "food_security_vat"
+    resource_hdx_id: Mapped[str] = mapped_column(String(36))
+    admin2_ref: Mapped[int] = mapped_column(
+        Integer, index=True, primary_key=True
+    )
+    ipc_phase: Mapped[IPCPhase] = mapped_column(
+        Enum(IPCPhase), index=True, primary_key=True
+    )
+    ipc_type: Mapped[IPCType] = mapped_column(
+        Enum(IPCType), index=True, primary_key=True
+    )
+    population_in_phase: Mapped[int] = mapped_column(Integer, primary_key=True)
+    population_fraction_in_phase: Mapped[float] = mapped_column(
+        Float, index=True, primary_key=True
+    )
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    location_code: Mapped[str] = mapped_column(String(128))
+    location_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_code: Mapped[str] = mapped_column(String(128))
+    admin1_name: Mapped[str] = mapped_column(String(512))
+    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    location_ref: Mapped[int] = mapped_column(Integer)
+    admin2_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin2_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    admin1_ref: Mapped[int] = mapped_column(Integer)

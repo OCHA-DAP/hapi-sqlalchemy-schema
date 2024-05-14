@@ -7,7 +7,7 @@ from hapi_schema.utils.base import Base
 
 def test_db_patch(capfd):
     engine = create_engine("sqlite://", echo=True)
-    Base.metadata.create_all(engine)
+    Base.metadata.create_all(engine, tables=[Base.metadata.tables["patch"]])
 
     sql_table_creation_code = """CREATE TABLE patch (
         id INTEGER NOT NULL,
