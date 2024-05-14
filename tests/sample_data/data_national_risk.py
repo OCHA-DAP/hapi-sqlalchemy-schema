@@ -2,9 +2,10 @@ from datetime import datetime
 
 data_national_risk = [
     dict(
+        id=1,
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
-        location_ref=1,
-        risk_class="5",
+        admin2_ref=1,
+        risk_class=5,
         global_rank=4,
         overall_risk=8.1,
         hazard_exposure_risk=8.7,
@@ -14,5 +15,6 @@ data_national_risk = [
         meta_avg_recentness_years=0.26,
         reference_period_start=datetime(2024, 1, 1),
         reference_period_end=datetime(2024, 12, 31),
+        source_data="DATA,DATA,DATA",
     ),
 ]
