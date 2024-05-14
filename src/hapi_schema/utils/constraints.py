@@ -35,6 +35,14 @@ def population_constraint(
     return CheckConstraint(sqltext=sqltext, name=f"{population_var_name}")
 
 
+def non_negative_constraint(
+    var_name: str,
+) -> CheckConstraint:
+    """Require a column to be non-negative."""
+    sqltext = f"{var_name} >= 0"
+    return CheckConstraint(sqltext=sqltext, name=f"{var_name}")
+
+
 def reference_period_constraint() -> CheckConstraint:
     """reference_period_end should be greater than reference_period_start"""
     sqltext = "reference_period_end >= reference_period_start "
