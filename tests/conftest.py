@@ -11,6 +11,7 @@ from sqlalchemy.ext.declarative import DeclarativeMeta
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_conflict_event import DBConflictEvent
+from hapi_schema.db_currency import DBCurrency
 from hapi_schema.db_dataset import DBDataset
 from hapi_schema.db_food_price import (
     DBFoodPrice,
@@ -44,6 +45,7 @@ from hapi_schema.views import prepare_hapi_views
 from sample_data.data_admin1 import data_admin1
 from sample_data.data_admin2 import data_admin2
 from sample_data.data_conflict_event import data_conflict_event
+from sample_data.data_currency import data_currency
 from sample_data.data_dataset import data_dataset
 from sample_data.data_food_price import data_food_price
 from sample_data.data_food_security import data_food_security
@@ -86,6 +88,7 @@ def session():
     session.execute(insert(DBSector), data_sector)
     session.execute(insert(DBWFPCommodity), data_wfp_commodity)
     session.execute(insert(DBWFPMarket), data_wfp_market)
+    session.execute(insert(DBCurrency), data_currency)
 
     session.execute(insert(DBConflictEvent), data_conflict_event)
     session.execute(insert(DBFunding), data_funding)
