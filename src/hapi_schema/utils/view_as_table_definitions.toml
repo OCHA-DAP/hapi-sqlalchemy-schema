@@ -149,3 +149,11 @@ expected_primary_keys = [
     ]
 expected_indexes = ["name"]
 expected_nullables = []
+
+[[tables]]
+db_module = "db_patch"
+target_view = "patch_view"
+view_params_name="view_params_patch"
+expected_primary_keys = ["id"]
+expected_indexes = ["patch_sequence_number", "patch_path", "state", "execution_date"]
+expected_nullables = []

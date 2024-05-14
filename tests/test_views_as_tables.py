@@ -11,6 +11,7 @@ from hapi_schema.db_operational_presence import (
 )
 from hapi_schema.db_org import view_params_org
 from hapi_schema.db_org_type import view_params_org_type
+from hapi_schema.db_patch import view_params_patch
 from hapi_schema.db_population import view_params_population
 from hapi_schema.db_refugees import view_params_refugees
 from hapi_schema.db_resource import view_params_resource
@@ -220,6 +221,20 @@ def test_org_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     run_columns_test("org_vat", "org_view", view_params_org)
     run_indexes_test("org_vat", expected_indexes)
     run_primary_keys_test("org_vat", expected_primary_keys)
+
+
+def test_patch_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
+    """Check that patch_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = ["id"]
+    expected_indexes = [
+        "patch_sequence_number",
+        "patch_path",
+        "state",
+        "execution_date",
+    ]
+    run_columns_test("patch_vat", "patch_view", view_params_patch)
+    run_indexes_test("patch_vat", expected_indexes)
+    run_primary_keys_test("patch_vat", expected_primary_keys)
 
 
 def test_population_vat(
