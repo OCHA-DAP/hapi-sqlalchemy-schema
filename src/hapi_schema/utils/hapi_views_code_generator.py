@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-This script is designed to print a sqlalchemy table class from a view.
+This script is designed to generate view tables to go in the hdx-hapi repo.
 
 The code is configured using the `view_as_table_definitions.toml` file and then with an invocation like:
 
-`./view_as_table_code_generator.py patch_view`
+`./hapi_views_code_generator.py`
 
-This will pick up the appropriate section from the toml file
+The assumption is that the view_as_table_definitions.toml file will have been edited appropriately when generating the
+"views as table". This script generates the imports, setups and classes for all views in a single run - they
+can be piped to a file
 
 Ian Hopkinson 2024-05-09
 """
@@ -16,6 +18,8 @@ import os
 import sys
 from importlib import import_module
 
+import psycopg
+import sqlalchemy
 import tomllib
 from hdx.database import Database
 
@@ -25,9 +29,15 @@ from hapi_schema.views import prepare_hapi_views
 
 
 def parse_toml():
-    target_view = "national_risk_view"
+    # Setup the database:
+    session = make_session()
+    Base.metadata.create_all(session.get_bind())
+    Base.metadata.reflect(bind=session.get_bind(), views=True)
+    target_view = None
     if len(sys.argv) == 2:
         target_view = sys.argv[1]
+    else:
+        target_view = "all"
 
     config_file_path = os.path.join(
         os.path.dirname(__file__), "view_as_table_definitions.toml"
@@ -35,18 +45,57 @@ def parse_toml():
     with open(config_file_path, "rb") as file_handle:
         config = tomllib.load(file_handle)
 
-    parameters = None
-    for table in config["tables"]:
-        if table["target_view"] == target_view:
-            parameters = table
-            break
+    complete_code = []
+    # Description
+    complete_code.append('"""')
+    complete_code.append(
+        "This code was generated automatically using src/hapi_schema/utils/hapi_views_code_generator.py"
+    )
+    complete_code.append('"""')
 
-    table_code = create_table_code(parameters)
-    for line in table_code:
+    # Make imports
+    complete_code.append("from sqlalchemy import DateTime")
+    complete_code.append("from sqlalchemy.orm import column_property, Mapped")
+
+    complete_code.append(
+        "from hapi_schema.db_admin1 import view_params_admin1"
+    )
+
+    complete_code.append("from hdx_hapi.db.models.views.util.util import view")
+    complete_code.append("from hdx_hapi.db.models.base import Base")
+
+    if target_view == "all":
+        for table in config["tables"]:
+            complete_code.append(
+                f"from hapi_schema.{table['db_module']} import {table['view_params_name']}"
+            )
+
+    complete_code.append("\n")
+    # Make views
+    if target_view == "all":
+        for table in config["tables"]:
+            complete_code.append(
+                f"{table['target_view']} = view({table['view_params_name']}.name, Base.metadata, {table['view_params_name']}.selectable)"
+            )
+
+    complete_code.append("\n")
+    # Loop over tables
+    for table in config["tables"]:
+        if target_view == "all":
+            table_code = create_table_code(table, target_view)
+            complete_code.extend(table_code)
+        elif table["target_view"] == target_view:
+            complete_code = create_table_code(table, target_view)
+            complete_code.extend(table_code)
+
+    for line in complete_code:
         print(line, flush=True)
 
 
-def create_table_code(parameters: dict) -> list[str]:
+def create_table_code(
+    parameters: dict,
+    table_view: str = None,
+) -> list[str]:
     # Change these the target_view, prepare_view, expected_primary_keys and expected_indexes
     target_view = parameters["target_view"]
     expected_primary_keys = parameters["expected_primary_keys"]
@@ -58,21 +107,19 @@ def create_table_code(parameters: dict) -> list[str]:
     )
     _ = Database.prepare_view(view_params_dict)
     #
-    session = make_session()
-    target_table = target_view.replace("view", "vat")
-    Base.metadata.create_all(session.get_bind())
-    Base.metadata.reflect(bind=session.get_bind(), views=True)
-    columns = Base.metadata.tables[target_view].columns
 
+    columns = Base.metadata.tables[target_view].columns
+    target_table = target_view.replace("view", "vat")
     # Make Preamble
     table_code = []
-    table_code.append(
-        f"\nfrom hapi_schema.{parameters['db_module']} import {parameters['view_params_name']}\n"
-    )
+    # if target_view != "all":
+    #     table_code.append(
+    #         f"\nfrom hapi_schema.{parameters['db_module']} import {parameters['view_params_name']}\n"
+    #     )
 
-    table_code.append(
-        f"{parameters['target_view']} = view({parameters['view_params_name']}.name, Base.metadata, {parameters['view_params_name']}.selectable)\n"
-    )
+    #     table_code.append(
+    #         f"{parameters['target_view']} = view({parameters['view_params_name']}.name, Base.metadata, {parameters['view_params_name']}.selectable)\n"
+    #     )
 
     new_columns, table_body_code = make_table_template_from_view(
         target_table,
@@ -113,7 +160,7 @@ def make_table_template_from_view(
     )
 
     source_view = target_table.replace("_vat", "_view")
-    table_code.append(f"class {class_name}(Base):")
+    table_code.append(f"\nclass {class_name}(Base):")
     table_code.append(f"    __table__ = {source_view}")
 
     new_columns = []
@@ -143,10 +190,14 @@ def make_table_template_from_view(
 
 def make_session():
     db_uri = "postgresql+psycopg://postgres:postgres@localhost:5432/hapitest"
-    database = Database(
-        db_uri=db_uri, recreate_schema=True, prepare_fn=prepare_hapi_views
-    )
-    session = database.get_session()
+    session = None
+    try:
+        database = Database(
+            db_uri=db_uri, recreate_schema=True, prepare_fn=prepare_hapi_views
+        )
+        session = database.get_session()
+    except (psycopg.errors.DuplicateTable, sqlalchemy.exc.ProgrammingError):
+        pass
     return session
 
 
