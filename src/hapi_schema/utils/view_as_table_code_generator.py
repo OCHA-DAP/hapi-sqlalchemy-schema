@@ -2,16 +2,12 @@
 # encoding: utf-8
 """
 This script is designed to print a sqlalchemy table class from a view.
-To use it the code needs to be edited appropriately before running it:
 
-1. Update the import of the view_params below to pick the right view
-2. Change the target_view string to provide the new table name - conventionally this ends "_vat"
-3. Fill in the expected_primary_keys and expected_indexes lists
-4. Run the script - the class definition is output to console
-5. Copy the class definition to the file from which the view_params were
-6. Create a test of the view following the style, of test_operational_presence.py/test_operational_presence_vat -
-   this requires the expected_primary_keys and expected_indexes created in step 3 and will check the "view_as_tables"
-   columns match the view columns as well as checking the primary_keys and indexes.
+The code is configured using the `view_as_table_definitions.toml` file and then with an invocation like:
+
+`./view_as_table_code_generator.py patch_view`
+
+This will pick up the appropriate section from the toml file
 
 Ian Hopkinson 2024-05-09
 """
