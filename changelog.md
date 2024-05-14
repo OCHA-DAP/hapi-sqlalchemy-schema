@@ -5,17 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## 0.8.0
 
 ### Changed
 
-- Created tables which reflect the views
-- Added columns to the patches table
 - Many small changes to align with V1 of the schema
 - `resource` and `dataset` primary keys are now the UUID
 - Use postgres instead of sqlite for testing
-- Programmatically obtain views
 - Update GitHub Actions workflow to use postgres
+- Created tables which reflect the views
+- Programmatically obtain views
 
 ### Added
 - New tables: humanitarian\_needs, funding, refugees, conflict\_event, poverty\_rate, food\_price, wfp\_commodity, wfp\_market, currency
