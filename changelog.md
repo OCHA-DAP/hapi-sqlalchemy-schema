@@ -13,7 +13,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use postgres instead of sqlite for testing
 - Update GitHub Actions workflow to use postgres
 - `resource` and `dataset` primary keys are now the UUID
-- Added columns to the patches table
 - Created tables which reflect the views
 - Programmatically obtain views
 
@@ -29,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - ipc_phase, ipc_type, age_range, and gender tables
 
- ## [0.7.4]
+## [0.7.4]
 
 ### Changed
 
