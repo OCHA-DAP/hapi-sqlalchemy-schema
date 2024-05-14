@@ -21,9 +21,7 @@ def test_db_patch(capfd):
         state VARCHAR(10) NOT NULL,
         execution_date DATETIME,
         PRIMARY KEY (id),
-        UNIQUE (commit_hash),
-        UNIQUE (patch_permalink_url),
-        UNIQUE (patch_hash)
+        UNIQUE (patch_permalink_url)
 )
 """
     sql_patch_sequence_number_index_creation = """
