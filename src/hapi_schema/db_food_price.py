@@ -19,16 +19,21 @@ from hapi_schema.db_wfp_commodity import DBWFPCommodity
 from hapi_schema.db_wfp_market import DBWFPMarket
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import (
+    non_negative_constraint,
     reference_period_constraint,
 )
 from hapi_schema.utils.enums import PriceFlag, PriceType
 from hapi_schema.utils.view_params import ViewParams
 
-
 # normalised table
+
+
 class DBFoodPrice(Base):
     __tablename__ = "food_price"
-    __table_args__ = (reference_period_constraint(),)
+    __table_args__ = (
+        non_negative_constraint(var_name="price"),
+        reference_period_constraint(),
+    )
 
     resource_hdx_id: Mapped[str] = mapped_column(
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
@@ -47,10 +52,10 @@ class DBFoodPrice(Base):
     )
     unit: Mapped[str] = mapped_column(String(32), nullable=False)
     price_flag: Mapped[PriceFlag] = mapped_column(
-        Enum(PriceFlag), nullable=False, primary_key=True
+        Enum(PriceFlag), primary_key=True
     )
     price_type: Mapped[PriceType] = mapped_column(
-        Enum(PriceType), nullable=False, primary_key=True
+        Enum(PriceType), primary_key=True
     )
     price: Mapped[float] = mapped_column(Float, nullable=False)
     reference_period_start: Mapped[datetime] = mapped_column(
@@ -61,11 +66,14 @@ class DBFoodPrice(Base):
     )
 
     resource = relationship(DBResource)
+    market = relationship(DBWFPMarket)
     commodity = relationship(DBWFPCommodity)
     currency = relationship(DBCurrency)
 
 
-# view
+# denormalised view
+
+
 view_params_food_price = ViewParams(
     name="food_price_view",
     metadata=Base.metadata,
@@ -79,16 +87,16 @@ view_params_food_price = ViewParams(
         DBWFPCommodity.name.label("commodity_name"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
+        DBAdmin1.location_ref.label("location_ref"),
         DBAdmin1.code.label("admin1_code"),
         DBAdmin1.name.label("admin1_name"),
         DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
-        DBAdmin1.location_ref.label("location_ref"),
+        DBAdmin2.admin1_ref.label("admin1_ref"),
         DBAdmin2.code.label("admin2_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
-        DBAdmin2.admin1_ref.label("admin1_ref"),
     ).select_from(
-        # Join risk to admin2
+        # the admin2 comes from wfp_market
         DBFoodPrice.__table__.join(
             DBWFPMarket.__table__,
             DBFoodPrice.market_code == DBWFPMarket.code,

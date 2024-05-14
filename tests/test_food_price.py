@@ -35,19 +35,15 @@ def test_food_price_view(run_view_test):
     )
 
 
-def _sample_data():
-    # KISS principle (return the whole record, then change as needed)
-    return dict(
-        resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
-        market_code="001",
-        commodity_code="001",
-        currency_code="FOO",
-        unit="basket",
-        price_flag="actual",
-        price_type="Retail",
-        price=100.00,
-        reference_period_start=datetime(2024, 1, 1),
-        reference_period_end=datetime(2024, 1, 31),
+def test_price_not_negative_constraint(run_constraints_test):
+    """Check constraint that price is not negative"""
+    data = _sample_data()
+    data["price"] = -1.0
+    run_constraints_test(
+        new_rows=[
+            DBFoodPrice(**data),
+        ],
+        expected_constraint="price",
     )
 
 
@@ -60,4 +56,23 @@ def test_reference_period_constraint(run_constraints_test):
             DBFoodPrice(**data),
         ],
         expected_constraint="reference_period",
+    )
+
+
+# Utility functions
+
+
+def _sample_data():
+    # return a valid record (tests may change individual fields)
+    return dict(
+        resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
+        market_code="001",
+        commodity_code="001",
+        currency_code="FOO",
+        unit="basket",
+        price_flag="actual",
+        price_type="Retail",
+        price=100.00,
+        reference_period_start=datetime(2024, 1, 1),
+        reference_period_end=datetime(2024, 1, 31),
     )
