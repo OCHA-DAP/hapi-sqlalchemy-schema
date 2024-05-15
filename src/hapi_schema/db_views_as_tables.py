@@ -274,6 +274,26 @@ class DBPopulationVAT(Base):
     admin1_ref: Mapped[int] = mapped_column(Integer)
 
 
+class DBPovertyRateVAT(Base):
+    __tablename__ = "poverty_rate_vat"
+    resource_hdx_id: Mapped[str] = mapped_column(String(36))
+    admin1_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    classification: Mapped[str] = mapped_column(String(14), primary_key=True)
+    population: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, primary_key=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    location_code: Mapped[str] = mapped_column(String(128), index=True)
+    location_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin1_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    location_ref: Mapped[int] = mapped_column(Integer)
+
+
 class DBRefugeesVAT(Base):
     __tablename__ = "refugees_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))

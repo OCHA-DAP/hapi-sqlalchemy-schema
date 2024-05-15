@@ -130,6 +130,19 @@ expected_indexes = ["min_age", "max_age", "population", "reference_period_start"
 expected_nullables = ["min_age", "max_age"]
 
 [[tables]]
+db_module = "db_poverty_rate"
+target_view = "poverty_rate_view"
+view_params_name="view_params_poverty_rate"
+expected_primary_keys = [
+        "admin1_ref",
+        "classification",
+        "reference_period_start"
+    ]
+expected_indexes = ["population", "reference_period_end", "location_code",
+"location_name", "admin1_code", "admin1_name"]
+expected_nullables = ["population"]
+
+[[tables]]
 db_module = "db_refugees"
 target_view = "refugees_view"
 view_params_name="view_params_refugees"
