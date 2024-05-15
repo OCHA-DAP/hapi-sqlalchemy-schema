@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from sqlalchemy import (
+    Boolean,
     DateTime,
     Integer,
     String,
@@ -29,6 +30,9 @@ class DBLocation(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     code: Mapped[str] = mapped_column(String(128), nullable=False, index=True)
     name: Mapped[str] = mapped_column(String(512), nullable=False, index=True)
+    from_cods: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, server_default=text("TRUE")
+    )
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL"), index=True
     )

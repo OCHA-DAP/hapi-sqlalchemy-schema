@@ -19,6 +19,7 @@ class DBAdmin1VAT(Base):
     code: Mapped[str] = mapped_column(String(128), index=True)
     name: Mapped[str] = mapped_column(String(512), index=True)
     is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    from_cods: Mapped[bool] = mapped_column(Boolean)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, index=True
     )
@@ -36,6 +37,7 @@ class DBAdmin2VAT(Base):
     code: Mapped[str] = mapped_column(String(128), index=True)
     name: Mapped[str] = mapped_column(String(512), index=True)
     is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    from_cods: Mapped[bool] = mapped_column(Boolean)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, index=True
     )
@@ -145,6 +147,7 @@ class DBLocationVAT(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     code: Mapped[str] = mapped_column(String(128), index=True)
     name: Mapped[str] = mapped_column(String(512), index=True)
+    from_cods: Mapped[bool] = mapped_column(Boolean)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, index=True
     )

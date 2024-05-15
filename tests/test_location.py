@@ -18,6 +18,18 @@ def test_location_view(run_view_test):
     )
 
 
+def test_location_defaults(run_view_test):
+    """Check that default values are set properly."""
+    view_location = Database.prepare_view(view_params_location.__dict__)
+    run_view_test(
+        view=view_location,
+        whereclause=(
+            view_location.c.id == 1,
+            view_location.c.from_cods,  # should be True
+        ),
+    )
+
+
 def test_reference_period_constraint(run_constraints_test):
     """Check that reference_period_end cannot be less than start"""
     run_constraints_test(

@@ -39,6 +39,9 @@ class DBAdmin1(Base):
     is_unspecified: Mapped[bool] = mapped_column(
         Boolean, server_default=text("FALSE"), nullable=False
     )
+    from_cods: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, server_default=text("TRUE")
+    )
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, server_default=text("NULL"), index=True
     )
