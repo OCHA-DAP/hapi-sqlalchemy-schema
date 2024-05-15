@@ -11,7 +11,11 @@ from sqlalchemy.ext.declarative import DeclarativeMeta
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_conflict_event import DBConflictEvent
+from hapi_schema.db_currency import DBCurrency
 from hapi_schema.db_dataset import DBDataset
+from hapi_schema.db_food_price import (
+    DBFoodPrice,
+)
 from hapi_schema.db_food_security import (
     DBFoodSecurity,
 )
@@ -34,12 +38,16 @@ from hapi_schema.db_poverty_rate import DBPovertyRate
 from hapi_schema.db_refugees import DBRefugees
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
+from hapi_schema.db_wfp_commodity import DBWFPCommodity
+from hapi_schema.db_wfp_market import DBWFPMarket
 from hapi_schema.utils.base import Base
 from hapi_schema.views import prepare_hapi_views
 from sample_data.data_admin1 import data_admin1
 from sample_data.data_admin2 import data_admin2
 from sample_data.data_conflict_event import data_conflict_event
+from sample_data.data_currency import data_currency
 from sample_data.data_dataset import data_dataset
+from sample_data.data_food_price import data_food_price
 from sample_data.data_food_security import data_food_security
 from sample_data.data_funding import data_funding
 from sample_data.data_humanitarian_needs import data_humanitarian_needs
@@ -54,6 +62,8 @@ from sample_data.data_poverty_rate import data_poverty_rate
 from sample_data.data_refugees import data_refugees
 from sample_data.data_resource import data_resource
 from sample_data.data_sector import data_sector
+from sample_data.data_wfp_commodity import data_wfp_commodity
+from sample_data.data_wfp_market import data_wfp_market
 
 
 @pytest.fixture(scope="session")
@@ -76,6 +86,9 @@ def session():
     session.execute(insert(DBOrgType), data_org_type)
     session.execute(insert(DBOrg), data_org)
     session.execute(insert(DBSector), data_sector)
+    session.execute(insert(DBWFPCommodity), data_wfp_commodity)
+    session.execute(insert(DBWFPMarket), data_wfp_market)
+    session.execute(insert(DBCurrency), data_currency)
 
     session.execute(insert(DBConflictEvent), data_conflict_event)
     session.execute(insert(DBFunding), data_funding)
@@ -85,6 +98,7 @@ def session():
     session.execute(insert(DBPovertyRate), data_poverty_rate)
     session.execute(insert(DBRefugees), data_refugees)
     session.execute(insert(DBFoodSecurity), data_food_security)
+    session.execute(insert(DBFoodPrice), data_food_price)
     session.execute(insert(DBHumanitarianNeeds), data_humanitarian_needs)
 
     session.execute(insert(DBPatch), data_patch)

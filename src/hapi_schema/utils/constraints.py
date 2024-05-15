@@ -35,6 +35,14 @@ def population_constraint(
     return CheckConstraint(sqltext=sqltext, name=f"{population_var_name}")
 
 
+def non_negative_constraint(
+    var_name: str,
+) -> CheckConstraint:
+    """Require a column to be non-negative."""
+    sqltext = f"{var_name} >= 0"
+    return CheckConstraint(sqltext=sqltext, name=f"{var_name}")
+
+
 def reference_period_constraint() -> CheckConstraint:
     """reference_period_end should be greater than reference_period_start"""
     sqltext = "reference_period_end >= reference_period_start "
@@ -54,3 +62,9 @@ def code_and_reference_period_unique_constraint(
         "reference_period_start",
         name=f"{admin_level}_code_and_reference_period_unique",
     )
+
+
+def latlon_constraint() -> CheckConstraint:
+    """Latitude and longitude must be valid"""
+    sqltext = "lat <= 90.0 AND lat >= -90.0 AND lon <= 180.0 AND lon >= -180.0"
+    return CheckConstraint(sqltext=sqltext, name="latlon")
