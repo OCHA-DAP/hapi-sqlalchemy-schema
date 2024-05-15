@@ -1,5 +1,6 @@
 from hapi_schema.db_admin1 import view_params_admin1
 from hapi_schema.db_admin2 import view_params_admin2
+from hapi_schema.db_conflict_event import view_params_conflict_event
 from hapi_schema.db_dataset import view_params_dataset
 from hapi_schema.db_food_security import view_params_food_security
 from hapi_schema.db_funding import view_params_funding
@@ -310,3 +311,30 @@ def test_sector_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     run_columns_test("sector_vat", "sector_view", view_params_sector)
     run_indexes_test("sector_vat", expected_indexes)
     run_primary_keys_test("sector_vat", expected_primary_keys)
+
+
+def test_conflict_event_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that conflict_event_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "admin2_ref",
+        "event_type",
+        "reference_period_start",
+    ]
+    expected_indexes = [
+        "events",
+        "fatalities",
+        "reference_period_end",
+        "location_code",
+        "location_name",
+        "admin1_code",
+        "admin1_name",
+        "admin2_code",
+        "admin2_name",
+    ]
+    run_columns_test(
+        "conflict_event_vat", "conflict_event_view", view_params_conflict_event
+    )
+    run_indexes_test("conflict_event_vat", expected_indexes)
+    run_primary_keys_test("conflict_event_vat", expected_primary_keys)

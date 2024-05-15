@@ -49,6 +49,31 @@ class DBAdmin2VAT(Base):
     location_name: Mapped[str] = mapped_column(String(512), index=True)
 
 
+class DBConflictEventVAT(Base):
+    __tablename__ = "conflict_event_vat"
+    resource_hdx_id: Mapped[str] = mapped_column(String(36))
+    admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    event_type: Mapped[str] = mapped_column(String(18), primary_key=True)
+    events: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    fatalities: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, primary_key=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    location_code: Mapped[str] = mapped_column(String(128), index=True)
+    location_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin1_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    location_ref: Mapped[int] = mapped_column(Integer)
+    admin2_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin2_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    admin1_ref: Mapped[int] = mapped_column(Integer)
+
+
 class DBDatasetVAT(Base):
     __tablename__ = "dataset_vat"
     hdx_id: Mapped[str] = mapped_column(String(36), primary_key=True)
