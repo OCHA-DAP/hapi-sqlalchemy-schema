@@ -17,7 +17,8 @@ class DBWFPMarket(Base):
 
     code: Mapped[str] = mapped_column(String(32), primary_key=True)
     admin2_ref: Mapped[int] = mapped_column(
-        ForeignKey("admin2.id", onupdate="CASCADE")
+        ForeignKey("admin2.id", onupdate="CASCADE"),
+        nullable=False,
     )
     name: Mapped[str] = mapped_column(String(512), nullable=False, index=True)
     lat: Mapped[float] = mapped_column(Float, nullable=False, index=True)
