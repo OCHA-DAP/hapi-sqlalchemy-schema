@@ -64,7 +64,7 @@ class DBRefugees(Base):
         DateTime, nullable=False, index=True
     )
 
-    resource = relationship("DBResource")
+    # resource = relationship("DBResource")
     origin_country = relationship(
         "DBLocation", foreign_keys=(origin_location_ref)
     )
@@ -76,6 +76,7 @@ class DBRefugees(Base):
 # Use aliases because we join to DBLocation twice
 origin_location = aliased(DBLocation)
 asylum_location = aliased(DBLocation)
+resource = relationship("DBResource")
 
 view_params_refugees = ViewParams(
     name="refugees_view",

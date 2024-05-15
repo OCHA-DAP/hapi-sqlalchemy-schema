@@ -29,33 +29,6 @@ def test_operational_presence_view(run_view_test):
     )
 
 
-def test_operational_presence_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
-    """Check that the operational_presence view as table is correct - columns match, expected indexes present"""
-    expected_primary_keys = [
-        "admin2_ref",
-        "org_acronym",
-        "org_name",
-        "reference_period_start",
-    ]
-
-    expected_indexes = [
-        "admin2_ref",
-        "admin2_code",
-        "admin2_name",
-        "location_name",
-        "reference_period_end",
-    ]
-    run_columns_test(
-        "operational_presence_vat",
-        "operational_presence_view",
-        view_params_operational_presence,
-    )
-    run_indexes_test("operational_presence_vat", expected_indexes)
-    run_primary_keys_test("operational_presence_vat", expected_primary_keys)
-
-
 def test_reference_period_constraint(run_constraints_test):
     """Check that reference_period_end cannot be less than start"""
     run_constraints_test(

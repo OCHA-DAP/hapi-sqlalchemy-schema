@@ -3,10 +3,11 @@
 import enum
 from datetime import datetime
 
-from sqlalchemy import DateTime, Enum, Integer, String
+from sqlalchemy import DateTime, Enum, Integer, String, select
 from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.utils.base import Base
+from hapi_schema.utils.view_params import ViewParams
 
 
 class StateEnum(str, enum.Enum):
@@ -24,9 +25,7 @@ class DBPatch(Base):
     patch_sequence_number: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
     )
-    commit_hash: Mapped[str] = mapped_column(
-        String(48), unique=True, nullable=False
-    )
+    commit_hash: Mapped[str] = mapped_column(String(48), nullable=False)
     commit_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     patch_path: Mapped[str] = mapped_column(
         String(512), nullable=False, index=True
@@ -35,12 +34,31 @@ class DBPatch(Base):
         String(1024), nullable=False, unique=True
     )
     patch_target: Mapped[str] = mapped_column(String(128), nullable=False)
-    patch_hash: Mapped[str] = mapped_column(
-        String(48), unique=True, nullable=False
-    )
+    patch_hash: Mapped[str] = mapped_column(String(48), nullable=False)
     state: Mapped[StateEnum] = mapped_column(
         Enum(StateEnum), nullable=False, index=True
     )
     execution_date: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, index=True
     )
+
+
+view_params_patch = ViewParams(
+    name="patch_view",
+    metadata=Base.metadata,
+    selectable=select(*DBPatch.__table__.columns),
+)
+
+
+class DBPatchVAT(Base):
+    __tablename__ = "patch_vat"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    patch_sequence_number: Mapped[int] = mapped_column(Integer, index=True)
+    commit_hash: Mapped[str] = mapped_column(String(48))
+    commit_date: Mapped[datetime] = mapped_column(DateTime)
+    patch_path: Mapped[str] = mapped_column(String(512), index=True)
+    patch_permalink_url: Mapped[str] = mapped_column(String(1024))
+    patch_target: Mapped[str] = mapped_column(String(128))
+    patch_hash: Mapped[str] = mapped_column(String(48))
+    state: Mapped[str] = mapped_column(String(10), index=True)
+    execution_date: Mapped[datetime] = mapped_column(DateTime, index=True)
