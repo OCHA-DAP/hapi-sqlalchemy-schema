@@ -12,5 +12,6 @@ data_location = [
         name="Barovia",
         reference_period_start=datetime(2023, 1, 1),
         reference_period_end=None,
+        from_cods=False,
     ),
 ]

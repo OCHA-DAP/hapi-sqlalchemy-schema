@@ -4,6 +4,7 @@ data_admin1 = [
         code="FOO-XXX",
         name="Unspecified",
         is_unspecified=True,
+        from_cods=False,
     ),
     dict(
         location_ref=1,

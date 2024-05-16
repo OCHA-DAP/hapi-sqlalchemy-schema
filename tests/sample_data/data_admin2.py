@@ -4,18 +4,21 @@ data_admin2 = [
         code="FOO-XXX-XXX",
         name="Unspecified",
         is_unspecified=True,
+        from_cods=False,
     ),
     dict(
         admin1_ref=2,
         code="FOO-001-XXX",
         name="Unspecified",
         is_unspecified=True,
+        from_cods=False,
     ),
     dict(
         admin1_ref=3,
         code="FOO-002-XXX",
         name="Unspecified",
         is_unspecified=True,
+        from_cods=False,
     ),
     dict(
         admin1_ref=2,

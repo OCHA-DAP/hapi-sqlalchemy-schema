@@ -18,6 +18,18 @@ def test_admin2_view(run_view_test):
     )
 
 
+def test_admin2_defaults(run_view_test):
+    """Check that default values are set properly."""
+    view_admin2 = Database.prepare_view(view_params_admin2.__dict__)
+    run_view_test(
+        view=view_admin2,
+        whereclause=(
+            view_admin2.c.id == 4,
+            view_admin2.c.from_cods,  # should be True
+        ),
+    )
+
+
 def test_reference_period_constraint(run_constraints_test):
     """Check that reference_period_end cannot be less than start"""
     run_constraints_test(
