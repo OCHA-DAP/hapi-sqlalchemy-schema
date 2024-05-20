@@ -1,4 +1,5 @@
 from datetime import datetime
+from decimal import Decimal
 
 from sqlalchemy import (
     Boolean,
@@ -95,9 +96,9 @@ class DBFundingVAT(Base):
     location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
     appeal_name: Mapped[str] = mapped_column(String(256))
     appeal_type: Mapped[str] = mapped_column(String(32))
-    requirements_usd: Mapped[float] = mapped_column(Float, index=True)
-    funding_usd: Mapped[float] = mapped_column(Float, index=True)
-    funding_pct: Mapped[float] = mapped_column(Float, index=True)
+    requirements_usd: Mapped[Decimal] = mapped_column(Float, index=True)
+    funding_usd: Mapped[Decimal] = mapped_column(Float, index=True)
+    funding_pct: Mapped[Decimal] = mapped_column(Float, index=True)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, index=True
     )
