@@ -1,6 +1,7 @@
 """Food security table and view."""
 
 from datetime import datetime
+from decimal import Decimal
 
 from sqlalchemy import (
     DateTime,
@@ -46,7 +47,7 @@ class DBFoodSecurity(Base):
     population_in_phase: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
     )
-    population_fraction_in_phase: Mapped[float] = mapped_column(
+    population_fraction_in_phase: Mapped[Decimal] = mapped_column(
         Float, nullable=False, index=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(

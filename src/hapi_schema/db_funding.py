@@ -1,6 +1,7 @@
 """Funding subcategory table and view."""
 
 from datetime import datetime
+from decimal import Decimal
 
 from sqlalchemy import (
     CheckConstraint,
@@ -55,11 +56,13 @@ class DBFunding(Base):
 
     appeal_type: Mapped[str] = mapped_column(String(32), nullable=False)
 
-    requirements_usd: Mapped[float] = mapped_column(nullable=False, index=True)
+    requirements_usd: Mapped[Decimal] = mapped_column(
+        nullable=False, index=True
+    )
 
-    funding_usd: Mapped[float] = mapped_column(nullable=False, index=True)
+    funding_usd: Mapped[Decimal] = mapped_column(nullable=False, index=True)
 
-    funding_pct: Mapped[float] = mapped_column(nullable=False, index=True)
+    funding_pct: Mapped[Decimal] = mapped_column(nullable=False, index=True)
 
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime,

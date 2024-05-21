@@ -1,11 +1,11 @@
 """FoodPrice table and view."""
 
 from datetime import datetime
+from decimal import Decimal
 
 from sqlalchemy import (
     DateTime,
     Enum,
-    Float,
     ForeignKey,
     String,
     select,
@@ -57,7 +57,7 @@ class DBFoodPrice(Base):
     price_type: Mapped[PriceType] = mapped_column(
         Enum(PriceType), primary_key=True
     )
-    price: Mapped[float] = mapped_column(Float, nullable=False)
+    price: Mapped[Decimal] = mapped_column(nullable=False)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
     )

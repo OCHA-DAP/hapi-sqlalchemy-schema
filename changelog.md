@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - fixed WFP commodity enum
+- change FLOAT to DECIMAL in funding, national\_risk, and food\_security
 
 ## 0.8.2
 

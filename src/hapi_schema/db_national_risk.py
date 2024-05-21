@@ -1,6 +1,7 @@
 """NationalRisk table and view."""
 
 from datetime import datetime
+from decimal import Decimal
 
 from sqlalchemy import (
     CheckConstraint,
@@ -55,14 +56,18 @@ class DBNationalRisk(Base):
         Enum(RiskClass), nullable=False
     )
     global_rank: Mapped[int] = mapped_column(Integer, nullable=False)
-    overall_risk: Mapped[float] = mapped_column(Float, nullable=False)
-    hazard_exposure_risk: Mapped[float] = mapped_column(Float, nullable=False)
-    vulnerability_risk: Mapped[float] = mapped_column(Float, nullable=False)
-    coping_capacity_risk: Mapped[float] = mapped_column(Float, nullable=False)
-    meta_missing_indicators_pct: Mapped[float] = mapped_column(
+    overall_risk: Mapped[Decimal] = mapped_column(Float, nullable=False)
+    hazard_exposure_risk: Mapped[Decimal] = mapped_column(
+        Float, nullable=False
+    )
+    vulnerability_risk: Mapped[Decimal] = mapped_column(Float, nullable=False)
+    coping_capacity_risk: Mapped[Decimal] = mapped_column(
+        Float, nullable=False
+    )
+    meta_missing_indicators_pct: Mapped[Decimal] = mapped_column(
         Float, nullable=True
     )
-    meta_avg_recentness_years: Mapped[float] = mapped_column(
+    meta_avg_recentness_years: Mapped[Decimal] = mapped_column(
         Float, nullable=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(

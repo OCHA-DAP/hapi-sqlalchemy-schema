@@ -1,4 +1,5 @@
 from datetime import datetime
+from decimal import Decimal
 
 from sqlalchemy import (
     Boolean,
@@ -67,7 +68,7 @@ class DBFoodSecurityVAT(Base):
     ipc_phase: Mapped[str] = mapped_column(String(12), primary_key=True)
     ipc_type: Mapped[str] = mapped_column(String(17), primary_key=True)
     population_in_phase: Mapped[int] = mapped_column(Integer, index=True)
-    population_fraction_in_phase: Mapped[float] = mapped_column(
+    population_fraction_in_phase: Mapped[Decimal] = mapped_column(
         Float, index=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
@@ -95,9 +96,9 @@ class DBFundingVAT(Base):
     location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
     appeal_name: Mapped[str] = mapped_column(String(256))
     appeal_type: Mapped[str] = mapped_column(String(32))
-    requirements_usd: Mapped[float] = mapped_column(Float, index=True)
-    funding_usd: Mapped[float] = mapped_column(Float, index=True)
-    funding_pct: Mapped[float] = mapped_column(Float, index=True)
+    requirements_usd: Mapped[Decimal] = mapped_column(Float, index=True)
+    funding_usd: Mapped[Decimal] = mapped_column(Float, index=True)
+    funding_pct: Mapped[Decimal] = mapped_column(Float, index=True)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, index=True
     )
@@ -162,14 +163,14 @@ class DBNationalRiskVAT(Base):
     location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
     risk_class: Mapped[str] = mapped_column(String(9))
     global_rank: Mapped[int] = mapped_column(Integer)
-    overall_risk: Mapped[float] = mapped_column(Float)
-    hazard_exposure_risk: Mapped[float] = mapped_column(Float)
-    vulnerability_risk: Mapped[float] = mapped_column(Float)
-    coping_capacity_risk: Mapped[float] = mapped_column(Float)
-    meta_missing_indicators_pct: Mapped[float] = mapped_column(
+    overall_risk: Mapped[Decimal] = mapped_column(Float)
+    hazard_exposure_risk: Mapped[Decimal] = mapped_column(Float)
+    vulnerability_risk: Mapped[Decimal] = mapped_column(Float)
+    coping_capacity_risk: Mapped[Decimal] = mapped_column(Float)
+    meta_missing_indicators_pct: Mapped[Decimal] = mapped_column(
         Float, nullable=True
     )
-    meta_avg_recentness_years: Mapped[float] = mapped_column(
+    meta_avg_recentness_years: Mapped[Decimal] = mapped_column(
         Float, nullable=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
