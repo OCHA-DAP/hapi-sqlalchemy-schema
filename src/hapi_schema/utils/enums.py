@@ -7,7 +7,6 @@ class Gender(str, enum.Enum):
     NONBINARY = "x"
     UNSPECIFIED = "u"
     OTHER = "o"
-    EUNUCH = "e"
     ALL = "*"
 
 
