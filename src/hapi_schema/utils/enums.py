@@ -95,11 +95,11 @@ class RiskClass(str, enum.Enum):
 
 
 class CommodityCategory(str, enum.Enum):
-    CEREALS_TUBORS = "cereals and tubors"
+    CEREALS_TUBERS = "cereals and tubers"
     MEAT_FISH_EGGS = "meat, fish and eggs"
     MILK_DAIRY = "milk and dairy"
     MISCELLANEOUS_FOOD = "miscellaneous food"
     NON_FOOD = "non-food"
-    OILS_FATS = "oils and fats"
+    OIL_FATS = "oil and fats"
     PULSES_NUTS = "pulses and nuts"
     VEGETABLES_FRUITS = "vegetables and fruits"
