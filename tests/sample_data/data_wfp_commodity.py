@@ -6,7 +6,7 @@ data_wfp_commodity = [
     ),
     dict(
         code="002",
-        category="cereals and tubors",
+        category="cereals and tubers",
         name="Commodity #2",
     ),
 ]
