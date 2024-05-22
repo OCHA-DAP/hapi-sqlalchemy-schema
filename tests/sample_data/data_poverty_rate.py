@@ -10,7 +10,6 @@ data_poverty_rate = [
         intensity_of_deprivation=72.3,
         vulnerable_to_poverty=10.5,
         in_severe_poverty=52.1,
-        population=10_000,
         reference_period_start=datetime(2024, 1, 1),
         reference_period_end=datetime(2024, 12, 31),
     ),

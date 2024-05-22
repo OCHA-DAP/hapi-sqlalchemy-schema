@@ -24,15 +24,51 @@ def test_poverty_rate_view(run_view_test):
     )
 
 
-def test_mpi_constraint(run_constraints_test):
-    """Check that MPI is between 0.0 and 1.0"""
+def test_headcount_ratio_constraint(run_constraints_test):
+    """Check that headcount ratio is between 0 and 100"""
     data = _sample_data()
-    data["multidimensional_poverty_index"] = 1.1
+    data["headcount_ratio"] = 101
     run_constraints_test(
         new_rows=[
             DBPovertyRate(**data),
         ],
-        expected_constraint="rate",
+        expected_constraint="headcount_ratio",
+    )
+
+
+def test_intensity_of_deprivation_constraint(run_constraints_test):
+    """Check that intensity of deprivation is between 0 and 100"""
+    data = _sample_data()
+    data["intensity_of_deprivation"] = 101
+    run_constraints_test(
+        new_rows=[
+            DBPovertyRate(**data),
+        ],
+        expected_constraint="intensity_of_deprivation",
+    )
+
+
+def test_vulnerable_to_poverty_constraint(run_constraints_test):
+    """Check that vulnerable_to_poverty is between 0 and 100"""
+    data = _sample_data()
+    data["vulnerable_to_poverty"] = 101
+    run_constraints_test(
+        new_rows=[
+            DBPovertyRate(**data),
+        ],
+        expected_constraint="vulnerable_to_poverty",
+    )
+
+
+def test_in_severe_poverty_constraint(run_constraints_test):
+    """Check that in_severe_poverty is between 0 and 100"""
+    data = _sample_data()
+    data["in_severe_poverty"] = 101
+    run_constraints_test(
+        new_rows=[
+            DBPovertyRate(**data),
+        ],
+        expected_constraint="in_severe_poverty",
     )
 
 
@@ -44,7 +80,7 @@ def test_mpi_product_constraint(run_constraints_test):
         new_rows=[
             DBPovertyRate(**data),
         ],
-        expected_constraint="rate",
+        expected_constraint="mpi_product",
     )
 
 
@@ -71,7 +107,6 @@ def _sample_data():
         intensity_of_deprivation=72.3,
         vulnerable_to_poverty=10.5,
         in_severe_poverty=52.1,
-        population=10_000,
         reference_period_start=datetime(2024, 1, 1),
         reference_period_end=datetime(2024, 12, 31),
     )

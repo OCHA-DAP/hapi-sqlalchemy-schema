@@ -6,7 +6,6 @@ from sqlalchemy import (
     DateTime,
     Float,
     ForeignKey,
-    Integer,
     String,
     select,
 )
@@ -19,8 +18,6 @@ from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import (
     percentage_constraint,
-    population_constraint,
-    rate_constraint,
     reference_period_constraint,
 )
 from hapi_schema.utils.view_params import ViewParams
@@ -30,16 +27,14 @@ from hapi_schema.utils.view_params import ViewParams
 class DBPovertyRate(Base):
     __tablename__ = "poverty_rate"
     __table_args__ = (
-        rate_constraint(var_name="multidimensional_poverty_index"),
         percentage_constraint(var_name="headcount_ratio"),
         percentage_constraint(var_name="intensity_of_deprivation"),
         percentage_constraint(var_name="vulnerable_to_poverty"),
         percentage_constraint(var_name="in_severe_poverty"),
         reference_period_constraint(),
-        population_constraint(),
         CheckConstraint(
             sqltext="ABS(headcount_ratio / 100 * intensity_of_deprivation / 100  - multidimensional_poverty_index) < 0.00001",
-            name="MPI product",
+            name="mpi_product",
         ),
     )
 
@@ -69,9 +64,6 @@ class DBPovertyRate(Base):
     )
     in_severe_poverty: Mapped[float] = mapped_column(
         Float, nullable=False, index=False
-    )
-    population: Mapped[int] = mapped_column(
-        Integer, nullable=False, index=False
     )
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
