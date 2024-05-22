@@ -172,6 +172,18 @@ expected_indexes = ["category","name"]
 expected_nullables = []
 
 [[tables]]
+db_module = "db_wfp_market"
+target_view = "wfp_market_view"
+view_params_name = "view_params_wfp_market"
+expected_primary_keys = [
+        "code"
+    ]
+expected_indexes = ["name","lat", "lon", "lat", "lon",
+                    "location_code", "location_name",
+                    "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
+expected_nullables = []
+
+[[tables]]
 db_module = "db_patch"
 target_view = "patch_view"
 view_params_name="view_params_patch"

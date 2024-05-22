@@ -343,3 +343,22 @@ class DBWfpCommodityVAT(Base):
     code: Mapped[str] = mapped_column(String(32), primary_key=True)
     category: Mapped[str] = mapped_column(String(18), index=True)
     name: Mapped[str] = mapped_column(String(512), index=True)
+
+
+class DBWfpMarketVAT(Base):
+    __tablename__ = "wfp_market_vat"
+    code: Mapped[str] = mapped_column(String(32), primary_key=True)
+    admin2_ref: Mapped[int] = mapped_column(Integer)
+    name: Mapped[str] = mapped_column(String(512), index=True)
+    lat: Mapped[float] = mapped_column(Float, index=True)
+    lon: Mapped[float] = mapped_column(Float, index=True)
+    location_code: Mapped[str] = mapped_column(String(128), index=True)
+    location_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin1_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    location_ref: Mapped[int] = mapped_column(Integer)
+    admin2_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin2_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    admin1_ref: Mapped[int] = mapped_column(Integer)
