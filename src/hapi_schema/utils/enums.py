@@ -66,7 +66,6 @@ class PovertyClassification(str, enum.Enum):
     POOR = "poor"
     VULNERABLE = "vulnerable"
     EXTREMELY_POOR = "extremely_poor"
-    ALL = "*"
 
 
 class IPCPhase(str, enum.Enum):

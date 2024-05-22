@@ -20,19 +20,20 @@ def test_poverty_rate_view(run_view_test):
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_poverty_rate.c.location_name == "Foolandia",
             view_poverty_rate.c.admin1_name == "Province 01",
+            view_poverty_rate.c.rate == 0.75,
         ),
     )
 
 
-def test_population_constraint(run_constraints_test):
-    """Check that population cannot be negative"""
+def test_rate_constraint(run_constraints_test):
+    """Check that rate is between 0.0 and 1.0"""
     data = _sample_data()
-    data["population"] = -1
+    data["rate"] = 1.1
     run_constraints_test(
         new_rows=[
             DBPovertyRate(**data),
         ],
-        expected_constraint="population",
+        expected_constraint="rate",
     )
 
 
@@ -55,9 +56,10 @@ def _sample_data():
     # return the whole record, then tests can change as needed
     return dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
-        admin1_ref=1,
+        location_ref=1,
+        admin1_name="Province 01",
         classification="vulnerable",
-        population=1000000,
+        rate=0.75,
         reference_period_start=datetime(2024, 1, 1),
         reference_period_end=datetime(2024, 12, 31),
     )
