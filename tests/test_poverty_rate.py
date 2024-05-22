@@ -24,7 +24,19 @@ def test_poverty_rate_view(run_view_test):
     )
 
 
-def test_rate_constraint(run_constraints_test):
+def test_mpi_constraint(run_constraints_test):
+    """Check that MPI is between 0.0 and 1.0"""
+    data = _sample_data()
+    data["multidimensional_poverty_index"] = 1.1
+    run_constraints_test(
+        new_rows=[
+            DBPovertyRate(**data),
+        ],
+        expected_constraint="rate",
+    )
+
+
+def test_mpi_product_constraint(run_constraints_test):
     """Check that MPI is between 0.0 and 1.0"""
     data = _sample_data()
     data["multidimensional_poverty_index"] = 1.1
@@ -48,15 +60,12 @@ def test_reference_period_constraint(run_constraints_test):
     )
 
 
-# Util functions
-
-
 def _sample_data():
     # return the whole record, then tests can change as needed
     return dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin1_ref=1,
-        admin1_name="Province 01",
+        admin1_name="Province 02",
         multidimensional_poverty_index=0.617442,
         headcount_ratio=85.4,
         intensity_of_deprivation=72.3,

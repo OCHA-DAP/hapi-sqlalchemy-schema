@@ -11,6 +11,7 @@ from sqlalchemy import (
     select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.schema import CheckConstraint
 
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_location import DBLocation
@@ -36,6 +37,10 @@ class DBPovertyRate(Base):
         percentage_constraint(var_name="in_severe_poverty"),
         reference_period_constraint(),
         population_constraint(),
+        CheckConstraint(
+            sqltext="ABS(headcount_ratio / 100 * intensity_of_deprivation / 100  - multidimensional_poverty_index) < 0.00001",
+            name="MPI product",
+        ),
     )
 
     resource_hdx_id: Mapped[str] = mapped_column(
