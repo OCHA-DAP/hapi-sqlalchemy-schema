@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.8.3
 
+### Added
+- New constraints: rate\_constraint
+
 ### Changed
 - fixed WFP commodity enum
 - change FLOAT to DECIMAL in funding, national\_risk, and food\_security
+- remove ALL ("*") from PovertyClassification enum
+- refactor DBPovertyRate to track rates rather than population, and link to location (with admin1\_name as a text field)
 
 ## 0.8.2
 
