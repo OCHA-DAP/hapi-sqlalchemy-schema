@@ -4,7 +4,6 @@ from datetime import datetime
 
 from sqlalchemy import (
     DateTime,
-    Enum,
     Float,
     ForeignKey,
     Integer,
@@ -23,7 +22,6 @@ from hapi_schema.utils.constraints import (
     rate_constraint,
     reference_period_constraint,
 )
-from hapi_schema.utils.enums import PovertyClassification
 from hapi_schema.utils.view_params import ViewParams
 
 
@@ -51,9 +49,6 @@ class DBPovertyRate(Base):
     )
     admin1_name: Mapped[str] = mapped_column(
         String(512), nullable=False, index=True, primary_key=True
-    )
-    classification: Mapped[PovertyClassification] = mapped_column(
-        Enum(PovertyClassification), nullable=False, primary_key=True
     )
     multidimensional_poverty_index: Mapped[float] = mapped_column(
         Float, nullable=False, findex=False
