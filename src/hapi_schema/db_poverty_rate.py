@@ -80,7 +80,7 @@ class DBPovertyRate(Base):
 
 
 # view
-view_params_population = ViewParams(
+view_params_poverty_rate = ViewParams(
     name="poverty_rate_view",
     metadata=Base.metadata,
     selectable=select(
@@ -88,7 +88,6 @@ view_params_population = ViewParams(
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
         DBAdmin1.code.label("admin1_code"),
-        DBAdmin1.name.label("admin1_name"),
         DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
         DBAdmin1.location_ref.label("location_ref"),
     ).select_from(
