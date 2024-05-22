@@ -155,13 +155,13 @@ db_module = "db_poverty_rate"
 target_view = "poverty_rate_view"
 view_params_name="view_params_poverty_rate"
 expected_primary_keys = [
-        "admin1_ref",
-        "classification",
+        "location_ref",
+        "admin1_name",
         "reference_period_start"
     ]
-expected_indexes = ["population", "reference_period_end", "location_code",
-"location_name", "admin1_code", "admin1_name"]
-expected_nullables = ["population"]
+expected_indexes = ["reference_period_end", "location_code",
+"location_name", "admin1_name"]
+expected_nullables = ["rate"]
 
 [[tables]]
 db_module = "db_refugees"
