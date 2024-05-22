@@ -33,7 +33,7 @@ class DBPovertyRate(Base):
         percentage_constraint(var_name="in_severe_poverty"),
         reference_period_constraint(),
         CheckConstraint(
-            sqltext="ABS(headcount_ratio / 100 * intensity_of_deprivation / 100  - multidimensional_poverty_index) < 0.00001",
+            sqltext="ABS(headcount_ratio / 100 * intensity_of_deprivation / 100  - mpi) < 0.00001",
             name="mpi_product",
         ),
     )
@@ -47,12 +47,11 @@ class DBPovertyRate(Base):
         nullable=False,
         primary_key=True,
     )
+    # TODO temporary -- will remove in future release and use name from admin1 table
     admin1_name: Mapped[str] = mapped_column(
         String(512), nullable=False, index=True, primary_key=True
     )
-    multidimensional_poverty_index: Mapped[float] = mapped_column(
-        Float, nullable=False, index=False
-    )
+    mpi: Mapped[float] = mapped_column(Float, nullable=False, index=False)
     headcount_ratio: Mapped[float] = mapped_column(
         Float, nullable=False, index=False
     )

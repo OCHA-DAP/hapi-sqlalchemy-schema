@@ -75,7 +75,7 @@ def test_in_severe_poverty_constraint(run_constraints_test):
 def test_mpi_product_constraint(run_constraints_test):
     """Check that MPI is between 0.0 and 1.0"""
     data = _sample_data()
-    data["multidimensional_poverty_index"] = 1.1
+    data["mpi"] = 1.1
     run_constraints_test(
         new_rows=[
             DBPovertyRate(**data),
@@ -102,7 +102,7 @@ def _sample_data():
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin1_ref=1,
         admin1_name="Province 02",
-        multidimensional_poverty_index=0.617442,
+        mpi=0.617442,
         headcount_ratio=85.4,
         intensity_of_deprivation=72.3,
         vulnerable_to_poverty=10.5,
