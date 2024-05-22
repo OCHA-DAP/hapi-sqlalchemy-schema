@@ -82,6 +82,7 @@ def test_conflict_event_vat(
     run_indexes_test("conflict_event_vat", expected_indexes)
     run_primary_keys_test("conflict_event_vat", expected_primary_keys)
 
+
 def test_currency_vat(
     run_indexes_test, run_columns_test, run_primary_keys_test
 ):
@@ -91,7 +92,8 @@ def test_currency_vat(
     run_columns_test("currency_vat", "currency_view", view_params_currency)
     run_indexes_test("currency_vat", expected_indexes)
     run_primary_keys_test("currency_vat", expected_primary_keys)
-    
+
+
 def test_dataset_vat(
     run_indexes_test, run_columns_test, run_primary_keys_test
 ):

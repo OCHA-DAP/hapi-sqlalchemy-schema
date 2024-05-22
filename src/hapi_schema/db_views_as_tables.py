@@ -51,6 +51,7 @@ class DBAdmin2VAT(Base):
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
 
+
 class DBConflictEventVAT(Base):
     __tablename__ = "conflict_event_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
@@ -75,11 +76,13 @@ class DBConflictEventVAT(Base):
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
 
+
 class DBCurrencyVAT(Base):
     __tablename__ = "currency_vat"
     code: Mapped[str] = mapped_column(String(32), primary_key=True)
     name: Mapped[str] = mapped_column(String(512), index=True)
-      
+
+
 class DBDatasetVAT(Base):
     __tablename__ = "dataset_vat"
     hdx_id: Mapped[str] = mapped_column(String(36), primary_key=True)
