@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Changes
 - refactor DBPovertyRate to wide instead of narrow
+- added org\_type\_description to operational\_presence\_view
 
 ## Removed
 - rate\_constraint and `PovertyClassification` enum
