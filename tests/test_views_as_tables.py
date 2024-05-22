@@ -1,5 +1,6 @@
 from hapi_schema.db_admin1 import view_params_admin1
 from hapi_schema.db_admin2 import view_params_admin2
+from hapi_schema.db_conflict_event import view_params_conflict_event
 from hapi_schema.db_currency import view_params_currency
 from hapi_schema.db_dataset import view_params_dataset
 from hapi_schema.db_food_price import view_params_food_price
@@ -15,6 +16,7 @@ from hapi_schema.db_org import view_params_org
 from hapi_schema.db_org_type import view_params_org_type
 from hapi_schema.db_patch import view_params_patch
 from hapi_schema.db_population import view_params_population
+from hapi_schema.db_poverty_rate import view_params_poverty_rate
 from hapi_schema.db_refugees import view_params_refugees
 from hapi_schema.db_resource import view_params_resource
 from hapi_schema.db_sector import view_params_sector
@@ -54,6 +56,32 @@ def test_admin2_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     run_primary_keys_test("admin2_vat", expected_primary_keys)
 
 
+def test_conflict_event_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that conflict_event_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "admin2_ref",
+        "event_type",
+        "reference_period_start",
+    ]
+    expected_indexes = [
+        "events",
+        "fatalities",
+        "reference_period_end",
+        "location_code",
+        "location_name",
+        "admin1_code",
+        "admin1_name",
+        "admin2_code",
+        "admin2_name",
+    ]
+    run_columns_test(
+        "conflict_event_vat", "conflict_event_view", view_params_conflict_event
+    )
+    run_indexes_test("conflict_event_vat", expected_indexes)
+    run_primary_keys_test("conflict_event_vat", expected_primary_keys)
+
 def test_currency_vat(
     run_indexes_test, run_columns_test, run_primary_keys_test
 ):
@@ -63,8 +91,7 @@ def test_currency_vat(
     run_columns_test("currency_vat", "currency_view", view_params_currency)
     run_indexes_test("currency_vat", expected_indexes)
     run_primary_keys_test("currency_vat", expected_primary_keys)
-
-
+    
 def test_dataset_vat(
     run_indexes_test, run_columns_test, run_primary_keys_test
 ):
@@ -308,6 +335,30 @@ def test_population_vat(
     )
     run_indexes_test("population_vat", expected_indexes)
     run_primary_keys_test("population_vat", expected_primary_keys)
+
+
+def test_poverty_rate_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that poverty_rate_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "admin1_ref",
+        "classification",
+        "reference_period_start",
+    ]
+    expected_indexes = [
+        "population",
+        "reference_period_end",
+        "location_code",
+        "location_name",
+        "admin1_code",
+        "admin1_name",
+    ]
+    run_columns_test(
+        "poverty_rate_vat", "poverty_rate_view", view_params_poverty_rate
+    )
+    run_indexes_test("poverty_rate_vat", expected_indexes)
+    run_primary_keys_test("poverty_rate_vat", expected_primary_keys)
 
 
 def test_refugees_vat(

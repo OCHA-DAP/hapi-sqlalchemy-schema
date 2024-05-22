@@ -17,6 +17,19 @@ expected_indexes = ["code", "name",
 expected_nullables = ["reference_period_start", "reference_period_end"]
 
 [[tables]]
+db_module = "db_conflict_event"
+target_view = "conflict_event_view"
+view_params_name="view_params_conflict_event"
+expected_primary_keys = [
+        "admin2_ref",
+        "event_type",
+        "reference_period_start"
+    ]
+expected_indexes = ["events", "fatalities", "reference_period_end", "location_code",
+"location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
+expected_nullables = ["events", "fatalities"]
+
+[[tables]]
 db_module = "db_currency"
 target_view = "currency_view"
 view_params_name = "view_params_currency"
@@ -136,6 +149,19 @@ expected_indexes = ["min_age", "max_age", "population", "reference_period_start"
                     "location_code", "location_name",
                     "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
 expected_nullables = ["min_age", "max_age"]
+
+[[tables]]
+db_module = "db_poverty_rate"
+target_view = "poverty_rate_view"
+view_params_name="view_params_poverty_rate"
+expected_primary_keys = [
+        "admin1_ref",
+        "classification",
+        "reference_period_start"
+    ]
+expected_indexes = ["population", "reference_period_end", "location_code",
+"location_name", "admin1_code", "admin1_name"]
+expected_nullables = ["population"]
 
 [[tables]]
 db_module = "db_refugees"
