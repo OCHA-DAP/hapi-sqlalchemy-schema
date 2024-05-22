@@ -20,20 +20,67 @@ def test_poverty_rate_view(run_view_test):
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_poverty_rate.c.location_name == "Foolandia",
             view_poverty_rate.c.admin1_name == "Province 01",
-            view_poverty_rate.c.rate == 0.75,
         ),
     )
 
 
-def test_rate_constraint(run_constraints_test):
-    """Check that rate is between 0.0 and 1.0"""
+def test_headcount_ratio_constraint(run_constraints_test):
+    """Check that headcount ratio is between 0 and 100"""
     data = _sample_data()
-    data["rate"] = 1.1
+    data["headcount_ratio"] = 101
     run_constraints_test(
         new_rows=[
             DBPovertyRate(**data),
         ],
-        expected_constraint="rate",
+        expected_constraint="headcount_ratio",
+    )
+
+
+def test_intensity_of_deprivation_constraint(run_constraints_test):
+    """Check that intensity of deprivation is between 0 and 100"""
+    data = _sample_data()
+    data["intensity_of_deprivation"] = 101
+    run_constraints_test(
+        new_rows=[
+            DBPovertyRate(**data),
+        ],
+        expected_constraint="intensity_of_deprivation",
+    )
+
+
+def test_vulnerable_to_poverty_constraint(run_constraints_test):
+    """Check that vulnerable_to_poverty is between 0 and 100"""
+    data = _sample_data()
+    data["vulnerable_to_poverty"] = 101
+    run_constraints_test(
+        new_rows=[
+            DBPovertyRate(**data),
+        ],
+        expected_constraint="vulnerable_to_poverty",
+    )
+
+
+def test_in_severe_poverty_constraint(run_constraints_test):
+    """Check that in_severe_poverty is between 0 and 100"""
+    data = _sample_data()
+    data["in_severe_poverty"] = 101
+    run_constraints_test(
+        new_rows=[
+            DBPovertyRate(**data),
+        ],
+        expected_constraint="in_severe_poverty",
+    )
+
+
+def test_mpi_product_constraint(run_constraints_test):
+    """Check that MPI is between 0.0 and 1.0"""
+    data = _sample_data()
+    data["mpi"] = 1.1
+    run_constraints_test(
+        new_rows=[
+            DBPovertyRate(**data),
+        ],
+        expected_constraint="mpi_product",
     )
 
 
@@ -49,17 +96,17 @@ def test_reference_period_constraint(run_constraints_test):
     )
 
 
-# Util functions
-
-
 def _sample_data():
     # return the whole record, then tests can change as needed
     return dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
-        location_ref=1,
-        admin1_name="Province 01",
-        classification="vulnerable",
-        rate=0.75,
+        admin1_ref=1,
+        admin1_name="Province 02",
+        mpi=0.617442,
+        headcount_ratio=85.4,
+        intensity_of_deprivation=72.3,
+        vulnerable_to_poverty=10.5,
+        in_severe_poverty=52.1,
         reference_period_start=datetime(2024, 1, 1),
         reference_period_end=datetime(2024, 12, 31),
     )
