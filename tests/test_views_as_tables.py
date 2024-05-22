@@ -17,6 +17,7 @@ from hapi_schema.db_population import view_params_population
 from hapi_schema.db_refugees import view_params_refugees
 from hapi_schema.db_resource import view_params_resource
 from hapi_schema.db_sector import view_params_sector
+from hapi_schema.db_wfp_commodity import view_params_wfp_commodity
 
 
 def test_admin1_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
@@ -344,3 +345,16 @@ def test_sector_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     run_columns_test("sector_vat", "sector_view", view_params_sector)
     run_indexes_test("sector_vat", expected_indexes)
     run_primary_keys_test("sector_vat", expected_primary_keys)
+
+
+def test_wfp_commodity_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that wfp_commodity_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = ["code"]
+    expected_indexes = ["category", "name"]
+    run_columns_test(
+        "wfp_commodity_vat", "wfp_commodity_view", view_params_wfp_commodity
+    )
+    run_indexes_test("wfp_commodity_vat", expected_indexes)
+    run_primary_keys_test("wfp_commodity_vat", expected_primary_keys)

@@ -162,6 +162,16 @@ expected_indexes = ["name"]
 expected_nullables = []
 
 [[tables]]
+db_module = "db_wfp_commodity"
+target_view = "wfp_commodity_view"
+view_params_name = "view_params_wfp_commodity"
+expected_primary_keys = [
+        "code"
+    ]
+expected_indexes = ["category","name"]
+expected_nullables = []
+
+[[tables]]
 db_module = "db_patch"
 target_view = "patch_view"
 view_params_name="view_params_patch"
