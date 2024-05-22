@@ -51,19 +51,19 @@ class DBPovertyRate(Base):
         String(512), nullable=False, index=True, primary_key=True
     )
     multidimensional_poverty_index: Mapped[float] = mapped_column(
-        Float, nullable=False, findex=False
+        Float, nullable=False, index=False
     )
     headcount_ratio: Mapped[float] = mapped_column(
-        Float, nullable=False, findex=False
+        Float, nullable=False, index=False
     )
     intensity_of_deprivation: Mapped[float] = mapped_column(
-        Float, nullable=False, findex=False
+        Float, nullable=False, index=False
     )
     vulnerable_to_poverty: Mapped[float] = mapped_column(
-        Float, nullable=False, findex=False
+        Float, nullable=False, index=False
     )
     in_severe_poverty: Mapped[float] = mapped_column(
-        Float, nullable=False, findex=False
+        Float, nullable=False, index=False
     )
     population: Mapped[int] = mapped_column(
         Integer, nullable=False, index=False
@@ -80,7 +80,7 @@ class DBPovertyRate(Base):
 
 
 # view
-view_params_poverty_rate = ViewParams(
+view_params_population = ViewParams(
     name="poverty_rate_view",
     metadata=Base.metadata,
     selectable=select(
@@ -92,6 +92,7 @@ view_params_poverty_rate = ViewParams(
         DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
         DBAdmin1.location_ref.label("location_ref"),
     ).select_from(
+        # Join PR to admin1 to loc
         DBPovertyRate.__table__.join(
             DBAdmin1.__table__,
             DBPovertyRate.admin1_ref == DBAdmin1.id,
