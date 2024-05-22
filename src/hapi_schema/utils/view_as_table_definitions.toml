@@ -17,6 +17,16 @@ expected_indexes = ["code", "name",
 expected_nullables = ["reference_period_start", "reference_period_end"]
 
 [[tables]]
+db_module = "db_currency"
+target_view = "currency_view"
+view_params_name = "view_params_currency"
+expected_primary_keys = [
+        "code"
+    ]
+expected_indexes = ["name"]
+expected_nullables = []
+
+[[tables]]
 db_module = "db_dataset"
 target_view = "dataset_view"
 view_params_name="view_params_dataset"

@@ -52,6 +52,12 @@ class DBAdmin2VAT(Base):
     location_name: Mapped[str] = mapped_column(String(512), index=True)
 
 
+class DBCurrencyVAT(Base):
+    __tablename__ = "currency_vat"
+    code: Mapped[str] = mapped_column(String(32), primary_key=True)
+    name: Mapped[str] = mapped_column(String(512), index=True)
+
+
 class DBDatasetVAT(Base):
     __tablename__ = "dataset_vat"
     hdx_id: Mapped[str] = mapped_column(String(36), primary_key=True)

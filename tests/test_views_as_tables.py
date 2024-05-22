@@ -1,5 +1,6 @@
 from hapi_schema.db_admin1 import view_params_admin1
 from hapi_schema.db_admin2 import view_params_admin2
+from hapi_schema.db_currency import view_params_currency
 from hapi_schema.db_dataset import view_params_dataset
 from hapi_schema.db_food_price import view_params_food_price
 from hapi_schema.db_food_security import view_params_food_security
@@ -51,6 +52,17 @@ def test_admin2_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     run_columns_test("admin2_vat", "admin2_view", view_params_admin2)
     run_indexes_test("admin2_vat", expected_indexes)
     run_primary_keys_test("admin2_vat", expected_primary_keys)
+
+
+def test_currency_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that currency_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = ["code"]
+    expected_indexes = ["name"]
+    run_columns_test("currency_vat", "currency_view", view_params_currency)
+    run_indexes_test("currency_vat", expected_indexes)
+    run_primary_keys_test("currency_vat", expected_primary_keys)
 
 
 def test_dataset_vat(
