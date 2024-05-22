@@ -61,6 +61,42 @@ class DBDatasetVAT(Base):
     hdx_provider_name: Mapped[str] = mapped_column(String(512), index=True)
 
 
+class DBFoodPriceVAT(Base):
+    __tablename__ = "food_price_vat"
+    resource_hdx_id: Mapped[str] = mapped_column(String(36))
+    market_code: Mapped[str] = mapped_column(String(32), primary_key=True)
+    commodity_code: Mapped[str] = mapped_column(String(32), primary_key=True)
+    currency_code: Mapped[str] = mapped_column(String(32), index=True)
+    unit: Mapped[str] = mapped_column(String(32))
+    price_flag: Mapped[str] = mapped_column(String(16), primary_key=True)
+    price_type: Mapped[str] = mapped_column(String(9), primary_key=True)
+    price: Mapped[Decimal] = mapped_column(Float)
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, primary_key=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    admin2_ref: Mapped[int] = mapped_column(Integer)
+    market_name: Mapped[str] = mapped_column(String(512), index=True)
+    lat: Mapped[float] = mapped_column(Float, index=True)
+    lon: Mapped[float] = mapped_column(Float, index=True)
+    commodity_category: Mapped[str] = mapped_column(
+        String(18), primary_key=True
+    )
+    commodity_name: Mapped[str] = mapped_column(String(512), index=True)
+    location_code: Mapped[str] = mapped_column(String(128), index=True)
+    location_name: Mapped[str] = mapped_column(String(512), index=True)
+    location_ref: Mapped[int] = mapped_column(Integer)
+    admin1_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin1_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    admin1_ref: Mapped[int] = mapped_column(Integer)
+    admin2_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin2_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+
+
 class DBFoodSecurityVAT(Base):
     __tablename__ = "food_security_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))

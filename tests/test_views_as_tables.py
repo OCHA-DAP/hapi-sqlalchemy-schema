@@ -1,6 +1,7 @@
 from hapi_schema.db_admin1 import view_params_admin1
 from hapi_schema.db_admin2 import view_params_admin2
 from hapi_schema.db_dataset import view_params_dataset
+from hapi_schema.db_food_price import view_params_food_price
 from hapi_schema.db_food_security import view_params_food_security
 from hapi_schema.db_funding import view_params_funding
 from hapi_schema.db_humanitarian_needs import view_params_humanitarian_needs
@@ -59,6 +60,39 @@ def test_dataset_vat(
     run_columns_test("dataset_vat", "dataset_view", view_params_dataset)
     run_indexes_test("dataset_vat", expected_indexes)
     run_primary_keys_test("dataset_vat", expected_primary_keys)
+
+
+def test_food_price_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that food_price_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "market_code",
+        "commodity_code",
+        "commodity_category",
+        "price_flag",
+        "price_type",
+        "reference_period_start",
+    ]
+    expected_indexes = [
+        "currency_code",
+        "commodity_name",
+        "market_name",
+        "lat",
+        "lon",
+        "reference_period_end",
+        "location_code",
+        "location_name",
+        "admin1_code",
+        "admin1_name",
+        "admin2_code",
+        "admin2_name",
+    ]
+    run_columns_test(
+        "food_price_vat", "food_price_view", view_params_food_price
+    )
+    run_indexes_test("food_price_vat", expected_indexes)
+    run_primary_keys_test("food_price_vat", expected_primary_keys)
 
 
 def test_food_security_vat(

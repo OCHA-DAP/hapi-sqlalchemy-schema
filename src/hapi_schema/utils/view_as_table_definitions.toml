@@ -25,6 +25,17 @@ expected_indexes = ["hdx_stub", "hdx_provider_stub", "hdx_provider_name"]
 expected_nullables = []
 
 [[tables]]
+db_module = "db_food_price"
+target_view = "food_price_view"
+view_params_name = "view_params_food_price"
+expected_primary_keys = ["market_code", "commodity_code", "commodity_category", "price_flag", "price_type",
+                        "reference_period_start"]
+expected_indexes = ["currency_code", "commodity_name", "market_name", "lat", "lon", "reference_period_end",
+                    "location_code", "location_name",
+                    "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
+expected_nullables = []
+
+[[tables]]
 db_module = "db_food_security"
 target_view = "food_security_view"
 view_params_name="view_params_food_security"
