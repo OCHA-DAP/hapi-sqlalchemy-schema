@@ -54,6 +54,7 @@ def parse_toml():
     complete_code.append('"""')
 
     # Make imports
+    complete_code.append("from decimal import Decimal")
     complete_code.append("from sqlalchemy import DateTime")
     complete_code.append("from sqlalchemy.orm import column_property, Mapped")
 
@@ -180,6 +181,8 @@ def make_table_template_from_view(
             mapped_type_1 = "float"
         elif column_type == "TEXT":
             mapped_type_1 = "str"
+        elif column_type == "NUMERIC":
+            mapped_type_1 = "Decimal"
         table_code.append(
             f"    {column.name}: Mapped[{mapped_type_1}] = column_property({source_view}.c.{column.name})"
         )

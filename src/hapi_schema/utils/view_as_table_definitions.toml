@@ -17,11 +17,45 @@ expected_indexes = ["code", "name",
 expected_nullables = ["reference_period_start", "reference_period_end"]
 
 [[tables]]
+db_module = "db_conflict_event"
+target_view = "conflict_event_view"
+view_params_name="view_params_conflict_event"
+expected_primary_keys = [
+        "admin2_ref",
+        "event_type",
+        "reference_period_start"
+    ]
+expected_indexes = ["events", "fatalities", "reference_period_end", "location_code",
+"location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
+expected_nullables = ["events", "fatalities"]
+
+[[tables]]
+db_module = "db_currency"
+target_view = "currency_view"
+view_params_name = "view_params_currency"
+expected_primary_keys = [
+        "code"
+    ]
+expected_indexes = ["name"]
+expected_nullables = []
+
+[[tables]]
 db_module = "db_dataset"
 target_view = "dataset_view"
 view_params_name="view_params_dataset"
 expected_primary_keys = ["hdx_id"]
 expected_indexes = ["hdx_stub", "hdx_provider_stub", "hdx_provider_name"]
+expected_nullables = []
+
+[[tables]]
+db_module = "db_food_price"
+target_view = "food_price_view"
+view_params_name = "view_params_food_price"
+expected_primary_keys = ["market_code", "commodity_code", "commodity_category", "price_flag", "price_type",
+                        "reference_period_start"]
+expected_indexes = ["currency_code", "commodity_name", "market_name", "lat", "lon", "reference_period_end",
+                    "location_code", "location_name",
+                    "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
 expected_nullables = []
 
 [[tables]]
@@ -81,7 +115,8 @@ expected_primary_keys = [
         "sector_code",
         "reference_period_start"
     ]
-expected_indexes = ["reference_period_end", "location_code", "location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
+expected_indexes = ["org_type_description","reference_period_end", "location_code",
+"location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
 expected_nullables = []
 
 [[tables]]
@@ -117,6 +152,19 @@ expected_indexes = ["min_age", "max_age", "population", "reference_period_start"
 expected_nullables = ["min_age", "max_age"]
 
 [[tables]]
+db_module = "db_poverty_rate"
+target_view = "poverty_rate_view"
+view_params_name="view_params_poverty_rate"
+expected_primary_keys = [
+        "admin1_ref",
+        "admin1_name",
+        "reference_period_start"
+    ]
+expected_indexes = ["reference_period_end", "location_ref", "location_code",
+"location_name", "admin1_name"]
+expected_nullables = ["rate"]
+
+[[tables]]
 db_module = "db_refugees"
 target_view = "refugees_view"
 view_params_name="view_params_refugees"
@@ -148,6 +196,28 @@ expected_primary_keys = [
         "code"
     ]
 expected_indexes = ["name"]
+expected_nullables = []
+
+[[tables]]
+db_module = "db_wfp_commodity"
+target_view = "wfp_commodity_view"
+view_params_name = "view_params_wfp_commodity"
+expected_primary_keys = [
+        "code"
+    ]
+expected_indexes = ["category","name"]
+expected_nullables = []
+
+[[tables]]
+db_module = "db_wfp_market"
+target_view = "wfp_market_view"
+view_params_name = "view_params_wfp_market"
+expected_primary_keys = [
+        "code"
+    ]
+expected_indexes = ["name","lat", "lon", "lat", "lon",
+                    "location_code", "location_name",
+                    "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
 expected_nullables = []
 
 [[tables]]

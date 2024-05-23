@@ -159,6 +159,9 @@ def make_table_template_from_view(
         elif column_type in ["FLOAT", "DOUBLE PRECISION"]:
             mapped_type_1 = "float"
             mapped_type_2 = "Float"
+        elif column_type in ["NUMERIC"]:
+            mapped_type_1 = "Decimal"
+            mapped_type_2 = "Float"
         elif column_type == "TEXT":
             mapped_type_1 = "str"
             mapped_type_2 = "Text"
