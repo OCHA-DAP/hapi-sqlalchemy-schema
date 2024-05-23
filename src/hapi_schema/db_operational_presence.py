@@ -15,7 +15,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_location import DBLocation
-from hapi_schema.db_org import DBOrg
+from hapi_schema.db_org import DBOrg, DBOrgType
 from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import reference_period_constraint
@@ -66,6 +66,7 @@ view_params_operational_presence = ViewParams(
     selectable=select(
         *DBOperationalPresence.__table__.columns,
         DBOrg.org_type_code.label("org_type_code"),
+        DBOrgType.description.label("org_type_description"),
         DBSector.name.label("sector_name"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
@@ -99,6 +100,12 @@ view_params_operational_presence = ViewParams(
             DBOrg.__table__,
             (DBOperationalPresence.org_name == DBOrg.name)
             & (DBOperationalPresence.org_acronym == DBOrg.acronym),
+            isouter=True,
+        )
+        # Join org to org_type
+        .join(
+            DBOrgType.__table__,
+            (DBOrg.org_type_code == DBOrgType.code),
             isouter=True,
         )
         # Join op to sector

@@ -264,6 +264,7 @@ class DBOperationalPresenceVAT(Base):
         DateTime, index=True
     )
     org_type_code: Mapped[str] = mapped_column(String(32))
+    org_type_description: Mapped[str] = mapped_column(String(512))
     sector_name: Mapped[str] = mapped_column(String(512))
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)

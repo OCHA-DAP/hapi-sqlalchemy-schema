@@ -43,14 +43,6 @@ def non_negative_constraint(
     return CheckConstraint(sqltext=sqltext, name=f"{var_name}")
 
 
-def rate_constraint(
-    var_name: str = "rate",
-) -> CheckConstraint:
-    """Require a column to be between 0.0 and 1.0."""
-    sqltext = f"{var_name} >= 0. AND {var_name} <= 1.0"
-    return CheckConstraint(sqltext=sqltext, name=f"{var_name}")
-
-
 def percentage_constraint(var_name: str) -> CheckConstraint:
     sqltext = f"{var_name} >= 0. AND {var_name} <= 100."
     return CheckConstraint(sqltext=sqltext, name=f"{var_name}")
