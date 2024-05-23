@@ -345,12 +345,13 @@ def test_poverty_rate_vat(
 ):
     """Check that poverty_rate_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
-        "location_ref",
+        "admin1_ref",
         "admin1_name",
         "reference_period_start",
     ]
     expected_indexes = [
         "reference_period_end",
+        "location_ref",
         "location_code",
         "location_name",
         "admin1_name",

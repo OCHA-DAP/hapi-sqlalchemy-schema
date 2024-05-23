@@ -101,7 +101,7 @@ class DBFoodPriceVAT(Base):
     unit: Mapped[str] = mapped_column(String(32))
     price_flag: Mapped[str] = mapped_column(String(16), primary_key=True)
     price_type: Mapped[str] = mapped_column(String(9), primary_key=True)
-    price: Mapped[Decimal] = mapped_column(Float)
+    price: Mapped[Decimal] = mapped_column()
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
     )
@@ -135,9 +135,7 @@ class DBFoodSecurityVAT(Base):
     ipc_phase: Mapped[str] = mapped_column(String(12), primary_key=True)
     ipc_type: Mapped[str] = mapped_column(String(17), primary_key=True)
     population_in_phase: Mapped[int] = mapped_column(Integer, index=True)
-    population_fraction_in_phase: Mapped[Decimal] = mapped_column(
-        Float, index=True
-    )
+    population_fraction_in_phase: Mapped[Decimal] = mapped_column(index=True)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
     )
@@ -163,9 +161,9 @@ class DBFundingVAT(Base):
     location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
     appeal_name: Mapped[str] = mapped_column(String(256))
     appeal_type: Mapped[str] = mapped_column(String(32))
-    requirements_usd: Mapped[Decimal] = mapped_column(Float, index=True)
-    funding_usd: Mapped[Decimal] = mapped_column(Float, index=True)
-    funding_pct: Mapped[Decimal] = mapped_column(Float, index=True)
+    requirements_usd: Mapped[Decimal] = mapped_column(index=True)
+    funding_usd: Mapped[Decimal] = mapped_column(index=True)
+    funding_pct: Mapped[Decimal] = mapped_column(index=True)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, index=True
     )
@@ -230,16 +228,12 @@ class DBNationalRiskVAT(Base):
     location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
     risk_class: Mapped[str] = mapped_column(String(9))
     global_rank: Mapped[int] = mapped_column(Integer)
-    overall_risk: Mapped[Decimal] = mapped_column(Float)
-    hazard_exposure_risk: Mapped[Decimal] = mapped_column(Float)
-    vulnerability_risk: Mapped[Decimal] = mapped_column(Float)
-    coping_capacity_risk: Mapped[Decimal] = mapped_column(Float)
-    meta_missing_indicators_pct: Mapped[Decimal] = mapped_column(
-        Float, nullable=True
-    )
-    meta_avg_recentness_years: Mapped[Decimal] = mapped_column(
-        Float, nullable=True
-    )
+    overall_risk: Mapped[Decimal] = mapped_column()
+    hazard_exposure_risk: Mapped[Decimal] = mapped_column()
+    vulnerability_risk: Mapped[Decimal] = mapped_column()
+    coping_capacity_risk: Mapped[Decimal] = mapped_column()
+    meta_missing_indicators_pct: Mapped[Decimal] = mapped_column(nullable=True)
+    meta_avg_recentness_years: Mapped[Decimal] = mapped_column(nullable=True)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
     )
@@ -324,12 +318,15 @@ class DBPopulationVAT(Base):
 class DBPovertyRateVAT(Base):
     __tablename__ = "poverty_rate_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
-    location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    admin1_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
     admin1_name: Mapped[str] = mapped_column(
         String(512), primary_key=True, index=True
     )
-    classification: Mapped[str] = mapped_column(String(14))
-    rate: Mapped[Decimal] = mapped_column(Float, nullable=True)
+    mpi: Mapped[float] = mapped_column(Float)
+    headcount_ratio: Mapped[float] = mapped_column(Float)
+    intensity_of_deprivation: Mapped[float] = mapped_column(Float)
+    vulnerable_to_poverty: Mapped[float] = mapped_column(Float)
+    in_severe_poverty: Mapped[float] = mapped_column(Float)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
     )
@@ -338,6 +335,9 @@ class DBPovertyRateVAT(Base):
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_code: Mapped[str] = mapped_column(String(128))
+    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    location_ref: Mapped[int] = mapped_column(Integer, index=True)
 
 
 class DBRefugeesVAT(Base):
