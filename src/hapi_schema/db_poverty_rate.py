@@ -1,11 +1,10 @@
 """PovertyRate table and view."""
 
 from datetime import datetime
-from decimal import Decimal
 
 from sqlalchemy import (
     DateTime,
-    Enum,
+    Float,
     ForeignKey,
     String,
     select,
@@ -13,6 +12,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.schema import CheckConstraint
 
+from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
@@ -20,7 +20,6 @@ from hapi_schema.utils.constraints import (
     percentage_constraint,
     reference_period_constraint,
 )
-from hapi_schema.utils.enums import PovertyClassification
 from hapi_schema.utils.view_params import ViewParams
 
 
@@ -43,8 +42,8 @@ class DBPovertyRate(Base):
         ForeignKey("resource.hdx_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False,
     )
-    location_ref: Mapped[int] = mapped_column(
-        ForeignKey("location.id", onupdate="CASCADE"),
+    admin1_ref: Mapped[int] = mapped_column(
+        ForeignKey("admin1.id", onupdate="CASCADE"),
         nullable=False,
         primary_key=True,
     )
@@ -73,7 +72,7 @@ class DBPovertyRate(Base):
     )
 
     resource = relationship(DBResource)
-    location = relationship(DBLocation)
+    admin1 = relationship(DBAdmin1)
 
 
 # view
@@ -88,9 +87,14 @@ view_params_poverty_rate = ViewParams(
         DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
         DBAdmin1.location_ref.label("location_ref"),
     ).select_from(
+        # Join PR to admin1 to loc
         DBPovertyRate.__table__.join(
+            DBAdmin1.__table__,
+            DBPovertyRate.admin1_ref == DBAdmin1.id,
+            isouter=True,
+        ).join(
             DBLocation.__table__,
-            DBPovertyRate.location_ref == DBLocation.id,
+            DBAdmin1.location_ref == DBLocation.id,
             isouter=True,
         )
     ),
