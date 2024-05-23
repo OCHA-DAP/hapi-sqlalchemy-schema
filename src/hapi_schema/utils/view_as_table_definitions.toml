@@ -115,7 +115,8 @@ expected_primary_keys = [
         "sector_code",
         "reference_period_start"
     ]
-expected_indexes = ["reference_period_end", "location_code", "location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
+expected_indexes = ["org_type_description","reference_period_end", "location_code",
+"location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
 expected_nullables = []
 
 [[tables]]

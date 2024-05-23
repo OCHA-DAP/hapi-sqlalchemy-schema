@@ -263,6 +263,7 @@ def test_operational_presence_vat(
         "reference_period_start",
     ]
     expected_indexes = [
+        "org_type_description",
         "reference_period_end",
         "location_code",
         "location_name",
