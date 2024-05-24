@@ -40,12 +40,12 @@ def test_min_age(run_constraints_test):
                 reference_period_end=datetime(2023, 12, 31),
             )
         ],
-        expected_constraint="min_age",
+        expected_constraint="min_age_constraint",
     )
 
 
 def test_max_age(run_constraints_test):
-    """Check that the minimum age is greater than 0"""
+    """Check that the max age is greater than 0"""
     run_constraints_test(
         new_rows=[
             DBRefugees(
@@ -56,13 +56,13 @@ def test_max_age(run_constraints_test):
                 gender="f",
                 age_range="children",
                 min_age=5,
-                max_age=1200,
+                max_age=-1,
                 population=2000,
                 reference_period_start=datetime(2023, 1, 1),
                 reference_period_end=datetime(2023, 12, 31),
             )
         ],
-        expected_constraint="max_age",
+        expected_constraint="max_age_constraint",
     )
 
 
@@ -84,7 +84,7 @@ def test_population_positive(run_constraints_test):
                 reference_period_end=datetime(2023, 12, 31),
             )
         ],
-        expected_constraint="population",
+        expected_constraint="population_constraint",
     )
 
 
@@ -106,5 +106,5 @@ def test_reference_period_constraint(run_constraints_test):
                 reference_period_end=datetime(2023, 1, 1),
             )
         ],
-        expected_constraint="reference_period",
+        expected_constraint="reference_period_constraint",
     )

@@ -1,28 +1,41 @@
-import enum
+from enum import Enum as PythonEnum
+from typing import List
+
+from sqlalchemy import Enum as SQLAlchemyEnum
+
+"""The two functions below create enums using the values rather than the keys"""
 
 
-class Gender(str, enum.Enum):
+def _get_list_of_values(enum_class: PythonEnum) -> List[str]:
+    return [e.value for e in enum_class]
+
+
+def build_enum_using_values(enum_class: PythonEnum) -> SQLAlchemyEnum:
+    return SQLAlchemyEnum(enum_class, values_callable=_get_list_of_values)
+
+
+class Gender(str, PythonEnum):
     FEMALE = "f"
     MALE = "m"
     NONBINARY = "x"
     UNSPECIFIED = "u"
     OTHER = "o"
-    ALL = "*"
+    ALL = "all"
 
 
-class DisabledMarker(str, enum.Enum):
+class DisabledMarker(str, PythonEnum):
     YES = "y"
     NO = "n"
-    ALL = "*"
+    ALL = "all"
 
 
-class EventType(str, enum.Enum):
+class EventType(str, PythonEnum):
     CIVILIAN_TARGETING = "civilian_targeting"
     DEMONSTRATION = "demonstration"
     POLITICAL_VIOLENCE = "political_violence"
 
 
-class PopulationGroup(str, enum.Enum):
+class PopulationGroup(str, PythonEnum):
     REFUGEES = "REF"
     ROC = "ROC"
     ASYLUM_SEEKERS = "ASY"
@@ -38,47 +51,47 @@ class PopulationGroup(str, enum.Enum):
     POC = "POC"
     RDP = "RDP"
     RRI = "RRI"
-    ALL = "*"
+    ALL = "all"
 
 
-class PopulationStatus(str, enum.Enum):
+class PopulationStatus(str, PythonEnum):
     POPULATION = "POP"
     AFFECTED = "AFF"
     INNEED = "INN"
     TARGETED = "TGT"
     REACHED = "REA"
-    ALL = "*"
+    ALL = "all"
 
 
-class PriceFlag(str, enum.Enum):
+class PriceFlag(str, PythonEnum):
     ACTUAL = "actual"
     AGGREGATE = "aggregate"
     ACTUAL_AGGREGATE = "actual,aggregate"
 
 
-class PriceType(str, enum.Enum):
+class PriceType(str, PythonEnum):
     FARM_GATE = "Farm Gate"
     RETAIL = "Retail"
     WHOLESALE = "Wholesale"
 
 
-class IPCPhase(str, enum.Enum):
+class IPCPhase(str, PythonEnum):
     PHASE_1 = "1"
     PHASE_2 = "2"
     PHASE_3 = "3"
     PHASE_4 = "4"
     PHASE_5 = "5"
     PHASE_3_PLUS = "3+"
-    ALL = "*"
+    ALL = "all"
 
 
-class IPCType(str, enum.Enum):
+class IPCType(str, PythonEnum):
     CURRENT = "current"
     FIRST_PROJECTION = "first projection"
     SECOND_PROJECTION = "second projection"
 
 
-class RiskClass(str, enum.Enum):
+class RiskClass(str, PythonEnum):
     VERY_LOW = "1"
     LOW = "2"
     MEDIUM = "3"
@@ -86,7 +99,7 @@ class RiskClass(str, enum.Enum):
     VERY_HIGH = "5"
 
 
-class CommodityCategory(str, enum.Enum):
+class CommodityCategory(str, PythonEnum):
     CEREALS_TUBERS = "cereals and tubers"
     MEAT_FISH_EGGS = "meat, fish and eggs"
     MILK_DAIRY = "milk and dairy"

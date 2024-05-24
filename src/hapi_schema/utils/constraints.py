@@ -9,8 +9,8 @@ def min_age_constraint() -> CheckConstraint:
     Otherwise, it can be NULL for unknown, or should be an
     integer of 0 or greater."""
     sqltext = (
-        "(age_range = '*' AND min_age IS NULL) OR "
-        "(age_range != '*' AND (min_age >= 0 OR min_age is NULL))"
+        "(age_range = 'all' AND min_age IS NULL) OR "
+        "(age_range != 'all' AND min_age >= 0)"
     )
     return CheckConstraint(sqltext=sqltext, name="min_age_constraint")
 
@@ -32,7 +32,9 @@ def population_constraint(
 ) -> CheckConstraint:
     """Population must not be a negative number."""
     sqltext = f"{population_var_name} >= 0"
-    return CheckConstraint(sqltext=sqltext, name=f"{population_var_name}")
+    return CheckConstraint(
+        sqltext=sqltext, name=f"{population_var_name}_constraint"
+    )
 
 
 def non_negative_constraint(
@@ -40,23 +42,25 @@ def non_negative_constraint(
 ) -> CheckConstraint:
     """Require a column to be non-negative."""
     sqltext = f"{var_name} >= 0"
-    return CheckConstraint(sqltext=sqltext, name=f"{var_name}")
+    return CheckConstraint(sqltext=sqltext, name=f"{var_name}_constraint")
 
 
 def percentage_constraint(var_name: str) -> CheckConstraint:
     sqltext = f"{var_name} >= 0. AND {var_name} <= 100."
-    return CheckConstraint(sqltext=sqltext, name=f"{var_name}")
+    return CheckConstraint(sqltext=sqltext, name=f"{var_name}_constraint")
 
 
 def reference_period_constraint() -> CheckConstraint:
     """reference_period_end should be greater than reference_period_start"""
     sqltext = "reference_period_end >= reference_period_start "
-    return CheckConstraint(sqltext=sqltext, name="reference_period")
+    return CheckConstraint(sqltext=sqltext, name="reference_period_constraint")
 
 
 def general_risk_constraint(risk_name: str) -> CheckConstraint:
     sqltext = f"({risk_name}_risk >= 0) AND ({risk_name}_risk <= 10)"
-    return CheckConstraint(sqltext=sqltext, name=f"{risk_name}_risk")
+    return CheckConstraint(
+        sqltext=sqltext, name=f"{risk_name}_risk_constraint"
+    )
 
 
 def code_and_reference_period_unique_constraint(
@@ -65,11 +69,11 @@ def code_and_reference_period_unique_constraint(
     return UniqueConstraint(
         "code",
         "reference_period_start",
-        name=f"{admin_level}_code_and_reference_period_unique",
+        name=f"{admin_level}_code_and_reference_period_unique_constraint",
     )
 
 
 def latlon_constraint() -> CheckConstraint:
     """Latitude and longitude must be valid"""
     sqltext = "lat <= 90.0 AND lat >= -90.0 AND lon <= 180.0 AND lon >= -180.0"
-    return CheckConstraint(sqltext=sqltext, name="latlon")
+    return CheckConstraint(sqltext=sqltext, name="latlon_constraint")

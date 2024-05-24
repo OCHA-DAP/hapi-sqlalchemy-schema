@@ -29,7 +29,10 @@ def base_parameters():
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
         gender=Gender.ALL,
+        age_range="all",
         population=1_000_000,
+        reference_period_start=datetime(2020, 1, 1),
+        reference_period_end=datetime(2020, 1, 2),
     )
 
 
@@ -44,7 +47,7 @@ def test_reference_period_constraint(run_constraints_test, base_parameters):
     }
     run_constraints_test(
         new_rows=[DBPopulation(**modified_params)],
-        expected_constraint="reference_period",
+        expected_constraint="reference_period_constraint",
     )
 
 
@@ -55,26 +58,30 @@ def test_population_positive(run_constraints_test, base_parameters):
         new_rows=[
             DBPopulation(**modified_params),
         ],
-        expected_constraint="population",
+        expected_constraint="population_constraint",
     )
 
 
 def test_minage(run_constraints_test, base_parameters):
     """Check that the min_age value is positive, and NULL if
-    age_range is *"""
+    age_range is all"""
     modified_params = {**base_parameters, **dict(age_range="5-10", min_age=-1)}
     run_constraints_test(
         new_rows=[
             DBPopulation(**modified_params),
         ],
-        expected_constraint="min_age",
+        expected_constraint="min_age_constraint",
     )
-    modified_params = {**base_parameters, **dict(age_range="*", min_age=10)}
+    modified_params = {
+        **base_parameters,
+        **dict(age_range="all", min_age="10"),
+    }
+    print(modified_params)
     run_constraints_test(
         new_rows=[
             DBPopulation(**modified_params),
         ],
-        expected_constraint="min_age",
+        expected_constraint="min_age_constraint",
     )
 
 
@@ -88,7 +95,7 @@ def test_maxage(run_constraints_test, base_parameters):
         new_rows=[
             DBPopulation(**modified_params),
         ],
-        expected_constraint="min_age",
+        expected_constraint="max_age_constraint",
     )
     modified_params = {
         **base_parameters,
@@ -98,5 +105,5 @@ def test_maxage(run_constraints_test, base_parameters):
         new_rows=[
             DBPopulation(**modified_params),
         ],
-        expected_constraint="min_age",
+        expected_constraint="max_age_constraint",
     )

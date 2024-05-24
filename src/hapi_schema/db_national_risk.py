@@ -32,7 +32,8 @@ class DBNationalRisk(Base):
         general_risk_constraint("vulnerability"),
         general_risk_constraint("coping_capacity"),
         CheckConstraint(
-            "(global_rank >= 1) AND (global_rank <= 250)", name="global_rank"
+            "(global_rank >= 1) AND (global_rank <= 250)",
+            name="global_rank_constraint",
         ),
         CheckConstraint(
             "meta_avg_recentness_years >= 0.0",

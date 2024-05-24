@@ -32,7 +32,7 @@ def test_headcount_ratio_constraint(run_constraints_test):
         new_rows=[
             DBPovertyRate(**data),
         ],
-        expected_constraint="headcount_ratio",
+        expected_constraint="headcount_ratio_constraint",
     )
 
 
@@ -44,7 +44,7 @@ def test_intensity_of_deprivation_constraint(run_constraints_test):
         new_rows=[
             DBPovertyRate(**data),
         ],
-        expected_constraint="intensity_of_deprivation",
+        expected_constraint="intensity_of_deprivation_constraint",
     )
 
 
@@ -56,7 +56,7 @@ def test_vulnerable_to_poverty_constraint(run_constraints_test):
         new_rows=[
             DBPovertyRate(**data),
         ],
-        expected_constraint="vulnerable_to_poverty",
+        expected_constraint="vulnerable_to_poverty_constraint",
     )
 
 
@@ -68,19 +68,19 @@ def test_in_severe_poverty_constraint(run_constraints_test):
         new_rows=[
             DBPovertyRate(**data),
         ],
-        expected_constraint="in_severe_poverty",
+        expected_constraint="in_severe_poverty_constraint",
     )
 
 
 def test_mpi_product_constraint(run_constraints_test):
-    """Check that MPI is between 0.0 and 1.0"""
+    """Check that MPI is the product of headcount and intensity"""
     data = _sample_data()
-    data["mpi"] = 1.1
+    data["mpi"] = 0.5
     run_constraints_test(
         new_rows=[
             DBPovertyRate(**data),
         ],
-        expected_constraint="mpi_product",
+        expected_constraint="mpi_product_constraint",
     )
 
 
@@ -92,7 +92,7 @@ def test_reference_period_constraint(run_constraints_test):
         new_rows=[
             DBPovertyRate(**data),
         ],
-        expected_constraint="reference_period",
+        expected_constraint="reference_period_constraint",
     )
 
 

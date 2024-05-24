@@ -77,26 +77,26 @@ def test_population_positive(run_constraints_test, base_parameters):
         new_rows=[
             DBHumanitarianNeeds(**modified_params),
         ],
-        expected_constraint="population",
+        expected_constraint="population_constraint",
     )
 
 
 def test_minage(run_constraints_test, base_parameters):
     """Check that the min_age value is positive, and NULL if
-    age_range is *"""
+    age_range is all"""
     modified_params = {**base_parameters, **dict(age_range="5-10", min_age=-1)}
     run_constraints_test(
         new_rows=[
             DBHumanitarianNeeds(**modified_params),
         ],
-        expected_constraint="min_age",
+        expected_constraint="min_age_constraint",
     )
-    modified_params = {**base_parameters, **dict(age_range="*", min_age=10)}
+    modified_params = {**base_parameters, **dict(age_range="all", min_age=10)}
     run_constraints_test(
         new_rows=[
             DBHumanitarianNeeds(**modified_params),
         ],
-        expected_constraint="min_age",
+        expected_constraint="min_age_constraint",
     )
 
 
@@ -110,7 +110,7 @@ def test_maxage(run_constraints_test, base_parameters):
         new_rows=[
             DBHumanitarianNeeds(**modified_params),
         ],
-        expected_constraint="min_age",
+        expected_constraint="max_age_constraint",
     )
     modified_params = {
         **base_parameters,
@@ -120,5 +120,5 @@ def test_maxage(run_constraints_test, base_parameters):
         new_rows=[
             DBHumanitarianNeeds(**modified_params),
         ],
-        expected_constraint="min_age",
+        expected_constraint="max_age_constraint",
     )
