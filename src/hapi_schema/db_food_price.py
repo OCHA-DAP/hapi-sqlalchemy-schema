@@ -50,7 +50,7 @@ class DBFoodPrice(Base):
         nullable=False,
         index=True,
     )
-    unit: Mapped[str] = mapped_column(String(32), nullable=False)
+    unit: Mapped[str] = mapped_column(String(32), primary_key=True)
     price_flag: Mapped[PriceFlag] = mapped_column(
         Enum(PriceFlag), primary_key=True
     )
