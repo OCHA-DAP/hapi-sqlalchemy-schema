@@ -40,7 +40,7 @@ def test_reference_period_constraint(run_constraints_test):
                 reference_period_end=datetime(2023, 1, 1),
             )
         ],
-        expected_constraint="reference_period",
+        expected_constraint="reference_period_constraint",
     )
 
 
@@ -59,5 +59,5 @@ def test_population_in_phase_positive(run_constraints_test):
                 reference_period_end=datetime(2023, 1, 2),
             )
         ],
-        expected_constraint="population_in_phase",
+        expected_constraint="population_in_phase_constraint",
     )

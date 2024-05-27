@@ -34,7 +34,7 @@ class DBPovertyRate(Base):
         reference_period_constraint(),
         CheckConstraint(
             sqltext="ABS(headcount_ratio / 100 * intensity_of_deprivation / 100  - mpi) < 0.00001",
-            name="mpi_product",
+            name="mpi_product_constraint",
         ),
     )
 

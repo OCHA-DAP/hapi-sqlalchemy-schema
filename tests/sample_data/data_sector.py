@@ -16,7 +16,7 @@ data_sector = [
         name="Health",
     ),
     dict(
-        code="*",
-        name="All",
+        code="intersectoral",
+        name="Intersectoral",
     ),
 ]

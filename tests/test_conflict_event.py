@@ -46,7 +46,7 @@ def test_events_constraint(run_constraints_test):
         new_rows=[
             DBConflictEvent(**data),
         ],
-        expected_constraint="events",
+        expected_constraint="events_constraint",
     )
 
 
@@ -58,7 +58,7 @@ def test_fatalities_constraint(run_constraints_test):
         new_rows=[
             DBConflictEvent(**data),
         ],
-        expected_constraint="fatalities",
+        expected_constraint="fatalities_constraint",
     )
 
 
@@ -70,5 +70,5 @@ def test_reference_period_constraint(run_constraints_test):
         new_rows=[
             DBConflictEvent(**data),
         ],
-        expected_constraint="reference_period",
+        expected_constraint="reference_period_constraint",
     )

@@ -31,7 +31,7 @@ def test_lat_constraint(run_constraints_test):
         new_rows=[
             DBWFPMarket(**data),
         ],
-        expected_constraint="latlon",
+        expected_constraint="latlon_constraint",
     )
 
 

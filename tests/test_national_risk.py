@@ -37,22 +37,27 @@ def base_parameters():
         coping_capacity_risk=7.1,
         meta_missing_indicators_pct=8,
         meta_avg_recentness_years=0.26,
+        reference_period_start=datetime(2023, 1, 1),
+        reference_period_end=datetime(2023, 1, 2),
     )
 
 
 def test_reference_period_constraint(run_constraints_test, base_parameters):
     """Check that reference_period_end cannot be less than start"""
+    modified_params = {
+        **base_parameters,
+        **dict(
+            reference_period_start=datetime(2023, 1, 2),
+            reference_period_end=datetime(2023, 1, 1),
+        ),
+    }
     run_constraints_test(
         new_rows=[
             DBNationalRisk(
-                **base_parameters,
-                **dict(
-                    reference_period_start=datetime(2023, 1, 2),
-                    reference_period_end=datetime(2023, 1, 1),
-                ),
+                **modified_params,
             )
         ],
-        expected_constraint="reference_period",
+        expected_constraint="reference_period_constraint",
     )
 
 
@@ -61,12 +66,12 @@ def test_overall_risk_constraint(run_constraints_test, base_parameters):
     modified_params = {**base_parameters, "overall_risk": -1}
     run_constraints_test(
         new_rows=[DBNationalRisk(**modified_params)],
-        expected_constraint="overall_risk",
+        expected_constraint="overall_risk_constraint",
     )
     modified_params = {**base_parameters, "overall_risk": 11}
     run_constraints_test(
         new_rows=[DBNationalRisk(**modified_params)],
-        expected_constraint="overall_risk",
+        expected_constraint="overall_risk_constraint",
     )
 
 

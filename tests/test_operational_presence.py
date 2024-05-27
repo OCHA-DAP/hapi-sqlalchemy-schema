@@ -45,5 +45,5 @@ def test_reference_period_constraint(run_constraints_test):
                 reference_period_end=datetime(2023, 1, 1),
             )
         ],
-        expected_constraint="reference_period",
+        expected_constraint="reference_period_constraint",
     )

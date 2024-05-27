@@ -4,7 +4,6 @@ from datetime import datetime
 
 from sqlalchemy import (
     DateTime,
-    Enum,
     ForeignKey,
     Integer,
     select,
@@ -18,7 +17,7 @@ from hapi_schema.utils.constraints import (
     population_constraint,
     reference_period_constraint,
 )
-from hapi_schema.utils.enums import EventType
+from hapi_schema.utils.enums import EventType, build_enum_using_values
 from hapi_schema.utils.view_params import ViewParams
 
 
@@ -43,7 +42,7 @@ class DBConflictEvent(Base):
         primary_key=True,
     )
     event_type: Mapped[EventType] = mapped_column(
-        Enum(EventType), nullable=False, primary_key=True
+        build_enum_using_values(EventType), nullable=False, primary_key=True
     )
     events: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     fatalities: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
