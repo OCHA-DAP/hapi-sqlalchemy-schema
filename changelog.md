@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Changes
 - Add unit to food\_price table primary key
+- Rewrite enums to use values rather than variable names
+- Switch from "*" to "all" for rollup in enums
+- Add "intersectoral" to sample sector data (distinct from "all")
+- Ensure that constraint names end consistently with "\_constraint"
 
 ## 0.8.6
 
