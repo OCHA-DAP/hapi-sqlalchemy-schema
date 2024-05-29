@@ -4,7 +4,6 @@ from datetime import datetime
 
 from sqlalchemy import (
     DateTime,
-    Enum,
     ForeignKey,
     Integer,
     String,
@@ -22,7 +21,7 @@ from hapi_schema.utils.constraints import (
     population_constraint,
     reference_period_constraint,
 )
-from hapi_schema.utils.enums import Gender
+from hapi_schema.utils.enums import Gender, build_enum_using_values
 from hapi_schema.utils.view_params import ViewParams
 
 
@@ -43,7 +42,9 @@ class DBPopulation(Base):
         ForeignKey("admin2.id", onupdate="CASCADE"),
         primary_key=True,
     )
-    gender: Mapped[Gender] = mapped_column(Enum(Gender), primary_key=True)
+    gender: Mapped[Gender] = mapped_column(
+        build_enum_using_values(Gender), primary_key=True
+    )
     age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
     min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)

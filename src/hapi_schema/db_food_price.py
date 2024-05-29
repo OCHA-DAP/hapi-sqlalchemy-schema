@@ -5,7 +5,6 @@ from decimal import Decimal
 
 from sqlalchemy import (
     DateTime,
-    Enum,
     ForeignKey,
     String,
     select,
@@ -22,7 +21,11 @@ from hapi_schema.utils.constraints import (
     non_negative_constraint,
     reference_period_constraint,
 )
-from hapi_schema.utils.enums import PriceFlag, PriceType
+from hapi_schema.utils.enums import (
+    PriceFlag,
+    PriceType,
+    build_enum_using_values,
+)
 from hapi_schema.utils.view_params import ViewParams
 
 # normalised table
@@ -52,10 +55,10 @@ class DBFoodPrice(Base):
     )
     unit: Mapped[str] = mapped_column(String(32), primary_key=True)
     price_flag: Mapped[PriceFlag] = mapped_column(
-        Enum(PriceFlag), primary_key=True
+        build_enum_using_values(PriceFlag), primary_key=True
     )
     price_type: Mapped[PriceType] = mapped_column(
-        Enum(PriceType), primary_key=True
+        build_enum_using_values(PriceType), primary_key=True
     )
     price: Mapped[Decimal] = mapped_column(nullable=False)
     reference_period_start: Mapped[datetime] = mapped_column(

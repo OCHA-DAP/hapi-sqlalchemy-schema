@@ -5,7 +5,6 @@ from decimal import Decimal
 
 from sqlalchemy import (
     DateTime,
-    Enum,
     Float,
     ForeignKey,
     Integer,
@@ -22,7 +21,7 @@ from hapi_schema.utils.constraints import (
     population_constraint,
     reference_period_constraint,
 )
-from hapi_schema.utils.enums import IPCPhase, IPCType
+from hapi_schema.utils.enums import IPCPhase, IPCType, build_enum_using_values
 from hapi_schema.utils.view_params import ViewParams
 
 
@@ -41,9 +40,11 @@ class DBFoodSecurity(Base):
         ForeignKey("admin2.id", onupdate="CASCADE"), primary_key=True
     )
     ipc_phase: Mapped[IPCPhase] = mapped_column(
-        Enum(IPCPhase), primary_key=True
+        build_enum_using_values(IPCPhase), primary_key=True
     )
-    ipc_type: Mapped[IPCType] = mapped_column(Enum(IPCType), primary_key=True)
+    ipc_type: Mapped[IPCType] = mapped_column(
+        build_enum_using_values(IPCType), primary_key=True
+    )
     population_in_phase: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
     )

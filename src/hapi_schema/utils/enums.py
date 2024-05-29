@@ -1,16 +1,16 @@
 from enum import Enum as PythonEnum
-from typing import List
+from typing import List, Type
 
 from sqlalchemy import Enum as SQLAlchemyEnum
 
 """The two functions below create enums using the values rather than the keys"""
 
 
-def _get_list_of_values(enum_class: PythonEnum) -> List[str]:
+def _get_list_of_values(enum_class: Type[PythonEnum]) -> List[str]:
     return [e.value for e in enum_class]
 
 
-def build_enum_using_values(enum_class: PythonEnum) -> SQLAlchemyEnum:
+def build_enum_using_values(enum_class: Type[PythonEnum]) -> SQLAlchemyEnum:
     return SQLAlchemyEnum(enum_class, values_callable=_get_list_of_values)
 
 

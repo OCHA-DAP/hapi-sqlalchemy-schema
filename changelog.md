@@ -5,9 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.8.9
+
+### Fixed
+
+- Some enums missing built from values
+
 ## 0.8.8
 
-### Changes
+### Changed
 
 - Rewrite enums to use values rather than variable names
 - Switch from "*" to "all" for rollup in enums
@@ -16,12 +22,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.8.7
 
-## Changes
+### Changed
+
 - Add unit to food\_price table primary key
 
 ## 0.8.6
 
-## Changes
+### Changed
+
 - Added food\_price view as tables by updating the toml parameter file
 - Updated poverty\_rate view as table
 - Updated operational\_presence view as table by updating the toml parameter file
@@ -29,11 +37,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.8.5
 
-## Changes
+### Changed
+
 - refactor DBPovertyRate to wide instead of narrow
 - added org\_type\_description to operational\_presence\_view
 
 ## Removed
+
 - rate\_constraint and `PovertyClassification` enum
 
 ## 0.8.4
@@ -42,7 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - New constraints: rate\_constraint
 
-### CHanged
+### Changed
 
 - refactor DBPovertyRate to track rates rather than population, and link to
   location (with admin1\_name as a text field)
@@ -60,18 +70,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Miscellaneous fixes for pipelines
 
 ### Changed
-- added from\_cods column to location, admin1, and admin2
 
+- added from\_cods column to location, admin1, and admin2
 
 ## 0.8.1
 
 Implemented the Food Prices subcategory.
 
 ### Added
+
 - New tables and views: food\_price, wfp\_commodity, wfp\_market, currency
 - New enums: PriceFlag, PriceType, CommodityCategory
 - New constraints: non\_negative\_constraint, latlon\_constraint
-
 
 ## 0.8.0
 
@@ -85,6 +95,7 @@ Implemented the Food Prices subcategory.
 - Programmatically obtain views
 
 ### Added
+
 - New tables: humanitarian\_needs, funding, refugees, conflict\_event, poverty\_rate
 - New enums: Gender, DisabledMarker, EventType, PopulationGroup, PopulationStatus, IPCPhase, PovertyClassification, IPCType, and RiskClass
 - Generalized constraints
@@ -92,7 +103,6 @@ Implemented the Food Prices subcategory.
 ### Removed
 
 - ipc\_phase, ipc\_type, age\_range, and gender tables
-
 
 ## [0.7.3]
 
