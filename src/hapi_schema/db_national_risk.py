@@ -6,7 +6,6 @@ from decimal import Decimal
 from sqlalchemy import (
     CheckConstraint,
     DateTime,
-    Enum,
     Float,
     ForeignKey,
     Integer,
@@ -20,7 +19,7 @@ from hapi_schema.utils.constraints import (
     general_risk_constraint,
     reference_period_constraint,
 )
-from hapi_schema.utils.enums import RiskClass
+from hapi_schema.utils.enums import RiskClass, build_enum_using_values
 from hapi_schema.utils.view_params import ViewParams
 
 
@@ -54,7 +53,7 @@ class DBNationalRisk(Base):
         ForeignKey("location.id", onupdate="CASCADE"), primary_key=True
     )
     risk_class: Mapped[RiskClass] = mapped_column(
-        Enum(RiskClass), nullable=False
+        build_enum_using_values(RiskClass), nullable=False
     )
     global_rank: Mapped[int] = mapped_column(Integer, nullable=False)
     overall_risk: Mapped[Decimal] = mapped_column(Float, nullable=False)
