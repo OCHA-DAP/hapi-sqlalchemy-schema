@@ -11,6 +11,20 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.utils.base import Base
+from hapi_schema.utils.enums import (
+    CommodityCategory,
+    DisabledMarker,
+    EventType,
+    Gender,
+    IPCPhase,
+    IPCType,
+    PopulationGroup,
+    PopulationStatus,
+    PriceFlag,
+    PriceType,
+    RiskClass,
+    build_enum_using_values,
+)
 
 
 class DBAdmin1VAT(Base):
@@ -25,7 +39,9 @@ class DBAdmin1VAT(Base):
         DateTime, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime,
+        index=True,
+        nullable=True,
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -43,7 +59,9 @@ class DBAdmin2VAT(Base):
         DateTime, nullable=True, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, index=True
+        DateTime,
+        nullable=True,
+        index=True,
     )
     admin1_code: Mapped[str] = mapped_column(String(128))
     admin1_name: Mapped[str] = mapped_column(String(512))
@@ -56,14 +74,18 @@ class DBConflictEventVAT(Base):
     __tablename__ = "conflict_event_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
-    event_type: Mapped[str] = mapped_column(String(18), primary_key=True)
+    event_type: Mapped[EventType] = mapped_column(
+        build_enum_using_values(EventType), primary_key=True
+    )
     events: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     fatalities: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime,
+        index=True,
+        nullable=True,
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -98,22 +120,28 @@ class DBFoodPriceVAT(Base):
     market_code: Mapped[str] = mapped_column(String(32), primary_key=True)
     commodity_code: Mapped[str] = mapped_column(String(32), primary_key=True)
     currency_code: Mapped[str] = mapped_column(String(32), index=True)
-    unit: Mapped[str] = mapped_column(String(32))
-    price_flag: Mapped[str] = mapped_column(String(16), primary_key=True)
-    price_type: Mapped[str] = mapped_column(String(9), primary_key=True)
+    unit: Mapped[str] = mapped_column(String(32), primary_key=True)
+    price_flag: Mapped[PriceFlag] = mapped_column(
+        build_enum_using_values(PriceFlag), primary_key=True
+    )
+    price_type: Mapped[PriceType] = mapped_column(
+        build_enum_using_values(PriceType), primary_key=True
+    )
     price: Mapped[Decimal] = mapped_column()
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime,
+        index=True,
+        nullable=True,
     )
     admin2_ref: Mapped[int] = mapped_column(Integer)
     market_name: Mapped[str] = mapped_column(String(512), index=True)
     lat: Mapped[float] = mapped_column(Float, index=True)
     lon: Mapped[float] = mapped_column(Float, index=True)
-    commodity_category: Mapped[str] = mapped_column(
-        String(18), primary_key=True
+    commodity_category: Mapped[CommodityCategory] = mapped_column(
+        build_enum_using_values(CommodityCategory)
     )
     commodity_name: Mapped[str] = mapped_column(String(512), index=True)
     location_code: Mapped[str] = mapped_column(String(128), index=True)
@@ -132,15 +160,21 @@ class DBFoodSecurityVAT(Base):
     __tablename__ = "food_security_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
-    ipc_phase: Mapped[str] = mapped_column(String(12), primary_key=True)
-    ipc_type: Mapped[str] = mapped_column(String(17), primary_key=True)
+    ipc_phase: Mapped[IPCPhase] = mapped_column(
+        build_enum_using_values(IPCPhase), primary_key=True
+    )
+    ipc_type: Mapped[IPCType] = mapped_column(
+        build_enum_using_values(IPCType), primary_key=True
+    )
     population_in_phase: Mapped[int] = mapped_column(Integer, index=True)
     population_fraction_in_phase: Mapped[Decimal] = mapped_column(index=True)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime,
+        index=True,
+        nullable=True,
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -168,7 +202,8 @@ class DBFundingVAT(Base):
         DateTime, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True
+        DateTime,
+        nullable=True,
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -178,22 +213,30 @@ class DBHumanitarianNeedsVAT(Base):
     __tablename__ = "humanitarian_needs_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
-    gender: Mapped[str] = mapped_column(String(11), primary_key=True)
+    gender: Mapped[Gender] = mapped_column(
+        build_enum_using_values(Gender), primary_key=True
+    )
     age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
     min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
-    sector_code: Mapped[str] = mapped_column(String(32))
-    population_group: Mapped[str] = mapped_column(String(14), primary_key=True)
-    population_status: Mapped[str] = mapped_column(
-        String(10), primary_key=True
+    sector_code: Mapped[str] = mapped_column(String(32), primary_key=True)
+    population_group: Mapped[PopulationGroup] = mapped_column(
+        build_enum_using_values(PopulationGroup), primary_key=True
     )
-    disabled_marker: Mapped[str] = mapped_column(String(3), primary_key=True)
-    population: Mapped[int] = mapped_column(Integer, primary_key=True)
+    population_status: Mapped[PopulationStatus] = mapped_column(
+        build_enum_using_values(PopulationStatus), primary_key=True
+    )
+    disabled_marker: Mapped[DisabledMarker] = mapped_column(
+        build_enum_using_values(DisabledMarker), primary_key=True
+    )
+    population: Mapped[int] = mapped_column(Integer)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime,
+        index=True,
+        nullable=True,
     )
     sector_name: Mapped[str] = mapped_column(String(512))
     location_code: Mapped[str] = mapped_column(String(128), index=True)
@@ -218,7 +261,9 @@ class DBLocationVAT(Base):
         DateTime, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime,
+        index=True,
+        nullable=True,
     )
 
 
@@ -226,7 +271,9 @@ class DBNationalRiskVAT(Base):
     __tablename__ = "national_risk_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
-    risk_class: Mapped[str] = mapped_column(String(9))
+    risk_class: Mapped[RiskClass] = mapped_column(
+        build_enum_using_values(RiskClass)
+    )
     global_rank: Mapped[int] = mapped_column(Integer)
     overall_risk: Mapped[Decimal] = mapped_column()
     hazard_exposure_risk: Mapped[Decimal] = mapped_column()
@@ -238,7 +285,9 @@ class DBNationalRiskVAT(Base):
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime,
+        index=True,
+        nullable=True,
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -255,7 +304,9 @@ class DBOperationalPresenceVAT(Base):
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime,
+        index=True,
+        nullable=True,
     )
     org_type_code: Mapped[str] = mapped_column(String(32))
     org_type_description: Mapped[str] = mapped_column(String(512), index=True)
@@ -292,7 +343,9 @@ class DBPopulationVAT(Base):
     __tablename__ = "population_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
-    gender: Mapped[str] = mapped_column(String(11), primary_key=True)
+    gender: Mapped[Gender] = mapped_column(
+        build_enum_using_values(Gender), primary_key=True
+    )
     age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
     min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
@@ -301,7 +354,9 @@ class DBPopulationVAT(Base):
         DateTime, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime,
+        index=True,
+        nullable=True,
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -331,7 +386,9 @@ class DBPovertyRateVAT(Base):
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime,
+        index=True,
+        nullable=True,
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -345,8 +402,12 @@ class DBRefugeesVAT(Base):
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     origin_location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
     asylum_location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
-    population_group: Mapped[str] = mapped_column(String(14))
-    gender: Mapped[str] = mapped_column(String(11), primary_key=True)
+    population_group: Mapped[PopulationGroup] = mapped_column(
+        build_enum_using_values(PopulationGroup), primary_key=True
+    )
+    gender: Mapped[Gender] = mapped_column(
+        build_enum_using_values(Gender), primary_key=True
+    )
     age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
     min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
@@ -355,7 +416,9 @@ class DBRefugeesVAT(Base):
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime,
+        index=True,
+        nullable=True,
     )
     origin_location_code: Mapped[str] = mapped_column(String(128), index=True)
     origin_location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -392,7 +455,9 @@ class DBSectorVAT(Base):
 class DBWfpCommodityVAT(Base):
     __tablename__ = "wfp_commodity_vat"
     code: Mapped[str] = mapped_column(String(32), primary_key=True)
-    category: Mapped[str] = mapped_column(String(18), index=True)
+    category: Mapped[CommodityCategory] = mapped_column(
+        build_enum_using_values(CommodityCategory), index=True
+    )
     name: Mapped[str] = mapped_column(String(512), index=True)
 
 

@@ -112,7 +112,7 @@ def test_food_price_vat(
     expected_primary_keys = [
         "market_code",
         "commodity_code",
-        "commodity_category",
+        "unit",
         "price_flag",
         "price_type",
         "reference_period_start",
@@ -192,10 +192,10 @@ def test_humanitarian_needs_vat(
         "admin2_ref",
         "gender",
         "age_range",
+        "sector_code",
         "population_group",
         "population_status",
         "disabled_marker",
-        "population",
         "reference_period_start",
     ]
     expected_indexes = [
@@ -370,6 +370,7 @@ def test_refugees_vat(
     expected_primary_keys = [
         "origin_location_ref",
         "asylum_location_ref",
+        "population_group",
         "gender",
         "age_range",
         "reference_period_start",
