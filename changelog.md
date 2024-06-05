@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.8.10
+
+### Changes
+
+- Adapted primary keys and make columsn nullable in the VAT tables
+- Use the enum casting util in the patch table
+
 ## 0.8.9
 
 ### Fixed

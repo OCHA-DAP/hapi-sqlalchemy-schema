@@ -25,16 +25,20 @@ class DBPatch(Base):
     patch_sequence_number: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
     )
-    commit_hash: Mapped[str] = mapped_column(String(48), nullable=False)
+    commit_hash: Mapped[str] = mapped_column(
+        String(48), unique=False, nullable=False
+    )
     commit_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     patch_path: Mapped[str] = mapped_column(
         String(512), nullable=False, index=True
     )
     patch_permalink_url: Mapped[str] = mapped_column(
-        String(1024), nullable=False, unique=True
+        String(1024), nullable=False, unique=False
     )
     patch_target: Mapped[str] = mapped_column(String(128), nullable=False)
-    patch_hash: Mapped[str] = mapped_column(String(48), nullable=False)
+    patch_hash: Mapped[str] = mapped_column(
+        String(48), unique=False, nullable=False
+    )
     state: Mapped[StateEnum] = mapped_column(
         Enum(StateEnum), nullable=False, index=True
     )
