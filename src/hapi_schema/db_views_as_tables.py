@@ -66,6 +66,7 @@ class DBAdmin2VAT(Base):
     admin1_code: Mapped[str] = mapped_column(String(128))
     admin1_name: Mapped[str] = mapped_column(String(512))
     admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    location_ref: Mapped[int] = mapped_column(Integer)
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
 
