@@ -14,6 +14,7 @@ def test_admin2_view(run_view_test):
             view_admin2.c.id == 1,
             view_admin2.c.admin1_code == "FOO-XXX",
             view_admin2.c.location_code == "FOO",
+            view_admin2.c.location_ref == 1,
         ),
     )
 
