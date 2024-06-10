@@ -61,6 +61,7 @@ view_params_admin2 = ViewParams(
         DBAdmin1.code.label("admin1_code"),
         DBAdmin1.name.label("admin1_name"),
         DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
+        DBAdmin1.location_ref.label("location_ref"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
     ).select_from(
