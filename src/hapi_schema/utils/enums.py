@@ -48,14 +48,12 @@ class PopulationGroup(str, PythonEnum):
     RET = "RET"
     RESETTLED = "RST"
     NATURALIZED = "NAT"
-    POC = "POC"
     RDP = "RDP"
     RRI = "RRI"
     ALL = "all"
 
 
 class PopulationStatus(str, PythonEnum):
-    POPULATION = "POP"
     AFFECTED = "AFF"
     INNEED = "INN"
     TARGETED = "TGT"
