@@ -258,6 +258,8 @@ class DBLocationVAT(Base):
     code: Mapped[str] = mapped_column(String(128), index=True)
     name: Mapped[str] = mapped_column(String(512), index=True)
     from_cods: Mapped[bool] = mapped_column(Boolean)
+    has_hno: Mapped[bool] = mapped_column(Boolean)
+    in_gho: Mapped[bool] = mapped_column(Boolean)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, index=True
     )
