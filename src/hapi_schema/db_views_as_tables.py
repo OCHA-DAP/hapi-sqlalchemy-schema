@@ -108,9 +108,13 @@ class DBCurrencyVAT(Base):
 
 class DBDatasetVAT(Base):
     __tablename__ = "dataset_vat"
-    hdx_id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    hdx_stub: Mapped[str] = mapped_column(String(128), index=True)
-    title: Mapped[str] = mapped_column(String(1024))
+    dataset_hdx_id: Mapped[str] = mapped_column(
+        "hdx_id", String(36), primary_key=True
+    )
+    dataset_hdx_stub: Mapped[str] = mapped_column(
+        "hdx_stub", String(128), index=True
+    )
+    dataset_hdx_title: Mapped[str] = mapped_column("title", String(1024))
     hdx_provider_stub: Mapped[str] = mapped_column(String(128), index=True)
     hdx_provider_name: Mapped[str] = mapped_column(String(512), index=True)
 
@@ -429,7 +433,9 @@ class DBRefugeesVAT(Base):
 
 class DBResourceVAT(Base):
     __tablename__ = "resource_vat"
-    hdx_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    resource_hdx_id: Mapped[str] = mapped_column(
+        "hdx_id", String(36), primary_key=True
+    )
     dataset_hdx_id: Mapped[str] = mapped_column(String(36))
     name: Mapped[str] = mapped_column(String(256))
     format: Mapped[str] = mapped_column(String(32))
@@ -438,7 +444,9 @@ class DBResourceVAT(Base):
     download_url: Mapped[str] = mapped_column(String(1024))
     hapi_updated_date: Mapped[datetime] = mapped_column(DateTime)
     dataset_hdx_stub: Mapped[str] = mapped_column(String(128), index=True)
-    dataset_title: Mapped[str] = mapped_column(String(1024))
+    dataset_hdx_title: Mapped[str] = mapped_column(
+        "dataset_title", String(1024)
+    )
     dataset_hdx_provider_stub: Mapped[str] = mapped_column(
         String(128), index=True
     )
