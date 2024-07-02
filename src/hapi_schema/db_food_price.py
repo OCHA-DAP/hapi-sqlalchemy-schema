@@ -90,6 +90,8 @@ view_params_food_price = ViewParams(
         DBWFPCommodity.name.label("commodity_name"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
+        DBLocation.has_hno.label("has_hno"),
+        DBLocation.in_gho.label("in_gho"),
         DBAdmin1.location_ref.label("location_ref"),
         DBAdmin1.code.label("admin1_code"),
         DBAdmin1.name.label("admin1_name"),
