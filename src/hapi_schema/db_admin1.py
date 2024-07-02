@@ -59,6 +59,8 @@ view_params_admin1 = ViewParams(
         *DBAdmin1.__table__.columns,
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
+        DBLocation.has_hno.label("has_hno"),
+        DBLocation.in_gho.label("in_gho"),
     ).select_from(
         DBAdmin1.__table__.join(
             DBLocation.__table__,
