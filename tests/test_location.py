@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from hdx.database import Database
+from sqlalchemy.sql.expression import false, true
 
 from hapi_schema.db_location import DBLocation, view_params_location
 
@@ -25,7 +26,9 @@ def test_location_defaults(run_view_test):
         view=view_location,
         whereclause=(
             view_location.c.id == 1,
-            view_location.c.from_cods,  # should be True
+            view_location.c.from_cods == true(),
+            view_location.c.has_hno == false(),
+            view_location.c.in_gho == false(),
         ),
     )
 
