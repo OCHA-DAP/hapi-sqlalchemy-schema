@@ -90,11 +90,11 @@ view_params_refugees = ViewParams(
         *DBRefugees.__table__.columns,
         origin_location.code.label("origin_location_code"),
         origin_location.name.label("origin_location_name"),
-        origin_location.has_hno.label("origin_has_hno"),
+        origin_location.has_hrp.label("origin_has_hrp"),
         origin_location.in_gho.label("origin_in_gho"),
         asylum_location.code.label("asylum_location_code"),
         asylum_location.name.label("asylum_location_name"),
-        asylum_location.has_hno.label("asylum_has_hno"),
+        asylum_location.has_hrp.label("asylum_has_hrp"),
         asylum_location.in_gho.label("asylum_in_gho"),
     ).select_from(
         # Join pop to admin2 to admin1 to loc

@@ -27,7 +27,7 @@ def test_location_defaults(run_view_test):
         whereclause=(
             view_location.c.id == 1,
             view_location.c.from_cods == true(),
-            view_location.c.has_hno == false(),
+            view_location.c.has_hrp == false(),
             view_location.c.in_gho == false(),
         ),
     )

@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Added `has\_hno` and `in\_gho` fields to `location` table and view
+- Added `has\_hrp` and `in\_gho` fields to `location` table and view
 
 ### Fixed
 
