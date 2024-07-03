@@ -45,7 +45,7 @@ class DBAdmin1VAT(Base):
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
 
 
@@ -71,7 +71,7 @@ class DBAdmin2VAT(Base):
     location_ref: Mapped[int] = mapped_column(Integer)
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
 
 
@@ -94,7 +94,7 @@ class DBConflictEventVAT(Base):
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -157,7 +157,7 @@ class DBFoodPriceVAT(Base):
     commodity_name: Mapped[str] = mapped_column(String(512), index=True)
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
@@ -191,7 +191,7 @@ class DBFoodSecurityVAT(Base):
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -222,7 +222,7 @@ class DBFundingVAT(Base):
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
 
 
@@ -258,7 +258,7 @@ class DBHumanitarianNeedsVAT(Base):
     sector_name: Mapped[str] = mapped_column(String(512))
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
@@ -276,7 +276,7 @@ class DBLocationVAT(Base):
     code: Mapped[str] = mapped_column(String(128), index=True)
     name: Mapped[str] = mapped_column(String(512), index=True)
     from_cods: Mapped[bool] = mapped_column(Boolean)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, index=True
@@ -312,7 +312,7 @@ class DBNationalRiskVAT(Base):
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
 
 
@@ -336,7 +336,7 @@ class DBOperationalPresenceVAT(Base):
     sector_name: Mapped[str] = mapped_column(String(512))
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -385,7 +385,7 @@ class DBPopulationVAT(Base):
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -419,7 +419,7 @@ class DBPovertyRateVAT(Base):
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_code: Mapped[str] = mapped_column(String(128))
     admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
@@ -451,11 +451,11 @@ class DBRefugeesVAT(Base):
     )
     origin_location_code: Mapped[str] = mapped_column(String(128), index=True)
     origin_location_name: Mapped[str] = mapped_column(String(512), index=True)
-    origin_has_hno: Mapped[bool] = mapped_column(Boolean)
+    origin_has_hrp: Mapped[bool] = mapped_column(Boolean)
     origin_in_gho: Mapped[bool] = mapped_column(Boolean)
     asylum_location_code: Mapped[str] = mapped_column(String(128), index=True)
     asylum_location_name: Mapped[str] = mapped_column(String(512), index=True)
-    asylum_has_hno: Mapped[bool] = mapped_column(Boolean)
+    asylum_has_hrp: Mapped[bool] = mapped_column(Boolean)
     asylum_in_gho: Mapped[bool] = mapped_column(Boolean)
 
 
@@ -507,7 +507,7 @@ class DBWfpMarketVAT(Base):
     lon: Mapped[float] = mapped_column(Float, index=True)
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
-    has_hno: Mapped[bool] = mapped_column(Boolean)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)

@@ -33,7 +33,7 @@ class DBLocation(Base):
     from_cods: Mapped[bool] = mapped_column(
         Boolean, nullable=False, server_default=text("TRUE")
     )
-    has_hno: Mapped[bool] = mapped_column(
+    has_hrp: Mapped[bool] = mapped_column(
         Boolean, nullable=False, server_default=text("FALSE")
     )
     in_gho: Mapped[bool] = mapped_column(

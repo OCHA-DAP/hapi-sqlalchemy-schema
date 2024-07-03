@@ -64,7 +64,7 @@ view_params_admin2 = ViewParams(
         DBAdmin1.location_ref.label("location_ref"),
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
-        DBLocation.has_hno.label("has_hno"),
+        DBLocation.has_hrp.label("has_hrp"),
         DBLocation.in_gho.label("in_gho"),
     ).select_from(
         DBAdmin2.__table__.join(

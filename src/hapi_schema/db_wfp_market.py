@@ -34,7 +34,7 @@ view_params_wfp_market = ViewParams(
         *DBWFPMarket.__table__.columns,
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
-        DBLocation.has_hno.label("has_hno"),
+        DBLocation.has_hrp.label("has_hrp"),
         DBLocation.in_gho.label("in_gho"),
         DBAdmin1.code.label("admin1_code"),
         DBAdmin1.name.label("admin1_name"),
