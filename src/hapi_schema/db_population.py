@@ -69,6 +69,8 @@ view_params_population = ViewParams(
         *DBPopulation.__table__.columns,
         DBLocation.code.label("location_code"),
         DBLocation.name.label("location_name"),
+        DBLocation.has_hno.label("has_hno"),
+        DBLocation.in_gho.label("in_gho"),
         DBAdmin1.code.label("admin1_code"),
         DBAdmin1.name.label("admin1_name"),
         DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
