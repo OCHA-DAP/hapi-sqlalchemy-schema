@@ -15,6 +15,7 @@ def prepare_hapi_views():
     # directory. Views must be named like this: view_params_{name}.
     path = inspect.getabsfile(prepare_hapi_views)
     dirpath, _ = os.path.split(path)
+    coverage_queries = []
     for path in os.listdir(dirpath):
         if os.path.isdir(path):
             continue
@@ -26,5 +27,7 @@ def prepare_hapi_views():
             try:
                 view_params = getattr(module, f"view_params_{table}")
                 Database.prepare_view(view_params.__dict__)
+                coverage_query = getattr(module, f"coverage_query_{table}")
+                coverage_queries.append(coverage_query)
             except AttributeError:
                 pass
