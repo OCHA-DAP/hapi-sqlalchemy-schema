@@ -6,6 +6,7 @@ from hapi_schema.db_funding import (
     DBFunding,
     view_params_funding,
 )
+from hapi_schema.views import prepare_hapi_views
 
 
 def test_funding_view(run_view_test):
@@ -25,6 +26,18 @@ def test_funding_view(run_view_test):
             view_funding.c.funding_pct == 50.0,
             view_funding.c.location_code == "FOO",
             view_funding.c.location_name == "Foolandia",
+        ),
+    )
+
+
+def test_funding_coverage(run_view_test):
+    view_coverage = prepare_hapi_views()
+    run_view_test(
+        view=view_coverage,
+        whereclause=(
+            view_coverage.c.category == "coordination-context",
+            view_coverage.c.subcategory == "funding",
+            view_coverage.c.location_code == "FOO",
         ),
     )
 

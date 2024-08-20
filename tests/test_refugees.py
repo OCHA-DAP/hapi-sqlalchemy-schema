@@ -28,7 +28,7 @@ def test_refugees_coverage(run_view_test):
     run_view_test(
         view=view_coverage,
         whereclause=(
-            view_coverage.c.category == "affected_people",
+            view_coverage.c.category == "affected-people",
             view_coverage.c.subcategory == "refugees",
             view_coverage.c.location_code == "BAR",
         ),
