@@ -38,9 +38,13 @@ def prepare_hapi_views():
                     coverage_stmts.append(coverage_stmt)
             except AttributeError:
                 pass
+
+    # Also prepare a data-coverage view, which is a union of coverage for each subcategory
     view_params_coverage = ViewParams(
         name="coverage_view",
         metadata=Base.metadata,
         selectable=union_all(*coverage_stmts),
     )
+
+    # Return this view (to simplify unit tests)
     return Database.prepare_view(view_params_coverage.__dict__)

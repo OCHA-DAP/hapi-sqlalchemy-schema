@@ -11,6 +11,7 @@ from sqlalchemy import (
     select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.sql.expression import literal
 
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
@@ -97,4 +98,33 @@ view_params_food_security = ViewParams(
             isouter=True,
         )
     ),
+)
+
+
+# Results format: category, subcategory, location_name, location_code
+coverage_stmt_food_security = (
+    select(
+        literal("food").label("category"),
+        literal("food-security").label("subcategory"),
+        DBLocation.name.label("location_name"),
+        DBLocation.code.label("location_code"),
+    )
+    .select_from(
+        DBFoodSecurity.__table__.join(
+            DBAdmin2.__table__,
+            DBFoodSecurity.admin2_ref == DBAdmin2.id,
+            isouter=True,
+        )
+        .join(
+            DBAdmin1.__table__,
+            DBAdmin2.admin1_ref == DBAdmin1.id,
+            isouter=True,
+        )
+        .join(
+            DBLocation.__table__,
+            DBAdmin1.location_ref == DBLocation.id,
+            isouter=True,
+        )
+    )
+    .distinct()
 )
