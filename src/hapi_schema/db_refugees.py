@@ -112,7 +112,7 @@ view_params_refugees = ViewParams(
 )
 
 # Results format: category, subcategory, location_name, location_code
-coverage_query_refugees = (
+coverage_stmt_refugees = (
     select(
         literal("affected_people").label("category"),
         literal("refugees").label("subcategory"),
