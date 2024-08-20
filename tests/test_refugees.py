@@ -6,6 +6,7 @@ from hapi_schema.db_refugees import (
     DBRefugees,
     view_params_refugees,
 )
+from hapi_schema.views import prepare_hapi_views
 
 
 def test_refugees_view(run_view_test):
@@ -18,6 +19,18 @@ def test_refugees_view(run_view_test):
             == "62ad6e55-5f5d-4494-854c-4110687e9e25",
             view_refugees.c.origin_location_code == "FOO",
             view_refugees.c.asylum_location_code == "BAR",
+        ),
+    )
+
+
+def test_refugees_coverage(run_view_test):
+    view_coverage = prepare_hapi_views()
+    run_view_test(
+        view=view_coverage,
+        whereclause=(
+            view_coverage.c.category == "affected_people",
+            view_coverage.c.subcategory == "refugees",
+            view_coverage.c.location_code == "BAR",
         ),
     )
 

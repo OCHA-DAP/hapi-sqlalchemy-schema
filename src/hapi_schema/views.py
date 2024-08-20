@@ -18,6 +18,7 @@ def prepare_hapi_views():
     # Programmatically get views and prepare them for creation.
     # Views must be in files with filename of form: db_{name}.py in the same
     # directory. Views must be named like this: view_params_{name}.
+    global view_coverage
     path = inspect.getabsfile(prepare_hapi_views)
     dirpath, _ = os.path.split(path)
     coverage_stmts = []
@@ -37,9 +38,9 @@ def prepare_hapi_views():
                     coverage_stmts.append(coverage_stmt)
             except AttributeError:
                 pass
-    params = ViewParams(
+    view_params_coverage = ViewParams(
         name="coverage_view",
         metadata=Base.metadata,
         selectable=union_all(*coverage_stmts),
     )
-    Database.prepare_view(params.__dict__)
+    return Database.prepare_view(view_params_coverage.__dict__)
