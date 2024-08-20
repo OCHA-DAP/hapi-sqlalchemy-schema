@@ -6,6 +6,7 @@ from hapi_schema.db_conflict_event import (
     DBConflictEvent,
     view_params_conflict_event,
 )
+from hapi_schema.views import prepare_hapi_views
 
 
 def test_conflict_event_view(run_view_test):
@@ -21,6 +22,18 @@ def test_conflict_event_view(run_view_test):
             view_conflict_event.c.location_name == "Foolandia",
             view_conflict_event.c.admin1_name == "Province 01",
             view_conflict_event.c.admin2_name == "District A",
+        ),
+    )
+
+
+def test_conflict_event_coverage(run_view_test):
+    view_coverage = prepare_hapi_views()
+    run_view_test(
+        view=view_coverage,
+        whereclause=(
+            view_coverage.c.category == "coordination-context",
+            view_coverage.c.subcategory == "conflict-event",
+            view_coverage.c.location_code == "FOO",
         ),
     )
 
