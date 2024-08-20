@@ -3,7 +3,7 @@
 import enum
 from datetime import datetime
 
-from sqlalchemy import DateTime, Enum, Integer, String, select
+from sqlalchemy import Enum, Integer, String, select
 from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.utils.base import Base
@@ -42,9 +42,7 @@ class DBPatch(Base):
     state: Mapped[StateEnum] = mapped_column(
         Enum(StateEnum), nullable=False, index=True
     )
-    execution_date: Mapped[datetime] = mapped_column(
-        nullable=True, index=True
-    )
+    execution_date: Mapped[datetime] = mapped_column(nullable=True, index=True)
 
 
 view_params_patch = ViewParams(

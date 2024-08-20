@@ -1,9 +1,9 @@
 """Resource table and view."""
+
 from datetime import datetime
 
 from sqlalchemy import (
     Boolean,
-    DateTime,
     ForeignKey,
     String,
     select,

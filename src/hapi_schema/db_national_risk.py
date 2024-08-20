@@ -5,7 +5,6 @@ from decimal import Decimal
 
 from sqlalchemy import (
     CheckConstraint,
-    DateTime,
     Float,
     ForeignKey,
     Integer,
@@ -70,9 +69,7 @@ class DBNationalRisk(Base):
     meta_avg_recentness_years: Mapped[Decimal] = mapped_column(
         Float, nullable=True
     )
-    reference_period_start: Mapped[datetime] = mapped_column(
-        primary_key=True
-    )
+    reference_period_start: Mapped[datetime] = mapped_column(primary_key=True)
     reference_period_end: Mapped[datetime] = mapped_column(
         nullable=False, index=True
     )

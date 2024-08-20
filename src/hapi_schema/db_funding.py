@@ -5,7 +5,6 @@ from decimal import Decimal
 
 from sqlalchemy import (
     CheckConstraint,
-    DateTime,
     ForeignKey,
     String,
     select,
