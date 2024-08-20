@@ -63,10 +63,10 @@ class DBRefugees(Base):
         Integer, nullable=False, index=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, primary_key=True
+        primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        nullable=False, index=True
     )
 
     # resource = relationship("DBResource")

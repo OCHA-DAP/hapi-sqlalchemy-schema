@@ -49,10 +49,10 @@ class DBOperationalPresence(Base):
         ForeignKey("sector.code", onupdate="CASCADE"), primary_key=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, primary_key=True
+        primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL"), index=True
+        nullable=True, server_default=text("NULL"), index=True
     )
 
     resource = relationship("DBResource")

@@ -43,10 +43,10 @@ class DBAdmin1(Base):
         Boolean, nullable=False, server_default=text("TRUE")
     )
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL"), index=True
+        nullable=True, server_default=text("NULL"), index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL"), index=True
+        nullable=True, server_default=text("NULL"), index=True
     )
 
     location = relationship("DBLocation")

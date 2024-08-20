@@ -65,12 +65,10 @@ class DBFunding(Base):
     funding_pct: Mapped[Decimal] = mapped_column(nullable=False, index=True)
 
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime,
         primary_key=True,
     )
 
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime,
         nullable=True,
         server_default=text("NULL"),
     )
