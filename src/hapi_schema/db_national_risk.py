@@ -12,6 +12,7 @@ from sqlalchemy import (
     select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.sql.expression import literal
 
 from hapi_schema.db_location import DBLocation
 from hapi_schema.utils.base import Base
@@ -98,4 +99,22 @@ view_params_national_risk = ViewParams(
             isouter=True,
         )
     ),
+)
+
+# Results format: category, subcategory, location_name, location_code
+coverage_stmt_national_risk = (
+    select(
+        literal("coordination-context").label("category"),
+        literal("national-risk").label("subcategory"),
+        DBLocation.name.label("location_name"),
+        DBLocation.code.label("location_code"),
+    )
+    .select_from(
+        DBNationalRisk.__table__.join(
+            DBLocation.__table__,
+            DBNationalRisk.location_ref == DBLocation.id,
+            isouter=True,
+        )
+    )
+    .distinct()
 )

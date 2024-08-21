@@ -7,6 +7,7 @@ from hapi_schema.db_national_risk import (
     DBNationalRisk,
     view_params_national_risk,
 )
+from hapi_schema.views import prepare_hapi_views
 
 
 def test_national_risk_view(run_view_test):
@@ -20,6 +21,18 @@ def test_national_risk_view(run_view_test):
             view_national_risk.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_national_risk.c.location_name == "Foolandia",
+        ),
+    )
+
+
+def test_national_risk_coverage(run_view_test):
+    view_coverage = prepare_hapi_views()
+    run_view_test(
+        view=view_coverage,
+        whereclause=(
+            view_coverage.c.category == "coordination-context",
+            view_coverage.c.subcategory == "national-risk",
+            view_coverage.c.location_code == "FOO",
         ),
     )
 

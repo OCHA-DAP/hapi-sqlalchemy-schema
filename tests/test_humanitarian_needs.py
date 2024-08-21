@@ -13,6 +13,7 @@ from hapi_schema.utils.enums import (
     PopulationGroup,
     PopulationStatus,
 )
+from hapi_schema.views import prepare_hapi_views
 
 
 def test_humanitarian_needs_view(run_view_test):
@@ -34,6 +35,18 @@ def test_humanitarian_needs_view(run_view_test):
             == "Water Sanitation Hygiene",
             view_humanitarian_needs.c.gender == "f",
             view_humanitarian_needs.c.disabled_marker == "y",  # noqa: E712
+        ),
+    )
+
+
+def test_humanitarian_needs_coverage(run_view_test):
+    view_coverage = prepare_hapi_views()
+    run_view_test(
+        view=view_coverage,
+        whereclause=(
+            view_coverage.c.category == "affected-people",
+            view_coverage.c.subcategory == "humanitarian-needs",
+            view_coverage.c.location_code == "FOO",
         ),
     )
 
