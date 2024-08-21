@@ -5,6 +5,7 @@ from hdx.database import Database
 
 from hapi_schema.db_population import DBPopulation, view_params_population
 from hapi_schema.utils.enums import Gender
+from hapi_schema.views import prepare_hapi_views
 
 
 def test_population_view(run_view_test):
@@ -19,6 +20,18 @@ def test_population_view(run_view_test):
             view_population.c.admin1_code == "FOO-001",
             view_population.c.location_code == "FOO",
             view_population.c.gender == "f",
+        ),
+    )
+
+
+def test_population_coverage(run_view_test):
+    view_coverage = prepare_hapi_views()
+    run_view_test(
+        view=view_coverage,
+        whereclause=(
+            view_coverage.c.category == "population-social",
+            view_coverage.c.subcategory == "population",
+            view_coverage.c.location_code == "FOO",
         ),
     )
 
