@@ -30,7 +30,8 @@ def test_refugees_coverage(run_view_test):
         whereclause=(
             view_coverage.c.category == "affected-people",
             view_coverage.c.subcategory == "refugees",
-            view_coverage.c.location_code == "BAR",
+            view_coverage.c.location_code
+            == "BAR",  # we use the country of asylum, not origin
         ),
     )
 
