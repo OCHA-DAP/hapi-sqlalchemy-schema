@@ -6,6 +6,7 @@ from hapi_schema.db_poverty_rate import (
     DBPovertyRate,
     view_params_poverty_rate,
 )
+from hapi_schema.views import prepare_hapi_views
 
 
 def test_poverty_rate_view(run_view_test):
@@ -20,6 +21,18 @@ def test_poverty_rate_view(run_view_test):
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_poverty_rate.c.location_name == "Foolandia",
             view_poverty_rate.c.admin1_name == "Province 01",
+        ),
+    )
+
+
+def test_poverty_rate_coverage(run_view_test):
+    view_coverage = prepare_hapi_views()
+    run_view_test(
+        view=view_coverage,
+        whereclause=(
+            view_coverage.c.category == "population-social",
+            view_coverage.c.subcategory == "poverty-rate",
+            view_coverage.c.location_code == "FOO",
         ),
     )
 

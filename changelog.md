@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Added `coverage\_view`, which shows the locations available for each API endpoint.
+- Added `coverage\_view`, which shows the locations available for each API endpoint
 
 ## 0.8.14
 
