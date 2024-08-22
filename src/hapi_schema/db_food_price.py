@@ -132,13 +132,18 @@ view_params_food_price = ViewParams(
 )
 
 
-# Results format: category, subcategory, location_name, location_code
+# Results format: category, subcategory, location_name, location_code, admin1_name, admin1_code, admin2_name, admin2_code, hapi_updated_date
 availability_stmt_food_price = (
     select(
         literal("food").label("category"),
         literal("food-price").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
+        DBAdmin1.name.label("admin1_name"),
+        DBAdmin1.code.label("admin1_code"),
+        DBAdmin2.name.label("admin2_name"),
+        DBAdmin2.code.label("admin2_code"),
+        DBResource.hapi_updated_date,
     )
     .select_from(
         # the admin2 comes from wfp_market
@@ -161,6 +166,10 @@ availability_stmt_food_price = (
             DBLocation.__table__,
             DBAdmin1.location_ref == DBLocation.id,
             isouter=True,
+        )
+        .join(
+            DBResource.__table__,
+            DBFoodPrice.resource_hdx_id == DBResource.hdx_id,
         )
     )
     .distinct()

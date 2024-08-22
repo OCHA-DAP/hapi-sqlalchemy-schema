@@ -16,6 +16,7 @@ from sqlalchemy.orm import Mapped, aliased, mapped_column, relationship
 from sqlalchemy.sql.expression import literal
 
 from hapi_schema.db_location import DBLocation
+from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import (
     max_age_constraint,
@@ -82,7 +83,7 @@ class DBRefugees(Base):
 # Use aliases because we join to DBLocation twice
 origin_location = aliased(DBLocation)
 asylum_location = aliased(DBLocation)
-resource = relationship("DBResource")
+resource = relationship(DBResource)
 
 view_params_refugees = ViewParams(
     name="refugees_view",
@@ -111,19 +112,27 @@ view_params_refugees = ViewParams(
     ),
 )
 
-# Results format: category, subcategory, location_name, location_code
+# Results format: category, subcategory, location_name, location_code, admin1_name, admin1_code, admin2_name, admin2_code, hapi_updated_date
 availability_stmt_refugees = (
     select(
         literal("affected-people").label("category"),
         literal("refugees").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
+        literal(None).label("admin1_name"),
+        literal(None).label("admin1_code"),
+        literal(None).label("admin2_name"),
+        literal(None).label("admin2_code"),
+        DBResource.hapi_updated_date,
     )
     .select_from(
         DBRefugees.__table__.join(
             DBLocation.__table__,
             DBRefugees.asylum_location_ref == DBLocation.id,
             isouter=True,
+        ).join(
+            DBResource.__table__,
+            DBRefugees.resource_hdx_id == DBResource.hdx_id,
         )
     )
     .distinct()
