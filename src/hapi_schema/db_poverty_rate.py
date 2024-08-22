@@ -104,7 +104,7 @@ view_params_poverty_rate = ViewParams(
 )
 
 # Results format: category, subcategory, location_name, location_code
-coverage_stmt_poverty_rate = (
+availability_stmt_poverty_rate = (
     select(
         literal("population-social").label("category"),
         literal("poverty-rate").label("subcategory"),

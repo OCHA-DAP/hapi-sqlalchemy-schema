@@ -32,14 +32,14 @@ def test_operational_presence_view(run_view_test):
     )
 
 
-def test_operational_presence_coverage(run_view_test):
-    view_coverage = prepare_hapi_views()
+def test_operational_presence_availability(run_view_test):
+    view_availability = prepare_hapi_views()
     run_view_test(
-        view=view_coverage,
+        view=view_availability,
         whereclause=(
-            view_coverage.c.category == "coordination-context",
-            view_coverage.c.subcategory == "operational-presence",
-            view_coverage.c.location_code == "FOO",
+            view_availability.c.category == "coordination-context",
+            view_availability.c.subcategory == "operational-presence",
+            view_availability.c.location_code == "FOO",
         ),
     )
 

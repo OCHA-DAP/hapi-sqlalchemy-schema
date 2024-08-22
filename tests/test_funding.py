@@ -30,14 +30,14 @@ def test_funding_view(run_view_test):
     )
 
 
-def test_funding_coverage(run_view_test):
-    view_coverage = prepare_hapi_views()
+def test_funding_availability(run_view_test):
+    view_availability = prepare_hapi_views()
     run_view_test(
-        view=view_coverage,
+        view=view_availability,
         whereclause=(
-            view_coverage.c.category == "coordination-context",
-            view_coverage.c.subcategory == "funding",
-            view_coverage.c.location_code == "FOO",
+            view_availability.c.category == "coordination-context",
+            view_availability.c.subcategory == "funding",
+            view_availability.c.location_code == "FOO",
         ),
     )
 

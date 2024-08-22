@@ -121,7 +121,7 @@ view_params_operational_presence = ViewParams(
 )
 
 # Results format: category, subcategory, location_name, location_code
-coverage_stmt_operational_presence = (
+availability_stmt_operational_presence = (
     select(
         literal("coordination-context").label("category"),
         literal("operational-presence").label("subcategory"),

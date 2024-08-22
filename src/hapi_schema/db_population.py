@@ -101,7 +101,7 @@ view_params_population = ViewParams(
 )
 
 # Results format: category, subcategory, location_name, location_code
-coverage_stmt_population = (
+availability_stmt_population = (
     select(
         literal("population-social").label("category"),
         literal("population").label("subcategory"),

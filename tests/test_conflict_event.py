@@ -26,14 +26,14 @@ def test_conflict_event_view(run_view_test):
     )
 
 
-def test_conflict_event_coverage(run_view_test):
-    view_coverage = prepare_hapi_views()
+def test_conflict_event_availability(run_view_test):
+    view_availability = prepare_hapi_views()
     run_view_test(
-        view=view_coverage,
+        view=view_availability,
         whereclause=(
-            view_coverage.c.category == "coordination-context",
-            view_coverage.c.subcategory == "conflict-event",
-            view_coverage.c.location_code == "FOO",
+            view_availability.c.category == "coordination-context",
+            view_availability.c.subcategory == "conflict-event",
+            view_availability.c.location_code == "FOO",
         ),
     )
 

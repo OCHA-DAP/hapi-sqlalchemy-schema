@@ -102,7 +102,7 @@ view_params_national_risk = ViewParams(
 )
 
 # Results format: category, subcategory, location_name, location_code
-coverage_stmt_national_risk = (
+availability_stmt_national_risk = (
     select(
         literal("coordination-context").label("category"),
         literal("national-risk").label("subcategory"),

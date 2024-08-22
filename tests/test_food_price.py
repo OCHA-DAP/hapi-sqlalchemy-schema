@@ -36,14 +36,14 @@ def test_food_price_view(run_view_test):
     )
 
 
-def test_food_price_coverage(run_view_test):
-    view_coverage = prepare_hapi_views()
+def test_food_price_availability(run_view_test):
+    view_availability = prepare_hapi_views()
     run_view_test(
-        view=view_coverage,
+        view=view_availability,
         whereclause=(
-            view_coverage.c.category == "food",
-            view_coverage.c.subcategory == "food-price",
-            view_coverage.c.location_code == "FOO",
+            view_availability.c.category == "food",
+            view_availability.c.subcategory == "food-price",
+            view_availability.c.location_code == "FOO",
         ),
     )
 

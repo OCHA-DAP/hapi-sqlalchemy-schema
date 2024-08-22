@@ -132,7 +132,7 @@ view_params_humanitarian_needs = ViewParams(
 )
 
 # Results format: category, subcategory, location_name, location_code
-coverage_stmt_humanitarian_needs = (
+availability_stmt_humanitarian_needs = (
     select(
         literal("affected-people").label("category"),
         literal("humanitarian-needs").label("subcategory"),

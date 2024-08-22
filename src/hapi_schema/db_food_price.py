@@ -133,7 +133,7 @@ view_params_food_price = ViewParams(
 
 
 # Results format: category, subcategory, location_name, location_code
-coverage_stmt_food_price = (
+availability_stmt_food_price = (
     select(
         literal("food").label("category"),
         literal("food-price").label("subcategory"),

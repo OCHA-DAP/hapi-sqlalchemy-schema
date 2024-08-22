@@ -97,7 +97,7 @@ view_params_conflict_event = ViewParams(
 )
 
 # Results format: category, subcategory, location_name, location_code
-coverage_stmt_conflict_event = (
+availability_stmt_conflict_event = (
     select(
         literal("coordination-context").label("category"),
         literal("conflict-event").label("subcategory"),

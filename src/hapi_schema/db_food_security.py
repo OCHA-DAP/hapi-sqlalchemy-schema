@@ -102,7 +102,7 @@ view_params_food_security = ViewParams(
 
 
 # Results format: category, subcategory, location_name, location_code
-coverage_stmt_food_security = (
+availability_stmt_food_security = (
     select(
         literal("food").label("category"),
         literal("food-security").label("subcategory"),

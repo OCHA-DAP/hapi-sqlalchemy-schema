@@ -23,14 +23,14 @@ def test_refugees_view(run_view_test):
     )
 
 
-def test_refugees_coverage(run_view_test):
-    view_coverage = prepare_hapi_views()
+def test_refugees_availability(run_view_test):
+    view_availability = prepare_hapi_views()
     run_view_test(
-        view=view_coverage,
+        view=view_availability,
         whereclause=(
-            view_coverage.c.category == "affected-people",
-            view_coverage.c.subcategory == "refugees",
-            view_coverage.c.location_code
+            view_availability.c.category == "affected-people",
+            view_availability.c.subcategory == "refugees",
+            view_availability.c.location_code
             == "BAR",  # we use the country of asylum, not origin
         ),
     )

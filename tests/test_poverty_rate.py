@@ -25,14 +25,14 @@ def test_poverty_rate_view(run_view_test):
     )
 
 
-def test_poverty_rate_coverage(run_view_test):
-    view_coverage = prepare_hapi_views()
+def test_poverty_rate_availability(run_view_test):
+    view_availability = prepare_hapi_views()
     run_view_test(
-        view=view_coverage,
+        view=view_availability,
         whereclause=(
-            view_coverage.c.category == "population-social",
-            view_coverage.c.subcategory == "poverty-rate",
-            view_coverage.c.location_code == "FOO",
+            view_availability.c.category == "population-social",
+            view_availability.c.subcategory == "poverty-rate",
+            view_availability.c.location_code == "FOO",
         ),
     )
 

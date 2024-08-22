@@ -99,7 +99,7 @@ view_params_funding = ViewParams(
 )
 
 # Results format: category, subcategory, location_name, location_code
-coverage_stmt_funding = (
+availability_stmt_funding = (
     select(
         literal("coordination-context").label("category"),
         literal("funding").label("subcategory"),
