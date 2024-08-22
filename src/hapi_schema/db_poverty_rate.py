@@ -11,6 +11,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.schema import CheckConstraint
+from sqlalchemy.sql import null
 from sqlalchemy.sql.expression import literal
 
 from hapi_schema.db_admin1 import DBAdmin1
@@ -110,10 +111,10 @@ availability_stmt_poverty_rate = (
         literal("poverty-rate").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
-        DBAdmin1.name.label("admin1_name"),
+        DBPovertyRate.admin1_name,  # fixme
         DBAdmin1.code.label("admin1_code"),
-        literal(None).label("admin2_name"),
-        literal(None).label("admin2_code"),
+        null().label("admin2_name"),
+        null().label("admin2_code"),
         DBResource.hapi_updated_date,
     )
     .select_from(

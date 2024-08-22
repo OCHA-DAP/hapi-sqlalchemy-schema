@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from hdx.database import Database
+from sqlalchemy.sql import null
 
 from hapi_schema.db_refugees import (
     DBRefugees,
@@ -32,6 +33,9 @@ def test_refugees_availability(run_view_test):
             view_availability.c.subcategory == "refugees",
             view_availability.c.location_code
             == "BAR",  # we use the country of asylum, not origin
+            view_availability.c.admin1_name == null(),
+            view_availability.c.admin2_name == null(),
+            view_availability.c.hapi_updated_date == datetime(2023, 8, 1),
         ),
     )
 

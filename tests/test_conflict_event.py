@@ -34,6 +34,9 @@ def test_conflict_event_availability(run_view_test):
             view_availability.c.category == "coordination-context",
             view_availability.c.subcategory == "conflict-event",
             view_availability.c.location_code == "FOO",
+            view_availability.c.admin1_name == "Province 01",
+            view_availability.c.admin2_name == "District A",
+            view_availability.c.hapi_updated_date == datetime(2023, 6, 1),
         ),
     )
 

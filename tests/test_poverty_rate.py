@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from hdx.database import Database
+from sqlalchemy.sql import null
 
 from hapi_schema.db_poverty_rate import (
     DBPovertyRate,
@@ -33,6 +34,9 @@ def test_poverty_rate_availability(run_view_test):
             view_availability.c.category == "population-social",
             view_availability.c.subcategory == "poverty-rate",
             view_availability.c.location_code == "FOO",
+            view_availability.c.admin1_name == "Province 01",
+            view_availability.c.admin2_name == null(),
+            view_availability.c.hapi_updated_date == datetime(2023, 6, 1),
         ),
     )
 

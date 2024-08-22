@@ -34,6 +34,9 @@ def test_food_security_availability(run_view_test):
             view_availability.c.category == "food",
             view_availability.c.subcategory == "food-security",
             view_availability.c.location_code == "FOO",
+            view_availability.c.admin1_name == "Province 01",
+            view_availability.c.admin2_name == "District A",
+            view_availability.c.hapi_updated_date == datetime(2023, 8, 1),
         ),
     )
 
