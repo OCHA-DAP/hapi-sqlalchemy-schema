@@ -13,6 +13,7 @@ from hapi_schema.utils.enums import (
     PopulationGroup,
     PopulationStatus,
 )
+from hapi_schema.views import prepare_hapi_views
 
 
 def test_humanitarian_needs_view(run_view_test):
@@ -34,6 +35,21 @@ def test_humanitarian_needs_view(run_view_test):
             == "Water Sanitation Hygiene",
             view_humanitarian_needs.c.gender == "f",
             view_humanitarian_needs.c.disabled_marker == "y",  # noqa: E712
+        ),
+    )
+
+
+def test_humanitarian_needs_availability(run_view_test):
+    view_availability = prepare_hapi_views()
+    run_view_test(
+        view=view_availability,
+        whereclause=(
+            view_availability.c.category == "affected-people",
+            view_availability.c.subcategory == "humanitarian-needs",
+            view_availability.c.location_code == "FOO",
+            view_availability.c.admin1_name == "Province 01",
+            view_availability.c.admin2_name == "District A",
+            view_availability.c.hapi_updated_date == datetime(2023, 6, 1),
         ),
     )
 

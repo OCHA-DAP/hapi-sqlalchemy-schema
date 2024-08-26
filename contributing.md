@@ -71,7 +71,8 @@ the file without committing by executing:
 
 To add a new table to the schema:
 
-1. Add a `db_[table_name].py` file to `src/hapi_schema` which implements the table as a class derived from `hapi_schema.utils.base.Base`
+1. Add a `db_[table_name].py` file to `src/hapi_schema` which implements the table as a class derived from `hapi_schema.utils.base.Base`,
+   together with the view and coverage parameters.
 2. Add a file `data_[table_name].py` to `tests/sample_data` which contains three rows of data for the new table as a list of dictionaries.
 3. Add the table to the `tests/conftest.py` with an import like:
    `from sample_data.data_[table_name] import data_[table_name]`

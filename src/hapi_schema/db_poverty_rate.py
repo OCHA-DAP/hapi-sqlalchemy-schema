@@ -11,6 +11,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.schema import CheckConstraint
+from sqlalchemy.sql import null
+from sqlalchemy.sql.expression import literal
 
 from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_location import DBLocation
@@ -100,4 +102,36 @@ view_params_poverty_rate = ViewParams(
             isouter=True,
         )
     ),
+)
+
+# Results format: category, subcategory, location_name, location_code, admin1_name, admin1_code, admin2_name, admin2_code, hapi_updated_date
+availability_stmt_poverty_rate = (
+    select(
+        literal("population-social").label("category"),
+        literal("poverty-rate").label("subcategory"),
+        DBLocation.name.label("location_name"),
+        DBLocation.code.label("location_code"),
+        DBPovertyRate.admin1_name,  # fixme
+        DBAdmin1.code.label("admin1_code"),
+        null().label("admin2_name"),
+        null().label("admin2_code"),
+        DBResource.hapi_updated_date,
+    )
+    .select_from(
+        DBPovertyRate.__table__.join(
+            DBAdmin1.__table__,
+            DBPovertyRate.admin1_ref == DBAdmin1.id,
+            isouter=True,
+        )
+        .join(
+            DBLocation.__table__,
+            DBAdmin1.location_ref == DBLocation.id,
+            isouter=True,
+        )
+        .join(
+            DBResource.__table__,
+            DBPovertyRate.resource_hdx_id == DBResource.hdx_id,
+        )
+    )
+    .distinct()
 )

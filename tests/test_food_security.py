@@ -6,6 +6,7 @@ from hapi_schema.db_food_security import (
     DBFoodSecurity,
     view_params_food_security,
 )
+from hapi_schema.views import prepare_hapi_views
 
 
 def test_food_security_view(run_view_test):
@@ -21,6 +22,21 @@ def test_food_security_view(run_view_test):
             view_food_security.c.admin2_code == "FOO-001-A",
             view_food_security.c.admin1_code == "FOO-001",
             view_food_security.c.location_code == "FOO",
+        ),
+    )
+
+
+def test_food_security_availability(run_view_test):
+    view_availability = prepare_hapi_views()
+    run_view_test(
+        view=view_availability,
+        whereclause=(
+            view_availability.c.category == "food",
+            view_availability.c.subcategory == "food-security",
+            view_availability.c.location_code == "FOO",
+            view_availability.c.admin1_name == "Province 01",
+            view_availability.c.admin2_name == "District A",
+            view_availability.c.hapi_updated_date == datetime(2023, 8, 1),
         ),
     )
 
