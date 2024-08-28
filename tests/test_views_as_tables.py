@@ -218,6 +218,22 @@ def test_humanitarian_needs_vat(
     run_primary_keys_test("humanitarian_needs_vat", expected_primary_keys)
 
 
+def test_idps_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
+    """Check that funding_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = ["appeal_code", "location_ref"]
+    expected_indexes = [
+        "requirements_usd",
+        "funding_usd",
+        "funding_pct",
+        "reference_period_start",
+        "location_code",
+        "location_name",
+    ]
+    run_columns_test("funding_vat", "funding_view", view_params_funding)
+    run_indexes_test("funding_vat", expected_indexes)
+    run_primary_keys_test("funding_vat", expected_primary_keys)
+
+
 def test_location_vat(
     run_indexes_test, run_columns_test, run_primary_keys_test
 ):
