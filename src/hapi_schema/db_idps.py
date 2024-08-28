@@ -1,42 +1,33 @@
 """IDPs subcategory table and view."""
 
 from datetime import datetime
-from decimal import Decimal
 
 from sqlalchemy import (
-    CheckConstraint,
     DateTime,
     ForeignKey,
-    String,
+    Integer,
     select,
-    text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy.sql import null
 from sqlalchemy.sql.expression import literal
 
+from hapi_schema.db_admin1 import DBAdmin1
+from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
-from hapi_schema.utils.constraints import reference_period_constraint
+from hapi_schema.utils.constraints import (
+    population_constraint,
+    reference_period_constraint,
+)
+from hapi_schema.utils.enums import DTMAssessmentType, build_enum_using_values
 from hapi_schema.utils.view_params import ViewParams
 
 
 class DBIDPs(Base):
     __tablename__ = "idps"
     __table_args__ = (
-        CheckConstraint(
-            "requirements_usd >= 0.0",
-            name="requirements_usd_constraint",
-        ),
-        CheckConstraint(
-            "funding_usd >= 0.0",
-            name="funding_usd_constraint",
-        ),
-        CheckConstraint(
-            "funding_pct >= 0.0",
-            name="funding_pct_constraint",
-        ),
+        population_constraint(),
         reference_period_constraint(),
     )
 
@@ -45,41 +36,30 @@ class DBIDPs(Base):
         nullable=False,
     )
 
-    appeal_code: Mapped[str] = mapped_column(
-        String(32),
-        primary_key=True,
+    admin2_ref = mapped_column(
+        ForeignKey("admin2.id", onupdate="CASCADE"), primary_key=True
     )
 
-    location_ref: Mapped[int] = mapped_column(
-        ForeignKey("location.id", onupdate="CASCADE"),
-        primary_key=True,
+    assessment_type: Mapped[DTMAssessmentType] = mapped_column(
+        build_enum_using_values(DTMAssessmentType), primary_key=True
     )
 
-    appeal_name: Mapped[str] = mapped_column(String(256), nullable=False)
+    reporting_round: Mapped[int] = mapped_column(Integer, nullable=True)
 
-    appeal_type: Mapped[str] = mapped_column(String(32), nullable=False)
-
-    requirements_usd: Mapped[Decimal] = mapped_column(
-        nullable=False, index=True
+    population: Mapped[int] = mapped_column(
+        Integer, nullable=False, index=True
     )
-
-    funding_usd: Mapped[Decimal] = mapped_column(nullable=False, index=True)
-
-    funding_pct: Mapped[Decimal] = mapped_column(nullable=False, index=True)
 
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime,
-        primary_key=True,
+        DateTime, nullable=False, index=True
     )
 
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime,
-        nullable=True,
-        server_default=text("NULL"),
+        DateTime, nullable=False, index=True
     )
 
     resource = relationship(DBResource)
-    location = relationship(DBLocation)
+    admin2 = relationship(DBAdmin2)
 
 
 view_params_idps = ViewParams(
@@ -91,10 +71,28 @@ view_params_idps = ViewParams(
         DBLocation.name.label("location_name"),
         DBLocation.has_hrp.label("has_hrp"),
         DBLocation.in_gho.label("in_gho"),
+        DBAdmin1.code.label("admin1_code"),
+        DBAdmin1.name.label("admin1_name"),
+        DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
+        DBAdmin1.location_ref.label("location_ref"),
+        DBAdmin2.code.label("admin2_code"),
+        DBAdmin2.name.label("admin2_name"),
+        DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
+        DBAdmin2.admin1_ref.label("admin1_ref"),
     ).select_from(
         DBIDPs.__table__.join(
+            DBAdmin2.__table__,
+            DBIDPs.admin2_ref == DBAdmin2.id,
+            isouter=True,
+        )
+        .join(
+            DBAdmin1.__table__,
+            DBAdmin2.admin1_ref == DBAdmin1.id,
+            isouter=True,
+        )
+        .join(
             DBLocation.__table__,
-            DBIDPs.location_ref == DBLocation.id,
+            DBAdmin1.location_ref == DBLocation.id,
             isouter=True,
         )
     ),
@@ -103,22 +101,33 @@ view_params_idps = ViewParams(
 # Results format: category, subcategory, location_name, location_code, admin1_name, admin1_code, admin2_name, admin2_code, hapi_updated_date
 availability_stmt_idps = (
     select(
-        literal("coordination-context").label("category"),
+        literal("affected-people").label("category"),
         literal("idps").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
-        null().label("admin1_name"),
-        null().label("admin1_code"),
-        null().label("admin2_name"),
-        null().label("admin2_code"),
+        DBAdmin1.name.label("admin1_name"),
+        DBAdmin1.code.label("admin1_code"),
+        DBAdmin2.name.label("admin2_name"),
+        DBAdmin2.code.label("admin2_code"),
         DBResource.hapi_updated_date,
     )
     .select_from(
         DBIDPs.__table__.join(
-            DBLocation.__table__,
-            DBIDPs.location_ref == DBLocation.id,
+            DBAdmin2.__table__,
+            DBIDPs.admin2_ref == DBAdmin2.id,
             isouter=True,
-        ).join(
+        )
+        .join(
+            DBAdmin1.__table__,
+            DBAdmin2.admin1_ref == DBAdmin1.id,
+            isouter=True,
+        )
+        .join(
+            DBLocation.__table__,
+            DBAdmin1.location_ref == DBLocation.id,
+            isouter=True,
+        )
+        .join(
             DBResource.__table__,
             DBIDPs.resource_hdx_id == DBResource.hdx_id,
         )
