@@ -38,6 +38,7 @@ from hapi_schema.db_population import DBPopulation
 from hapi_schema.db_poverty_rate import DBPovertyRate
 from hapi_schema.db_refugees import DBRefugees
 from hapi_schema.db_resource import DBResource
+from hapi_schema.db_returnees import DBReturnees
 from hapi_schema.db_sector import DBSector
 from hapi_schema.db_wfp_commodity import DBWFPCommodity
 from hapi_schema.db_wfp_market import DBWFPMarket
@@ -63,6 +64,7 @@ from sample_data.data_population import data_population
 from sample_data.data_poverty_rate import data_poverty_rate
 from sample_data.data_refugees import data_refugees
 from sample_data.data_resource import data_resource
+from sample_data.data_returnees import data_returnees
 from sample_data.data_sector import data_sector
 from sample_data.data_wfp_commodity import data_wfp_commodity
 from sample_data.data_wfp_market import data_wfp_market
@@ -100,6 +102,7 @@ def session():
     session.execute(insert(DBOperationalPresence), data_operational_presence)
     session.execute(insert(DBPovertyRate), data_poverty_rate)
     session.execute(insert(DBRefugees), data_refugees)
+    session.execute(insert(DBReturnees), data_returnees)
     session.execute(insert(DBFoodSecurity), data_food_security)
     session.execute(insert(DBFoodPrice), data_food_price)
     session.execute(insert(DBHumanitarianNeeds), data_humanitarian_needs)

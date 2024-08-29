@@ -512,6 +512,39 @@ class DBResourceVAT(Base):
     )
 
 
+class DBReturneesVAT(Base):
+    __tablename__ = "returnees_vat"
+    resource_hdx_id: Mapped[str] = mapped_column(String(36))
+    origin_location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    asylum_location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    population_group: Mapped[PopulationGroup] = mapped_column(
+        build_enum_using_values(PopulationGroup), primary_key=True
+    )
+    gender: Mapped[Gender] = mapped_column(
+        build_enum_using_values(Gender), primary_key=True
+    )
+    age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
+    min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    population: Mapped[int] = mapped_column(Integer, index=True)
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, primary_key=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime,
+        index=True,
+        nullable=True,
+    )
+    origin_location_code: Mapped[str] = mapped_column(String(128), index=True)
+    origin_location_name: Mapped[str] = mapped_column(String(512), index=True)
+    origin_has_hrp: Mapped[bool] = mapped_column(Boolean)
+    origin_in_gho: Mapped[bool] = mapped_column(Boolean)
+    asylum_location_code: Mapped[str] = mapped_column(String(128), index=True)
+    asylum_location_name: Mapped[str] = mapped_column(String(512), index=True)
+    asylum_has_hrp: Mapped[bool] = mapped_column(Boolean)
+    asylum_in_gho: Mapped[bool] = mapped_column(Boolean)
+
+
 class DBSectorVAT(Base):
     __tablename__ = "sector_vat"
     code: Mapped[str] = mapped_column(String(32), primary_key=True)

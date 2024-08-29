@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added `coverage\_view`, which shows the locations available for each API endpoint
 - Added idps table and view (including materialised view)
+- Added returnees table and view (including materialised view)
 
 ## 0.8.14
 
