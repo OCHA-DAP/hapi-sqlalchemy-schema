@@ -529,4 +529,4 @@ class DBAvailabilityVAT(Base):
     admin1_code: Mapped[str] = mapped_column(String(128), primary_key=True)
     admin2_name: Mapped[str] = mapped_column(String(512), primary_key=True)
     admin2_code: Mapped[str] = mapped_column(String(128), primary_key=True)
-    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime)
+    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime, index=True)

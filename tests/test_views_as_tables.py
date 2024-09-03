@@ -450,3 +450,25 @@ def test_wfp_market_vat(
     )
     run_indexes_test("wfp_market_vat", expected_indexes)
     run_primary_keys_test("wfp_market_vat", expected_primary_keys)
+
+
+def test_data_availability_vat(run_indexes_test, run_primary_keys_test):
+    """Check that wfp_market_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "category",
+        "subcategory",
+        "location_name",
+        "location_code",
+        "admin1_name",
+        "admin1_code",
+        "admin2_name",
+        "admin2_code",
+    ]
+    expected_indexes = [
+        "hapi_updated_date",
+    ]
+    #    run_columns_test(
+    #        "data_availability_vat", "data_availability_view", view_params_wfp_market
+    #    )
+    run_indexes_test("data_availability_vat", expected_indexes)
+    run_primary_keys_test("data_availability_vat", expected_primary_keys)
