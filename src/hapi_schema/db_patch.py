@@ -3,7 +3,7 @@
 import enum
 from datetime import datetime
 
-from sqlalchemy import DateTime, Enum, Integer, String, select
+from sqlalchemy import Enum, Integer, String, select
 from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.utils.base import Base
@@ -28,7 +28,7 @@ class DBPatch(Base):
     commit_hash: Mapped[str] = mapped_column(
         String(48), unique=False, nullable=False
     )
-    commit_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    commit_date: Mapped[datetime] = mapped_column(nullable=False)
     patch_path: Mapped[str] = mapped_column(
         String(512), nullable=False, index=True
     )
@@ -42,9 +42,7 @@ class DBPatch(Base):
     state: Mapped[StateEnum] = mapped_column(
         Enum(StateEnum), nullable=False, index=True
     )
-    execution_date: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, index=True
-    )
+    execution_date: Mapped[datetime] = mapped_column(nullable=True, index=True)
 
 
 view_params_patch = ViewParams(
@@ -59,10 +57,10 @@ class DBPatchVAT(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     patch_sequence_number: Mapped[int] = mapped_column(Integer, index=True)
     commit_hash: Mapped[str] = mapped_column(String(48))
-    commit_date: Mapped[datetime] = mapped_column(DateTime)
+    commit_date: Mapped[datetime] = mapped_column()
     patch_path: Mapped[str] = mapped_column(String(512), index=True)
     patch_permalink_url: Mapped[str] = mapped_column(String(1024))
     patch_target: Mapped[str] = mapped_column(String(128))
     patch_hash: Mapped[str] = mapped_column(String(48))
     state: Mapped[str] = mapped_column(String(10), index=True)
-    execution_date: Mapped[datetime] = mapped_column(DateTime, index=True)
+    execution_date: Mapped[datetime] = mapped_column(index=True)

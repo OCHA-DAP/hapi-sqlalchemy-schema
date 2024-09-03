@@ -5,13 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## (next release)
+## 0.8.16 (in progress)
+
+### Added
+
+- `idps` endpoint, view, and VAT
+- `returnees` table, view, and VAT
+- new constraint: `greater\_than\_constraint`
+
+## 0.8.15
+
+### Added
+
+- `data\_availability\_view`, which shows the locations available for each API endpoint
 
 ### Changed
 
-- Added `coverage\_view`, which shows the locations available for each API endpoint
 - Added idps table and view (including materialised view)
-- Added returnees table and view (including materialised view)
+- Applied feedback from this
+  [SQLAlchemy discussion](sqlalchemy/sqlalchemy#11748)
+  to allow usage of type annotations defined in Base classes
 
 ## 0.8.14
 

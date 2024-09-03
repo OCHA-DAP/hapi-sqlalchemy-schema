@@ -57,6 +57,17 @@ def base_parameters():
     )
 
 
+def test_reporting_round_constraint(run_constraints_test, base_parameters):
+    """Check that the reporting round is greater than 0"""
+    modified_params = {**base_parameters, "reporting_round": -1}
+    run_constraints_test(
+        new_rows=[
+            DBIDPs(**modified_params),
+        ],
+        expected_constraint="reporting_round_constraint",
+    )
+
+
 def test_population_positive(run_constraints_test, base_parameters):
     """Check that the population value is positive"""
     modified_params = {**base_parameters, "population": -1}
