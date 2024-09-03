@@ -3,7 +3,6 @@
 from datetime import datetime
 
 from sqlalchemy import (
-    DateTime,
     ForeignKey,
     ForeignKeyConstraint,
     String,
@@ -50,11 +49,9 @@ class DBOperationalPresence(Base):
     sector_code: Mapped[str] = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"), primary_key=True
     )
-    reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, primary_key=True
-    )
+    reference_period_start: Mapped[datetime] = mapped_column(primary_key=True)
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=True, server_default=text("NULL"), index=True
+        nullable=True, server_default=text("NULL"), index=True
     )
 
     resource = relationship(DBResource)
