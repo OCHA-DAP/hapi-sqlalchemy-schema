@@ -23,6 +23,7 @@ from hapi_schema.db_funding import DBFunding
 from hapi_schema.db_humanitarian_needs import (
     DBHumanitarianNeeds,
 )
+from hapi_schema.db_idps import DBIDPs
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_national_risk import (
     DBNationalRisk,
@@ -51,6 +52,7 @@ from sample_data.data_food_price import data_food_price
 from sample_data.data_food_security import data_food_security
 from sample_data.data_funding import data_funding
 from sample_data.data_humanitarian_needs import data_humanitarian_needs
+from sample_data.data_idps import data_idps
 from sample_data.data_location import data_location
 from sample_data.data_national_risk import data_national_risk
 from sample_data.data_operational_presence import data_operational_presence
@@ -92,6 +94,7 @@ def session():
 
     session.execute(insert(DBConflictEvent), data_conflict_event)
     session.execute(insert(DBFunding), data_funding)
+    session.execute(insert(DBIDPs), data_idps)
     session.execute(insert(DBNationalRisk), data_national_risk)
     session.execute(insert(DBPopulation), data_population)
     session.execute(insert(DBOperationalPresence), data_operational_presence)
