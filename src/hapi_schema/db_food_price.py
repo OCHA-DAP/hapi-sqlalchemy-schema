@@ -4,7 +4,6 @@ from datetime import datetime
 from decimal import Decimal
 
 from sqlalchemy import (
-    DateTime,
     ForeignKey,
     String,
     select,
@@ -62,11 +61,9 @@ class DBFoodPrice(Base):
         build_enum_using_values(PriceType), primary_key=True
     )
     price: Mapped[Decimal] = mapped_column(nullable=False)
-    reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, primary_key=True
-    )
+    reference_period_start: Mapped[datetime] = mapped_column(primary_key=True)
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        nullable=False, index=True
     )
 
     resource = relationship(DBResource)
