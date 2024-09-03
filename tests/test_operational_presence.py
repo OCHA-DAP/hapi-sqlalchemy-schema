@@ -6,6 +6,7 @@ from hapi_schema.db_operational_presence import (
     DBOperationalPresence,
     view_params_operational_presence,
 )
+from hapi_schema.views import prepare_hapi_views
 
 
 def test_operational_presence_view(run_view_test):
@@ -27,6 +28,21 @@ def test_operational_presence_view(run_view_test):
             == "International NGO",
             view_operational_presence.c.sector_name
             == "Water Sanitation Hygiene",
+        ),
+    )
+
+
+def test_operational_presence_availability(run_view_test):
+    view_availability = prepare_hapi_views()
+    run_view_test(
+        view=view_availability,
+        whereclause=(
+            view_availability.c.category == "coordination-context",
+            view_availability.c.subcategory == "operational-presence",
+            view_availability.c.location_code == "FOO",
+            view_availability.c.admin1_name == "Province 01",
+            view_availability.c.admin2_name == "District A",
+            view_availability.c.hapi_updated_date == datetime(2023, 6, 1),
         ),
     )
 

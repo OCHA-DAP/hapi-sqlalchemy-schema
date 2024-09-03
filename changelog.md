@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.8.15
 
-### Changes
+### Added
+
+- `coverage\_view`, which shows the locations available for each API endpoint
+
+### Changed
 
 - Applied feedback from this
   [SQLAlchemy discussion](sqlalchemy/sqlalchemy#11748)

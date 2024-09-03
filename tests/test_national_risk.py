@@ -2,11 +2,13 @@ from datetime import datetime
 
 import pytest
 from hdx.database import Database
+from sqlalchemy.sql import null
 
 from hapi_schema.db_national_risk import (
     DBNationalRisk,
     view_params_national_risk,
 )
+from hapi_schema.views import prepare_hapi_views
 
 
 def test_national_risk_view(run_view_test):
@@ -20,6 +22,21 @@ def test_national_risk_view(run_view_test):
             view_national_risk.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_national_risk.c.location_name == "Foolandia",
+        ),
+    )
+
+
+def test_national_risk_availability(run_view_test):
+    view_availability = prepare_hapi_views()
+    run_view_test(
+        view=view_availability,
+        whereclause=(
+            view_availability.c.category == "coordination-context",
+            view_availability.c.subcategory == "national-risk",
+            view_availability.c.location_code == "FOO",
+            view_availability.c.admin1_name == null(),
+            view_availability.c.admin2_name == null(),
+            view_availability.c.hapi_updated_date == datetime(2023, 6, 1),
         ),
     )
 

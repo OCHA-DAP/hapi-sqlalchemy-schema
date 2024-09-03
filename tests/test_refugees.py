@@ -1,11 +1,13 @@
 from datetime import datetime
 
 from hdx.database import Database
+from sqlalchemy.sql import null
 
 from hapi_schema.db_refugees import (
     DBRefugees,
     view_params_refugees,
 )
+from hapi_schema.views import prepare_hapi_views
 
 
 def test_refugees_view(run_view_test):
@@ -18,6 +20,22 @@ def test_refugees_view(run_view_test):
             == "62ad6e55-5f5d-4494-854c-4110687e9e25",
             view_refugees.c.origin_location_code == "FOO",
             view_refugees.c.asylum_location_code == "BAR",
+        ),
+    )
+
+
+def test_refugees_availability(run_view_test):
+    view_availability = prepare_hapi_views()
+    run_view_test(
+        view=view_availability,
+        whereclause=(
+            view_availability.c.category == "affected-people",
+            view_availability.c.subcategory == "refugees",
+            view_availability.c.location_code
+            == "BAR",  # we use the country of asylum, not origin
+            view_availability.c.admin1_name == null(),
+            view_availability.c.admin2_name == null(),
+            view_availability.c.hapi_updated_date == datetime(2023, 8, 1),
         ),
     )
 
