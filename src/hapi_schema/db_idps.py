@@ -17,6 +17,7 @@ from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import (
+    greater_than_constraint,
     population_constraint,
     reference_period_constraint,
 )
@@ -27,6 +28,7 @@ from hapi_schema.utils.view_params import ViewParams
 class DBIDPs(Base):
     __tablename__ = "idps"
     __table_args__ = (
+        greater_than_constraint("reporting_round", 0),
         population_constraint(),
         reference_period_constraint(),
     )
@@ -55,7 +57,7 @@ class DBIDPs(Base):
     )
 
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        DateTime, nullable=True, index=True
     )
 
     resource = relationship(DBResource)

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `idps` endpoint, view, and VAT
+- new constraint: `greater\_than\_constraint`
 
 ## 0.8.15
 

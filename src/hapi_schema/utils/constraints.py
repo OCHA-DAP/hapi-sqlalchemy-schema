@@ -45,6 +45,15 @@ def non_negative_constraint(
     return CheckConstraint(sqltext=sqltext, name=f"{var_name}_constraint")
 
 
+def greater_than_constraint(
+    var_name: str,
+    min_value: 0,
+) -> CheckConstraint:
+    """Require a column to be non-negative."""
+    sqltext = f"{var_name} >= {min_value}"
+    return CheckConstraint(sqltext=sqltext, name=f"{var_name}_constraint")
+
+
 def percentage_constraint(var_name: str) -> CheckConstraint:
     sqltext = f"{var_name} >= 0. AND {var_name} <= 100."
     return CheckConstraint(sqltext=sqltext, name=f"{var_name}_constraint")
