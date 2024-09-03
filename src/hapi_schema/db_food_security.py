@@ -4,7 +4,6 @@ from datetime import datetime
 from decimal import Decimal
 
 from sqlalchemy import (
-    DateTime,
     Float,
     ForeignKey,
     Integer,
@@ -52,11 +51,9 @@ class DBFoodSecurity(Base):
     population_fraction_in_phase: Mapped[Decimal] = mapped_column(
         Float, nullable=False, index=True
     )
-    reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, primary_key=True
-    )
+    reference_period_start: Mapped[datetime] = mapped_column(primary_key=True)
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        nullable=False, index=True
     )
 
     resource = relationship(DBResource)

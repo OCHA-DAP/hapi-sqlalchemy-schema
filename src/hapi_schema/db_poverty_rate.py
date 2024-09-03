@@ -3,7 +3,6 @@
 from datetime import datetime
 
 from sqlalchemy import (
-    DateTime,
     Float,
     ForeignKey,
     String,
@@ -66,11 +65,9 @@ class DBPovertyRate(Base):
     in_severe_poverty: Mapped[float] = mapped_column(
         Float, nullable=False, index=False
     )
-    reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, primary_key=True
-    )
+    reference_period_start: Mapped[datetime] = mapped_column(primary_key=True)
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        nullable=False, index=True
     )
 
     resource = relationship(DBResource)

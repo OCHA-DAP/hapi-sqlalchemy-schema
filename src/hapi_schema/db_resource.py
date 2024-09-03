@@ -1,8 +1,9 @@
 """Resource table and view."""
 
+from datetime import datetime
+
 from sqlalchemy import (
     Boolean,
-    DateTime,
     ForeignKey,
     String,
     select,
@@ -24,12 +25,12 @@ class DBResource(Base):
     )
     name: Mapped[str] = mapped_column(String(256), nullable=False)
     format: Mapped[str] = mapped_column(String(32), nullable=False)
-    update_date = mapped_column(DateTime, nullable=False)
+    update_date: Mapped[datetime] = mapped_column(nullable=False)
     is_hxl: Mapped[bool] = mapped_column(Boolean, nullable=False)
     download_url: Mapped[str] = mapped_column(
         String(1024), nullable=False, unique=True
     )
-    hapi_updated_date = mapped_column(DateTime, nullable=False)
+    hapi_updated_date: Mapped[datetime] = mapped_column(nullable=False)
     dataset = relationship("DBDataset")
 
 
