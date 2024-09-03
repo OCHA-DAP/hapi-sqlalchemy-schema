@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `data\_availability\_vat` (no unit test yet)
 
+### Changed
+
+- corrected `availability\_view` to `data\_availability\_view`
+
 ## 0.8.15
 
 ### Added

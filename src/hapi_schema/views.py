@@ -43,7 +43,7 @@ def prepare_hapi_views():
 
     # Also prepare a data-availability view, which is a union of availability for each subcategory
     view_params_availability = ViewParams(
-        name="availability_view",
+        name="data_availability_view",
         metadata=Base.metadata,
         selectable=union_all(*availability_stmts),
     )
