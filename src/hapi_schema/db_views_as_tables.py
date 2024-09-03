@@ -517,3 +517,16 @@ class DBWfpMarketVAT(Base):
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
+
+
+class DBAvailabilityVAT(Base):
+    __tablename__ = "data_availability_vat"
+    category: Mapped[str] = mapped_column(String(128), primary_key=True)
+    subcategory: Mapped[str] = mapped_column(String(128), primary_key=True)
+    location_name: Mapped[str] = mapped_column(String(512), primary_key=True)
+    location_code: Mapped[str] = mapped_column(String(128), primary_key=True)
+    admin1_name: Mapped[str] = mapped_column(String(512), primary_key=True)
+    admin1_code: Mapped[str] = mapped_column(String(128), primary_key=True)
+    admin2_name: Mapped[str] = mapped_column(String(512), primary_key=True)
+    admin2_code: Mapped[str] = mapped_column(String(128), primary_key=True)
+    hapi_updated_date: Mapped[datetime] = mapped_column(DateTime)
