@@ -270,6 +270,35 @@ class DBHumanitarianNeedsVAT(Base):
     admin1_ref: Mapped[int] = mapped_column(Integer)
 
 
+class DBIDPsVAT(Base):
+    __tablename__ = "idps_vat"
+    resource_hdx_id: Mapped[str] = mapped_column(String(36))
+    admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    assessment_type: Mapped[str] = mapped_column(String(32), primary_key=True)
+    reporting_round: Mapped[int] = mapped_column(Integer, nullable=True)
+    population: Mapped[int] = mapped_column(Integer, index=True)
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, primary_key=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime,
+        index=True,
+        nullable=True,
+    )
+    location_code: Mapped[str] = mapped_column(String(128), index=True)
+    location_name: Mapped[str] = mapped_column(String(512), index=True)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
+    in_gho: Mapped[bool] = mapped_column(Boolean)
+    admin1_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin1_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    location_ref: Mapped[int] = mapped_column(Integer)
+    admin2_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin2_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    admin1_ref: Mapped[int] = mapped_column(Integer)
+
+
 class DBLocationVAT(Base):
     __tablename__ = "location_vat"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -481,6 +510,39 @@ class DBResourceVAT(Base):
     dataset_hdx_provider_name: Mapped[str] = mapped_column(
         String(512), index=True
     )
+
+
+class DBReturneesVAT(Base):
+    __tablename__ = "returnees_vat"
+    resource_hdx_id: Mapped[str] = mapped_column(String(36))
+    origin_location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    asylum_location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    population_group: Mapped[PopulationGroup] = mapped_column(
+        build_enum_using_values(PopulationGroup), primary_key=True
+    )
+    gender: Mapped[Gender] = mapped_column(
+        build_enum_using_values(Gender), primary_key=True
+    )
+    age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
+    min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    population: Mapped[int] = mapped_column(Integer, index=True)
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, primary_key=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime,
+        index=True,
+        nullable=True,
+    )
+    origin_location_code: Mapped[str] = mapped_column(String(128), index=True)
+    origin_location_name: Mapped[str] = mapped_column(String(512), index=True)
+    origin_has_hrp: Mapped[bool] = mapped_column(Boolean)
+    origin_in_gho: Mapped[bool] = mapped_column(Boolean)
+    asylum_location_code: Mapped[str] = mapped_column(String(128), index=True)
+    asylum_location_name: Mapped[str] = mapped_column(String(512), index=True)
+    asylum_has_hrp: Mapped[bool] = mapped_column(Boolean)
+    asylum_in_gho: Mapped[bool] = mapped_column(Boolean)
 
 
 class DBSectorVAT(Base):

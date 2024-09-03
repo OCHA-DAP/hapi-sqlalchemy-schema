@@ -23,6 +23,11 @@ class Gender(str, PythonEnum):
     ALL = "all"
 
 
+class DTMAssessmentType(str, PythonEnum):
+    BASELINE = "BA"
+    SITE = "SA"
+
+
 class DisabledMarker(str, PythonEnum):
     YES = "y"
     NO = "n"

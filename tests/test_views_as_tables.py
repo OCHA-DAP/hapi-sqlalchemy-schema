@@ -7,6 +7,7 @@ from hapi_schema.db_food_price import view_params_food_price
 from hapi_schema.db_food_security import view_params_food_security
 from hapi_schema.db_funding import view_params_funding
 from hapi_schema.db_humanitarian_needs import view_params_humanitarian_needs
+from hapi_schema.db_idps import view_params_idps
 from hapi_schema.db_location import view_params_location
 from hapi_schema.db_national_risk import view_params_national_risk
 from hapi_schema.db_operational_presence import (
@@ -19,6 +20,7 @@ from hapi_schema.db_population import view_params_population
 from hapi_schema.db_poverty_rate import view_params_poverty_rate
 from hapi_schema.db_refugees import view_params_refugees
 from hapi_schema.db_resource import view_params_resource
+from hapi_schema.db_returnees import view_params_returnees
 from hapi_schema.db_sector import view_params_sector
 from hapi_schema.db_wfp_commodity import view_params_wfp_commodity
 from hapi_schema.db_wfp_market import view_params_wfp_market
@@ -218,6 +220,28 @@ def test_humanitarian_needs_vat(
     run_primary_keys_test("humanitarian_needs_vat", expected_primary_keys)
 
 
+def test_idps_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
+    """Check that funding_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "admin2_ref",
+        "assessment_type",
+        "reference_period_start",
+    ]
+    expected_indexes = [
+        "population",
+        "reference_period_end",
+        "location_code",
+        "location_name",
+        "admin1_name",
+        "admin1_code",
+        "admin2_name",
+        "admin2_code",
+    ]
+    run_columns_test("idps_vat", "idps_view", view_params_idps)
+    run_primary_keys_test("idps_vat", expected_primary_keys)
+    run_indexes_test("idps_vat", expected_indexes)
+
+
 def test_location_vat(
     run_indexes_test, run_columns_test, run_primary_keys_test
 ):
@@ -403,6 +427,33 @@ def test_resource_vat(
     run_columns_test("resource_vat", "resource_view", view_params_resource)
     run_indexes_test("resource_vat", expected_indexes)
     run_primary_keys_test("resource_vat", expected_primary_keys)
+
+
+def test_returnees_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that returnees_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "origin_location_ref",
+        "asylum_location_ref",
+        "population_group",
+        "gender",
+        "age_range",
+        "reference_period_start",
+    ]
+    expected_indexes = [
+        "min_age",
+        "max_age",
+        "population",
+        "reference_period_end",
+        "origin_location_code",
+        "origin_location_name",
+        "asylum_location_code",
+        "asylum_location_name",
+    ]
+    run_columns_test("returnees_vat", "returnees_view", view_params_returnees)
+    run_indexes_test("returnees_vat", expected_indexes)
+    run_primary_keys_test("returnees_vat", expected_primary_keys)
 
 
 def test_sector_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
