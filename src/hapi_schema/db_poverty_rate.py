@@ -10,7 +10,6 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.schema import CheckConstraint
-from sqlalchemy.sql import null
 from sqlalchemy.sql.expression import literal
 
 from hapi_schema.db_admin1 import DBAdmin1
@@ -110,9 +109,9 @@ availability_stmt_poverty_rate = (
         DBPovertyRate.provider_admin1_name.label(
             "admin1_name"
         ),  # fixme once we start p-coding
-        null().label("admin1_code"),  # fixme once we start p-coding
-        null().label("admin2_name"),
-        null().label("admin2_code"),
+        literal("").label("admin1_code"),  # fixme once we start p-coding
+        literal("").label("admin2_name"),
+        literal("").label("admin2_code"),
         DBResource.hapi_updated_date,
     )
     .select_from(
