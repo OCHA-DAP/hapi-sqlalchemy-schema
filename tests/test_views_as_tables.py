@@ -386,7 +386,7 @@ def test_poverty_rate_vat(
     """Check that poverty_rate_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin1_ref",
-        "admin1_name",
+        "provider_admin1_name",
         "reference_period_start",
     ]
     expected_indexes = [
@@ -394,7 +394,6 @@ def test_poverty_rate_vat(
         "location_ref",
         "location_code",
         "location_name",
-        "admin1_name",
     ]
     run_columns_test(
         "poverty_rate_vat", "poverty_rate_view", view_params_poverty_rate

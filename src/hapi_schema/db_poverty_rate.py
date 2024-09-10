@@ -48,8 +48,7 @@ class DBPovertyRate(Base):
         nullable=False,
         primary_key=True,
     )
-    # TODO temporary -- will remove in future release and use name from admin1 table
-    admin1_name: Mapped[str] = mapped_column(
+    provider_admin1_name: Mapped[str] = mapped_column(
         String(512), nullable=False, index=True, primary_key=True
     )
     mpi: Mapped[float] = mapped_column(Float, nullable=False, index=False)
@@ -108,8 +107,10 @@ availability_stmt_poverty_rate = (
         literal("poverty-rate").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
-        DBPovertyRate.admin1_name,  # fixme
-        DBAdmin1.code.label("admin1_code"),
+        DBPovertyRate.provider_admin1_name.label(
+            "admin1_name"
+        ),  # fixme once we start p-coding
+        null().label("admin1_code"),  # fixme once we start p-coding
         null().label("admin2_name"),
         null().label("admin2_code"),
         DBResource.hapi_updated_date,

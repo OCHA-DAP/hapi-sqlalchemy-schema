@@ -466,8 +466,9 @@ class DBPovertyRateVAT(Base):
     __tablename__ = "poverty_rate_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin1_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
-    admin1_name: Mapped[str] = mapped_column(
-        String(512), primary_key=True, index=True
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512),
+        primary_key=True,
     )
     mpi: Mapped[float] = mapped_column(Float)
     headcount_ratio: Mapped[float] = mapped_column(Float)
