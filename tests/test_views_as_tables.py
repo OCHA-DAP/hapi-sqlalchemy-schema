@@ -148,6 +148,8 @@ def test_food_security_vat(
     """Check that food_security_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
         "ipc_type",
         "ipc_phase",
         "reference_period_start",

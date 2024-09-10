@@ -7,14 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.9 (in progress)
 
-### Summary
-
-Major refactoring to allow partial/incremental standardisation of subnational geocodes.  Added `provider\_admin1\_name` and `provider\_admin2\_name` to the primary keys of subcategory tables (and `wfp_markets`), as appropriate.
+Major refactoring to allow partial/incremental standardisation of subnational geocodes.  Added `provider\_admin1\_name` and `provider\_admin2\_name` to the primary keys of subcategory tables (and `wfp_markets`), as appropriate.  This will break existing pipelines until they add support for the new fields.
 
 ### Changed
 
-- added `provider\_admin1\_name` to `idps`, `humanitarian\_needs`, `operational\_presence`, `conflict\_event` (and associated views, VATS, and tests)
-- added `provider\_admin2\_name` to `idps`, `humanitarian\_needs`, `operational\_presence`, `conflict\_event` (and associated views, VATS, and tests)
+- added `provider\_admin1\_name` to `idps`, `humanitarian\_needs`, `operational\_presence`, `conflict\_event`, `food_security` (and associated views, VATS, and tests)
+- added `provider\_admin2\_name` to `idps`, `humanitarian\_needs`, `operational\_presence`, `conflict\_event`, `food_security` (and associated views, VATS, and tests)
 
 ## 0.8.16
 
