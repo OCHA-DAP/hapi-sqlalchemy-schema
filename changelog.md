@@ -11,8 +11,9 @@ Major refactoring to allow partial/incremental standardisation of subnational ge
 
 ### Changed
 
-- added `provider\_admin1\_name` to `idps`, `humanitarian\_needs`, `operational\_presence`, `conflict\_event`, `food_security` (and associated views, VATS, and tests)
-- added `provider\_admin2\_name` to `idps`, `humanitarian\_needs`, `operational\_presence`, `conflict\_event`, `food_security` (and associated views, VATS, and tests)
+- added `provider\_admin1\_name` to `idps`, `humanitarian\_needs`, `operational\_presence`, `conflict\_event`, `food_security`, `population` (and associated views, VATS, and tests)
+- added `provider\_admin2\_name` to `idps`, `humanitarian\_needs`, `operational\_presence`, `conflict\_event`, `food_security`, `population` (and associated views, VATS, and tests)
+- made `reference\_period\_start` part of the primary key for `population\_vat` (originally omitted in error)
 
 ## 0.8.16
 

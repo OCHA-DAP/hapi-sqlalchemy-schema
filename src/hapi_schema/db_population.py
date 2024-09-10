@@ -43,6 +43,8 @@ class DBPopulation(Base):
         ForeignKey("admin2.id", onupdate="CASCADE"),
         primary_key=True,
     )
+    provider_admin1_name = mapped_column(String(512), primary_key=True)
+    provider_admin2_name = mapped_column(String(512), primary_key=True)
     gender: Mapped[Gender] = mapped_column(
         build_enum_using_values(Gender), primary_key=True
     )

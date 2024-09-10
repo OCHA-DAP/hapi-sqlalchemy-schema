@@ -353,12 +353,18 @@ def test_population_vat(
     run_indexes_test, run_columns_test, run_primary_keys_test
 ):
     """Check that population_vat is correct - columns match, expected indexes present"""
-    expected_primary_keys = ["admin2_ref", "gender", "age_range"]
+    expected_primary_keys = [
+        "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
+        "gender",
+        "age_range",
+        "reference_period_start",
+    ]
     expected_indexes = [
         "min_age",
         "max_age",
         "population",
-        "reference_period_start",
         "reference_period_end",
         "location_code",
         "location_name",

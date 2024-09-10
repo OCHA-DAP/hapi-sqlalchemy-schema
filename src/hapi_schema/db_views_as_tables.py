@@ -427,6 +427,12 @@ class DBPopulationVAT(Base):
     __tablename__ = "population_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin2_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
     gender: Mapped[Gender] = mapped_column(
         build_enum_using_values(Gender), primary_key=True
     )
@@ -435,7 +441,7 @@ class DBPopulationVAT(Base):
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     population: Mapped[int] = mapped_column(Integer, index=True)
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime,
