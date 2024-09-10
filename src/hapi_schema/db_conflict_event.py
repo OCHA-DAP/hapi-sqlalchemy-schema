@@ -5,6 +5,7 @@ from datetime import datetime
 from sqlalchemy import (
     ForeignKey,
     Integer,
+    String,
     select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -42,6 +43,8 @@ class DBConflictEvent(Base):
         nullable=False,
         primary_key=True,
     )
+    provider_admin1_name = mapped_column(String(512), primary_key=True)
+    provider_admin2_name = mapped_column(String(512), primary_key=True)
     event_type: Mapped[EventType] = mapped_column(
         build_enum_using_values(EventType), nullable=False, primary_key=True
     )

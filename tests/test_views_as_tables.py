@@ -64,6 +64,8 @@ def test_conflict_event_vat(
     """Check that conflict_event_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
         "event_type",
         "reference_period_start",
     ]

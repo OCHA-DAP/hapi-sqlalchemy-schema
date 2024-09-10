@@ -79,6 +79,12 @@ class DBConflictEventVAT(Base):
     __tablename__ = "conflict_event_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin2_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
     event_type: Mapped[EventType] = mapped_column(
         build_enum_using_values(EventType), primary_key=True
     )

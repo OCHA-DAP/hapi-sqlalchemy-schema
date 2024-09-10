@@ -19,6 +19,8 @@ def test_conflict_event_view(run_view_test):
         whereclause=(
             view_conflict_event.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_conflict_event.c.provider_admin1_name == "Provincia 01",
+            view_conflict_event.c.provider_admin2_name == "Distrito A",
             view_conflict_event.c.location_name == "Foolandia",
             view_conflict_event.c.admin1_name == "Province 01",
             view_conflict_event.c.admin2_name == "District A",
@@ -46,6 +48,8 @@ def _sample_data():
     return dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
+        provider_admin1_name="Province 01",
+        provider_admin2_name="District A",
         event_type="political_violence",
         events=10,
         fatalities=2,
