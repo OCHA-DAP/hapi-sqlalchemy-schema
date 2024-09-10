@@ -26,6 +26,10 @@ def test_humanitarian_needs_view(run_view_test):
         whereclause=(
             view_humanitarian_needs.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_humanitarian_needs.c.provider_admin1_name == "Provincia 01",
+            view_humanitarian_needs.c.provider_admin2_name == "Distrito B",
+            view_humanitarian_needs.c.provider_admin1_name == "Provincia 01",
+            view_humanitarian_needs.c.provider_admin2_name == "Distrito B",
             view_humanitarian_needs.c.admin2_code == "FOO-001-XXX",
             view_humanitarian_needs.c.admin1_code == "FOO-001",
             view_humanitarian_needs.c.location_code == "FOO",
@@ -59,6 +63,8 @@ def base_parameters():
     return dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito B",
         gender=Gender.ALL,
         age_range="-1-20",
         disabled_marker=DisabledMarker.ALL,

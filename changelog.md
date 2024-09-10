@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.9 (in progress)
 
+### Summary
+
+Major refactoring to allow partial/incremental standardisation of subnational geocodes.  Added `provider\_admin1\_name` and `provider\_admin2\_name` to the primary keys of subcategory tables (and `wfp_markets`), as appropriate.
+
 ### Changed
 
-- added `provider\_admin1\_name` to `idps` (and associated views, VATS, and tests)
-- added `provider\_admin2\_name` to `idps` (and associated views, VATS, and tests)
+- added `provider\_admin1\_name` to `idps`, `humanitarian\_needs` (and associated views, VATS, and tests)
+- added `provider\_admin2\_name` to `idps`, `humanitarian\_needs` (and associated views, VATS, and tests)
 
 ## 0.8.16
 

@@ -192,6 +192,8 @@ def test_humanitarian_needs_vat(
     """Check that humanitarian_needs_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
         "gender",
         "age_range",
         "sector_code",

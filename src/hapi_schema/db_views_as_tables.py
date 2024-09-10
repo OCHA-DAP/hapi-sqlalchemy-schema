@@ -230,6 +230,12 @@ class DBHumanitarianNeedsVAT(Base):
     __tablename__ = "humanitarian_needs_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin2_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
     gender: Mapped[Gender] = mapped_column(
         build_enum_using_values(Gender), primary_key=True
     )
