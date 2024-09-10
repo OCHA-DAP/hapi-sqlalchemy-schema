@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.9 (in progress)
 
-Major refactoring to allow partial/incremental standardisation of subnational geocodes.  Added `provider\_admin1\_name` and `provider\_admin2\_name` to the primary keys of subcategory tables (and `wfp_markets`), as appropriate.  This will break existing pipelines until they add support for the new fields.
+Major refactoring to allow partial/incremental standardisation of subnational geocodes.  Added `provider\_admin1\_name` and `provider\_admin2\_name` to the primary keys of subcategory tables (except `food_price`), as appropriate.  This will break existing pipelines until they add support for the new fields.
 
 ### Changed
 
