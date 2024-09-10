@@ -274,6 +274,12 @@ class DBIDPsVAT(Base):
     __tablename__ = "idps_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin2_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
     assessment_type: Mapped[str] = mapped_column(String(32), primary_key=True)
     reporting_round: Mapped[int] = mapped_column(Integer, nullable=True)
     population: Mapped[int] = mapped_column(Integer, index=True)
