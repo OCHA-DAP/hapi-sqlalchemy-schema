@@ -285,6 +285,8 @@ def test_operational_presence_vat(
     """Check that operational_presence_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
         "org_acronym",
         "org_name",
         "sector_code",

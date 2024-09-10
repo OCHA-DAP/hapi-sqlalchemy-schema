@@ -13,8 +13,8 @@ Major refactoring to allow partial/incremental standardisation of subnational ge
 
 ### Changed
 
-- added `provider\_admin1\_name` to `idps`, `humanitarian\_needs` (and associated views, VATS, and tests)
-- added `provider\_admin2\_name` to `idps`, `humanitarian\_needs` (and associated views, VATS, and tests)
+- added `provider\_admin1\_name` to `idps`, `humanitarian\_needs`, `operational\_presence` (and associated views, VATS, and tests)
+- added `provider\_admin2\_name` to `idps`, `humanitarian\_needs`, `operational\_presence` (and associated views, VATS, and tests)
 
 ## 0.8.16
 
