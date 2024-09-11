@@ -154,6 +154,8 @@ class DBFoodPriceVAT(Base):
         nullable=True,
     )
     admin2_ref: Mapped[int] = mapped_column(Integer)
+    provider_admin1_name: Mapped[str] = mapped_column(String(512), index=True)
+    provider_admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     market_name: Mapped[str] = mapped_column(String(512), index=True)
     lat: Mapped[float] = mapped_column(Float, index=True)
     lon: Mapped[float] = mapped_column(Float, index=True)

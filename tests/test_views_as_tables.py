@@ -122,6 +122,8 @@ def test_food_price_vat(
         "reference_period_start",
     ]
     expected_indexes = [
+        "provider_admin1_name",
+        "provider_admin2_name",
         "currency_code",
         "commodity_name",
         "market_name",

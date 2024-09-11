@@ -81,6 +81,8 @@ view_params_food_price = ViewParams(
     selectable=select(
         *DBFoodPrice.__table__.columns,
         DBWFPMarket.admin2_ref.label("admin2_ref"),
+        DBWFPMarket.provider_admin1_name.label("provider_admin1_name"),
+        DBWFPMarket.provider_admin2_name.label("provider_admin2_name"),
         DBWFPMarket.name.label("market_name"),
         DBWFPMarket.lat.label("lat"),
         DBWFPMarket.lon.label("lon"),
