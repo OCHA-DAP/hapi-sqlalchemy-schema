@@ -12,6 +12,8 @@ def test_wfp_market_view(run_view_test):
     run_view_test(
         view=view_wfp_market,
         whereclause=(
+            view_wfp_market.c.provider_admin1_name == "Provincia 01",
+            view_wfp_market.c.provider_admin2_name == "Distrito A",
             view_wfp_market.c.code == "001",
             view_wfp_market.c.name == "Market #1",
             view_wfp_market.c.lat == 0.1,
@@ -55,6 +57,8 @@ def _sample_data():
     return dict(
         code="001",
         admin2_ref=4,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         name="Market #1",
         lat=0.1,
         lon=-0.1,

@@ -499,6 +499,8 @@ def test_wfp_market_vat(
     """Check that wfp_market_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = ["code"]
     expected_indexes = [
+        "provider_admin1_name",
+        "provider_admin2_name",
         "name",
         "lat",
         "lon",
