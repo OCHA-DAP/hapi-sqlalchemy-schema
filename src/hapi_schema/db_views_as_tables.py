@@ -489,6 +489,7 @@ class DBPovertyRateVAT(Base):
     location_name: Mapped[str] = mapped_column(String(512), index=True)
     has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
+    admin1_name: Mapped[str] = mapped_column(String(512))
     admin1_code: Mapped[str] = mapped_column(String(128))
     admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer, index=True)

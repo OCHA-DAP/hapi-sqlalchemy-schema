@@ -82,6 +82,7 @@ view_params_poverty_rate = ViewParams(
         DBLocation.name.label("location_name"),
         DBLocation.has_hrp.label("has_hrp"),
         DBLocation.in_gho.label("in_gho"),
+        DBAdmin1.name.label("admin1_name"),
         DBAdmin1.code.label("admin1_code"),
         DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
         DBAdmin1.location_ref.label("location_ref"),
@@ -106,10 +107,8 @@ availability_stmt_poverty_rate = (
         literal("poverty-rate").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
-        DBPovertyRate.provider_admin1_name.label(
-            "admin1_name"
-        ),  # fixme once we start p-coding
-        literal("").label("admin1_code"),  # fixme once we start p-coding
+        DBAdmin1.name.label("admin1_name"),
+        DBAdmin1.code.label("admin1_code"),
         literal("").label("admin2_name"),
         literal("").label("admin2_code"),
         DBResource.hapi_updated_date,

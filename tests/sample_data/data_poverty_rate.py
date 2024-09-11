@@ -3,7 +3,7 @@ from datetime import datetime
 data_poverty_rate = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
-        admin1_ref=1,
+        admin1_ref=2,
         provider_admin1_name="Provincia 01",
         mpi=0.617442,
         headcount_ratio=85.4,

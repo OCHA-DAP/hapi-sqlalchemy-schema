@@ -21,6 +21,7 @@ def test_poverty_rate_view(run_view_test):
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_poverty_rate.c.location_name == "Foolandia",
             view_poverty_rate.c.provider_admin1_name == "Provincia 01",
+            view_poverty_rate.c.admin1_name == "Province 01",
         ),
     )
 
@@ -33,7 +34,7 @@ def test_poverty_rate_availability(run_view_test):
             view_availability.c.category == "population-social",
             view_availability.c.subcategory == "poverty-rate",
             view_availability.c.location_code == "FOO",
-            view_availability.c.admin1_name == "Provincia 01",
+            view_availability.c.admin1_name == "Province 01",
             view_availability.c.hapi_updated_date == datetime(2023, 6, 1),
         ),
     )
