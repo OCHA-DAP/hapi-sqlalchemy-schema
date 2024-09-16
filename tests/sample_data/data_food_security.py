@@ -5,6 +5,8 @@ data_food_security = [
     dict(
         resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
         admin2_ref=1,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         ipc_phase="1",
         ipc_type="current",
         population_in_phase=500_000,
@@ -16,6 +18,8 @@ data_food_security = [
     dict(
         resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
         admin2_ref=2,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         ipc_phase="2",
         ipc_type="first projection",
         population_in_phase=40_000,
@@ -27,6 +31,8 @@ data_food_security = [
     dict(
         resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
         admin2_ref=4,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         ipc_phase="3",
         ipc_type="second projection",
         population_in_phase=3_000,

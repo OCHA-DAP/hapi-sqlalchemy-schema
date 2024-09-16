@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.9 (in progress)
+
+Major refactoring to allow partial/incremental standardisation of subnational geocodes.  Added `provider\_admin1\_name` and `provider\_admin2\_name` to the primary keys of subcategory tables (except `food_price`), as appropriate.  This will break existing pipelines until they add support for the new fields.
+
+### Changed
+
+- added `provider\_admin1\_name` and `provider\_admin2\_name` to `idps`, `humanitarian\_needs`, `operational\_presence`, `conflict\_event`, `food_security`, `population`, and `wfp\_market` (and associated views, VATS, and tests)
+- renamed existing column `admin1\_name` to `provider\_admin1\_name` in `poverty\_rate` for consistency (and updated tests and VAT)
+- updated `food\_price\_view` and VAT to include `provider\_admin1\_name` and `provider\_admin2\_name` from `wfp\_market`
+- updated `poverty\_rate\_view` and VAT to include `admin1_name` from `admin1` table
+- made `reference\_period\_start` part of the primary key for `population\_vat` (originally omitted in error)
+
 ## 0.8.16
 
 ### Added

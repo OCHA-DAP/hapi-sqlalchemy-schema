@@ -5,6 +5,8 @@ data_humanitarian_needs = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito B",
         gender="all",
         age_range="all",
         disabled_marker="all",
@@ -19,6 +21,8 @@ data_humanitarian_needs = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito B",
         gender="f",
         age_range="all",
         disabled_marker="n",
@@ -33,6 +37,8 @@ data_humanitarian_needs = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=2,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito B",
         gender="f",
         age_range="0-4",
         min_age=0,
@@ -49,6 +55,8 @@ data_humanitarian_needs = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
+        provider_admin1_name="Provincia 03",
+        provider_admin2_name="Distrito D",
         gender="all",
         age_range="80+",
         min_age=80,

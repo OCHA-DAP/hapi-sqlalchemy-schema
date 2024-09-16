@@ -4,6 +4,8 @@ data_operational_presence = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=2,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         org_acronym="ORG01",
         org_name="Organisation 1",
         sector_code="SHL",
@@ -12,6 +14,8 @@ data_operational_presence = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         org_acronym="ORG02",
         org_name="Organisation 2",
         sector_code="FSC",
@@ -20,6 +24,8 @@ data_operational_presence = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         org_acronym="ORG03",
         org_name="Organisation 3",
         sector_code="WSH",
@@ -28,6 +34,8 @@ data_operational_presence = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=6,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         org_acronym="ORG03",
         org_name="Organisation 3",
         sector_code="HEA",
@@ -36,6 +44,8 @@ data_operational_presence = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         org_acronym="ORG02",
         org_name="Organisation 2",
         sector_code="WSH",

@@ -10,7 +10,6 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.schema import CheckConstraint
-from sqlalchemy.sql import null
 from sqlalchemy.sql.expression import literal
 
 from hapi_schema.db_admin1 import DBAdmin1
@@ -48,8 +47,7 @@ class DBPovertyRate(Base):
         nullable=False,
         primary_key=True,
     )
-    # TODO temporary -- will remove in future release and use name from admin1 table
-    admin1_name: Mapped[str] = mapped_column(
+    provider_admin1_name: Mapped[str] = mapped_column(
         String(512), nullable=False, index=True, primary_key=True
     )
     mpi: Mapped[float] = mapped_column(Float, nullable=False, index=False)
@@ -84,6 +82,7 @@ view_params_poverty_rate = ViewParams(
         DBLocation.name.label("location_name"),
         DBLocation.has_hrp.label("has_hrp"),
         DBLocation.in_gho.label("in_gho"),
+        DBAdmin1.name.label("admin1_name"),
         DBAdmin1.code.label("admin1_code"),
         DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
         DBAdmin1.location_ref.label("location_ref"),
@@ -108,10 +107,10 @@ availability_stmt_poverty_rate = (
         literal("poverty-rate").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
-        DBPovertyRate.admin1_name,  # fixme
+        DBAdmin1.name.label("admin1_name"),
         DBAdmin1.code.label("admin1_code"),
-        null().label("admin2_name"),
-        null().label("admin2_code"),
+        literal("").label("admin2_name"),
+        literal("").label("admin2_code"),
         DBResource.hapi_updated_date,
     )
     .select_from(

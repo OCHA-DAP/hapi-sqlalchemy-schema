@@ -5,6 +5,8 @@ data_population = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         gender="all",
         age_range="all",
         population=1_000_000,
@@ -15,6 +17,8 @@ data_population = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         gender="f",
         age_range="all",
         population=500_000,
@@ -25,6 +29,8 @@ data_population = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=2,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         gender="f",
         age_range="0-4",
         min_age=0,
@@ -37,6 +43,8 @@ data_population = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         gender="all",
         age_range="80+",
         min_age=80,
