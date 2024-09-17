@@ -6,6 +6,7 @@ from sqlalchemy import (
     DateTime,
     ForeignKey,
     Integer,
+    String,
     select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -46,7 +47,8 @@ class DBIDPs(Base):
         build_enum_using_values(DTMAssessmentType), primary_key=True
     )
 
-    reporting_round: Mapped[int] = mapped_column(Integer, nullable=True)
+    reporting_round: Mapped[int] = mapped_column(Integer, primary_key=True)
+    operation: Mapped[str] = mapped_column(String, primary_key=True)
 
     population: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
