@@ -53,7 +53,7 @@ class DBIDPs(Base):
     )
 
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        DateTime, primary_key=True
     )
 
     reference_period_end: Mapped[datetime] = mapped_column(
