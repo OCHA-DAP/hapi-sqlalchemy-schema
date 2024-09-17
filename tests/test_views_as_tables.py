@@ -225,6 +225,8 @@ def test_idps_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     expected_primary_keys = [
         "admin2_ref",
         "assessment_type",
+        "reporting_round",
+        "operation",
         "reference_period_start",
     ]
     expected_indexes = [

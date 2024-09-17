@@ -6,6 +6,7 @@ data_idps = [
         admin2_ref=2,
         assessment_type="BA",
         reporting_round=18,
+        operation="Operation",
         population=25000,
         reference_period_start=datetime(2024, 1, 1),
         reference_period_end=datetime(2024, 12, 31),

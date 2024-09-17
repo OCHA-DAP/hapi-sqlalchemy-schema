@@ -21,6 +21,7 @@ def test_idps_view(run_view_test):
             view_idps.c.admin2_ref == 2,
             view_idps.c.assessment_type == "BA",
             view_idps.c.reporting_round == 18,
+            view_idps.c.operation == "Operation",
             view_idps.c.population == 25000,
             view_idps.c.admin2_code == "FOO-001-XXX",
             view_idps.c.admin1_code == "FOO-001",
