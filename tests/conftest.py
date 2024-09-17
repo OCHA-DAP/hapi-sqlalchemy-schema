@@ -173,6 +173,8 @@ def run_primary_keys_test(session):
             if column.primary_key:
                 found_primary_keys.append(column.name)
 
+        print(expected_primary_keys)
+        print(found_primary_keys)
         assert set(expected_primary_keys) == set(found_primary_keys)
 
     return _run_primary_keys_test

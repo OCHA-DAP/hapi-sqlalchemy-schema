@@ -52,6 +52,7 @@ def base_parameters():
         admin2_ref=2,
         assessment_type="BA",
         reporting_round=18,
+        operation="operation",
         population=25000,
         reference_period_start=datetime(2020, 1, 1),
         reference_period_end=datetime(2020, 1, 2),
