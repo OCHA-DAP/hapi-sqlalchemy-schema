@@ -301,7 +301,8 @@ class DBIDPsVAT(Base):
         String(512), primary_key=True
     )
     assessment_type: Mapped[str] = mapped_column(String(32), primary_key=True)
-    reporting_round: Mapped[int] = mapped_column(Integer, nullable=True)
+    reporting_round: Mapped[int] = mapped_column(Integer, primary_key=True)
+    operation: Mapped[str] = mapped_column(String, primary_key=True)
     population: Mapped[int] = mapped_column(Integer, index=True)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True

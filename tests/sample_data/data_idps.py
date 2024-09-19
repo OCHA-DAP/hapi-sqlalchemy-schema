@@ -8,6 +8,7 @@ data_idps = [
         provider_admin2_name="Distrito B",
         assessment_type="BA",
         reporting_round=18,
+        operation="Operation",
         population=25000,
         reference_period_start=datetime(2024, 1, 1),
         reference_period_end=datetime(2024, 12, 31),

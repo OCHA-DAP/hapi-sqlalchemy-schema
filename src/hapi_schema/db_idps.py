@@ -51,14 +51,15 @@ class DBIDPs(Base):
         build_enum_using_values(DTMAssessmentType), primary_key=True
     )
 
-    reporting_round: Mapped[int] = mapped_column(Integer, nullable=True)
+    reporting_round: Mapped[int] = mapped_column(Integer, primary_key=True)
+    operation: Mapped[str] = mapped_column(String, primary_key=True)
 
     population: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
     )
 
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        DateTime, primary_key=True
     )
 
     reference_period_end: Mapped[datetime] = mapped_column(

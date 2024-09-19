@@ -17,6 +17,12 @@ Major refactoring to allow partial/incremental standardisation of subnational ge
 - updated `poverty\_rate\_view` and VAT to include `admin1_name` from `admin1` table
 - made `reference\_period\_start` part of the primary key for `population\_vat` (originally omitted in error)
 
+## 0.8.17
+
+### Added
+
+- `operation` and additional primary keys to `idps` table
+
 ## 0.8.16
 
 ### Added
