@@ -74,6 +74,7 @@ class PriceFlag(str, PythonEnum):
 
 class PriceType(str, PythonEnum):
     FARM_GATE = "Farm Gate"
+    PRODUCER = "Producer"
     RETAIL = "Retail"
     WHOLESALE = "Wholesale"
 
