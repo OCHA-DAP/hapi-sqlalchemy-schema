@@ -18,15 +18,10 @@ from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import (
-    max_age_constraint,
-    min_age_constraint,
     population_constraint,
     reference_period_constraint,
 )
 from hapi_schema.utils.enums import (
-    DisabledMarker,
-    Gender,
-    PopulationGroup,
     PopulationStatus,
     build_enum_using_values,
 )
@@ -36,8 +31,6 @@ from hapi_schema.utils.view_params import ViewParams
 class DBHumanitarianNeeds(Base):
     __tablename__ = "humanitarian_needs"
     __table_args__ = (
-        min_age_constraint(),
-        max_age_constraint(),
         population_constraint(),
         reference_period_constraint(),
     )
@@ -50,28 +43,14 @@ class DBHumanitarianNeeds(Base):
         ForeignKey("admin2.id", onupdate="CASCADE"),
         primary_key=True,
     )
-    gender: Mapped[Gender] = mapped_column(
-        build_enum_using_values(Gender), primary_key=True
-    )
-    age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
-    min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
-    max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    category: Mapped[str] = mapped_column(String(256), primary_key=True)
     sector_code: Mapped[str] = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"),
         primary_key=True,
     )
-    population_group: Mapped[PopulationGroup] = mapped_column(
-        build_enum_using_values(PopulationGroup),
-        primary_key=True,
-    )
-
     population_status: Mapped[PopulationStatus] = mapped_column(
         build_enum_using_values(PopulationStatus),
         primary_key=True,
-    )
-
-    disabled_marker: Mapped[DisabledMarker] = mapped_column(
-        build_enum_using_values(DisabledMarker), primary_key=True
     )
     population: Mapped[int] = mapped_column(Integer, nullable=False)
     reference_period_start: Mapped[datetime] = mapped_column(

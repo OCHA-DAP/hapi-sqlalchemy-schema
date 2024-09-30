@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - added "Producer" to the `PriceType` enum
+- humanitarian needs table changes - replace gender, age, disability and 
+  population group columns with freeform category column
 
 ## 0.8.17
 

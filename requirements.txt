@@ -6,13 +6,13 @@ coverage==7.6.1
     # via pytest-cov
 distlib==0.3.8
     # via virtualenv
-filelock==3.15.4
+filelock==3.16.1
     # via virtualenv
-greenlet==3.0.3
+greenlet==3.1.1
     # via sqlalchemy
 hdx-python-database==1.3.3
     # via hapi-schema (pyproject.toml)
-identify==2.6.0
+identify==2.6.1
     # via pre-commit
 iniconfig==2.0.0
     # via pytest
@@ -20,17 +20,17 @@ nodeenv==1.9.1
     # via pre-commit
 packaging==24.1
     # via pytest
-platformdirs==4.2.2
+platformdirs==4.3.6
     # via virtualenv
 pluggy==1.5.0
     # via pytest
 pre-commit==3.8.0
     # via hapi-schema (pyproject.toml)
-psycopg==3.2.1
+psycopg==3.2.3
     # via hapi-schema (pyproject.toml)
-psycopg-binary==3.2.1
+psycopg-binary==3.2.3
     # via psycopg
-pytest==8.3.2
+pytest==8.3.3
     # via
     #   hapi-schema (pyproject.toml)
     #   pytest-cov
@@ -38,7 +38,7 @@ pytest-cov==5.0.0
     # via hapi-schema (pyproject.toml)
 pyyaml==6.0.2
     # via pre-commit
-sqlalchemy==2.0.32
+sqlalchemy==2.0.35
     # via
     #   hapi-schema (pyproject.toml)
     #   hdx-python-database
@@ -46,5 +46,5 @@ typing-extensions==4.12.2
     # via
     #   psycopg
     #   sqlalchemy
-virtualenv==20.26.3
+virtualenv==20.26.6
     # via pre-commit
