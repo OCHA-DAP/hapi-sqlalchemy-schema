@@ -192,17 +192,12 @@ def test_humanitarian_needs_vat(
     """Check that humanitarian_needs_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
-        "gender",
-        "age_range",
         "sector_code",
-        "population_group",
+        "category",
         "population_status",
-        "disabled_marker",
         "reference_period_start",
     ]
     expected_indexes = [
-        "min_age",
-        "max_age",
         "reference_period_end",
         "location_code",
         "location_name",

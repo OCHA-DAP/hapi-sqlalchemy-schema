@@ -43,7 +43,7 @@ class DBHumanitarianNeeds(Base):
         ForeignKey("admin2.id", onupdate="CASCADE"),
         primary_key=True,
     )
-    category: Mapped[str] = mapped_column(String(256), primary_key=True)
+    category: Mapped[str] = mapped_column(String(128), primary_key=True)
     sector_code: Mapped[str] = mapped_column(
         ForeignKey("sector.code", onupdate="CASCADE"),
         primary_key=True,
