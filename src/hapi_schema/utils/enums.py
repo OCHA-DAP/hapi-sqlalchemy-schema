@@ -28,12 +28,6 @@ class DTMAssessmentType(str, PythonEnum):
     SITE = "SA"
 
 
-class DisabledMarker(str, PythonEnum):
-    YES = "y"
-    NO = "n"
-    ALL = "all"
-
-
 class EventType(str, PythonEnum):
     CIVILIAN_TARGETING = "civilian_targeting"
     DEMONSTRATION = "demonstration"

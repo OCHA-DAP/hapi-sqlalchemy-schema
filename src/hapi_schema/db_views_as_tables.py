@@ -13,7 +13,6 @@ from sqlalchemy.orm import Mapped, mapped_column
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.enums import (
     CommodityCategory,
-    DisabledMarker,
     EventType,
     Gender,
     IPCPhase,
@@ -230,21 +229,10 @@ class DBHumanitarianNeedsVAT(Base):
     __tablename__ = "humanitarian_needs_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
-    gender: Mapped[Gender] = mapped_column(
-        build_enum_using_values(Gender), primary_key=True
-    )
-    age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
-    min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
-    max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
+    category: Mapped[str] = mapped_column(String(128), primary_key=True)
     sector_code: Mapped[str] = mapped_column(String(32), primary_key=True)
-    population_group: Mapped[PopulationGroup] = mapped_column(
-        build_enum_using_values(PopulationGroup), primary_key=True
-    )
     population_status: Mapped[PopulationStatus] = mapped_column(
         build_enum_using_values(PopulationStatus), primary_key=True
-    )
-    disabled_marker: Mapped[DisabledMarker] = mapped_column(
-        build_enum_using_values(DisabledMarker), primary_key=True
     )
     population: Mapped[int] = mapped_column(Integer)
     reference_period_start: Mapped[datetime] = mapped_column(
