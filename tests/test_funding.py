@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from hdx.database import Database
-from sqlalchemy.sql import null
 
 from hapi_schema.db_funding import (
     DBFunding,
@@ -39,8 +38,8 @@ def test_funding_availability(run_view_test):
             view_availability.c.category == "coordination-context",
             view_availability.c.subcategory == "funding",
             view_availability.c.location_code == "FOO",
-            view_availability.c.admin1_name == null(),
-            view_availability.c.admin2_name == null(),
+            view_availability.c.admin1_name == "",
+            view_availability.c.admin2_name == "",
             view_availability.c.hapi_updated_date == datetime(2023, 6, 1),
         ),
     )

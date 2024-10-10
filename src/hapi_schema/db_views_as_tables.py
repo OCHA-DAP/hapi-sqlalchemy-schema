@@ -79,6 +79,12 @@ class DBConflictEventVAT(Base):
     __tablename__ = "conflict_event_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin2_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
     event_type: Mapped[EventType] = mapped_column(
         build_enum_using_values(EventType), primary_key=True
     )
@@ -148,6 +154,8 @@ class DBFoodPriceVAT(Base):
         nullable=True,
     )
     admin2_ref: Mapped[int] = mapped_column(Integer)
+    provider_admin1_name: Mapped[str] = mapped_column(String(512), index=True)
+    provider_admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     market_name: Mapped[str] = mapped_column(String(512), index=True)
     lat: Mapped[float] = mapped_column(Float, index=True)
     lon: Mapped[float] = mapped_column(Float, index=True)
@@ -173,6 +181,12 @@ class DBFoodSecurityVAT(Base):
     __tablename__ = "food_security_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin2_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
     ipc_phase: Mapped[IPCPhase] = mapped_column(
         build_enum_using_values(IPCPhase), primary_key=True
     )
@@ -230,6 +244,12 @@ class DBHumanitarianNeedsVAT(Base):
     __tablename__ = "humanitarian_needs_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin2_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
     gender: Mapped[Gender] = mapped_column(
         build_enum_using_values(Gender), primary_key=True
     )
@@ -274,6 +294,12 @@ class DBIDPsVAT(Base):
     __tablename__ = "idps_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin2_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
     assessment_type: Mapped[str] = mapped_column(String(32), primary_key=True)
     reporting_round: Mapped[int] = mapped_column(Integer, primary_key=True)
     operation: Mapped[str] = mapped_column(String, primary_key=True)
@@ -350,6 +376,12 @@ class DBOperationalPresenceVAT(Base):
     __tablename__ = "operational_presence_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin2_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
     org_acronym: Mapped[str] = mapped_column(String, primary_key=True)
     org_name: Mapped[str] = mapped_column(String, primary_key=True)
     sector_code: Mapped[str] = mapped_column(String(32), primary_key=True)
@@ -398,6 +430,12 @@ class DBPopulationVAT(Base):
     __tablename__ = "population_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin2_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
     gender: Mapped[Gender] = mapped_column(
         build_enum_using_values(Gender), primary_key=True
     )
@@ -406,7 +444,7 @@ class DBPopulationVAT(Base):
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     population: Mapped[int] = mapped_column(Integer, index=True)
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime,
@@ -431,8 +469,9 @@ class DBPovertyRateVAT(Base):
     __tablename__ = "poverty_rate_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
     admin1_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
-    admin1_name: Mapped[str] = mapped_column(
-        String(512), primary_key=True, index=True
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512),
+        primary_key=True,
     )
     mpi: Mapped[float] = mapped_column(Float)
     headcount_ratio: Mapped[float] = mapped_column(Float)
@@ -451,6 +490,7 @@ class DBPovertyRateVAT(Base):
     location_name: Mapped[str] = mapped_column(String(512), index=True)
     has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
+    admin1_name: Mapped[str] = mapped_column(String(512))
     admin1_code: Mapped[str] = mapped_column(String(128))
     admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer, index=True)
@@ -565,6 +605,8 @@ class DBWfpMarketVAT(Base):
     __tablename__ = "wfp_market_vat"
     code: Mapped[str] = mapped_column(String(32), primary_key=True)
     admin2_ref: Mapped[int] = mapped_column(Integer)
+    provider_admin1_name: Mapped[str] = mapped_column(String(512), index=True)
+    provider_admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     name: Mapped[str] = mapped_column(String(512), index=True)
     lat: Mapped[float] = mapped_column(Float, index=True)
     lon: Mapped[float] = mapped_column(Float, index=True)

@@ -17,6 +17,8 @@ def test_food_price_view(run_view_test):
         whereclause=(
             view_food_price.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_food_price.c.provider_admin1_name == "Provincia 01",
+            view_food_price.c.provider_admin2_name == "Distrito A",
             view_food_price.c.commodity_code == "001",
             view_food_price.c.currency_code == "FOO",
             view_food_price.c.price_flag == "actual",

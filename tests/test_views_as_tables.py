@@ -64,6 +64,8 @@ def test_conflict_event_vat(
     """Check that conflict_event_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
         "event_type",
         "reference_period_start",
     ]
@@ -120,6 +122,8 @@ def test_food_price_vat(
         "reference_period_start",
     ]
     expected_indexes = [
+        "provider_admin1_name",
+        "provider_admin2_name",
         "currency_code",
         "commodity_name",
         "market_name",
@@ -146,6 +150,8 @@ def test_food_security_vat(
     """Check that food_security_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
         "ipc_type",
         "ipc_phase",
         "reference_period_start",
@@ -192,6 +198,8 @@ def test_humanitarian_needs_vat(
     """Check that humanitarian_needs_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
         "gender",
         "age_range",
         "sector_code",
@@ -224,6 +232,8 @@ def test_idps_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that funding_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
         "assessment_type",
         "reporting_round",
         "operation",
@@ -283,6 +293,8 @@ def test_operational_presence_vat(
     """Check that operational_presence_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
         "org_acronym",
         "org_name",
         "sector_code",
@@ -345,12 +357,18 @@ def test_population_vat(
     run_indexes_test, run_columns_test, run_primary_keys_test
 ):
     """Check that population_vat is correct - columns match, expected indexes present"""
-    expected_primary_keys = ["admin2_ref", "gender", "age_range"]
+    expected_primary_keys = [
+        "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
+        "gender",
+        "age_range",
+        "reference_period_start",
+    ]
     expected_indexes = [
         "min_age",
         "max_age",
         "population",
-        "reference_period_start",
         "reference_period_end",
         "location_code",
         "location_name",
@@ -372,7 +390,7 @@ def test_poverty_rate_vat(
     """Check that poverty_rate_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin1_ref",
-        "admin1_name",
+        "provider_admin1_name",
         "reference_period_start",
     ]
     expected_indexes = [
@@ -380,7 +398,6 @@ def test_poverty_rate_vat(
         "location_ref",
         "location_code",
         "location_name",
-        "admin1_name",
     ]
     run_columns_test(
         "poverty_rate_vat", "poverty_rate_view", view_params_poverty_rate
@@ -486,6 +503,8 @@ def test_wfp_market_vat(
     """Check that wfp_market_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = ["code"]
     expected_indexes = [
+        "provider_admin1_name",
+        "provider_admin2_name",
         "name",
         "lat",
         "lon",

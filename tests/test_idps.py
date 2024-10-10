@@ -19,6 +19,8 @@ def test_idps_view(run_view_test):
             view_idps.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_idps.c.admin2_ref == 2,
+            view_idps.c.provider_admin1_name == "Provincia 01",
+            view_idps.c.provider_admin2_name == "Distrito B",
             view_idps.c.assessment_type == "BA",
             view_idps.c.reporting_round == 18,
             view_idps.c.operation == "Operation",
@@ -50,6 +52,8 @@ def base_parameters():
     return dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=2,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito B",
         assessment_type="BA",
         reporting_round=18,
         operation="operation",

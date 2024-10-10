@@ -20,6 +20,12 @@ class DBWFPMarket(Base):
         ForeignKey("admin2.id", onupdate="CASCADE"),
         nullable=False,
     )
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512), nullable=False, index=True
+    )
+    provider_admin2_name: Mapped[str] = mapped_column(
+        String(512), nullable=False, index=True
+    )
     name: Mapped[str] = mapped_column(String(512), nullable=False, index=True)
     lat: Mapped[float] = mapped_column(Float, nullable=False, index=True)
     lon: Mapped[float] = mapped_column(Float, nullable=False, index=True)

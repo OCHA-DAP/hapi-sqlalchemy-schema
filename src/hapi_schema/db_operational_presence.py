@@ -42,6 +42,8 @@ class DBOperationalPresence(Base):
     admin2_ref: Mapped[int] = mapped_column(
         ForeignKey("admin2.id", onupdate="CASCADE"), primary_key=True
     )
+    provider_admin1_name = mapped_column(String(512), primary_key=True)
+    provider_admin2_name = mapped_column(String(512), primary_key=True)
     # Foreign key
     org_acronym: Mapped[str] = mapped_column(String, primary_key=True)
     # Foreign key

@@ -43,6 +43,10 @@ class DBIDPs(Base):
         ForeignKey("admin2.id", onupdate="CASCADE"), primary_key=True
     )
 
+    provider_admin1_name = mapped_column(String(512), primary_key=True)
+
+    provider_admin2_name = mapped_column(String(512), primary_key=True)
+
     assessment_type: Mapped[DTMAssessmentType] = mapped_column(
         build_enum_using_values(DTMAssessmentType), primary_key=True
     )

@@ -2,7 +2,6 @@ from datetime import datetime
 
 import pytest
 from hdx.database import Database
-from sqlalchemy.sql import null
 
 from hapi_schema.db_national_risk import (
     DBNationalRisk,
@@ -34,8 +33,8 @@ def test_national_risk_availability(run_view_test):
             view_availability.c.category == "coordination-context",
             view_availability.c.subcategory == "national-risk",
             view_availability.c.location_code == "FOO",
-            view_availability.c.admin1_name == null(),
-            view_availability.c.admin2_name == null(),
+            view_availability.c.admin1_name == "",
+            view_availability.c.admin2_name == "",
             view_availability.c.hapi_updated_date == datetime(2023, 6, 1),
         ),
     )
