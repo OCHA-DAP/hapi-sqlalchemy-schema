@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from hdx.database import Database
-from sqlalchemy.sql import null
 
 from hapi_schema.db_poverty_rate import (
     DBPovertyRate,
@@ -21,6 +20,7 @@ def test_poverty_rate_view(run_view_test):
             view_poverty_rate.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_poverty_rate.c.location_name == "Foolandia",
+            view_poverty_rate.c.provider_admin1_name == "Provincia 01",
             view_poverty_rate.c.admin1_name == "Province 01",
         ),
     )
@@ -35,7 +35,6 @@ def test_poverty_rate_availability(run_view_test):
             view_availability.c.subcategory == "poverty-rate",
             view_availability.c.location_code == "FOO",
             view_availability.c.admin1_name == "Province 01",
-            view_availability.c.admin2_name == null(),
             view_availability.c.hapi_updated_date == datetime(2023, 6, 1),
         ),
     )
@@ -118,7 +117,7 @@ def _sample_data():
     return dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin1_ref=1,
-        admin1_name="Province 02",
+        provider_admin1_name="Provincia 02",
         mpi=0.617442,
         headcount_ratio=85.4,
         intensity_of_deprivation=72.3,

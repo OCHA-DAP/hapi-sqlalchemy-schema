@@ -12,7 +12,6 @@ from sqlalchemy import (
     select,
 )
 from sqlalchemy.orm import Mapped, aliased, mapped_column, relationship
-from sqlalchemy.sql import null
 from sqlalchemy.sql.expression import literal
 
 from hapi_schema.db_location import DBLocation
@@ -117,10 +116,10 @@ availability_stmt_refugees = (
         literal("refugees").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
-        null().label("admin1_name"),
-        null().label("admin1_code"),
-        null().label("admin2_name"),
-        null().label("admin2_code"),
+        literal("").label("admin1_name"),
+        literal("").label("admin1_code"),
+        literal("").label("admin2_name"),
+        literal("").label("admin2_code"),
         DBResource.hapi_updated_date,
     )
     .select_from(

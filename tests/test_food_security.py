@@ -20,6 +20,8 @@ def test_food_security_view(run_view_test):
             view_food_security.c.resource_hdx_id
             == "62ad6e55-5f5d-4494-854c-4110687e9e25",
             view_food_security.c.admin2_code == "FOO-001-A",
+            view_food_security.c.provider_admin1_name == "Provincia 01",
+            view_food_security.c.provider_admin2_name == "Distrito A",
             view_food_security.c.admin1_code == "FOO-001",
             view_food_security.c.location_code == "FOO",
         ),
@@ -48,6 +50,8 @@ def test_reference_period_constraint(run_constraints_test):
             DBFoodSecurity(
                 resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
                 admin2_ref=4,
+                provider_admin1_name="Provincia 01",
+                provider_admin2_name="Distrito A",
                 ipc_phase="1",
                 ipc_type="current",
                 population_in_phase=1_000,
@@ -67,6 +71,8 @@ def test_population_in_phase_positive(run_constraints_test):
             DBFoodSecurity(
                 resource_hdx_id="62ad6e55-5f5d-4494-854c-4110687e9e25",
                 admin2_ref=4,
+                provider_admin1_name="Provincia 01",
+                provider_admin2_name="Distrito A",
                 ipc_phase="1",
                 ipc_type="current",
                 population_in_phase=-1,

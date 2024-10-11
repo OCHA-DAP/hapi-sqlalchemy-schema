@@ -19,6 +19,8 @@ def test_operational_presence_view(run_view_test):
         whereclause=(
             view_operational_presence.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_operational_presence.c.provider_admin1_name == "Provincia 01",
+            view_operational_presence.c.provider_admin2_name == "Distrito A",
             view_operational_presence.c.admin2_code == "FOO-XXX-XXX",
             view_operational_presence.c.admin1_code == "FOO-XXX",
             view_operational_presence.c.location_code == "FOO",
@@ -54,6 +56,8 @@ def test_reference_period_constraint(run_constraints_test):
             DBOperationalPresence(
                 resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
                 admin2_ref=2,
+                provider_admin1_name="Provincia 01",
+                provider_admin2_name="Distrito A",
                 org_acronym="ORG01",
                 org_name="Organisation 1",
                 sector_code="SHL",

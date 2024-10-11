@@ -16,6 +16,8 @@ def test_population_view(run_view_test):
         whereclause=(
             view_population.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_population.c.provider_admin1_name == "Provincia 01",
+            view_population.c.provider_admin2_name == "Distrito A",
             view_population.c.admin2_code == "FOO-001-XXX",
             view_population.c.admin1_code == "FOO-001",
             view_population.c.location_code == "FOO",
@@ -44,6 +46,8 @@ def base_parameters():
     return dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito A",
         gender=Gender.ALL,
         age_range="all",
         population=1_000_000,

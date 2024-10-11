@@ -7,6 +7,7 @@ from sqlalchemy import (
     Float,
     ForeignKey,
     Integer,
+    String,
     select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -39,6 +40,8 @@ class DBFoodSecurity(Base):
     admin2_ref: Mapped[int] = mapped_column(
         ForeignKey("admin2.id", onupdate="CASCADE"), primary_key=True
     )
+    provider_admin1_name = mapped_column(String(512), primary_key=True)
+    provider_admin2_name = mapped_column(String(512), primary_key=True)
     ipc_phase: Mapped[IPCPhase] = mapped_column(
         build_enum_using_values(IPCPhase), primary_key=True
     )

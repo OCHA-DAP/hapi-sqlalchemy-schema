@@ -5,6 +5,8 @@ data_humanitarian_needs = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito B",
         sector_code="intersectoral",
         category="",
         population_status="AFF",
@@ -16,6 +18,8 @@ data_humanitarian_needs = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito B",
         sector_code="SHL",
         category="Female - Refugees",
         population_status="INN",
@@ -27,6 +31,8 @@ data_humanitarian_needs = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=2,
+        provider_admin1_name="Provincia 01",
+        provider_admin2_name="Distrito B",
         sector_code="WSH",
         category="Female - Disabled - Baby - IDP",
         population_status="INN",
@@ -38,6 +44,8 @@ data_humanitarian_needs = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
+        provider_admin1_name="Provincia 03",
+        provider_admin2_name="Distrito D",
         sector_code="HEA",
         category="Elderly - Disabled - IDP",
         population_status="AFF",
