@@ -2,9 +2,9 @@
 #    uv pip compile pyproject.toml --resolver=backtracking --all-extras -o requirements.txt
 cfgv==3.4.0
     # via pre-commit
-coverage==7.6.1
+coverage==7.6.2
     # via pytest-cov
-distlib==0.3.8
+distlib==0.3.9
     # via virtualenv
 filelock==3.16.1
     # via virtualenv
@@ -24,7 +24,7 @@ platformdirs==4.3.6
     # via virtualenv
 pluggy==1.5.0
     # via pytest
-pre-commit==3.8.0
+pre-commit==4.0.1
     # via hapi-schema (pyproject.toml)
 psycopg==3.2.3
     # via hapi-schema (pyproject.toml)
