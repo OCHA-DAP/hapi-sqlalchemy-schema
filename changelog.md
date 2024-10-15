@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Freeform category for HNo instead of gender, age, disabled, population group
+- Freeform category for HNO instead of gender, age, disabled, population group
 
 ## 0.9.1
 
