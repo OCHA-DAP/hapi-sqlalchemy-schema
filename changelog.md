@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.9.2
+
+### Changed
+
+- Freeform category for HNo instead of gender, age, disabled, population group
+
 ## 0.9.1
 
 ### Added
@@ -32,6 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - added "Producer" to the `PriceType` enum
+- humanitarian needs table changes - replace gender, age, disability and
+  population group columns with freeform category column
 
 ## 0.8.17
 

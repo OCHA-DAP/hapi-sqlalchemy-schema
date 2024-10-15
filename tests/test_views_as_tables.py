@@ -200,17 +200,12 @@ def test_humanitarian_needs_vat(
         "admin2_ref",
         "provider_admin1_name",
         "provider_admin2_name",
-        "gender",
-        "age_range",
         "sector_code",
-        "population_group",
+        "category",
         "population_status",
-        "disabled_marker",
         "reference_period_start",
     ]
     expected_indexes = [
-        "min_age",
-        "max_age",
         "reference_period_end",
         "location_code",
         "location_name",
