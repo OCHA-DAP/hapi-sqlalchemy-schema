@@ -24,7 +24,7 @@ def test_returnees_view(run_view_test):
 
 
 def test_returnees_availability(run_view_test):
-    view_availability = prepare_hapi_views()[-1]
+    view_availability = prepare_hapi_views()["data_availability"]
     run_view_test(
         view=view_availability,
         whereclause=(
