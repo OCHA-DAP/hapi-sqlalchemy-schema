@@ -24,7 +24,7 @@ def test_refugees_view(run_view_test):
 
 
 def test_refugees_availability(run_view_test):
-    view_availability = prepare_hapi_views()
+    view_availability = prepare_hapi_views()[-1]
     run_view_test(
         view=view_availability,
         whereclause=(

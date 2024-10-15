@@ -1,7 +1,9 @@
 import inspect
 import os
 from importlib import import_module
+from typing import List
 
+from sqlalchemy import TableClause
 from sqlalchemy.sql.expression import union_all
 
 from hapi_schema.utils.base import Base
@@ -14,7 +16,7 @@ except ImportError:
     pass
 
 
-def prepare_hapi_views():
+def prepare_hapi_views() -> List[TableClause]:
     # Programmatically get views and prepare them for creation.
     # Views must be in files with filename of form: db_{name}.py in the same
     # directory. Views must be named like this: view_params_{name}.
@@ -22,6 +24,7 @@ def prepare_hapi_views():
     path = inspect.getabsfile(prepare_hapi_views)
     dirpath, _ = os.path.split(path)
     availability_stmts = []
+    views = []
     for path in os.listdir(dirpath):
         if os.path.isdir(path):
             continue
@@ -32,7 +35,7 @@ def prepare_hapi_views():
             table = filename[3:]
             try:
                 view_params = getattr(module, f"view_params_{table}")
-                Database.prepare_view(view_params.__dict__)
+                views.append(Database.prepare_view(view_params.__dict__))
                 availability_stmt = getattr(
                     module, f"availability_stmt_{table}"
                 )
@@ -48,5 +51,5 @@ def prepare_hapi_views():
         selectable=union_all(*availability_stmts),
     )
 
-    # Return this view (to simplify unit tests)
-    return Database.prepare_view(view_params_availability.__dict__)
+    views.append(Database.prepare_view(view_params_availability.__dict__))
+    return views
