@@ -39,7 +39,7 @@ def test_food_price_view(run_view_test):
 
 
 def test_food_price_availability(run_view_test):
-    view_availability = prepare_hapi_views()
+    view_availability = prepare_hapi_views()["data_availability"]
     run_view_test(
         view=view_availability,
         whereclause=(
