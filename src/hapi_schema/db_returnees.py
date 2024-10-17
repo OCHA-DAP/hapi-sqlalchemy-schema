@@ -6,7 +6,6 @@
 from datetime import datetime
 
 from sqlalchemy import (
-    DateTime,
     ForeignKey,
     Integer,
     String,
@@ -64,11 +63,9 @@ class DBReturnees(Base):
     population: Mapped[int] = mapped_column(
         Integer, nullable=False, index=True
     )
-    reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, primary_key=True
-    )
+    reference_period_start: Mapped[datetime] = mapped_column(primary_key=True)
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, index=True
+        nullable=False, index=True
     )
 
     # resource = relationship("DBResource")
