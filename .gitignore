@@ -167,3 +167,5 @@ src/hapi_schema/_version.py
 
 # OS Files
 *DS_Store
+
+src/hapi_schema/utils/db_views_for_hapi.py

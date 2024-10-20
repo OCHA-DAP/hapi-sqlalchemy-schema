@@ -227,3 +227,35 @@ view_params_name="view_params_patch"
 expected_primary_keys = ["id"]
 expected_indexes = ["patch_sequence_number", "patch_path", "state", "execution_date"]
 expected_nullables = []
+
+[[tables]]
+db_module = "db_idps"
+target_view = "idps_view"
+view_params_name="view_params_idps"
+expected_primary_keys = [
+        "admin2_ref",
+        "assessment_type",
+        "population",
+        "reference_period_start",
+        "reference_period_end",
+    ]
+expected_indexes = ["events", "fatalities", "reference_period_end", "location_code",
+"location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
+expected_nullables = ["reporting_round", "reference_period_end"]
+
+[[tables]]
+db_module = "db_returnees"
+target_view = "returnees_view"
+view_params_name="view_params_returnees"
+expected_primary_keys = [
+        "origin_location_ref",
+        "asylum_location_ref",
+        "population_group",
+        "gender",
+        "age_range",
+        "reference_period_start"
+    ]
+expected_indexes = ["min_age", "max_age", "population", "reference_period_end",
+                    "origin_location_code", "origin_location_name",
+                    "asylum_location_code", "asylum_location_name"]
+expected_nullables = ["min_age", "max_age"]
