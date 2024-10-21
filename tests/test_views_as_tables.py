@@ -79,6 +79,8 @@ def test_conflict_event_vat(
         "admin1_name",
         "admin2_code",
         "admin2_name",
+        "provider_admin1_name",
+        "provider_admin2_name",
     ]
     run_columns_test(
         "conflict_event_vat", "conflict_event_view", view_params_conflict_event
@@ -166,6 +168,8 @@ def test_food_security_vat(
         "admin1_name",
         "admin2_code",
         "admin2_name",
+        "provider_admin1_name",
+        "provider_admin2_name",
     ]
     run_columns_test(
         "food_security_vat", "food_security_view", view_params_food_security
@@ -213,6 +217,8 @@ def test_humanitarian_needs_vat(
         "admin1_name",
         "admin2_code",
         "admin2_name",
+        "provider_admin1_name",
+        "provider_admin2_name",
     ]
     run_columns_test(
         "humanitarian_needs_vat",
@@ -243,6 +249,8 @@ def test_idps_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
         "admin1_code",
         "admin2_name",
         "admin2_code",
+        "provider_admin1_name",
+        "provider_admin2_name",
     ]
     run_columns_test("idps_vat", "idps_view", view_params_idps)
     run_primary_keys_test("idps_vat", expected_primary_keys)
@@ -304,6 +312,8 @@ def test_operational_presence_vat(
         "admin1_name",
         "admin2_code",
         "admin2_name",
+        "provider_admin1_name",
+        "provider_admin2_name",
     ]
     run_columns_test(
         "operational_presence_vat",
@@ -364,6 +374,7 @@ def test_population_vat(
         "min_age",
         "max_age",
         "population",
+        "reference_period_start",
         "reference_period_end",
         "location_code",
         "location_name",
@@ -371,6 +382,8 @@ def test_population_vat(
         "admin1_name",
         "admin2_code",
         "admin2_name",
+        "provider_admin1_name",
+        "provider_admin2_name",
     ]
     run_columns_test(
         "population_vat", "population_view", view_params_population
@@ -389,10 +402,13 @@ def test_poverty_rate_vat(
         "reference_period_start",
     ]
     expected_indexes = [
+        "reference_period_start",
         "reference_period_end",
         "location_ref",
         "location_code",
         "location_name",
+        "admin1_name",
+        "provider_admin1_name",
     ]
     run_columns_test(
         "poverty_rate_vat", "poverty_rate_view", view_params_poverty_rate
