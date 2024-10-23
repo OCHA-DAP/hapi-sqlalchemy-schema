@@ -2,7 +2,7 @@
 #    uv pip compile pyproject.toml --resolver=backtracking --all-extras -o requirements.txt
 cfgv==3.4.0
     # via pre-commit
-coverage==7.6.3
+coverage==7.6.4
     # via pytest-cov
 distlib==0.3.9
     # via virtualenv
@@ -46,5 +46,5 @@ typing-extensions==4.12.2
     # via
     #   psycopg
     #   sqlalchemy
-virtualenv==20.26.6
+virtualenv==20.27.0
     # via pre-commit
