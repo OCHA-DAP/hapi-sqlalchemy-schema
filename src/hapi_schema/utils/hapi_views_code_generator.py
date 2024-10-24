@@ -1,15 +1,20 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-This script is designed to generate view tables to go in the hdx-hapi repo.
+This script is designed to generate view tables to go in the hdx-hapi repo. The test database
+docker container needs to be started and initialised for this code to run.
 
 The code is configured using the `view_as_table_definitions.toml` file and then with an invocation like:
 
-`./hapi_views_code_generator.py`
+`./hapi_views_code_generator.py wfp_commodity_view`
+
+or
+
+`./hapi_views_code_generator.py all`
 
 The assumption is that the view_as_table_definitions.toml file will have been edited appropriately when generating the
 "views as table". This script generates the imports, setups and classes for all views in a single run - they
-can be piped to a file
+can be piped to a file or a single view
 
 Ian Hopkinson 2024-05-09
 """
@@ -87,7 +92,6 @@ def parse_toml():
             complete_code.extend(table_code)
         elif table["target_view"] == target_view:
             complete_code = create_table_code(table, target_view)
-            complete_code.extend(table_code)
 
     for line in complete_code:
         print(line, flush=True)
