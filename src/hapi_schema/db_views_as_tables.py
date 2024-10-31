@@ -32,7 +32,6 @@ class DBAdmin1VAT(Base):
     location_ref: Mapped[int] = mapped_column(Integer)
     code: Mapped[str] = mapped_column(String(128), index=True)
     name: Mapped[str] = mapped_column(String(512), index=True)
-    is_unspecified: Mapped[bool] = mapped_column(Boolean)
     from_cods: Mapped[bool] = mapped_column(Boolean)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, index=True
@@ -54,7 +53,6 @@ class DBAdmin2VAT(Base):
     admin1_ref: Mapped[int] = mapped_column(Integer)
     code: Mapped[str] = mapped_column(String(128), index=True)
     name: Mapped[str] = mapped_column(String(512), index=True)
-    is_unspecified: Mapped[bool] = mapped_column(Boolean)
     from_cods: Mapped[bool] = mapped_column(Boolean)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, nullable=True, index=True
@@ -66,7 +64,6 @@ class DBAdmin2VAT(Base):
     )
     admin1_code: Mapped[str] = mapped_column(String(128))
     admin1_name: Mapped[str] = mapped_column(String(512))
-    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer)
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -103,11 +100,9 @@ class DBConflictEventVAT(Base):
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer)
     admin2_code: Mapped[str] = mapped_column(String(128), index=True)
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
 
 
@@ -169,11 +164,9 @@ class DBFoodPriceVAT(Base):
     location_ref: Mapped[int] = mapped_column(Integer)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
     admin2_code: Mapped[str] = mapped_column(String(128), index=True)
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
 
 
 class DBFoodSecurityVAT(Base):
@@ -208,11 +201,9 @@ class DBFoodSecurityVAT(Base):
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer)
     admin2_code: Mapped[str] = mapped_column(String(128), index=True)
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
 
 
@@ -271,10 +262,8 @@ class DBHumanitarianNeedsVAT(Base):
     location_ref: Mapped[int] = mapped_column(Integer)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin2_code: Mapped[str] = mapped_column(String(128), index=True)
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
 
 
@@ -306,11 +295,9 @@ class DBIDPsVAT(Base):
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer)
     admin2_code: Mapped[str] = mapped_column(String(128), index=True)
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
 
 
@@ -390,11 +377,9 @@ class DBOperationalPresenceVAT(Base):
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer)
     admin2_code: Mapped[str] = mapped_column(String(128), index=True)
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
 
 
@@ -445,11 +430,9 @@ class DBPopulationVAT(Base):
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer)
     admin2_code: Mapped[str] = mapped_column(String(128), index=True)
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
 
 
@@ -480,7 +463,6 @@ class DBPovertyRateVAT(Base):
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_name: Mapped[str] = mapped_column(String(512))
     admin1_code: Mapped[str] = mapped_column(String(128))
-    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer, index=True)
 
 
@@ -604,11 +586,9 @@ class DBWfpMarketVAT(Base):
     in_gho: Mapped[bool] = mapped_column(Boolean)
     admin1_code: Mapped[str] = mapped_column(String(128), index=True)
     admin1_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer)
     admin2_code: Mapped[str] = mapped_column(String(128), index=True)
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
-    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
 
 

@@ -44,11 +44,9 @@ view_params_wfp_market = ViewParams(
         DBLocation.in_gho.label("in_gho"),
         DBAdmin1.code.label("admin1_code"),
         DBAdmin1.name.label("admin1_name"),
-        DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
         DBAdmin1.location_ref.label("location_ref"),
         DBAdmin2.code.label("admin2_code"),
         DBAdmin2.name.label("admin2_name"),
-        DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
         DBAdmin2.admin1_ref.label("admin1_ref"),
     ).select_from(
         # Join market to admin2 to admin1 to loc

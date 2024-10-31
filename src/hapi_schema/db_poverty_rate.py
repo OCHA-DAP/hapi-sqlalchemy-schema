@@ -84,7 +84,6 @@ view_params_poverty_rate = ViewParams(
         DBLocation.in_gho.label("in_gho"),
         DBAdmin1.name.label("admin1_name"),
         DBAdmin1.code.label("admin1_code"),
-        DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
         DBAdmin1.location_ref.label("location_ref"),
     ).select_from(
         # Join PR to admin1 to loc

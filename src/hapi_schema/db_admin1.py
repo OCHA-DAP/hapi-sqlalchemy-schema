@@ -35,9 +35,6 @@ class DBAdmin1(Base):
     )
     code: Mapped[str] = mapped_column(String(128), nullable=False, index=True)
     name: Mapped[str] = mapped_column(String(512), nullable=False, index=True)
-    is_unspecified: Mapped[bool] = mapped_column(
-        Boolean, server_default=text("FALSE"), nullable=False
-    )
     from_cods: Mapped[bool] = mapped_column(
         Boolean, nullable=False, server_default=text("TRUE")
     )

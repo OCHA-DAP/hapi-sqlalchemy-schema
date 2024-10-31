@@ -39,7 +39,6 @@ def test_reference_period_constraint(run_constraints_test):
                 admin1_ref=3,
                 code="FOO-002-D",
                 name="District D",
-                is_unspecified=False,
                 reference_period_start=datetime(2023, 1, 2),
                 reference_period_end=datetime(2023, 1, 1),
             )
@@ -56,14 +55,12 @@ def test_code_date_unique(run_constraints_test):
                 admin1_ref=3,
                 code="FOO-002-D",
                 name="District D",
-                is_unspecified=False,
                 reference_period_start=datetime(2023, 1, 1),
             ),
             DBAdmin2(
                 admin1_ref=3,
                 code="FOO-002-D",
                 name="District D",
-                is_unspecified=False,
                 reference_period_start=datetime(2023, 1, 1),
             ),
         ],

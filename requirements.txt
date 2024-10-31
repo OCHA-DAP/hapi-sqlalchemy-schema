@@ -34,7 +34,7 @@ pytest==8.3.3
     # via
     #   hapi-schema (pyproject.toml)
     #   pytest-cov
-pytest-cov==5.0.0
+pytest-cov==6.0.0
     # via hapi-schema (pyproject.toml)
 pyyaml==6.0.2
     # via pre-commit
@@ -46,5 +46,5 @@ typing-extensions==4.12.2
     # via
     #   psycopg
     #   sqlalchemy
-virtualenv==20.27.0
+virtualenv==20.27.1
     # via pre-commit

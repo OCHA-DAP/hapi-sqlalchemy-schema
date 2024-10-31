@@ -95,11 +95,9 @@ view_params_food_price = ViewParams(
         DBAdmin1.location_ref.label("location_ref"),
         DBAdmin1.code.label("admin1_code"),
         DBAdmin1.name.label("admin1_name"),
-        DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
         DBAdmin2.admin1_ref.label("admin1_ref"),
         DBAdmin2.code.label("admin2_code"),
         DBAdmin2.name.label("admin2_name"),
-        DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
     ).select_from(
         # the admin2 comes from wfp_market
         DBFoodPrice.__table__.join(
