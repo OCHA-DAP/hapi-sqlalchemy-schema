@@ -8,9 +8,10 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
+    and_,
     case,
     or_,
-    select, and_,
+    select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql.expression import literal
@@ -85,14 +86,20 @@ view_params_food_security = ViewParams(
         case(
             (
                 or_(
-                    and_(DBFoodSecurity.provider_admin2_name.is_not(None), DBFoodSecurity.provider_admin2_name != ""),
+                    and_(
+                        DBFoodSecurity.provider_admin2_name.is_not(None),
+                        DBFoodSecurity.provider_admin2_name != "",
+                    ),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    and_(DBFoodSecurity.provider_admin1_name.is_not(None), DBFoodSecurity.provider_admin1_name != ""),
+                    and_(
+                        DBFoodSecurity.provider_admin1_name.is_not(None),
+                        DBFoodSecurity.provider_admin1_name != "",
+                    ),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
@@ -134,14 +141,20 @@ availability_stmt_food_security = (
         case(
             (
                 or_(
-                    and_(DBFoodSecurity.provider_admin2_name.is_not(None), DBFoodSecurity.provider_admin2_name != ""),
+                    and_(
+                        DBFoodSecurity.provider_admin2_name.is_not(None),
+                        DBFoodSecurity.provider_admin2_name != "",
+                    ),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    and_(DBFoodSecurity.provider_admin1_name.is_not(None), DBFoodSecurity.provider_admin1_name != ""),
+                    and_(
+                        DBFoodSecurity.provider_admin1_name.is_not(None),
+                        DBFoodSecurity.provider_admin1_name != "",
+                    ),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,

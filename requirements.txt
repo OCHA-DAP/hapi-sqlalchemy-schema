@@ -46,5 +46,5 @@ typing-extensions==4.12.2
     # via
     #   psycopg
     #   sqlalchemy
-virtualenv==20.27.2
+virtualenv==20.27.1
     # via pre-commit

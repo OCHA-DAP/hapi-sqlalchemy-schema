@@ -6,9 +6,10 @@ from sqlalchemy import (
     Float,
     ForeignKey,
     String,
+    and_,
     case,
     or_,
-    select, and_,
+    select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.schema import CheckConstraint
@@ -91,7 +92,10 @@ view_params_poverty_rate = ViewParams(
         case(
             (
                 or_(
-                    and_(DBPovertyRate.provider_admin1_name.is_not(None), DBPovertyRate.provider_admin1_name != ""),
+                    and_(
+                        DBPovertyRate.provider_admin1_name.is_not(None),
+                        DBPovertyRate.provider_admin1_name != "",
+                    ),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
@@ -126,7 +130,10 @@ availability_stmt_poverty_rate = (
         case(
             (
                 or_(
-                    and_(DBPovertyRate.provider_admin1_name.is_not(None), DBPovertyRate.provider_admin1_name != ""),
+                    and_(
+                        DBPovertyRate.provider_admin1_name.is_not(None),
+                        DBPovertyRate.provider_admin1_name != "",
+                    ),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
