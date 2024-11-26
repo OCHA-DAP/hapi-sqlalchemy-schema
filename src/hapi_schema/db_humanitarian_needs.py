@@ -90,14 +90,14 @@ view_params_humanitarian_needs = ViewParams(
         case(
             (
                 or_(
-                    DBAdmin2.name.not_in([None, ""]),
+                    DBHumanitarianNeeds.provider_admin2_name.not_in([None, ""]),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBAdmin1.name.not_in([None, ""]),
+                    DBHumanitarianNeeds.provider_admin1_name.not_in([None, ""]),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
@@ -144,14 +144,14 @@ availability_stmt_humanitarian_needs = (
         case(
             (
                 or_(
-                    DBAdmin2.name.not_in([None, ""]),
+                    DBHumanitarianNeeds.provider_admin2_name.not_in([None, ""]),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBAdmin1.name.not_in([None, ""]),
+                    DBHumanitarianNeeds.provider_admin1_name.not_in([None, ""]),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,

@@ -91,7 +91,7 @@ view_params_poverty_rate = ViewParams(
         case(
             (
                 or_(
-                    DBAdmin1.name.not_in([None, ""]),
+                    DBPovertyRate.provider_admin1_name.not_in([None, ""]),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
@@ -126,7 +126,7 @@ availability_stmt_poverty_rate = (
         case(
             (
                 or_(
-                    DBAdmin1.name.not_in([None, ""]),
+                    DBPovertyRate.provider_admin1_name.not_in([None, ""]),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,

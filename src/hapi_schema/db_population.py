@@ -87,14 +87,14 @@ view_params_population = ViewParams(
         case(
             (
                 or_(
-                    DBAdmin2.name.not_in([None, ""]),
+                    DBPopulation.provider_admin2_name.not_in([None, ""]),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBAdmin1.name.not_in([None, ""]),
+                    DBPopulation.provider_admin1_name.not_in([None, ""]),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
@@ -135,14 +135,14 @@ availability_stmt_population = (
         case(
             (
                 or_(
-                    DBAdmin2.name.not_in([None, ""]),
+                    DBPopulation.provider_admin2_name.not_in([None, ""]),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBAdmin1.name.not_in([None, ""]),
+                    DBPopulation.provider_admin1_name.not_in([None, ""]),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
