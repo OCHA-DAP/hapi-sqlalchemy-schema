@@ -8,7 +8,7 @@ from sqlalchemy import (
     String,
     case,
     or_,
-    select,
+    select, and_,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql.expression import literal
@@ -105,14 +105,14 @@ view_params_food_price = ViewParams(
         case(
             (
                 or_(
-                    DBWFPMarket.provider_admin2_name.not_in([None, ""]),
+                    and_(DBWFPMarket.provider_admin2_name.is_not(None), DBWFPMarket.provider_admin2_name != ""),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBWFPMarket.provider_admin1_name.not_in([None, ""]),
+                    and_(DBWFPMarket.provider_admin1_name.is_not(None), DBWFPMarket.provider_admin1_name != ""),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
@@ -164,14 +164,14 @@ availability_stmt_food_price = (
         case(
             (
                 or_(
-                    DBWFPMarket.provider_admin2_name.not_in([None, ""]),
+                    and_(DBWFPMarket.provider_admin2_name.is_not(None), DBWFPMarket.provider_admin2_name != ""),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBWFPMarket.provider_admin1_name.not_in([None, ""]),
+                    and_(DBWFPMarket.provider_admin1_name.is_not(None), DBWFPMarket.provider_admin1_name != ""),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,

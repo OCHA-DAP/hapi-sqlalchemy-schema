@@ -8,7 +8,7 @@ from sqlalchemy import (
     String,
     case,
     or_,
-    select,
+    select, and_,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql.expression import literal
@@ -82,14 +82,14 @@ view_params_conflict_event = ViewParams(
         case(
             (
                 or_(
-                    DBConflictEvent.provider_admin2_name.not_in([None, ""]),
+                    and_(DBConflictEvent.provider_admin2_name.is_not(None), DBConflictEvent.provider_admin2_name != ""),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBConflictEvent.provider_admin1_name.not_in([None, ""]),
+                    and_(DBConflictEvent.provider_admin1_name.is_not(None), DBConflictEvent.provider_admin1_name != ""),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
@@ -130,14 +130,14 @@ availability_stmt_conflict_event = (
         case(
             (
                 or_(
-                    DBConflictEvent.provider_admin2_name.not_in([None, ""]),
+                    and_(DBConflictEvent.provider_admin2_name.is_not(None), DBConflictEvent.provider_admin2_name != ""),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBConflictEvent.provider_admin1_name.not_in([None, ""]),
+                    and_(DBConflictEvent.provider_admin1_name.is_not(None), DBConflictEvent.provider_admin1_name != ""),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,

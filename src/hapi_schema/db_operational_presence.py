@@ -9,7 +9,7 @@ from sqlalchemy import (
     case,
     or_,
     select,
-    text,
+    text, and_,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql.expression import literal
@@ -86,14 +86,14 @@ view_params_operational_presence = ViewParams(
         case(
             (
                 or_(
-                    DBOperationalPresence.provider_admin2_name.not_in([None, ""]),
+                    and_(DBOperationalPresence.provider_admin2_name.is_not(None), DBOperationalPresence.provider_admin2_name != ""),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBOperationalPresence.provider_admin1_name.not_in([None, ""]),
+                    and_(DBOperationalPresence.provider_admin1_name.is_not(None), DBOperationalPresence.provider_admin1_name != ""),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
@@ -153,14 +153,14 @@ availability_stmt_operational_presence = (
         case(
             (
                 or_(
-                    DBOperationalPresence.provider_admin2_name.not_in([None, ""]),
+                    and_(DBOperationalPresence.provider_admin2_name.is_not(None), DBOperationalPresence.provider_admin2_name != ""),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBOperationalPresence.provider_admin1_name.not_in([None, ""]),
+                    and_(DBOperationalPresence.provider_admin1_name.is_not(None), DBOperationalPresence.provider_admin1_name != ""),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,

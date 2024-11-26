@@ -8,7 +8,7 @@ from sqlalchemy import (
     String,
     case,
     or_,
-    select,
+    select, and_,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql.expression import literal
@@ -87,14 +87,14 @@ view_params_idps = ViewParams(
         case(
             (
                 or_(
-                    DBIDPs.provider_admin2_name.not_in([None, ""]),
+                    and_(DBIDPs.provider_admin2_name.is_not(None), DBIDPs.provider_admin2_name != ""),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBIDPs.provider_admin1_name.not_in([None, ""]),
+                    and_(DBIDPs.provider_admin1_name.is_not(None), DBIDPs.provider_admin1_name != ""),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
@@ -134,14 +134,14 @@ availability_stmt_idps = (
         case(
             (
                 or_(
-                    DBIDPs.provider_admin2_name.not_in([None, ""]),
+                    and_(DBIDPs.provider_admin2_name.is_not(None), DBIDPs.provider_admin2_name != ""),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBIDPs.provider_admin1_name.not_in([None, ""]),
+                    and_(DBIDPs.provider_admin1_name.is_not(None), DBIDPs.provider_admin1_name != ""),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,

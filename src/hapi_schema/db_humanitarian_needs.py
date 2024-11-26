@@ -8,7 +8,7 @@ from sqlalchemy import (
     String,
     case,
     or_,
-    select,
+    select, and_,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql.expression import literal
@@ -90,14 +90,14 @@ view_params_humanitarian_needs = ViewParams(
         case(
             (
                 or_(
-                    DBHumanitarianNeeds.provider_admin2_name.not_in([None, ""]),
+                    and_(DBHumanitarianNeeds.provider_admin2_name.is_not(None), DBHumanitarianNeeds.provider_admin2_name != ""),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBHumanitarianNeeds.provider_admin1_name.not_in([None, ""]),
+                    and_(DBHumanitarianNeeds.provider_admin1_name.is_not(None), DBHumanitarianNeeds.provider_admin1_name != ""),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
@@ -144,14 +144,14 @@ availability_stmt_humanitarian_needs = (
         case(
             (
                 or_(
-                    DBHumanitarianNeeds.provider_admin2_name.not_in([None, ""]),
+                    and_(DBHumanitarianNeeds.provider_admin2_name.is_not(None), DBHumanitarianNeeds.provider_admin2_name != ""),
                     DBAdmin2.is_unspecified.is_(False),
                 ),
                 2,
             ),
             (
                 or_(
-                    DBHumanitarianNeeds.provider_admin1_name.not_in([None, ""]),
+                    and_(DBHumanitarianNeeds.provider_admin1_name.is_not(None), DBHumanitarianNeeds.provider_admin1_name != ""),
                     DBAdmin1.is_unspecified.is_(False),
                 ),
                 1,
