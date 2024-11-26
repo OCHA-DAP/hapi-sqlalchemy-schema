@@ -2,7 +2,7 @@
 #    uv pip compile pyproject.toml --resolver=backtracking --all-extras -o requirements.txt
 cfgv==3.4.0
     # via pre-commit
-coverage==7.6.4
+coverage==7.6.8
     # via pytest-cov
 distlib==0.3.9
     # via virtualenv
@@ -12,13 +12,13 @@ greenlet==3.1.1
     # via sqlalchemy
 hdx-python-database==1.3.4
     # via hapi-schema (pyproject.toml)
-identify==2.6.1
+identify==2.6.3
     # via pre-commit
 iniconfig==2.0.0
     # via pytest
 nodeenv==1.9.1
     # via pre-commit
-packaging==24.1
+packaging==24.2
     # via pytest
 platformdirs==4.3.6
     # via virtualenv
@@ -34,7 +34,7 @@ pytest==8.3.3
     # via
     #   hapi-schema (pyproject.toml)
     #   pytest-cov
-pytest-cov==5.0.0
+pytest-cov==6.0.0
     # via hapi-schema (pyproject.toml)
 pyyaml==6.0.2
     # via pre-commit
@@ -46,5 +46,5 @@ typing-extensions==4.12.2
     # via
     #   psycopg
     #   sqlalchemy
-virtualenv==20.27.0
+virtualenv==20.27.2
     # via pre-commit

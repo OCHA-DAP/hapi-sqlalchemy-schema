@@ -6,6 +6,8 @@ from sqlalchemy import (
     ForeignKey,
     ForeignKeyConstraint,
     String,
+    case,
+    or_,
     select,
     text,
 )
@@ -81,6 +83,23 @@ view_params_operational_presence = ViewParams(
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
         DBAdmin2.admin1_ref.label("admin1_ref"),
+        case(
+            (
+                or_(
+                    DBAdmin2.name.not_in([None, ""]),
+                    DBAdmin2.is_unspecified.is_(False),
+                ),
+                2,
+            ),
+            (
+                or_(
+                    DBAdmin1.name.not_in([None, ""]),
+                    DBAdmin1.is_unspecified.is_(False),
+                ),
+                1,
+            ),
+            else_=0,
+        ).label("admin_level"),
     ).select_from(
         # Join op to admin2 to admin1 to loc
         DBOperationalPresence.__table__.join(
@@ -131,6 +150,23 @@ availability_stmt_operational_presence = (
         DBAdmin1.code.label("admin1_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.code.label("admin2_code"),
+        case(
+            (
+                or_(
+                    DBAdmin2.name.not_in([None, ""]),
+                    DBAdmin2.is_unspecified.is_(False),
+                ),
+                2,
+            ),
+            (
+                or_(
+                    DBAdmin1.name.not_in([None, ""]),
+                    DBAdmin1.is_unspecified.is_(False),
+                ),
+                1,
+            ),
+            else_=0,
+        ).label("admin_level"),
         DBResource.hapi_updated_date,
     )
     .select_from(

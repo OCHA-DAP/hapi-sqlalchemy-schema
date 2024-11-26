@@ -6,6 +6,8 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
+    case,
+    or_,
     select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -85,6 +87,23 @@ view_params_humanitarian_needs = ViewParams(
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
         DBAdmin2.admin1_ref.label("admin1_ref"),
+        case(
+            (
+                or_(
+                    DBAdmin2.name.not_in([None, ""]),
+                    DBAdmin2.is_unspecified.is_(False),
+                ),
+                2,
+            ),
+            (
+                or_(
+                    DBAdmin1.name.not_in([None, ""]),
+                    DBAdmin1.is_unspecified.is_(False),
+                ),
+                1,
+            ),
+            else_=0,
+        ).label("admin_level"),
     ).select_from(
         # Join pop to admin2 to admin1 to loc
         DBHumanitarianNeeds.__table__.join(
@@ -122,6 +141,23 @@ availability_stmt_humanitarian_needs = (
         DBAdmin1.code.label("admin1_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.code.label("admin2_code"),
+        case(
+            (
+                or_(
+                    DBAdmin2.name.not_in([None, ""]),
+                    DBAdmin2.is_unspecified.is_(False),
+                ),
+                2,
+            ),
+            (
+                or_(
+                    DBAdmin1.name.not_in([None, ""]),
+                    DBAdmin1.is_unspecified.is_(False),
+                ),
+                1,
+            ),
+            else_=0,
+        ).label("admin_level"),
         DBResource.hapi_updated_date,
     )
     .select_from(
