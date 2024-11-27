@@ -30,6 +30,7 @@ def test_operational_presence_view(run_view_test):
             == "International NGO",
             view_operational_presence.c.sector_name
             == "Water Sanitation Hygiene",
+            view_operational_presence.c.admin_level == 2,
         ),
     )
 
@@ -44,6 +45,7 @@ def test_operational_presence_availability(run_view_test):
             view_availability.c.location_code == "FOO",
             view_availability.c.admin1_name == "Province 01",
             view_availability.c.admin2_name == "District A",
+            view_availability.c.admin_level == 2,
             view_availability.c.hapi_updated_date == datetime(2023, 6, 1),
         ),
     )

@@ -1,11 +1,13 @@
 import inspect
 import os
 from importlib import import_module
-from typing import Dict
+from typing import Any, Dict, Tuple
 
-from sqlalchemy import TableClause
+from sqlalchemy import ColumnElement, Label, TableClause, and_, case, or_
 from sqlalchemy.sql.expression import union_all
 
+from hapi_schema.db_admin1 import DBAdmin1
+from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.view_params import ViewParams
 
@@ -55,3 +57,40 @@ def prepare_hapi_views() -> Dict[str, TableClause]:
         view_params_availability.__dict__
     )
     return views
+
+
+def get_admin1_when(table: Any) -> Tuple[ColumnElement, int]:
+    return (
+        or_(
+            and_(
+                table.provider_admin1_name.is_not(None),
+                table.provider_admin1_name != "",
+            ),
+            DBAdmin1.is_unspecified.is_(False),
+        ),
+        1,
+    )
+
+
+def get_admin1_case(table: Any) -> Label:
+    return case(
+        get_admin1_when(table),
+        else_=0,
+    ).label("admin_level")
+
+
+def get_admin2_case(table: Any) -> Label:
+    return case(
+        (
+            or_(
+                and_(
+                    table.provider_admin2_name.is_not(None),
+                    table.provider_admin2_name != "",
+                ),
+                DBAdmin2.is_unspecified.is_(False),
+            ),
+            2,
+        ),
+        get_admin1_when(table),
+        else_=0,
+    ).label("admin_level")

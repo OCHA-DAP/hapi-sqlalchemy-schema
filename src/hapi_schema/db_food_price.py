@@ -27,6 +27,7 @@ from hapi_schema.utils.enums import (
     build_enum_using_values,
 )
 from hapi_schema.utils.view_params import ViewParams
+from hapi_schema.views import get_admin2_case
 
 # normalised table
 
@@ -100,6 +101,7 @@ view_params_food_price = ViewParams(
         DBAdmin2.code.label("admin2_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
+        get_admin2_case(DBWFPMarket),
     ).select_from(
         # the admin2 comes from wfp_market
         DBFoodPrice.__table__.join(
@@ -142,6 +144,7 @@ availability_stmt_food_price = (
         DBAdmin1.code.label("admin1_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.code.label("admin2_code"),
+        get_admin2_case(DBWFPMarket),
         DBResource.hapi_updated_date,
     )
     .select_from(

@@ -23,6 +23,7 @@ from hapi_schema.utils.constraints import (
 )
 from hapi_schema.utils.enums import DTMAssessmentType, build_enum_using_values
 from hapi_schema.utils.view_params import ViewParams
+from hapi_schema.views import get_admin2_case
 
 
 class DBIDPs(Base):
@@ -82,6 +83,7 @@ view_params_idps = ViewParams(
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
         DBAdmin2.admin1_ref.label("admin1_ref"),
+        get_admin2_case(DBIDPs),
     ).select_from(
         DBIDPs.__table__.join(
             DBAdmin2.__table__,
@@ -112,6 +114,7 @@ availability_stmt_idps = (
         DBAdmin1.code.label("admin1_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.code.label("admin2_code"),
+        get_admin2_case(DBIDPs),
         DBResource.hapi_updated_date,
     )
     .select_from(

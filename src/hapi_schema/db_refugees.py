@@ -120,6 +120,7 @@ availability_stmt_refugees = (
         literal("").label("admin1_code"),
         literal("").label("admin2_name"),
         literal("").label("admin2_code"),
+        literal(0).label("admin_level"),
         DBResource.hapi_updated_date,
     )
     .select_from(

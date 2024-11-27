@@ -24,6 +24,7 @@ from hapi_schema.utils.constraints import (
 )
 from hapi_schema.utils.enums import Gender, build_enum_using_values
 from hapi_schema.utils.view_params import ViewParams
+from hapi_schema.views import get_admin2_case
 
 
 class DBPopulation(Base):
@@ -82,6 +83,7 @@ view_params_population = ViewParams(
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
         DBAdmin2.admin1_ref.label("admin1_ref"),
+        get_admin2_case(DBPopulation),
     ).select_from(
         # Join pop to admin2 to admin1 to loc
         DBPopulation.__table__.join(
@@ -113,6 +115,7 @@ availability_stmt_population = (
         DBAdmin1.code.label("admin1_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.code.label("admin2_code"),
+        get_admin2_case(DBPopulation),
         DBResource.hapi_updated_date,
     )
     .select_from(
