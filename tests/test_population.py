@@ -22,6 +22,7 @@ def test_population_view(run_view_test):
             view_population.c.admin1_code == "FOO-001",
             view_population.c.location_code == "FOO",
             view_population.c.gender == "f",
+            view_population.c.admin_level == 2,
         ),
     )
 
@@ -36,6 +37,7 @@ def test_population_availability(run_view_test):
             view_availability.c.location_code == "FOO",
             view_availability.c.admin1_name == "Province 01",
             view_availability.c.admin2_name == "District A",
+            view_availability.c.admin_level == 2,
             view_availability.c.hapi_updated_date == datetime(2023, 6, 1),
         ),
     )

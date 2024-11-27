@@ -6,9 +6,6 @@ from sqlalchemy import (
     ForeignKey,
     ForeignKeyConstraint,
     String,
-    and_,
-    case,
-    or_,
     select,
     text,
 )
@@ -24,6 +21,7 @@ from hapi_schema.db_sector import DBSector
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import reference_period_constraint
 from hapi_schema.utils.view_params import ViewParams
+from hapi_schema.views import get_admin2_case
 
 
 class DBOperationalPresence(Base):
@@ -84,33 +82,7 @@ view_params_operational_presence = ViewParams(
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
         DBAdmin2.admin1_ref.label("admin1_ref"),
-        case(
-            (
-                or_(
-                    and_(
-                        DBOperationalPresence.provider_admin2_name.is_not(
-                            None
-                        ),
-                        DBOperationalPresence.provider_admin2_name != "",
-                    ),
-                    DBAdmin2.is_unspecified.is_(False),
-                ),
-                2,
-            ),
-            (
-                or_(
-                    and_(
-                        DBOperationalPresence.provider_admin1_name.is_not(
-                            None
-                        ),
-                        DBOperationalPresence.provider_admin1_name != "",
-                    ),
-                    DBAdmin1.is_unspecified.is_(False),
-                ),
-                1,
-            ),
-            else_=0,
-        ).label("admin_level"),
+        get_admin2_case(DBOperationalPresence),
     ).select_from(
         # Join op to admin2 to admin1 to loc
         DBOperationalPresence.__table__.join(
@@ -161,33 +133,7 @@ availability_stmt_operational_presence = (
         DBAdmin1.code.label("admin1_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.code.label("admin2_code"),
-        case(
-            (
-                or_(
-                    and_(
-                        DBOperationalPresence.provider_admin2_name.is_not(
-                            None
-                        ),
-                        DBOperationalPresence.provider_admin2_name != "",
-                    ),
-                    DBAdmin2.is_unspecified.is_(False),
-                ),
-                2,
-            ),
-            (
-                or_(
-                    and_(
-                        DBOperationalPresence.provider_admin1_name.is_not(
-                            None
-                        ),
-                        DBOperationalPresence.provider_admin1_name != "",
-                    ),
-                    DBAdmin1.is_unspecified.is_(False),
-                ),
-                1,
-            ),
-            else_=0,
-        ).label("admin_level"),
+        get_admin2_case(DBOperationalPresence),
         DBResource.hapi_updated_date,
     )
     .select_from(

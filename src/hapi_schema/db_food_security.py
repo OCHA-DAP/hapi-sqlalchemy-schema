@@ -8,9 +8,6 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
-    and_,
-    case,
-    or_,
     select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -27,6 +24,7 @@ from hapi_schema.utils.constraints import (
 )
 from hapi_schema.utils.enums import IPCPhase, IPCType, build_enum_using_values
 from hapi_schema.utils.view_params import ViewParams
+from hapi_schema.views import get_admin2_case
 
 
 class DBFoodSecurity(Base):
@@ -83,29 +81,7 @@ view_params_food_security = ViewParams(
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
         DBAdmin2.admin1_ref.label("admin1_ref"),
-        case(
-            (
-                or_(
-                    and_(
-                        DBFoodSecurity.provider_admin2_name.is_not(None),
-                        DBFoodSecurity.provider_admin2_name != "",
-                    ),
-                    DBAdmin2.is_unspecified.is_(False),
-                ),
-                2,
-            ),
-            (
-                or_(
-                    and_(
-                        DBFoodSecurity.provider_admin1_name.is_not(None),
-                        DBFoodSecurity.provider_admin1_name != "",
-                    ),
-                    DBAdmin1.is_unspecified.is_(False),
-                ),
-                1,
-            ),
-            else_=0,
-        ).label("admin_level"),
+        get_admin2_case(DBFoodSecurity),
     ).select_from(
         # Join pop to admin2 to admin1 to loc
         DBFoodSecurity.__table__.join(
@@ -138,29 +114,7 @@ availability_stmt_food_security = (
         DBAdmin1.code.label("admin1_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.code.label("admin2_code"),
-        case(
-            (
-                or_(
-                    and_(
-                        DBFoodSecurity.provider_admin2_name.is_not(None),
-                        DBFoodSecurity.provider_admin2_name != "",
-                    ),
-                    DBAdmin2.is_unspecified.is_(False),
-                ),
-                2,
-            ),
-            (
-                or_(
-                    and_(
-                        DBFoodSecurity.provider_admin1_name.is_not(None),
-                        DBFoodSecurity.provider_admin1_name != "",
-                    ),
-                    DBAdmin1.is_unspecified.is_(False),
-                ),
-                1,
-            ),
-            else_=0,
-        ).label("admin_level"),
+        get_admin2_case(DBFoodSecurity),
         DBResource.hapi_updated_date,
     )
     .select_from(

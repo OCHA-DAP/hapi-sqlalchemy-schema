@@ -24,6 +24,7 @@ def test_food_security_view(run_view_test):
             view_food_security.c.provider_admin2_name == "Distrito A",
             view_food_security.c.admin1_code == "FOO-001",
             view_food_security.c.location_code == "FOO",
+            view_food_security.c.admin_level == 2,
         ),
     )
 
@@ -38,6 +39,7 @@ def test_food_security_availability(run_view_test):
             view_availability.c.location_code == "FOO",
             view_availability.c.admin1_name == "Province 01",
             view_availability.c.admin2_name == "District A",
+            view_availability.c.admin_level == 2,
             view_availability.c.hapi_updated_date == datetime(2023, 8, 1),
         ),
     )

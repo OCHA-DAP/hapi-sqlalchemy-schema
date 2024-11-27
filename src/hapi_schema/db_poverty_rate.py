@@ -6,9 +6,6 @@ from sqlalchemy import (
     Float,
     ForeignKey,
     String,
-    and_,
-    case,
-    or_,
     select,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -24,6 +21,7 @@ from hapi_schema.utils.constraints import (
     reference_period_constraint,
 )
 from hapi_schema.utils.view_params import ViewParams
+from hapi_schema.views import get_admin1_case
 
 
 # normalised table
@@ -89,19 +87,7 @@ view_params_poverty_rate = ViewParams(
         DBAdmin1.code.label("admin1_code"),
         DBAdmin1.is_unspecified.label("admin1_is_unspecified"),
         DBAdmin1.location_ref.label("location_ref"),
-        case(
-            (
-                or_(
-                    and_(
-                        DBPovertyRate.provider_admin1_name.is_not(None),
-                        DBPovertyRate.provider_admin1_name != "",
-                    ),
-                    DBAdmin1.is_unspecified.is_(False),
-                ),
-                1,
-            ),
-            else_=0,
-        ).label("admin_level"),
+        get_admin1_case(DBPovertyRate),
     ).select_from(
         # Join PR to admin1 to loc
         DBPovertyRate.__table__.join(
@@ -127,19 +113,7 @@ availability_stmt_poverty_rate = (
         DBAdmin1.code.label("admin1_code"),
         literal("").label("admin2_name"),
         literal("").label("admin2_code"),
-        case(
-            (
-                or_(
-                    and_(
-                        DBPovertyRate.provider_admin1_name.is_not(None),
-                        DBPovertyRate.provider_admin1_name != "",
-                    ),
-                    DBAdmin1.is_unspecified.is_(False),
-                ),
-                1,
-            ),
-            else_=0,
-        ).label("admin_level"),
+        get_admin1_case(DBPovertyRate),
         DBResource.hapi_updated_date,
     )
     .select_from(

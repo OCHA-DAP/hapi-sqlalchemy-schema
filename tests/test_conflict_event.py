@@ -24,6 +24,7 @@ def test_conflict_event_view(run_view_test):
             view_conflict_event.c.location_name == "Foolandia",
             view_conflict_event.c.admin1_name == "Province 01",
             view_conflict_event.c.admin2_name == "District A",
+            view_conflict_event.c.admin_level == 2,
         ),
     )
 
@@ -38,6 +39,7 @@ def test_conflict_event_availability(run_view_test):
             view_availability.c.location_code == "FOO",
             view_availability.c.admin1_name == "Province 01",
             view_availability.c.admin2_name == "District A",
+            view_availability.c.admin_level == 2,
             view_availability.c.hapi_updated_date == datetime(2023, 6, 1),
         ),
     )
