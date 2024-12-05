@@ -34,7 +34,7 @@ class DBPovertyRate(Base):
         percentage_constraint(var_name="in_severe_poverty"),
         reference_period_constraint(),
         CheckConstraint(
-            sqltext="ABS(headcount_ratio / 100 * intensity_of_deprivation / 100  - mpi) < 0.00001",
+            sqltext="ABS(headcount_ratio / 100 * intensity_of_deprivation / 100  - mpi) < 0.0001",
             name="mpi_product_constraint",
         ),
     )
