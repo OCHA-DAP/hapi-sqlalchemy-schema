@@ -7,7 +7,9 @@ The code is configured using the `view_as_table_definitions.toml` file and then 
 
 `./view_as_table_code_generator.py patch_view`
 
-This will pick up the appropriate section from the toml file
+This will pick up the appropriate section from the toml file.
+
+These go in the src\hapi_schema\db_views_as_tables.py file
 
 Ian Hopkinson 2024-05-09
 """
