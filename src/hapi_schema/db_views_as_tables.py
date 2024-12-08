@@ -109,7 +109,7 @@ class DBConflictEventVAT(Base):
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
-    admin_level: Mapped[int] = mapped_column(Integer)
+    admin_level: Mapped[int] = mapped_column(Integer, index=True)
 
 
 class DBCurrencyVAT(Base):
@@ -175,7 +175,7 @@ class DBFoodPriceVAT(Base):
     admin2_code: Mapped[str] = mapped_column(String(128), index=True)
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
-    admin_level: Mapped[int] = mapped_column(Integer)
+    admin_level: Mapped[int] = mapped_column(Integer, index=True)
 
 
 class DBFoodSecurityVAT(Base):
@@ -216,7 +216,7 @@ class DBFoodSecurityVAT(Base):
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
-    admin_level: Mapped[int] = mapped_column(Integer)
+    admin_level: Mapped[int] = mapped_column(Integer, index=True)
 
 
 class DBFundingVAT(Base):
@@ -279,7 +279,7 @@ class DBHumanitarianNeedsVAT(Base):
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
-    admin_level: Mapped[int] = mapped_column(Integer)
+    admin_level: Mapped[int] = mapped_column(Integer, index=True)
 
 
 class DBIDPsVAT(Base):
@@ -316,7 +316,7 @@ class DBIDPsVAT(Base):
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
-    admin_level: Mapped[int] = mapped_column(Integer)
+    admin_level: Mapped[int] = mapped_column(Integer, index=True)
 
 
 class DBLocationVAT(Base):
@@ -401,7 +401,7 @@ class DBOperationalPresenceVAT(Base):
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
-    admin_level: Mapped[int] = mapped_column(Integer)
+    admin_level: Mapped[int] = mapped_column(Integer, index=True)
 
 
 class DBOrgTypeVAT(Base):
@@ -457,7 +457,7 @@ class DBPopulationVAT(Base):
     admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     admin1_ref: Mapped[int] = mapped_column(Integer)
-    admin_level: Mapped[int] = mapped_column(Integer)
+    admin_level: Mapped[int] = mapped_column(Integer, index=True)
 
 
 class DBPovertyRateVAT(Base):
@@ -489,7 +489,7 @@ class DBPovertyRateVAT(Base):
     admin1_code: Mapped[str] = mapped_column(String(128))
     admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer, index=True)
-    admin_level: Mapped[int] = mapped_column(Integer)
+    admin_level: Mapped[int] = mapped_column(Integer, index=True)
 
 
 class DBRefugeesVAT(Base):
@@ -622,13 +622,14 @@ class DBWfpMarketVAT(Base):
 
 class DBAvailabilityVAT(Base):
     __tablename__ = "data_availability_vat"
-    category: Mapped[str] = mapped_column(String(128), primary_key=True)
-    subcategory: Mapped[str] = mapped_column(String(128), primary_key=True)
-    location_name: Mapped[str] = mapped_column(String(512), primary_key=True)
-    location_code: Mapped[str] = mapped_column(String(128), primary_key=True)
-    admin1_name: Mapped[str] = mapped_column(String(512), primary_key=True)
-    admin1_code: Mapped[str] = mapped_column(String(128), primary_key=True)
-    admin2_name: Mapped[str] = mapped_column(String(512), primary_key=True)
-    admin2_code: Mapped[str] = mapped_column(String(128), primary_key=True)
-    admin_level: Mapped[int] = mapped_column(Integer)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    category: Mapped[str] = mapped_column(String(128), index=True)
+    subcategory: Mapped[str] = mapped_column(String(128), index=True)
+    location_name: Mapped[str] = mapped_column(String(512), index=True)
+    location_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin1_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin2_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin2_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin_level: Mapped[int] = mapped_column(Integer, index=True)
     hapi_updated_date: Mapped[datetime] = mapped_column(DateTime, index=True)
