@@ -622,7 +622,9 @@ class DBWfpMarketVAT(Base):
 
 class DBAvailabilityVAT(Base):
     __tablename__ = "data_availability_vat"
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(
+        Integer, primary_key=True, autoincrement=True
+    )
     category: Mapped[str] = mapped_column(String(128), index=True)
     subcategory: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
