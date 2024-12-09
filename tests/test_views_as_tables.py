@@ -79,6 +79,7 @@ def test_conflict_event_vat(
         "admin1_name",
         "admin2_code",
         "admin2_name",
+        "admin_level",
     ]
     run_columns_test(
         "conflict_event_vat", "conflict_event_view", view_params_conflict_event
@@ -136,6 +137,7 @@ def test_food_price_vat(
         "admin1_name",
         "admin2_code",
         "admin2_name",
+        "admin_level",
     ]
     run_columns_test(
         "food_price_vat", "food_price_view", view_params_food_price
@@ -166,6 +168,7 @@ def test_food_security_vat(
         "admin1_name",
         "admin2_code",
         "admin2_name",
+        "admin_level",
     ]
     run_columns_test(
         "food_security_vat", "food_security_view", view_params_food_security
@@ -213,6 +216,7 @@ def test_humanitarian_needs_vat(
         "admin1_name",
         "admin2_code",
         "admin2_name",
+        "admin_level",
     ]
     run_columns_test(
         "humanitarian_needs_vat",
@@ -243,6 +247,7 @@ def test_idps_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
         "admin1_code",
         "admin2_name",
         "admin2_code",
+        "admin_level",
     ]
     run_columns_test("idps_vat", "idps_view", view_params_idps)
     run_primary_keys_test("idps_vat", expected_primary_keys)
@@ -304,6 +309,7 @@ def test_operational_presence_vat(
         "admin1_name",
         "admin2_code",
         "admin2_name",
+        "admin_level",
     ]
     run_columns_test(
         "operational_presence_vat",
@@ -371,6 +377,7 @@ def test_population_vat(
         "admin1_name",
         "admin2_code",
         "admin2_name",
+        "admin_level",
     ]
     run_columns_test(
         "population_vat", "population_view", view_params_population
@@ -393,6 +400,7 @@ def test_poverty_rate_vat(
         "location_ref",
         "location_code",
         "location_name",
+        "admin_level",
     ]
     run_columns_test(
         "poverty_rate_vat", "poverty_rate_view", view_params_poverty_rate
@@ -522,6 +530,9 @@ def test_wfp_market_vat(
 def test_data_availability_vat(run_indexes_test, run_primary_keys_test):
     """Check that wfp_market_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
+        "id",
+    ]
+    expected_indexes = [
         "category",
         "subcategory",
         "location_name",
@@ -530,8 +541,7 @@ def test_data_availability_vat(run_indexes_test, run_primary_keys_test):
         "admin1_code",
         "admin2_name",
         "admin2_code",
-    ]
-    expected_indexes = [
+        "admin_level",
         "hapi_updated_date",
     ]
     #    run_columns_test(
