@@ -126,7 +126,8 @@ availability_stmt_refugees = (
     .select_from(
         DBRefugees.__table__.join(
             DBLocation.__table__,
-            DBRefugees.asylum_location_ref == DBLocation.id,
+            (DBRefugees.asylum_location_ref == DBLocation.id)
+            | (DBRefugees.origin_location_ref == DBLocation.id),
             isouter=True,
         ).join(
             DBResource.__table__,

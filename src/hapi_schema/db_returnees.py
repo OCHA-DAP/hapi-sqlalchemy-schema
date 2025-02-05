@@ -126,7 +126,8 @@ availability_stmt_returnees = (
     .select_from(
         DBReturnees.__table__.join(
             DBLocation.__table__,
-            DBReturnees.asylum_location_ref == DBLocation.id,
+            (DBReturnees.asylum_location_ref == DBLocation.id)
+            | (DBReturnees.origin_location_ref == DBLocation.id),
             isouter=True,
         ).join(
             DBResource.__table__,
