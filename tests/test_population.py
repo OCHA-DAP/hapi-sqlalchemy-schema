@@ -32,8 +32,8 @@ def test_population_availability(run_view_test):
     run_view_test(
         view=view_availability,
         whereclause=(
-            view_availability.c.category == "population-social",
-            view_availability.c.subcategory == "population",
+            view_availability.c.category == "geography-infrastructure",
+            view_availability.c.subcategory == "baseline-population",
             view_availability.c.location_code == "FOO",
             view_availability.c.admin1_name == "Province 01",
             view_availability.c.admin2_name == "District A",

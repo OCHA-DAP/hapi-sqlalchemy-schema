@@ -136,8 +136,8 @@ view_params_food_price = ViewParams(
 # Results format: category, subcategory, location_name, location_code, admin1_name, admin1_code, admin2_name, admin2_code, hapi_updated_date
 availability_stmt_food_price = (
     select(
-        literal("food").label("category"),
-        literal("food-price").label("subcategory"),
+        literal("food-security-nutrition-poverty").label("category"),
+        literal("food-prices-market-monitor").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
         DBAdmin1.name.label("admin1_name"),

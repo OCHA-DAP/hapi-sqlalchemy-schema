@@ -103,7 +103,7 @@ view_params_conflict_event = ViewParams(
 availability_stmt_conflict_event = (
     select(
         literal("coordination-context").label("category"),
-        literal("conflict-event").label("subcategory"),
+        literal("conflict-events").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
         DBAdmin1.name.label("admin1_name"),

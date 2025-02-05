@@ -29,7 +29,7 @@ def test_refugees_availability(run_view_test):
         view=view_availability,
         whereclause=(
             view_availability.c.category == "affected-people",
-            view_availability.c.subcategory == "refugees",
+            view_availability.c.subcategory == "refugees-persons-of-concern",
             view_availability.c.location_code
             == "BAR",  # we use the country of asylum, not origin
             view_availability.c.admin1_name == "",

@@ -32,7 +32,7 @@ def test_poverty_rate_availability(run_view_test):
     run_view_test(
         view=view_availability,
         whereclause=(
-            view_availability.c.category == "population-social",
+            view_availability.c.category == "food-security-nutrition-poverty",
             view_availability.c.subcategory == "poverty-rate",
             view_availability.c.location_code == "FOO",
             view_availability.c.admin1_name == "Province 01",

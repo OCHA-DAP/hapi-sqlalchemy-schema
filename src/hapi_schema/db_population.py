@@ -107,8 +107,8 @@ view_params_population = ViewParams(
 # Results format: category, subcategory, location_name, location_code, admin1_name, admin1_code, admin2_name, admin2_code, hapi_updated_date
 availability_stmt_population = (
     select(
-        literal("population-social").label("category"),
-        literal("population").label("subcategory"),
+        literal("geography-infrastructure").label("category"),
+        literal("baseline-population").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
         DBAdmin1.name.label("admin1_name"),

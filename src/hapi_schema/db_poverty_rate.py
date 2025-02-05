@@ -105,7 +105,7 @@ view_params_poverty_rate = ViewParams(
 # Results format: category, subcategory, location_name, location_code, admin1_name, admin1_code, admin2_name, admin2_code, hapi_updated_date
 availability_stmt_poverty_rate = (
     select(
-        literal("population-social").label("category"),
+        literal("food-security-nutrition-poverty").label("category"),
         literal("poverty-rate").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),

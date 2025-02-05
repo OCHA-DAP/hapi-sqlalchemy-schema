@@ -113,7 +113,7 @@ view_params_refugees = ViewParams(
 availability_stmt_refugees = (
     select(
         literal("affected-people").label("category"),
-        literal("refugees").label("subcategory"),
+        literal("refugees-persons-of-concern").label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
         literal("").label("admin1_name"),
