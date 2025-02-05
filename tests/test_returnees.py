@@ -31,7 +31,7 @@ def test_returnees_availability(run_view_test):
             view_availability.c.category == "affected-people",
             view_availability.c.subcategory == "returnees",
             view_availability.c.location_code
-            == "BAR",  # we use the country of asylum, not origin
+            == "BAR",
             view_availability.c.admin1_name == "",
             view_availability.c.admin2_name == "",
             view_availability.c.hapi_updated_date == datetime(2023, 8, 1),
