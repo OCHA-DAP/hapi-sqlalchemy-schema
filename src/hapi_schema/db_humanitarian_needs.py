@@ -118,7 +118,9 @@ view_params_humanitarian_needs = ViewParams(
 availability_stmt_humanitarian_needs = (
     select(
         literal(endpoint_constants.HUMANITARIAN_NEEDS_CAT).label("category"),
-        literal(endpoint_constants.HUMANITARIAN_NEEDS_SUBCAT).label("subcategory"),
+        literal(endpoint_constants.HUMANITARIAN_NEEDS_SUBCAT).label(
+            "subcategory"
+        ),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
         DBAdmin1.name.label("admin1_name"),

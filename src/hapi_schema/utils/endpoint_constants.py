@@ -4,7 +4,7 @@ Be careful when changing them as these are used to create the endpoints.
 """
 
 # categories
-AFFECTED_PEOPLE = "affected_people"
+AFFECTED_PEOPLE = "affected-people"
 COORDINATION_CONTEXT = "coordination-context"
 FOOD_SECURITY = "food-security-nutrition-poverty"
 GEOGRAPHY_INFRASTRUCTURE = "geography-infrastructure"

@@ -127,7 +127,9 @@ view_params_operational_presence = ViewParams(
 availability_stmt_operational_presence = (
     select(
         literal(endpoint_constants.OPERATIONAL_PRESENCE_CAT).label("category"),
-        literal(endpoint_constants.OPERATIONAL_PRESENCE_SUBCAT).label("subcategory"),
+        literal(endpoint_constants.OPERATIONAL_PRESENCE_SUBCAT).label(
+            "subcategory"
+        ),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
         DBAdmin1.name.label("admin1_name"),
