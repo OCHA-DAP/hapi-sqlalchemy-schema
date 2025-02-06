@@ -18,6 +18,7 @@ from hapi_schema.db_location import DBLocation
 from hapi_schema.db_org import DBOrg, DBOrgType
 from hapi_schema.db_resource import DBResource
 from hapi_schema.db_sector import DBSector
+from hapi_schema.utils import endpoint_constants
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import reference_period_constraint
 from hapi_schema.utils.view_params import ViewParams
@@ -125,8 +126,8 @@ view_params_operational_presence = ViewParams(
 # Results format: category, subcategory, location_name, location_code, admin1_name, admin1_code, admin2_name, admin2_code, hapi_updated_date
 availability_stmt_operational_presence = (
     select(
-        literal("coordination-context").label("category"),
-        literal("operational-presence").label("subcategory"),
+        literal(endpoint_constants.OPERATIONAL_PRESENCE_CAT).label("category"),
+        literal(endpoint_constants.OPERATIONAL_PRESENCE_SUBCAT).label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
         DBAdmin1.name.label("admin1_name"),

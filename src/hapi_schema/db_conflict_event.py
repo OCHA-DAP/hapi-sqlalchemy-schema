@@ -14,6 +14,7 @@ from sqlalchemy.sql.expression import literal
 from hapi_schema.db_admin1 import DBAdmin1, DBLocation
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_resource import DBResource
+from hapi_schema.utils import endpoint_constants
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import (
     population_constraint,
@@ -102,8 +103,8 @@ view_params_conflict_event = ViewParams(
 # Results format: category, subcategory, location_name, location_code, admin1_name, admin1_code, admin2_name, admin2_code, hapi_updated_date
 availability_stmt_conflict_event = (
     select(
-        literal("coordination-context").label("category"),
-        literal("conflict-events").label("subcategory"),
+        literal(endpoint_constants.CONFLICT_EVENT_CAT).label("category"),
+        literal(endpoint_constants.CONFLICT_EVENT_SUBCAT).label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
         DBAdmin1.name.label("admin1_name"),
