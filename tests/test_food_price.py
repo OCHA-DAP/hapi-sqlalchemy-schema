@@ -44,8 +44,8 @@ def test_food_price_availability(run_view_test):
     run_view_test(
         view=view_availability,
         whereclause=(
-            view_availability.c.category == "food",
-            view_availability.c.subcategory == "food-price",
+            view_availability.c.category == "food-security-nutrition-poverty",
+            view_availability.c.subcategory == "food-prices-market-monitor",
             view_availability.c.location_code == "FOO",
             view_availability.c.admin1_name == "Province 01",
             view_availability.c.admin2_name == "District A",

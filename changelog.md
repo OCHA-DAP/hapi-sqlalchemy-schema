@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.9.7
+
+### Changed
+
+- Changed endpoint names for conflict event, food price, food security, population, poverty rate, and refugees tables
+- Include origin and asylum in data availability for refugees and returnees
+- Added admin level to WFP Market table
+
 ## 0.9.6
 
 ### Fixed

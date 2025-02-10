@@ -17,6 +17,7 @@ from hapi_schema.db_admin1 import DBAdmin1
 from hapi_schema.db_admin2 import DBAdmin2
 from hapi_schema.db_location import DBLocation
 from hapi_schema.db_resource import DBResource
+from hapi_schema.utils import endpoint_constants
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import (
     population_constraint,
@@ -106,8 +107,8 @@ view_params_food_security = ViewParams(
 # Results format: category, subcategory, location_name, location_code, admin1_name, admin1_code, admin2_name, admin2_code, hapi_updated_date
 availability_stmt_food_security = (
     select(
-        literal("food").label("category"),
-        literal("food-security").label("subcategory"),
+        literal(endpoint_constants.FOOD_SECURITY_CAT).label("category"),
+        literal(endpoint_constants.FOOD_SECURITY_SUBCAT).label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
         DBAdmin1.name.label("admin1_name"),
