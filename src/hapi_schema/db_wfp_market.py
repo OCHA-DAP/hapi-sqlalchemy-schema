@@ -9,6 +9,7 @@ from hapi_schema.db_location import DBLocation
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.constraints import latlon_constraint
 from hapi_schema.utils.view_params import ViewParams
+from hapi_schema.views import get_admin2_case
 
 
 class DBWFPMarket(Base):
@@ -50,6 +51,7 @@ view_params_wfp_market = ViewParams(
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
         DBAdmin2.admin1_ref.label("admin1_ref"),
+        get_admin2_case(DBWFPMarket),
     ).select_from(
         # Join market to admin2 to admin1 to loc
         DBWFPMarket.__table__.join(
