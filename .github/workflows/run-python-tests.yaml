@@ -63,3 +63,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: tests
           format: lcov
+          fail-on-error: false
