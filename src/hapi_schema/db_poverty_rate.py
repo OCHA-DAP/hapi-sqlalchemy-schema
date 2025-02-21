@@ -57,7 +57,7 @@ class DBPovertyRate(Base):
         Float, nullable=False, index=False
     )
     intensity_of_deprivation: Mapped[float] = mapped_column(
-        Float, nullable=False, index=False
+        Float, nullable=True, index=False
     )
     vulnerable_to_poverty: Mapped[float] = mapped_column(
         Float, nullable=False, index=False
