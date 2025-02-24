@@ -25,8 +25,16 @@ class DBFunding(Base):
     __tablename__ = "funding"
     __table_args__ = (
         CheckConstraint(
+            "requirements_usd >= 0.0",
+            name="requirements_usd_constraint",
+        ),
+        CheckConstraint(
             "funding_usd >= 0.0",
             name="funding_usd_constraint",
+        ),
+        CheckConstraint(
+            "funding_pct >= 0.0",
+            name="funding_pct_constraint",
         ),
         reference_period_constraint(),
     )
