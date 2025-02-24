@@ -519,6 +519,7 @@ def test_wfp_market_vat(
         "admin1_name",
         "admin2_code",
         "admin2_name",
+        "admin_level",
     ]
     run_columns_test(
         "wfp_market_vat", "wfp_market_view", view_params_wfp_market
