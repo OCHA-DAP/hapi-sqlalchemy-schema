@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Added admin level to WFP Market table
+- Allow intensity of deprivation in poverty rate to be nullable
 
 ## 0.9.8
 
