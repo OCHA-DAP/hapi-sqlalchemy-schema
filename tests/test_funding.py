@@ -10,7 +10,7 @@ from hapi_schema.views import prepare_hapi_views
 
 
 def test_funding_view(run_view_test):
-    """Check gender view has all columns."""
+    """Check funding view has all columns."""
     view_funding = Database.prepare_view(view_params_funding.__dict__)
     run_view_test(
         view=view_funding,
@@ -67,7 +67,7 @@ def test_reference_period_constraint(run_constraints_test):
 
 
 def test_requirements_usd_constraint(run_constraints_test):
-    """Check that reference_period_end cannot be less than start"""
+    """Check that requirements usd cannot be less than zero"""
     run_constraints_test(
         new_rows=[
             DBFunding(
@@ -88,7 +88,7 @@ def test_requirements_usd_constraint(run_constraints_test):
 
 
 def test_funding_usd_constraint(run_constraints_test):
-    """Check that reference_period_end cannot be less than start"""
+    """Check that funding usd cannot be less than zero"""
     run_constraints_test(
         new_rows=[
             DBFunding(

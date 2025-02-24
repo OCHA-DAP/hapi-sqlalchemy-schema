@@ -56,15 +56,15 @@ class DBFunding(Base):
 
     appeal_name: Mapped[str] = mapped_column(String(256), nullable=False)
 
-    appeal_type: Mapped[str] = mapped_column(String(32), nullable=False)
+    appeal_type: Mapped[str] = mapped_column(String(32), nullable=True)
 
     requirements_usd: Mapped[Decimal] = mapped_column(
-        nullable=False, index=True
+        nullable=True, index=True
     )
 
     funding_usd: Mapped[Decimal] = mapped_column(nullable=False, index=True)
 
-    funding_pct: Mapped[Decimal] = mapped_column(nullable=False, index=True)
+    funding_pct: Mapped[Decimal] = mapped_column(nullable=True, index=True)
 
     reference_period_start: Mapped[datetime] = mapped_column(
         primary_key=True,
