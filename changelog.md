@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added admin level to WFP Market table
 - Allow intensity of deprivation in poverty rate to be nullable
-- Allow non-appeal funding in appeal table
+- Allow non-appeal funding in funding table
 
 ## 0.9.8
 
