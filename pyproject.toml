@@ -44,7 +44,7 @@ Homepage = "https://github.com/OCHA-DAP/hapi-schemas"
 [project.optional-dependencies]
 database = ["hdx-python-database>=1.3.5"]
 dev = ["pre-commit"]
-test = ["hdx-python-database>=1.3.4", "psycopg[binary]", "pytest", "pytest-cov"]
+test = ["hdx-python-database>=1.3.5", "psycopg[binary]", "pytest", "pytest-cov"]
 
 #########
 # Hatch #
@@ -86,7 +86,7 @@ run = """
        """
 
 [tool.hatch.envs.hatch-static-analysis]
-dependencies = ["ruff==0.9.4"]
+dependencies = ["ruff==0.9.6"]
 
 [tool.hatch.envs.hatch-static-analysis.scripts]
 format-check = ["ruff format --config .config/ruff.toml --check --diff {args:.}",]
