@@ -17,7 +17,7 @@ data_funding = [
     # non-appeal funding
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
-        appeal_code=None,
+        appeal_code="",
         location_ref=1,
         appeal_name="Not specified",
         appeal_type=None,
