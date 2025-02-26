@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Add nullable fields to VAT definitions
+- Align VAT definitions with database tables
 
 ## 0.9.9
 
