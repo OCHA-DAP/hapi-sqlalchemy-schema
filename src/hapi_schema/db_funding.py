@@ -8,7 +8,6 @@ from sqlalchemy import (
     ForeignKey,
     String,
     select,
-    text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql.expression import literal
@@ -71,8 +70,7 @@ class DBFunding(Base):
     )
 
     reference_period_end: Mapped[datetime] = mapped_column(
-        nullable=True,
-        server_default=text("NULL"),
+        nullable=False, index=True
     )
 
     resource = relationship(DBResource)

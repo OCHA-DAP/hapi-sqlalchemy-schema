@@ -35,7 +35,7 @@ class DBAdmin1VAT(Base):
     is_unspecified: Mapped[bool] = mapped_column(Boolean)
     from_cods: Mapped[bool] = mapped_column(Boolean)
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime, nullable=True, index=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime,
@@ -95,7 +95,6 @@ class DBConflictEventVAT(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime,
         index=True,
-        nullable=True,
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -151,7 +150,6 @@ class DBFoodPriceVAT(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime,
         index=True,
-        nullable=True,
     )
     admin2_ref: Mapped[int] = mapped_column(Integer)
     provider_admin1_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -202,7 +200,6 @@ class DBFoodSecurityVAT(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime,
         index=True,
-        nullable=True,
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -225,16 +222,17 @@ class DBFundingVAT(Base):
     appeal_code: Mapped[str] = mapped_column(String(32), primary_key=True)
     location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
     appeal_name: Mapped[str] = mapped_column(String(256))
-    appeal_type: Mapped[str] = mapped_column(String(32))
-    requirements_usd: Mapped[Decimal] = mapped_column(index=True)
+    appeal_type: Mapped[str] = mapped_column(String(32), nullable=True)
+    requirements_usd: Mapped[Decimal] = mapped_column(
+        index=True, nullable=True
+    )
     funding_usd: Mapped[Decimal] = mapped_column(index=True)
-    funding_pct: Mapped[Decimal] = mapped_column(index=True)
+    funding_pct: Mapped[Decimal] = mapped_column(index=True, nullable=True)
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime,
-        nullable=True,
+        DateTime, index=True
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -262,9 +260,7 @@ class DBHumanitarianNeedsVAT(Base):
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime,
-        index=True,
-        nullable=True,
+        DateTime, index=True
     )
     sector_name: Mapped[str] = mapped_column(String(512))
     location_code: Mapped[str] = mapped_column(String(128), index=True)
@@ -300,9 +296,7 @@ class DBIDPsVAT(Base):
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime,
-        index=True,
-        nullable=True,
+        DateTime, index=True
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -328,7 +322,9 @@ class DBLocationVAT(Base):
     has_hrp: Mapped[bool] = mapped_column(Boolean)
     in_gho: Mapped[bool] = mapped_column(Boolean)
     reference_period_start: Mapped[datetime] = mapped_column(
-        DateTime, index=True
+        DateTime,
+        index=True,
+        nullable=True,
     )
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime,
@@ -355,9 +351,7 @@ class DBNationalRiskVAT(Base):
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime,
-        index=True,
-        nullable=True,
+        DateTime, index=True
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -441,9 +435,7 @@ class DBPopulationVAT(Base):
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime,
-        index=True,
-        nullable=True,
+        DateTime, index=True
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -470,16 +462,16 @@ class DBPovertyRateVAT(Base):
     )
     mpi: Mapped[float] = mapped_column(Float)
     headcount_ratio: Mapped[float] = mapped_column(Float)
-    intensity_of_deprivation: Mapped[float] = mapped_column(Float)
+    intensity_of_deprivation: Mapped[float] = mapped_column(
+        Float, nullable=True
+    )
     vulnerable_to_poverty: Mapped[float] = mapped_column(Float)
     in_severe_poverty: Mapped[float] = mapped_column(Float)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime,
-        index=True,
-        nullable=True,
+        DateTime, index=True
     )
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -511,9 +503,7 @@ class DBRefugeesVAT(Base):
         DateTime, primary_key=True
     )
     reference_period_end: Mapped[datetime] = mapped_column(
-        DateTime,
-        index=True,
-        nullable=True,
+        DateTime, index=True
     )
     origin_location_code: Mapped[str] = mapped_column(String(128), index=True)
     origin_location_name: Mapped[str] = mapped_column(String(512), index=True)
@@ -570,7 +560,6 @@ class DBReturneesVAT(Base):
     reference_period_end: Mapped[datetime] = mapped_column(
         DateTime,
         index=True,
-        nullable=True,
     )
     origin_location_code: Mapped[str] = mapped_column(String(128), index=True)
     origin_location_name: Mapped[str] = mapped_column(String(512), index=True)

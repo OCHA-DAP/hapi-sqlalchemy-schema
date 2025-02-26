@@ -181,12 +181,16 @@ def test_funding_vat(
     run_indexes_test, run_columns_test, run_primary_keys_test
 ):
     """Check that funding_vat is correct - columns match, expected indexes present"""
-    expected_primary_keys = ["appeal_code", "location_ref"]
+    expected_primary_keys = [
+        "appeal_code",
+        "location_ref",
+        "reference_period_start",
+    ]
     expected_indexes = [
         "requirements_usd",
         "funding_usd",
         "funding_pct",
-        "reference_period_start",
+        "reference_period_end",
         "location_code",
         "location_name",
     ]
