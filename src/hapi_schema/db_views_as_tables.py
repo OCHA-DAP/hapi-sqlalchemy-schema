@@ -225,10 +225,12 @@ class DBFundingVAT(Base):
     appeal_code: Mapped[str] = mapped_column(String(32), primary_key=True)
     location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
     appeal_name: Mapped[str] = mapped_column(String(256))
-    appeal_type: Mapped[str] = mapped_column(String(32))
-    requirements_usd: Mapped[Decimal] = mapped_column(index=True)
+    appeal_type: Mapped[str] = mapped_column(String(32), nullable=True)
+    requirements_usd: Mapped[Decimal] = mapped_column(
+        index=True, nullable=True
+    )
     funding_usd: Mapped[Decimal] = mapped_column(index=True)
-    funding_pct: Mapped[Decimal] = mapped_column(index=True)
+    funding_pct: Mapped[Decimal] = mapped_column(index=True, nullable=True)
     reference_period_start: Mapped[datetime] = mapped_column(
         DateTime, index=True
     )
@@ -470,7 +472,9 @@ class DBPovertyRateVAT(Base):
     )
     mpi: Mapped[float] = mapped_column(Float)
     headcount_ratio: Mapped[float] = mapped_column(Float)
-    intensity_of_deprivation: Mapped[float] = mapped_column(Float)
+    intensity_of_deprivation: Mapped[float] = mapped_column(
+        Float, nullable=True
+    )
     vulnerable_to_poverty: Mapped[float] = mapped_column(Float)
     in_severe_poverty: Mapped[float] = mapped_column(Float)
     reference_period_start: Mapped[datetime] = mapped_column(
