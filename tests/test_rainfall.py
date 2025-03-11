@@ -85,9 +85,14 @@ def test_rainfall_positive(run_constraints_test, base_parameters):
     )
 
 
-def test_rainfall_long_term_average_positive(run_constraints_test, base_parameters):
+def test_rainfall_long_term_average_positive(
+    run_constraints_test, base_parameters
+):
     """Check that the rainfall value is positive"""
-    modified_params = {**base_parameters, "rainfall_long_term_average": -1.0345}
+    modified_params = {
+        **base_parameters,
+        "rainfall_long_term_average": -1.0345,
+    }
     run_constraints_test(
         new_rows=[
             DBRainfall(**modified_params),

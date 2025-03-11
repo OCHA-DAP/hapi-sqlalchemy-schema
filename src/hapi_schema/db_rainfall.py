@@ -23,7 +23,11 @@ from hapi_schema.utils.constraints import (
     non_negative_constraint,
     reference_period_constraint,
 )
-from hapi_schema.utils.enums import TimePeriod, Version, build_enum_using_values
+from hapi_schema.utils.enums import (
+    TimePeriod,
+    Version,
+    build_enum_using_values,
+)
 from hapi_schema.utils.view_params import ViewParams
 from hapi_schema.views import get_admin2_case_code
 
