@@ -5,6 +5,7 @@ Be careful when changing them as these are used to create the endpoints.
 
 # categories
 AFFECTED_PEOPLE = "affected-people"
+CLIMATE = "climate"
 COORDINATION_CONTEXT = "coordination-context"
 FOOD_SECURITY = "food-security-nutrition-poverty"
 GEOGRAPHY_INFRASTRUCTURE = "geography-infrastructure"
@@ -29,6 +30,8 @@ POPULATION_CAT = GEOGRAPHY_INFRASTRUCTURE
 POPULATION_SUBCAT = "baseline-population"
 POVERTY_RATE_CAT = FOOD_SECURITY
 POVERTY_RATE_SUBCAT = "poverty-rate"
+RAINFALL_CAT = CLIMATE
+RAINFALL_SUBCAT = "hazards-rainfall"
 REFUGEES_CAT = AFFECTED_PEOPLE
 REFUGEES_SUBCAT = "refugees-persons-of-concern"
 RETURNEES_CAT = AFFECTED_PEOPLE

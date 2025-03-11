@@ -72,6 +72,19 @@ def get_admin1_when(table: Any) -> Tuple[ColumnElement, int]:
     )
 
 
+def get_admin1_when_code(table: Any) -> Tuple[ColumnElement, int]:
+    return (
+        or_(
+            and_(
+                table.provider_admin1_code.is_not(None),
+                table.provider_admin1_code != "",
+            ),
+            DBAdmin1.is_unspecified.is_(False),
+        ),
+        1,
+    )
+
+
 def get_admin1_case(table: Any) -> Label:
     return case(
         get_admin1_when(table),
@@ -92,5 +105,22 @@ def get_admin2_case(table: Any) -> Label:
             2,
         ),
         get_admin1_when(table),
+        else_=0,
+    ).label("admin_level")
+
+
+def get_admin2_case_code(table: Any) -> Label:
+    return case(
+        (
+            or_(
+                and_(
+                    table.provider_admin2_code.is_not(None),
+                    table.provider_admin2_code != "",
+                ),
+                DBAdmin2.is_unspecified.is_(False),
+            ),
+            2,
+        ),
+        get_admin1_when_code(table),
         else_=0,
     ).label("admin_level")
