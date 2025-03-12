@@ -12,6 +12,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.enums import (
+    AggregationPeriod,
     CommodityCategory,
     EventType,
     Gender,
@@ -22,7 +23,6 @@ from hapi_schema.utils.enums import (
     PriceFlag,
     PriceType,
     RiskClass,
-    TimePeriod,
     Version,
     build_enum_using_values,
 )
@@ -496,8 +496,8 @@ class DBRainfallVAT(Base):
     provider_admin2_code: Mapped[str] = mapped_column(
         String(512), primary_key=True
     )
-    time_period: Mapped[TimePeriod] = mapped_column(
-        build_enum_using_values(TimePeriod), primary_key=True
+    aggregation_period: Mapped[AggregationPeriod] = mapped_column(
+        build_enum_using_values(AggregationPeriod), primary_key=True
     )
     rainfall: Mapped[Decimal] = mapped_column(nullable=False)
     rainfall_long_term_average: Mapped[Decimal] = mapped_column(nullable=False)

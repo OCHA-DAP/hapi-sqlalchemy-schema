@@ -4,7 +4,7 @@ import pytest
 from hdx.database import Database
 
 from hapi_schema.db_rainfall import DBRainfall, view_params_rainfall
-from hapi_schema.utils.enums import TimePeriod, Version
+from hapi_schema.utils.enums import AggregationPeriod, Version
 from hapi_schema.views import prepare_hapi_views
 
 
@@ -48,7 +48,7 @@ def base_parameters():
         admin2_ref=1,
         provider_admin1_code="393",
         provider_admin2_code="39339",
-        time_period=TimePeriod.DEAKD,
+        aggregation_period=AggregationPeriod.DEAKD,
         rainfall=4.8571,
         rainfall_long_term_average=9.4095,
         rainfall_anomaly_pct=68.4071,

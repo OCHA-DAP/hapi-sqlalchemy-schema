@@ -24,7 +24,7 @@ from hapi_schema.utils.constraints import (
     reference_period_constraint,
 )
 from hapi_schema.utils.enums import (
-    TimePeriod,
+    AggregationPeriod,
     Version,
     build_enum_using_values,
 )
@@ -52,8 +52,8 @@ class DBRainfall(Base):
     )
     provider_admin1_code = mapped_column(String(512), primary_key=True)
     provider_admin2_code = mapped_column(String(512), primary_key=True)
-    time_period: Mapped[TimePeriod] = mapped_column(
-        build_enum_using_values(TimePeriod), primary_key=True
+    aggregation_period: Mapped[AggregationPeriod] = mapped_column(
+        build_enum_using_values(AggregationPeriod), primary_key=True
     )
     rainfall: Mapped[Decimal] = mapped_column(nullable=False)
     rainfall_long_term_average: Mapped[Decimal] = mapped_column(nullable=False)

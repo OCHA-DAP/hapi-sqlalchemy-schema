@@ -422,7 +422,7 @@ def test_rainfall_vat(
         "admin2_ref",
         "provider_admin1_code",
         "provider_admin2_code",
-        "time_period",
+        "aggregation_period",
         "version",
         "reference_period_start",
     ]

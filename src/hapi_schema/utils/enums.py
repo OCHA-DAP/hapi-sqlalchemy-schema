@@ -108,7 +108,7 @@ class CommodityCategory(str, PythonEnum):
     VEGETABLES_FRUITS = "vegetables and fruits"
 
 
-class TimePeriod(str, PythonEnum):
+class AggregationPeriod(str, PythonEnum):
     DEAKD = "dekad"
     ONE_MONTH = "1-month"
     THREE_MONTH = "3-month"
