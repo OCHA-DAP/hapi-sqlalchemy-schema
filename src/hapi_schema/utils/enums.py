@@ -109,7 +109,7 @@ class CommodityCategory(str, PythonEnum):
 
 
 class AggregationPeriod(str, PythonEnum):
-    DEAKD = "dekad"
+    DEKAD = "dekad"
     ONE_MONTH = "1-month"
     THREE_MONTH = "3-month"
 

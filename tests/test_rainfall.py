@@ -48,7 +48,7 @@ def base_parameters():
         admin2_ref=1,
         provider_admin1_code="393",
         provider_admin2_code="39339",
-        aggregation_period=AggregationPeriod.DEAKD,
+        aggregation_period=AggregationPeriod.DEKAD,
         rainfall=4.8571,
         rainfall_long_term_average=9.4095,
         rainfall_anomaly_pct=68.4071,
