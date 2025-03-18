@@ -48,6 +48,8 @@ def base_parameters():
     return dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=1,
+        provider_admin1_name="Not provided",
+        provider_admin2_name="Not provided",
         provider_admin1_code="393",
         provider_admin2_code="39339",
         aggregation_period=AggregationPeriod.DEKAD,
