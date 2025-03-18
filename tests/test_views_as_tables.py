@@ -420,6 +420,8 @@ def test_rainfall_vat(
     """Check that rainfall_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
         "provider_admin1_code",
         "provider_admin2_code",
         "aggregation_period",

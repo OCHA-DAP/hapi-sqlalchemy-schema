@@ -16,6 +16,8 @@ def test_rainfall_view(run_view_test):
         whereclause=(
             view_rainfall.c.resource_hdx_id
             == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_rainfall.c.provider_admin1_name == "Not provided",
+            view_rainfall.c.provider_admin2_name == "Not provided",
             view_rainfall.c.provider_admin1_code == "393",
             view_rainfall.c.provider_admin2_code == "39339",
             view_rainfall.c.admin2_code == "FOO-001-XXX",
