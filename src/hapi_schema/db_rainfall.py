@@ -29,7 +29,7 @@ from hapi_schema.utils.enums import (
     build_enum_using_values,
 )
 from hapi_schema.utils.view_params import ViewParams
-from hapi_schema.views import get_admin2_case_code
+from hapi_schema.views import get_admin2_case
 
 
 class DBRainfall(Base):
@@ -50,8 +50,10 @@ class DBRainfall(Base):
         ForeignKey("admin2.id", onupdate="CASCADE"),
         primary_key=True,
     )
-    provider_admin1_code = mapped_column(String(512), primary_key=True)
-    provider_admin2_code = mapped_column(String(512), primary_key=True)
+    provider_admin1_name = mapped_column(String(512), primary_key=True)
+    provider_admin2_name = mapped_column(String(512), primary_key=True)
+    provider_admin1_code = mapped_column(String(32), primary_key=True)
+    provider_admin2_code = mapped_column(String(32), primary_key=True)
     aggregation_period: Mapped[AggregationPeriod] = mapped_column(
         build_enum_using_values(AggregationPeriod), primary_key=True
     )
@@ -90,9 +92,9 @@ view_params_rainfall = ViewParams(
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.is_unspecified.label("admin2_is_unspecified"),
         DBAdmin2.admin1_ref.label("admin1_ref"),
-        get_admin2_case_code(DBRainfall),
+        get_admin2_case(DBRainfall),
     ).select_from(
-        # Join pop to admin2 to admin1 to loc
+        # Join rainfall to admin2 to admin1 to loc
         DBRainfall.__table__.join(
             DBAdmin2.__table__,
             DBRainfall.admin2_ref == DBAdmin2.id,
@@ -122,7 +124,7 @@ availability_stmt_rainfall = (
         DBAdmin1.code.label("admin1_code"),
         DBAdmin2.name.label("admin2_name"),
         DBAdmin2.code.label("admin2_code"),
-        get_admin2_case_code(DBRainfall),
+        get_admin2_case(DBRainfall),
         DBResource.hapi_updated_date,
     )
     .select_from(

@@ -5,6 +5,8 @@ data_rainfall = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=2,
+        provider_admin1_name="Not provided",
+        provider_admin2_name="Not provided",
         provider_admin1_code="393",
         provider_admin2_code="39339",
         aggregation_period="dekad",
@@ -20,6 +22,8 @@ data_rainfall = [
     dict(
         resource_hdx_id="90deb235-1bf5-4bae-b231-3393222c2d01",
         admin2_ref=4,
+        provider_admin1_name="Not provided",
+        provider_admin2_name="Not provided",
         provider_admin1_code="393",
         provider_admin2_code="",
         aggregation_period="dekad",

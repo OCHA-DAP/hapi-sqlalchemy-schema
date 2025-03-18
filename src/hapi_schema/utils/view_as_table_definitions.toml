@@ -178,6 +178,7 @@ target_view = "rainfall_view"
 view_params_name="view_params_rainfall"
 expected_primary_keys = [
         "admin2_ref",
+        "provider_admin1_code",
         "provider_admin2_code",
         "aggregation_period",
         "reference_period_start"
