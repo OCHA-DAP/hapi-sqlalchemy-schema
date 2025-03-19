@@ -71,10 +71,10 @@ expected_nullables = []
 db_module = "db_funding"
 target_view = "funding_view"
 view_params_name="view_params_funding"
-expected_primary_keys = ["appeal_code", "location_ref"]
-expected_indexes = ["requirements_usd", "funding_usd", "funding_pct", "reference_period_start",
+expected_primary_keys = ["appeal_code", "location_ref", "reference_period_start"]
+expected_indexes = ["requirements_usd", "funding_usd", "funding_pct", "reference_period_end",
 "location_code", "location_name"]
-expected_nullables = ["reference_period_end"]
+expected_nullables = ["appeal_type", "requirements_usd", "funding_pct"]
 
 [[tables]]
 db_module = "db_humanitarian_needs"
@@ -84,6 +84,14 @@ expected_primary_keys = ["admin2_ref", "category", "population_status", "populat
 expected_indexes = ["reference_period_end",
 "location_code", "location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
 expected_nullables = []
+
+[[tables]]
+db_module = "db_idps"
+target_view = "idps_view"
+view_params_name="view_params_idps"
+expected_primary_keys = ["admin2_ref", "assessment_type", "reporting_round", "operation", "reference_period_start"]
+expected_indexes = ["reference_period_end", "population"]
+expected_nullables = ["assessment_type"]
 
 [[tables]]
 db_module = "db_location"
@@ -117,7 +125,7 @@ expected_primary_keys = [
     ]
 expected_indexes = ["org_type_description","reference_period_end", "location_code",
 "location_name", "admin1_code", "admin1_name", "admin2_code", "admin2_name"]
-expected_nullables = []
+expected_nullables = ["reference_period_end"]
 
 [[tables]]
 db_module = "db_org_type"
@@ -162,7 +170,21 @@ expected_primary_keys = [
     ]
 expected_indexes = ["reference_period_end", "location_ref", "location_code",
 "location_name", "admin1_name"]
-expected_nullables = ["rate"]
+expected_nullables = ["rate", "intensity_of_deprivation"]
+
+[[tables]]
+db_module = "db_rainfall"
+target_view = "rainfall_view"
+view_params_name="view_params_rainfall"
+expected_primary_keys = [
+        "admin2_ref",
+        "provider_admin1_code",
+        "provider_admin2_code",
+        "aggregation_period",
+        "reference_period_start"
+    ]
+expected_indexes = ["reference_period_end"]
+expected_nullables = []
 
 [[tables]]
 db_module = "db_refugees"
@@ -187,6 +209,23 @@ view_params_name="view_params_resource"
 expected_primary_keys = ["hdx_id"]
 expected_indexes = ["dataset_hdx_stub", "dataset_hdx_provider_stub", "dataset_hdx_provider_name"]
 expected_nullables = []
+
+[[tables]]
+db_module = "db_returnees"
+target_view = "returnees_view"
+view_params_name="view_params_returnees"
+expected_primary_keys = [
+        "origin_location_ref",
+        "asylum_location_ref",
+        "population_group",
+        "gender",
+        "age_range",
+        "reference_period_start"
+    ]
+expected_indexes = ["min_age", "max_age", "population", "reference_period_end",
+                    "origin_location_code", "origin_location_name",
+                    "asylum_location_code", "asylum_location_name"]
+expected_nullables = ["min_age", "max_age"]
 
 [[tables]]
 db_module = "db_sector"

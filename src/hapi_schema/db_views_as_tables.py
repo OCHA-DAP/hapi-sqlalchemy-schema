@@ -12,6 +12,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from hapi_schema.utils.base import Base
 from hapi_schema.utils.enums import (
+    AggregationPeriod,
     CommodityCategory,
     EventType,
     Gender,
@@ -22,6 +23,7 @@ from hapi_schema.utils.enums import (
     PriceFlag,
     PriceType,
     RiskClass,
+    Version,
     build_enum_using_values,
 )
 
@@ -481,6 +483,53 @@ class DBPovertyRateVAT(Base):
     admin1_code: Mapped[str] = mapped_column(String(128))
     admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
     location_ref: Mapped[int] = mapped_column(Integer, index=True)
+    admin_level: Mapped[int] = mapped_column(Integer, index=True)
+
+
+class DBRainfallVAT(Base):
+    __tablename__ = "rainfall_vat"
+    resource_hdx_id: Mapped[str] = mapped_column(String(36))
+    admin2_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
+    provider_admin1_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin2_name: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin1_code: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    provider_admin2_code: Mapped[str] = mapped_column(
+        String(512), primary_key=True
+    )
+    aggregation_period: Mapped[AggregationPeriod] = mapped_column(
+        build_enum_using_values(AggregationPeriod), primary_key=True
+    )
+    rainfall: Mapped[Decimal] = mapped_column(nullable=False)
+    rainfall_long_term_average: Mapped[Decimal] = mapped_column(nullable=False)
+    rainfall_anomaly_pct: Mapped[Decimal] = mapped_column(nullable=False)
+    number_pixels: Mapped[int] = mapped_column(Integer, nullable=False)
+    version: Mapped[Version] = mapped_column(
+        build_enum_using_values(Version), primary_key=True
+    )
+    reference_period_start: Mapped[datetime] = mapped_column(
+        DateTime, primary_key=True
+    )
+    reference_period_end: Mapped[datetime] = mapped_column(
+        DateTime, index=True
+    )
+    location_code: Mapped[str] = mapped_column(String(128), index=True)
+    location_name: Mapped[str] = mapped_column(String(512), index=True)
+    has_hrp: Mapped[bool] = mapped_column(Boolean)
+    in_gho: Mapped[bool] = mapped_column(Boolean)
+    admin1_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin1_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin1_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    location_ref: Mapped[int] = mapped_column(Integer)
+    admin2_code: Mapped[str] = mapped_column(String(128), index=True)
+    admin2_name: Mapped[str] = mapped_column(String(512), index=True)
+    admin2_is_unspecified: Mapped[bool] = mapped_column(Boolean)
+    admin1_ref: Mapped[int] = mapped_column(Integer)
     admin_level: Mapped[int] = mapped_column(Integer, index=True)
 
 

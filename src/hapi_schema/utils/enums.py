@@ -106,3 +106,15 @@ class CommodityCategory(str, PythonEnum):
     OIL_FATS = "oil and fats"
     PULSES_NUTS = "pulses and nuts"
     VEGETABLES_FRUITS = "vegetables and fruits"
+
+
+class AggregationPeriod(str, PythonEnum):
+    DEKAD = "dekad"
+    ONE_MONTH = "1-month"
+    THREE_MONTH = "3-month"
+
+
+class Version(str, PythonEnum):
+    FINAL = "final"
+    FORECAST = "forecast"
+    PRELIMINARY = "preliminary"

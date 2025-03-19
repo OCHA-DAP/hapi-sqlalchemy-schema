@@ -18,6 +18,7 @@ from hapi_schema.db_org_type import view_params_org_type
 from hapi_schema.db_patch import view_params_patch
 from hapi_schema.db_population import view_params_population
 from hapi_schema.db_poverty_rate import view_params_poverty_rate
+from hapi_schema.db_rainfall import view_params_rainfall
 from hapi_schema.db_refugees import view_params_refugees
 from hapi_schema.db_resource import view_params_resource
 from hapi_schema.db_returnees import view_params_returnees
@@ -411,6 +412,35 @@ def test_poverty_rate_vat(
     )
     run_indexes_test("poverty_rate_vat", expected_indexes)
     run_primary_keys_test("poverty_rate_vat", expected_primary_keys)
+
+
+def test_rainfall_vat(
+    run_indexes_test, run_columns_test, run_primary_keys_test
+):
+    """Check that rainfall_vat is correct - columns match, expected indexes present"""
+    expected_primary_keys = [
+        "admin2_ref",
+        "provider_admin1_name",
+        "provider_admin2_name",
+        "provider_admin1_code",
+        "provider_admin2_code",
+        "aggregation_period",
+        "version",
+        "reference_period_start",
+    ]
+    expected_indexes = [
+        "reference_period_end",
+        "location_code",
+        "location_name",
+        "admin1_code",
+        "admin1_name",
+        "admin2_code",
+        "admin2_name",
+        "admin_level",
+    ]
+    run_columns_test("rainfall_vat", "rainfall_view", view_params_rainfall)
+    run_indexes_test("rainfall_vat", expected_indexes)
+    run_primary_keys_test("rainfall_vat", expected_primary_keys)
 
 
 def test_refugees_vat(
