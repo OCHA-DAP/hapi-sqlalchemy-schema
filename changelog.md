@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Lat and lon from WFP market nullable for market "National Average"
+
+## 0.9.11
+
+### Changed
+
 - Added Rainfall table and views
 
 ## 0.9.10
