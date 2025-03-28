@@ -28,8 +28,8 @@ class DBWFPMarket(Base):
         String(512), nullable=False, index=True
     )
     name: Mapped[str] = mapped_column(String(512), nullable=False, index=True)
-    lat: Mapped[float] = mapped_column(Float, nullable=False, index=True)
-    lon: Mapped[float] = mapped_column(Float, nullable=False, index=True)
+    lat: Mapped[float] = mapped_column(Float, nullable=True, index=True)
+    lon: Mapped[float] = mapped_column(Float, nullable=True, index=True)
 
     admin2 = relationship(DBAdmin2)
 
