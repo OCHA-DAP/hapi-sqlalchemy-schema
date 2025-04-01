@@ -55,7 +55,7 @@ class DBFunding(Base):
 
     appeal_name: Mapped[str] = mapped_column(String(256), nullable=False)
 
-    appeal_type: Mapped[str] = mapped_column(String(32), nullable=True)
+    appeal_type: Mapped[str] = mapped_column(String(64), nullable=True)
 
     requirements_usd: Mapped[Decimal] = mapped_column(
         nullable=True, index=True
