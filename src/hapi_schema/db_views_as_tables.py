@@ -224,7 +224,7 @@ class DBFundingVAT(Base):
     appeal_code: Mapped[str] = mapped_column(String(32), primary_key=True)
     location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
     appeal_name: Mapped[str] = mapped_column(String(256))
-    appeal_type: Mapped[str] = mapped_column(String(32), nullable=True)
+    appeal_type: Mapped[str] = mapped_column(String(64), nullable=True)
     requirements_usd: Mapped[Decimal] = mapped_column(
         index=True, nullable=True
     )
@@ -642,8 +642,8 @@ class DBWfpMarketVAT(Base):
     provider_admin1_name: Mapped[str] = mapped_column(String(512), index=True)
     provider_admin2_name: Mapped[str] = mapped_column(String(512), index=True)
     name: Mapped[str] = mapped_column(String(512), index=True)
-    lat: Mapped[float] = mapped_column(Float, index=True)
-    lon: Mapped[float] = mapped_column(Float, index=True)
+    lat: Mapped[float] = mapped_column(Float, index=True, nullable=True)
+    lon: Mapped[float] = mapped_column(Float, index=True, nullable=True)
     location_code: Mapped[str] = mapped_column(String(128), index=True)
     location_name: Mapped[str] = mapped_column(String(512), index=True)
     has_hrp: Mapped[bool] = mapped_column(Boolean)
