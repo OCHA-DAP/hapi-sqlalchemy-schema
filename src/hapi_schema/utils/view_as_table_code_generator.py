@@ -119,10 +119,7 @@ def make_table_template_from_view(
     # Make a CamelCase name from the supplied table name
     class_name = (
         "DB"
-        + target_table.replace("_vat", "")
-        .replace("_", " ")
-        .title()
-        .replace(" ", "")
+        + target_table.replace("_vat", "").replace("_", " ").title().replace(" ", "")
         + "VAT"
     )
     table_code = []

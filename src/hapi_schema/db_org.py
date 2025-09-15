@@ -12,9 +12,7 @@ class DBOrg(Base):
     __tablename__ = "org"
 
     acronym = mapped_column(String(32), primary_key=True)
-    name: Mapped[str] = mapped_column(
-        String(512), nullable=False, primary_key=True
-    )
+    name: Mapped[str] = mapped_column(String(512), nullable=False, primary_key=True)
     org_type_code: Mapped[str] = mapped_column(
         ForeignKey("org_type.code"),
         nullable=True,

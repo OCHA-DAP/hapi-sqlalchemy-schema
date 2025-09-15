@@ -57,9 +57,7 @@ class DBFoodSecurity(Base):
         Float, nullable=False, index=True
     )
     reference_period_start: Mapped[datetime] = mapped_column(primary_key=True)
-    reference_period_end: Mapped[datetime] = mapped_column(
-        nullable=False, index=True
-    )
+    reference_period_end: Mapped[datetime] = mapped_column(nullable=False, index=True)
 
     resource = relationship(DBResource)
     admin2 = relationship(DBAdmin2)

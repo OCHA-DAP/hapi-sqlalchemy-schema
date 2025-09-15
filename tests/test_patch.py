@@ -26,9 +26,7 @@ def test_db_patch(capfd):
     sql_patch_sequence_number_index_creation = """
     CREATE INDEX ix_patch_patch_sequence_number ON patch (patch_sequence_number)
     """
-    sql_state_index_creation = (
-        """CREATE INDEX ix_patch_state ON patch (state)"""
-    )
+    sql_state_index_creation = """CREATE INDEX ix_patch_state ON patch (state)"""
 
     captured_sql, _ = capfd.readouterr()
 

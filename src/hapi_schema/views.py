@@ -38,9 +38,7 @@ def prepare_hapi_views() -> Dict[str, TableClause]:
             try:
                 view_params = getattr(module, f"view_params_{table}")
                 views[table] = Database.prepare_view(view_params.__dict__)
-                availability_stmt = getattr(
-                    module, f"availability_stmt_{table}"
-                )
+                availability_stmt = getattr(module, f"availability_stmt_{table}")
                 if availability_stmt is not None:
                     availability_stmts.append(availability_stmt)
             except AttributeError:

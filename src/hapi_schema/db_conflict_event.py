@@ -29,9 +29,7 @@ from hapi_schema.views import get_admin2_case
 class DBConflictEvent(Base):
     __tablename__ = "conflict_event"
     __table_args__ = (
-        population_constraint(
-            population_var_name="events"
-        ),  # not really a population
+        population_constraint(population_var_name="events"),  # not really a population
         population_constraint(population_var_name="fatalities"),
         reference_period_constraint(),
     )
@@ -53,9 +51,7 @@ class DBConflictEvent(Base):
     events: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     fatalities: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     reference_period_start: Mapped[datetime] = mapped_column(primary_key=True)
-    reference_period_end: Mapped[datetime] = mapped_column(
-        nullable=False, index=True
-    )
+    reference_period_end: Mapped[datetime] = mapped_column(nullable=False, index=True)
 
     resource = relationship(DBResource)
     admin2 = relationship(DBAdmin2)

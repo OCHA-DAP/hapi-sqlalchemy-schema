@@ -60,9 +60,7 @@ class DBHumanitarianNeeds(Base):
     reference_period_start: Mapped[datetime] = mapped_column(
         primary_key=True,
     )
-    reference_period_end: Mapped[datetime] = mapped_column(
-        nullable=False, index=True
-    )
+    reference_period_end: Mapped[datetime] = mapped_column(nullable=False, index=True)
 
     resource = relationship(DBResource)
     admin2 = relationship(DBAdmin2)
@@ -118,9 +116,7 @@ view_params_humanitarian_needs = ViewParams(
 availability_stmt_humanitarian_needs = (
     select(
         literal(endpoint_constants.HUMANITARIAN_NEEDS_CAT).label("category"),
-        literal(endpoint_constants.HUMANITARIAN_NEEDS_SUBCAT).label(
-            "subcategory"
-        ),
+        literal(endpoint_constants.HUMANITARIAN_NEEDS_SUBCAT).label("subcategory"),
         DBLocation.name.label("location_name"),
         DBLocation.code.label("location_code"),
         DBAdmin1.name.label("admin1_name"),

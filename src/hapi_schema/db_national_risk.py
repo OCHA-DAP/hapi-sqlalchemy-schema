@@ -59,23 +59,13 @@ class DBNationalRisk(Base):
     )
     global_rank: Mapped[int] = mapped_column(Integer, nullable=False)
     overall_risk: Mapped[Decimal] = mapped_column(Float, nullable=False)
-    hazard_exposure_risk: Mapped[Decimal] = mapped_column(
-        Float, nullable=False
-    )
+    hazard_exposure_risk: Mapped[Decimal] = mapped_column(Float, nullable=False)
     vulnerability_risk: Mapped[Decimal] = mapped_column(Float, nullable=False)
-    coping_capacity_risk: Mapped[Decimal] = mapped_column(
-        Float, nullable=False
-    )
-    meta_missing_indicators_pct: Mapped[Decimal] = mapped_column(
-        Float, nullable=True
-    )
-    meta_avg_recentness_years: Mapped[Decimal] = mapped_column(
-        Float, nullable=True
-    )
+    coping_capacity_risk: Mapped[Decimal] = mapped_column(Float, nullable=False)
+    meta_missing_indicators_pct: Mapped[Decimal] = mapped_column(Float, nullable=True)
+    meta_avg_recentness_years: Mapped[Decimal] = mapped_column(Float, nullable=True)
     reference_period_start: Mapped[datetime] = mapped_column(primary_key=True)
-    reference_period_end: Mapped[datetime] = mapped_column(
-        nullable=False, index=True
-    )
+    reference_period_end: Mapped[datetime] = mapped_column(nullable=False, index=True)
 
     resource = relationship(DBResource)
     location = relationship(DBLocation)

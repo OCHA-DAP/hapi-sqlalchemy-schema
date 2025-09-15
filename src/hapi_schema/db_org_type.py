@@ -11,9 +11,7 @@ class DBOrgType(Base):
     __tablename__ = "org_type"
 
     code: Mapped[str] = mapped_column(String(32), primary_key=True)
-    description: Mapped[str] = mapped_column(
-        String(512), nullable=False, index=True
-    )
+    description: Mapped[str] = mapped_column(String(512), nullable=False, index=True)
 
 
 view_params_org_type = ViewParams(

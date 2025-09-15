@@ -11,9 +11,7 @@ from hapi_schema.views import prepare_hapi_views
 
 def test_poverty_rate_view(run_view_test):
     """Check that poverty_rate references other tables."""
-    view_poverty_rate = Database.prepare_view(
-        view_params_poverty_rate.__dict__
-    )
+    view_poverty_rate = Database.prepare_view(view_params_poverty_rate.__dict__)
     run_view_test(
         view=view_poverty_rate,
         whereclause=(

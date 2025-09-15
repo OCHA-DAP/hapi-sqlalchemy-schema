@@ -58,9 +58,7 @@ def parse_toml():
     complete_code.append("from sqlalchemy import DateTime")
     complete_code.append("from sqlalchemy.orm import column_property, Mapped")
 
-    complete_code.append(
-        "from hapi_schema.db_admin1 import view_params_admin1"
-    )
+    complete_code.append("from hapi_schema.db_admin1 import view_params_admin1")
 
     complete_code.append("from hdx_hapi.db.models.views.util.util import view")
     complete_code.append("from hdx_hapi.db.models.base import Base")
@@ -153,10 +151,7 @@ def make_table_template_from_view(
     # Make a CamelCase name from the supplied table name
     # admin1_vat-> Admin1View
     class_name = (
-        target_table.replace("_vat", "")
-        .replace("_", " ")
-        .title()
-        .replace(" ", "")
+        target_table.replace("_vat", "").replace("_", " ").title().replace(" ", "")
         + "View"
     )
 
