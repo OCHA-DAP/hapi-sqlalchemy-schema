@@ -14,8 +14,7 @@ def test_rainfall_view(run_view_test):
     run_view_test(
         view=view_rainfall,
         whereclause=(
-            view_rainfall.c.resource_hdx_id
-            == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_rainfall.c.resource_hdx_id == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_rainfall.c.provider_admin1_name == "Not provided",
             view_rainfall.c.provider_admin2_name == "Not provided",
             view_rainfall.c.provider_admin1_code == "393",
@@ -89,9 +88,7 @@ def test_rainfall_positive(run_constraints_test, base_parameters):
     )
 
 
-def test_rainfall_long_term_average_positive(
-    run_constraints_test, base_parameters
-):
+def test_rainfall_long_term_average_positive(run_constraints_test, base_parameters):
     """Check that the rainfall value is positive"""
     modified_params = {
         **base_parameters,

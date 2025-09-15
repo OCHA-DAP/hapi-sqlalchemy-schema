@@ -53,22 +53,16 @@ class DBPovertyRate(Base):
         String(512), nullable=False, index=True, primary_key=True
     )
     mpi: Mapped[float] = mapped_column(Float, nullable=False, index=False)
-    headcount_ratio: Mapped[float] = mapped_column(
-        Float, nullable=False, index=False
-    )
+    headcount_ratio: Mapped[float] = mapped_column(Float, nullable=False, index=False)
     intensity_of_deprivation: Mapped[float] = mapped_column(
         Float, nullable=True, index=False
     )
     vulnerable_to_poverty: Mapped[float] = mapped_column(
         Float, nullable=False, index=False
     )
-    in_severe_poverty: Mapped[float] = mapped_column(
-        Float, nullable=False, index=False
-    )
+    in_severe_poverty: Mapped[float] = mapped_column(Float, nullable=False, index=False)
     reference_period_start: Mapped[datetime] = mapped_column(primary_key=True)
-    reference_period_end: Mapped[datetime] = mapped_column(
-        nullable=False, index=True
-    )
+    reference_period_end: Mapped[datetime] = mapped_column(nullable=False, index=True)
 
     resource = relationship(DBResource)
     admin1 = relationship(DBAdmin1)

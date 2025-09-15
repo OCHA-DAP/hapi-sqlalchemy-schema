@@ -16,8 +16,7 @@ def test_idps_view(run_view_test):
     run_view_test(
         view=view_idps,
         whereclause=(
-            view_idps.c.resource_hdx_id
-            == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_idps.c.resource_hdx_id == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_idps.c.admin2_ref == 2,
             view_idps.c.provider_admin1_name == "Provincia 01",
             view_idps.c.provider_admin2_name == "Distrito B",
@@ -56,7 +55,7 @@ def base_parameters():
         admin2_ref=2,
         provider_admin1_name="Provincia 01",
         provider_admin2_name="Distrito B",
-        assessment_type="BA",
+        assessment_type="ETT",
         reporting_round=18,
         operation="operation",
         population=25000,

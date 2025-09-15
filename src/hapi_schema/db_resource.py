@@ -27,9 +27,7 @@ class DBResource(Base):
     format: Mapped[str] = mapped_column(String(32), nullable=False)
     update_date: Mapped[datetime] = mapped_column(nullable=False)
     is_hxl: Mapped[bool] = mapped_column(Boolean, nullable=False)
-    download_url: Mapped[str] = mapped_column(
-        String(1024), nullable=False, unique=True
-    )
+    download_url: Mapped[str] = mapped_column(String(1024), nullable=False, unique=True)
     hapi_updated_date: Mapped[datetime] = mapped_column(nullable=False)
     dataset = relationship("DBDataset")
 

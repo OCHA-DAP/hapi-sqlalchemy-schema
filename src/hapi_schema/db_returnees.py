@@ -61,21 +61,13 @@ class DBReturnees(Base):
     age_range: Mapped[str] = mapped_column(String(32), primary_key=True)
     min_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
     max_age: Mapped[int] = mapped_column(Integer, nullable=True, index=True)
-    population: Mapped[int] = mapped_column(
-        Integer, nullable=False, index=True
-    )
+    population: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
     reference_period_start: Mapped[datetime] = mapped_column(primary_key=True)
-    reference_period_end: Mapped[datetime] = mapped_column(
-        nullable=False, index=True
-    )
+    reference_period_end: Mapped[datetime] = mapped_column(nullable=False, index=True)
 
     # resource = relationship("DBResource")
-    origin_country = relationship(
-        "DBLocation", foreign_keys=(origin_location_ref)
-    )
-    asylum_country = relationship(
-        "DBLocation", foreign_keys=(asylum_location_ref)
-    )
+    origin_country = relationship("DBLocation", foreign_keys=(origin_location_ref))
+    asylum_country = relationship("DBLocation", foreign_keys=(asylum_location_ref))
 
 
 # Use aliases because we join to DBLocation twice

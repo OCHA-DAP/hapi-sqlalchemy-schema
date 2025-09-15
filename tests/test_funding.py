@@ -15,8 +15,7 @@ def test_funding_view(run_view_test):
     run_view_test(
         view=view_funding,
         whereclause=(
-            view_funding.c.resource_hdx_id
-            == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_funding.c.resource_hdx_id == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_funding.c.appeal_code == "HFOO24",
             view_funding.c.location_ref == 1,
             view_funding.c.appeal_name == "Foolandia HRP 2024",

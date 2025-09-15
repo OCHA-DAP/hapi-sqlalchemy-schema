@@ -11,9 +11,7 @@ from hapi_schema.views import prepare_hapi_views
 
 def test_conflict_event_view(run_view_test):
     """Check that national risk references other tables."""
-    view_conflict_event = Database.prepare_view(
-        view_params_conflict_event.__dict__
-    )
+    view_conflict_event = Database.prepare_view(view_params_conflict_event.__dict__)
     run_view_test(
         view=view_conflict_event,
         whereclause=(

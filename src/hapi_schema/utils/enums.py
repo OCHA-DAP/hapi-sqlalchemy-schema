@@ -25,6 +25,7 @@ class Gender(str, PythonEnum):
 
 class DTMAssessmentType(str, PythonEnum):
     BASELINE = "BA"
+    EVENT_TRACK = "ETT"
     SITE = "SA"
 
 

@@ -29,10 +29,8 @@ def test_humanitarian_needs_view(run_view_test):
             view_humanitarian_needs.c.admin1_code == "FOO-001",
             view_humanitarian_needs.c.location_code == "FOO",
             view_humanitarian_needs.c.population_status == "INN",
-            view_humanitarian_needs.c.category
-            == "Female - Disabled - Baby - IDP",
-            view_humanitarian_needs.c.sector_name
-            == "Water Sanitation Hygiene",
+            view_humanitarian_needs.c.category == "Female - Disabled - Baby - IDP",
+            view_humanitarian_needs.c.sector_name == "Water Sanitation Hygiene",
             view_humanitarian_needs.c.admin_level == 2,
         ),
     )

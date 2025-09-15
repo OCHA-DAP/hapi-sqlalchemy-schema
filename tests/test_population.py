@@ -14,8 +14,7 @@ def test_population_view(run_view_test):
     run_view_test(
         view=view_population,
         whereclause=(
-            view_population.c.resource_hdx_id
-            == "90deb235-1bf5-4bae-b231-3393222c2d01",
+            view_population.c.resource_hdx_id == "90deb235-1bf5-4bae-b231-3393222c2d01",
             view_population.c.provider_admin1_name == "Provincia 01",
             view_population.c.provider_admin2_name == "Distrito A",
             view_population.c.admin2_code == "FOO-001-XXX",

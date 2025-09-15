@@ -32,9 +32,7 @@ def population_constraint(
 ) -> CheckConstraint:
     """Population must not be a negative number."""
     sqltext = f"{population_var_name} >= 0"
-    return CheckConstraint(
-        sqltext=sqltext, name=f"{population_var_name}_constraint"
-    )
+    return CheckConstraint(sqltext=sqltext, name=f"{population_var_name}_constraint")
 
 
 def non_negative_constraint(
@@ -67,9 +65,7 @@ def reference_period_constraint() -> CheckConstraint:
 
 def general_risk_constraint(risk_name: str) -> CheckConstraint:
     sqltext = f"({risk_name}_risk >= 0) AND ({risk_name}_risk <= 10)"
-    return CheckConstraint(
-        sqltext=sqltext, name=f"{risk_name}_risk_constraint"
-    )
+    return CheckConstraint(sqltext=sqltext, name=f"{risk_name}_risk_constraint")
 
 
 def code_and_reference_period_unique_constraint(

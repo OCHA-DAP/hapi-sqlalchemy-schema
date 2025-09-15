@@ -59,9 +59,7 @@ def test_admin2_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     run_primary_keys_test("admin2_vat", expected_primary_keys)
 
 
-def test_conflict_event_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_conflict_event_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that conflict_event_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
@@ -89,9 +87,7 @@ def test_conflict_event_vat(
     run_primary_keys_test("conflict_event_vat", expected_primary_keys)
 
 
-def test_currency_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_currency_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that currency_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = ["code"]
     expected_indexes = ["name"]
@@ -100,9 +96,7 @@ def test_currency_vat(
     run_primary_keys_test("currency_vat", expected_primary_keys)
 
 
-def test_dataset_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_dataset_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that dataset_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = ["hdx_id"]
     expected_indexes = ["hdx_stub", "hdx_provider_stub", "hdx_provider_name"]
@@ -111,9 +105,7 @@ def test_dataset_vat(
     run_primary_keys_test("dataset_vat", expected_primary_keys)
 
 
-def test_food_price_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_food_price_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that food_price_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "market_code",
@@ -140,16 +132,12 @@ def test_food_price_vat(
         "admin2_name",
         "admin_level",
     ]
-    run_columns_test(
-        "food_price_vat", "food_price_view", view_params_food_price
-    )
+    run_columns_test("food_price_vat", "food_price_view", view_params_food_price)
     run_indexes_test("food_price_vat", expected_indexes)
     run_primary_keys_test("food_price_vat", expected_primary_keys)
 
 
-def test_food_security_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_food_security_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that food_security_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
@@ -178,9 +166,7 @@ def test_food_security_vat(
     run_primary_keys_test("food_security_vat", expected_primary_keys)
 
 
-def test_funding_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_funding_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that funding_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "appeal_code",
@@ -259,9 +245,7 @@ def test_idps_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     run_indexes_test("idps_vat", expected_indexes)
 
 
-def test_location_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_location_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that location_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = ["id"]
     expected_indexes = [
@@ -275,9 +259,7 @@ def test_location_vat(
     run_primary_keys_test("location_vat", expected_primary_keys)
 
 
-def test_national_risk_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_national_risk_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that national_risk_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = ["location_ref", "reference_period_start"]
     expected_indexes = [
@@ -325,9 +307,7 @@ def test_operational_presence_vat(
     run_primary_keys_test("operational_presence_vat", expected_primary_keys)
 
 
-def test_org_type_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_org_type_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that org_type_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = ["code"]
     expected_indexes = ["description"]
@@ -359,9 +339,7 @@ def test_patch_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     run_primary_keys_test("patch_vat", expected_primary_keys)
 
 
-def test_population_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_population_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that population_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
@@ -384,16 +362,12 @@ def test_population_vat(
         "admin2_name",
         "admin_level",
     ]
-    run_columns_test(
-        "population_vat", "population_view", view_params_population
-    )
+    run_columns_test("population_vat", "population_view", view_params_population)
     run_indexes_test("population_vat", expected_indexes)
     run_primary_keys_test("population_vat", expected_primary_keys)
 
 
-def test_poverty_rate_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_poverty_rate_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that poverty_rate_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin1_ref",
@@ -407,16 +381,12 @@ def test_poverty_rate_vat(
         "location_name",
         "admin_level",
     ]
-    run_columns_test(
-        "poverty_rate_vat", "poverty_rate_view", view_params_poverty_rate
-    )
+    run_columns_test("poverty_rate_vat", "poverty_rate_view", view_params_poverty_rate)
     run_indexes_test("poverty_rate_vat", expected_indexes)
     run_primary_keys_test("poverty_rate_vat", expected_primary_keys)
 
 
-def test_rainfall_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_rainfall_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that rainfall_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "admin2_ref",
@@ -443,9 +413,7 @@ def test_rainfall_vat(
     run_primary_keys_test("rainfall_vat", expected_primary_keys)
 
 
-def test_refugees_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_refugees_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that refugees_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "origin_location_ref",
@@ -470,9 +438,7 @@ def test_refugees_vat(
     run_primary_keys_test("refugees_vat", expected_primary_keys)
 
 
-def test_resource_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_resource_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that resource_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = ["hdx_id"]
     expected_indexes = [
@@ -485,9 +451,7 @@ def test_resource_vat(
     run_primary_keys_test("resource_vat", expected_primary_keys)
 
 
-def test_returnees_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_returnees_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that returnees_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = [
         "origin_location_ref",
@@ -521,9 +485,7 @@ def test_sector_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     run_primary_keys_test("sector_vat", expected_primary_keys)
 
 
-def test_wfp_commodity_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_wfp_commodity_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that wfp_commodity_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = ["code"]
     expected_indexes = ["category", "name"]
@@ -534,9 +496,7 @@ def test_wfp_commodity_vat(
     run_primary_keys_test("wfp_commodity_vat", expected_primary_keys)
 
 
-def test_wfp_market_vat(
-    run_indexes_test, run_columns_test, run_primary_keys_test
-):
+def test_wfp_market_vat(run_indexes_test, run_columns_test, run_primary_keys_test):
     """Check that wfp_market_vat is correct - columns match, expected indexes present"""
     expected_primary_keys = ["code"]
     expected_indexes = [
@@ -555,9 +515,7 @@ def test_wfp_market_vat(
         "admin2_name",
         "admin_level",
     ]
-    run_columns_test(
-        "wfp_market_vat", "wfp_market_view", view_params_wfp_market
-    )
+    run_columns_test("wfp_market_vat", "wfp_market_view", view_params_wfp_market)
     run_indexes_test("wfp_market_vat", expected_indexes)
     run_primary_keys_test("wfp_market_vat", expected_primary_keys)
 

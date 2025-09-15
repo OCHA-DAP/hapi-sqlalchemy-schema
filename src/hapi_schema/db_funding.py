@@ -57,9 +57,7 @@ class DBFunding(Base):
 
     appeal_type: Mapped[str] = mapped_column(String(64), nullable=True)
 
-    requirements_usd: Mapped[Decimal] = mapped_column(
-        nullable=True, index=True
-    )
+    requirements_usd: Mapped[Decimal] = mapped_column(nullable=True, index=True)
 
     funding_usd: Mapped[Decimal] = mapped_column(nullable=False, index=True)
 
@@ -69,9 +67,7 @@ class DBFunding(Base):
         primary_key=True,
     )
 
-    reference_period_end: Mapped[datetime] = mapped_column(
-        nullable=False, index=True
-    )
+    reference_period_end: Mapped[datetime] = mapped_column(nullable=False, index=True)
 
     resource = relationship(DBResource)
     location = relationship(DBLocation)

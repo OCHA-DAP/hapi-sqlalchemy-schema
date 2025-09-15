@@ -15,8 +15,7 @@ def test_refugees_view(run_view_test):
     run_view_test(
         view=view_refugees,
         whereclause=(
-            view_refugees.c.resource_hdx_id
-            == "62ad6e55-5f5d-4494-854c-4110687e9e25",
+            view_refugees.c.resource_hdx_id == "62ad6e55-5f5d-4494-854c-4110687e9e25",
             view_refugees.c.origin_location_code == "FOO",
             view_refugees.c.asylum_location_code == "BAR",
         ),
