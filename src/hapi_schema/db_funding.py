@@ -44,7 +44,7 @@ class DBFunding(Base):
     )
 
     appeal_code: Mapped[str] = mapped_column(
-        String(32),
+        String(64),
         primary_key=True,
     )
 

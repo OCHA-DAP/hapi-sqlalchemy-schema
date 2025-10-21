@@ -203,7 +203,7 @@ class DBFoodSecurityVAT(Base):
 class DBFundingVAT(Base):
     __tablename__ = "funding_vat"
     resource_hdx_id: Mapped[str] = mapped_column(String(36))
-    appeal_code: Mapped[str] = mapped_column(String(32), primary_key=True)
+    appeal_code: Mapped[str] = mapped_column(String(64), primary_key=True)
     location_ref: Mapped[int] = mapped_column(Integer, primary_key=True)
     appeal_name: Mapped[str] = mapped_column(String(256))
     appeal_type: Mapped[str] = mapped_column(String(64), nullable=True)
