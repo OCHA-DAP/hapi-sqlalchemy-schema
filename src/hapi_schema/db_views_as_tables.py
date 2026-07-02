@@ -487,7 +487,6 @@ class DBResourceVAT(Base):
     name: Mapped[str] = mapped_column(String(256))
     format: Mapped[str] = mapped_column(String(32))
     update_date: Mapped[datetime] = mapped_column(DateTime)
-    is_hxl: Mapped[bool] = mapped_column(Boolean)
     download_url: Mapped[str] = mapped_column(String(1024))
     hapi_updated_date: Mapped[datetime] = mapped_column(DateTime)
     dataset_hdx_stub: Mapped[str] = mapped_column(String(128), index=True)
