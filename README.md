@@ -18,6 +18,6 @@ pip install hapi-schema[database]
 Install [uv](https://docs.astral.sh/uv/), then:
 
 ```bash
-uv sync --group test
+uv sync --all-groups
 uv run pytest
 ```
