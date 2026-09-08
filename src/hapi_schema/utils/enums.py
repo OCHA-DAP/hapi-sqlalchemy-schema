@@ -27,6 +27,11 @@ class DTMAssessmentType(str, PythonEnum):
     BASELINE = "BA"
     EVENT_TRACK = "ETT"
     SITE = "SA"
+    SURVEY = "SRV"
+    FLOW_MONITORING_SURVEY = "FMS"
+    FLOW_MONITORING_COUNTER = "FMC"
+    FLOW_MONITORING_SCREENER = "FMSc"
+    REGISTRATION = "REG"
 
 
 class EventType(str, PythonEnum):
