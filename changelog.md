@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.9.18
 
+### Added
+
+- Add SRV, FMS, FMC, FMSc, REG to IOM assessment type enum
+
 ### Changed
 
 - Remove is_hxl from DBResource and elsewhere
