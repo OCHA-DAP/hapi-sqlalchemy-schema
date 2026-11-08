@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.10.0
+
+### Added
+
+- SQLite-only DDL (`utils/sqlite.py`): HAPI tables are STRICT, with CHECKs for
+  string length, NUL characters, enum values, booleans, 32-bit integers and
+  valid dates. Postgres DDL is unchanged. Requires SQLite 3.37+
+- `configure_sqlite_engine` enables foreign keys and rejects NaN parameters,
+  which SQLite stores as NULL
+- SQLite tests loading all sample data
+
+### Changed
+
+- Python 3.11+ and SQLAlchemy 2.1.8+ required
+- Raise minimum dependency versions; update pre-commit, ruff and workflow
+  actions to match hdx-scraper-copier
+
 ## 0.9.18
 
 ### Added

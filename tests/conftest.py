@@ -3,6 +3,7 @@ from typing import List
 import pytest
 from hdx.database import Database
 from sqlalchemy import (
+    create_engine,
     insert,
 )
 from sqlalchemy.exc import IntegrityError
@@ -44,6 +45,7 @@ from hapi_schema.db_sector import DBSector
 from hapi_schema.db_wfp_commodity import DBWFPCommodity
 from hapi_schema.db_wfp_market import DBWFPMarket
 from hapi_schema.utils.base import Base
+from hapi_schema.utils.sqlite import configure_sqlite_engine
 from hapi_schema.views import prepare_hapi_views
 from sample_data.data_admin1 import data_admin1
 from sample_data.data_admin2 import data_admin2
@@ -72,16 +74,8 @@ from sample_data.data_wfp_commodity import data_wfp_commodity
 from sample_data.data_wfp_market import data_wfp_market
 
 
-@pytest.fixture(scope="session")
-def session():
-    # Build the DB
-    db_uri = "postgresql+psycopg://postgres:postgres@localhost:5432/hapitest"
-    database = Database(
-        db_uri=db_uri, recreate_schema=True, prepare_fn=prepare_hapi_views
-    )
-    session = database.get_session()
-
-    # Populate all tables
+def populate(session) -> None:
+    """Populate all tables with sample data"""
     session.execute(insert(DBDataset), data_dataset)
     session.execute(insert(DBResource), data_resource)
 
@@ -113,6 +107,27 @@ def session():
     session.execute(insert(DBPatch), data_patch)
 
     session.commit()
+
+
+@pytest.fixture(scope="session")
+def session():
+    # Build the DB
+    db_uri = "postgresql+psycopg://postgres:postgres@localhost:5432/hapitest"
+    database = Database(
+        db_uri=db_uri, recreate_schema=True, prepare_fn=prepare_hapi_views
+    )
+    session = database.get_session()
+    populate(session)
+    return session
+
+
+@pytest.fixture(scope="session")
+def sqlite_session():
+    engine = create_engine("sqlite://")
+    configure_sqlite_engine(engine)
+    database = Database(engine=engine, prepare_fn=prepare_hapi_views)
+    session = database.get_session()
+    populate(session)
     return session
 
 

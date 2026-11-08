@@ -16,11 +16,11 @@ Ian Hopkinson 2024-05-09
 
 import os
 import sys
+import tomllib
 from importlib import import_module
 
 import psycopg
 import sqlalchemy
-import tomllib
 from hdx.database import Database
 
 # Edit this to import the view parameters
