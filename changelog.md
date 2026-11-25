@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.9.19
+
+### Changed
+
+- Loosen poverty_rate `mpi_product_constraint` tolerance from 0.0001 to 0.001 to allow for the 3 decimal rounding of source MPI
+
 ## 0.9.18
 
 ### Added
